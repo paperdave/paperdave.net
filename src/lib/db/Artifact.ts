@@ -1,4 +1,4 @@
-import { Model, model, Schema, SchemaTypes } from 'mongoose';
+import m from 'mongoose';
 
 export interface IArtifact {
   id: string;
@@ -10,7 +10,7 @@ export interface IArtifact {
   data: Map<string, any>;
 }
 
-export const ArtifactSchema = new Schema<IArtifact, Model<IArtifact>>({
+export const ArtifactSchema = new m.Schema<IArtifact, m.Model<IArtifact>>({
   id: {
     type: String,
     lowercase: true,
@@ -47,10 +47,10 @@ export const ArtifactSchema = new Schema<IArtifact, Model<IArtifact>>({
     default: [],
   },
   data: {
-    type: SchemaTypes.Map,
-    of: SchemaTypes.Mixed,
+    type: m.SchemaTypes.Map,
+    of: m.SchemaTypes.Mixed,
     default: new Map(),
   },
 });
 
-export const Artifact = model<IArtifact, Model<IArtifact>>('Artifact', ArtifactSchema);
+export const Artifact = m.model<IArtifact, m.Model<IArtifact>>('Artifact', ArtifactSchema);
