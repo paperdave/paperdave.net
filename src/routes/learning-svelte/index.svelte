@@ -4,7 +4,7 @@
   export const load: Load = async ({ fetch }) => {
     return {
       props: {
-        files: await fetch('/learning-svelte/api-ls').then((res) => res.json()),
+        files: Object.keys(import.meta.glob('./day-*.svelte')).map((file) => file.slice(2, -7)),
       },
     };
   };
