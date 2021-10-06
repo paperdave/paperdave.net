@@ -3,6 +3,7 @@
     "baseUrl": ".",
     "target": "esnext",
     "moduleResolution": "node",
+    "esModuleInterop": true,
     "paths": {
       "$lib": ["src/lib"],
       "$lib/*": ["src/lib/*"]

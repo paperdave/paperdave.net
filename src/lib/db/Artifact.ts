@@ -47,7 +47,7 @@ export const ArtifactSchema = new m.Schema<IArtifact, m.Model<IArtifact>>({
     default: [],
   },
   data: {
-    type: m.SchemaTypes.Map,
+    type: Map,
     of: m.SchemaTypes.Mixed,
     default: new Map(),
   },
