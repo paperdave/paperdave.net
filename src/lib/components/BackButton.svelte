@@ -1,11 +1,13 @@
 <script lang="ts">
+  export let position: 'corner' | 'off-center';
+
   export let text = 'go home';
   export let href = '/';
   export let inverted = false;
 </script>
 
 <main class:inverted>
-  <a {href}>
+  <a class="position-{position}" {href}>
     {text}
   </a>
 </main>
@@ -15,14 +17,6 @@
     position: relative;
 
     a {
-      position: absolute;
-      top: 0.5rem;
-      left: calc(50% - 20rem);
-
-      @media (max-width: 45rem) {
-        left: 1rem;
-      }
-
       color: rgba(0, 0, 0, 0.5);
       mix-blend-mode: multiply;
       padding: 0.25em;
@@ -49,5 +43,21 @@
       background-color: rgba(255, 255, 255, 0.75);
       color: rgba(0, 0, 0, 0.7);
     }
+  }
+
+  .position-off-center {
+    position: absolute;
+    top: 0.5rem;
+    left: calc(50% - 20rem);
+
+    @media (max-width: 45rem) {
+      left: 1rem;
+    }
+  }
+
+  .position-corner {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
   }
 </style>

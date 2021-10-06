@@ -17,10 +17,6 @@
   $: result = expr ? evaluate(expr) : '';
 </script>
 
-<svelte:head>
-  <title>learning svelte - day 2</title>
-</svelte:head>
-
 <main>
   <p>day two:</p>
   <p>

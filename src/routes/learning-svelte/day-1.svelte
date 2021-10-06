@@ -2,10 +2,6 @@
   let count = 0;
 </script>
 
-<svelte:head>
-  <title>learning svelte - day 1</title>
-</svelte:head>
-
 <main>
   <p>i love svelte.</p>
   <p>
