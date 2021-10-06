@@ -5,7 +5,7 @@ export const get: RequestHandler = async ({}) => {
   const files = (await fs.readdir('src/routes/learning-svelte'))
     .filter((x) => x.endsWith('.svelte'))
     .map((x) => x.replace('.svelte', ''))
-    .filter((x) => x !== 'index');
+    .filter((x) => x !== 'index' && x !== '__layout');
 
   return {
     body: files,

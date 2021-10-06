@@ -2,23 +2,11 @@
   let count = 0;
 </script>
 
+<svelte:head>
+  <title>learning svelte - day 1</title>
+</svelte:head>
+
 <main>
-  <h1>dave caruso's website</h1>
-  <p>
-    a cool thing is happening. i will update this page about once a day. if i forget to by like 5pm,
-    send me an email to remind me or ping me on the discord.
-  </p>
-
-  <ul>
-    <li><a href="https://discord.gg/4AbvSXV">the discord</a></li>
-    <li><a href="mailto:dave@davecode.me">send email</a></li>
-    <li><a href="https://react.davecode.me/q+a">question page</a></li>
-  </ul>
-
-  <br />
-  <br />
-  <br />
-
   <p>i love svelte.</p>
   <p>
     <button on:click={() => count++}>
@@ -28,7 +16,7 @@
   <br />
   <br />
   <br />
-  <p>&copy; dave caruso 2021. all rights reserved.</p>
+  <p><a href="/copyright">&copy; dave caruso 2021. all rights reserved.</a></p>
 </main>
 
 <style lang="scss">
