@@ -1,6 +1,8 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
+    "target": "esnext",
+    "moduleResolution": "node",
     "paths": {
       "$lib": ["src/lib"],
       "$lib/*": ["src/lib/*"]
