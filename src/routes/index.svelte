@@ -1,6 +1,13 @@
 <script>
-  import Page from './learning-svelte/day-2.svelte';
+  import Meta from '$lib/components/Meta.svelte';
+
+  import Page from './learning-svelte/day-3.svelte';
 </script>
+
+<Meta
+  title="davecode: computer art to the limit"
+  description="davecode is a creative project by dave caruso to take computer software and it's artistic and automation capabilities to the limits."
+/>
 
 <main>
   <header>
@@ -8,6 +15,9 @@
     <p>
       a cool thing is happening. i will update this page about once a day. if i forget to by like
       5pm est, send me an email to remind me or ping me on the discord.
+    </p>
+    <p>
+      <a href="/learning-svelte/day-1">[start here]</a> | <a href="/learning-svelte">[see all]</a>
     </p>
 
     <ul>

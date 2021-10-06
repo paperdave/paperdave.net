@@ -4,15 +4,19 @@
   import PauseSVG from '$lib/svg/Pause.svg?component';
   import DownloadSVG from '$lib/svg/Download.svg?component';
   import { useEffect } from '$lib/hooks/useEffect';
+  import { Circle } from 'svelte-loading-spinners';
+  import { slide } from 'svelte/transition';
 
   export let artifact: MusicArtifact;
 
+  let expanded = false;
   let audioElement: HTMLAudioElement;
   let playing = false;
   let initialLoad = true;
   let loading = false;
   let showLoading = false;
 
+  // I wish there was a nicer way of doing this, maybe turn this into a component
   useEffect(
     () => {
       if (!playing && loading) {
@@ -28,6 +32,8 @@
   );
 
   function play() {
+    expanded = !expanded;
+    return;
     if (initialLoad) {
       initialLoad = false;
       loading = true;
@@ -52,9 +58,18 @@
   />
 
   <header>
-    <div class="icon play" on:click={play} tabindex="0">
+    <div
+      class="icon play"
+      on:click={play}
+      on:keypress={(ev) => {
+        if (ev.key === 'Enter' || ev.key === ' ') {
+          play();
+        }
+      }}
+      tabindex="0"
+    >
       {#if showLoading}
-        load
+        <Circle color="#52501c" size={2} unit="rem" duration="1s" />
       {:else if !playing}
         <PlaySVG />
       {:else}
@@ -73,12 +88,17 @@
       <DownloadSVG />
     </a>
   </header>
+  {#if expanded}
+    <section transition:slide={{ duration: 300 }}>
+      <p>cool</p>
+    </section>
+  {/if}
 </main>
 
 <style lang="scss">
   main {
     color: #52501c;
-    padding: 1rem 1rem 1rem 0.5rem;
+    padding: 0rem 1rem 0rem 0.5rem;
     width: 700px;
     margin: 1rem auto;
     height: 100%;
@@ -90,6 +110,7 @@
     flex-direction: column;
   }
   header {
+    margin: 1rem 0;
     height: 4rem;
     display: flex;
     align-items: center;

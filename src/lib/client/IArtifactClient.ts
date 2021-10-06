@@ -9,37 +9,40 @@ export interface IArtifactClient {
 }
 
 export class ArtifactClient {
-  constructor(private readonly _data: IArtifactClient) {
-    this._dataMap = new Map(Object.entries(this._data.data));
+  #data: IArtifactClient;
+  #dataMap: Map<string, any>;
+
+  constructor(data: IArtifactClient) {
+    this.#data = data;
+    this.#dataMap = new Map(Object.entries(this.#data.data));
   }
 
   get id(): string {
-    return this._data.id;
+    return this.#data.id;
   }
 
   get title(): string {
-    return this._data.title;
+    return this.#data.title;
   }
 
   get date(): Date {
-    return new Date(this._data.date);
+    return new Date(this.#data.date);
   }
 
   get thumbnail(): string {
-    return this._data.thumbnail;
+    return this.#data.thumbnail;
   }
 
   get type(): string {
-    return this._data.type;
+    return this.#data.type;
   }
 
   get tags(): string[] {
-    return this._data.tags;
+    return this.#data.tags;
   }
 
-  private _dataMap;
   get data(): Map<string, any> {
-    return this._dataMap;
+    return this.#dataMap;
   }
 
   getProperty(key: string): any {

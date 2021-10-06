@@ -21,9 +21,10 @@
   },
   "dependencies": {
     "expr-eval": "^2.0.2",
-    "fs-extra": "^10.0.0",
+    "monaco-editor": "^0.28.1",
     "mongoose": "^6.0.9",
     "prettier": "^2.3.2",
-    "prettier-plugin-svelte": "^2.3.1"
+    "prettier-plugin-svelte": "^2.3.1",
+    "svelte-loading-spinners": "^0.1.7"
   }
 }

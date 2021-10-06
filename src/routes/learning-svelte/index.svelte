@@ -1,7 +1,7 @@
 <script context="module" lang="ts">
   import type { Load } from '@sveltejs/kit';
 
-  export const load: Load = async ({ fetch }) => {
+  export const load: Load = async () => {
     return {
       props: {
         files: Object.keys(import.meta.glob('./day-*.svelte')).map((file) => file.slice(2, -7)),
@@ -11,18 +11,20 @@
 
   export function formatPageName(file: string) {
     return file
-      .replace(/-/g, ' ')
-      .split(' ')
+      .split('-')
       .map((word) => word[0].toUpperCase() + word.slice(1))
       .join(' ');
   }
 </script>
 
 <script lang="ts">
+  import BackButton from '$lib/components/BackButton.svelte';
+
   export let files: string[];
 </script>
 
 <main>
+  <BackButton position="corner" />
   <h1>learning svelte</h1>
   <p>
     After three years of owning this domain, I decided to learn Svelte and write the entire site
@@ -64,10 +66,5 @@
     &:active {
       color: #2f5b42;
     }
-  }
-
-  button {
-    border: 1px solid black;
-    padding: 0.5rem 1rem;
   }
 </style>

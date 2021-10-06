@@ -50,7 +50,7 @@ export const ArtifactSchema = new m.Schema<IArtifact, m.Model<IArtifact>>({
     type: Map,
     of: m.SchemaTypes.Mixed,
     default: new Map(),
-  },
+  } as any,
 });
 
-export const Artifact = m.model<IArtifact, m.Model<IArtifact>>('Artifact', ArtifactSchema);
+export const Artifact = (m as any).model('Artifact', ArtifactSchema) as m.Model<IArtifact>;
