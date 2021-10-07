@@ -1,5 +1,4 @@
 <script context="module" lang="ts">
-  let deselect: VoidFunction | null = null;
   function formatDate(date: Date) {
     return [date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()]
       .map((val) => String(val).padStart(2, '0'))
@@ -67,18 +66,9 @@
       loading = true;
     }
     if (audioElement.paused) {
-      if (deselect) {
-        deselect();
-      }
-      deselect = () => {
-        playing = false;
-        audioElement.pause();
-        deselect = null;
-      };
       audioElement.play();
     } else {
       audioElement.pause();
-      deselect = null;
     }
   }
 
@@ -93,11 +83,12 @@
       const percent = x / bounds.width;
       audioElement.currentTime = audioElement.duration * percent;
     }
+    drag(ev);
     document.addEventListener('mousemove', drag);
     document.addEventListener('mouseup', () => {
       document.removeEventListener('mousemove', drag);
       if (isPlaying) {
-        audioElement.play();
+        play();
       }
       isDragging = false;
     });
