@@ -1,3 +1,12 @@
+<script context="module" lang="ts">
+  let deselect: VoidFunction | null = null;
+  function formatDate(date: Date) {
+    return [date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()]
+      .map((val) => String(val).padStart(2, '0'))
+      .join('-');
+  }
+</script>
+
 <script lang="ts">
   import { MusicArtifact } from '$lib/client/IArtifactClient';
   import PlaySVG from '$lib/svg/Play.svg?component';
@@ -9,12 +18,16 @@
 
   export let artifact: MusicArtifact;
 
+  let trackDiv: HTMLDivElement;
   let expanded = false;
   let audioElement: HTMLAudioElement;
   let playing = false;
   let initialLoad = true;
   let loading = false;
   let showLoading = false;
+  let isDragging = false;
+
+  let progress = 0;
 
   // I wish there was a nicer way of doing this, maybe turn this into a component
   useEffect(
@@ -31,18 +44,62 @@
     () => [playing, loading]
   );
 
+  useEffect(
+    () => {
+      if (audioElement) {
+        audioElement.addEventListener('timeupdate', () => {
+          if (audioElement.currentTime > 0) {
+            progress = audioElement.currentTime / audioElement.duration;
+          }
+        });
+        audioElement.addEventListener('ended', () => {
+          playing = false;
+        });
+      }
+    },
+    () => [audioElement]
+  );
+
   function play() {
-    expanded = !expanded;
-    return;
+    expanded = true;
     if (initialLoad) {
       initialLoad = false;
       loading = true;
     }
     if (audioElement.paused) {
+      if (deselect) {
+        deselect();
+      }
+      deselect = () => {
+        playing = false;
+        audioElement.pause();
+        deselect = null;
+      };
       audioElement.play();
     } else {
       audioElement.pause();
     }
+  }
+
+  function playheadDrag(ev: MouseEvent) {
+    ev.preventDefault();
+    isDragging = true;
+    let isPlaying = !audioElement.paused;
+    audioElement.pause();
+    function drag(ev: MouseEvent) {
+      const bounds = trackDiv.getBoundingClientRect();
+      const x = ev.clientX - bounds.left;
+      const percent = x / bounds.width;
+      audioElement.currentTime = audioElement.duration * percent;
+    }
+    document.addEventListener('mousemove', drag);
+    document.addEventListener('mouseup', () => {
+      document.removeEventListener('mousemove', drag);
+      if (isPlaying) {
+        audioElement.play();
+      }
+      isDragging = false;
+    });
   }
 </script>
 
@@ -79,6 +136,7 @@
     <div class="title">
       <h3>{artifact.title}</h3>
       <div class="tags">
+        <span class="date">{formatDate(artifact.date)}</span>
         {#each artifact.tags as tag}
           <span class="tag">{tag}</span>
         {/each}
@@ -90,7 +148,18 @@
   </header>
   {#if expanded}
     <section transition:slide={{ duration: 300 }}>
-      <p>cool</p>
+      <div
+        class="track"
+        style="--progress:{progress * 100}"
+        bind:this={trackDiv}
+        on:mousedown={playheadDrag}
+        class:isDragging
+      >
+        <div class="progress" />
+        <div class="playhead">
+          <div class="playhead-content" />
+        </div>
+      </div>
     </section>
   {/if}
 </main>
@@ -130,6 +199,9 @@
   .tags {
     display: flex;
   }
+  .date {
+    margin-right: 0.5rem;
+  }
   .tag {
     padding: 0.25rem 0.5rem;
     margin: 0 0.5rem 0 0;
@@ -160,6 +232,53 @@
     }
     &:active {
       transform: scale(0.9);
+    }
+  }
+  section {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 0 1rem 1rem 1rem;
+  }
+  .track {
+    height: 0.5rem;
+    background-color: rgba(82, 80, 28, 0.2);
+    border-radius: 0.25rem;
+    position: relative;
+  }
+  .progress {
+    height: 100%;
+    background-color: rgba(82, 80, 28, 0.5);
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-top-left-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+    border-top-right-radius: 0rem;
+    border-bottom-right-radius: 0rem;
+    width: calc(var(--progress) * 1% + 0.25rem - (var(--progress) / 100) * 0.25rem);
+  }
+  .playhead {
+    height: 100%;
+    width: 0.5rem;
+    position: absolute;
+    left: 0;
+    top: 0;
+    left: calc(var(--progress) * 1%);
+    transform: translateX(calc(var(--progress) * -1%));
+  }
+  .playhead-content {
+    height: 100%;
+    width: 100%;
+    border-radius: 0.25rem;
+    background-color: #52501c;
+    transition: transform 100ms ease-in-out;
+    transform: scale(1.5);
+    &:hover {
+      transform: scale(1.7);
+    }
+    &.isDragging {
+      transform: scale(2);
     }
   }
 </style>
