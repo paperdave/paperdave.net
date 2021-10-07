@@ -78,6 +78,7 @@
       audioElement.play();
     } else {
       audioElement.pause();
+      deselect = null;
     }
   }
 
