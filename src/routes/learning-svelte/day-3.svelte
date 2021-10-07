@@ -90,6 +90,9 @@
   </p>
 
   <br />
+  <p>i apologize for the delay in todays post</p>
+
+  <br />
   <br />
   <br />
   <p><a href="/copyright">&copy; dave caruso 2021. all rights reserved.</a></p>
