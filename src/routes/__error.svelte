@@ -21,8 +21,7 @@
   class:is404={status === 404}
   class:is500={status >= 500}
   class:is400={status >= 400 && status < 500 && status !== 404}
-  class:isUnknown={status < 400}
->
+  class:isUnknown={status < 400}>
   <section>
     {#if status === 404}
       <h1>wrong url / broken link</h1>

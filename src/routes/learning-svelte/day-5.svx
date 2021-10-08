@@ -1,0 +1,8 @@
+day five:
+
+so first of all. i am now using MDsveX, which is basically svelte MDX, which is basically markdown with
+react, but _svelte_!
+
+## coolio
+
+now onto todays actual stuff: DATA STRUCTURES

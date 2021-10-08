@@ -9,8 +9,7 @@
 
 <Meta
   title={isHomepage ? 'Learning Svelte' : `Learning Svelte: ${pageTitle}`}
-  description="After three years of owning this domain, I decided to learn Svelte and write this entire site with it."
-/>
+  description="After three years of owning this domain, I decided to learn Svelte and write this entire site with it." />
 
 <main>
   {#if !isHomepage}

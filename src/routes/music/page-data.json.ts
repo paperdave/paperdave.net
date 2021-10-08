@@ -1,5 +1,5 @@
-import { RequestHandler } from '@sveltejs/kit';
 import { Artifact, connect } from '$lib/db';
+import { RequestHandler } from '@sveltejs/kit';
 
 export const get: RequestHandler = async ({}) => {
   await connect();
