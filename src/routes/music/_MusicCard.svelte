@@ -7,7 +7,7 @@
 </script>
 
 <script lang="ts">
-  import { MusicArtifact } from '$lib/client/IArtifactClient';
+  import { MusicArtifact } from '$lib/client/ArtifactClient';
   import PlaySVG from '$lib/svg/Play.svg?component';
   import PauseSVG from '$lib/svg/Pause.svg?component';
   import DownloadSVG from '$lib/svg/Download.svg?component';

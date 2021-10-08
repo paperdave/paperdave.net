@@ -1,7 +1,7 @@
 <script context="module" lang="ts">
   import type { Load } from '@sveltejs/kit';
+  import { MusicArtifact } from '$lib/client/MusicArtifact';
   import BackButton from '$lib/components/BackButton.svelte';
-  import { MusicArtifact } from '$lib/client/IArtifactClient';
   import MusicCard from './_MusicCard.svelte';
 
   export const load: Load = async ({ fetch }) => {
