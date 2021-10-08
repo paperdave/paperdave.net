@@ -103,8 +103,7 @@
     on:playing={() => (playing = true)}
     on:pause={() => (playing = false)}
     on:durationchange={() => (loading = true)}
-    on:canplay={() => (loading = false)}
-  />
+    on:canplay={() => (loading = false)} />
 
   <header>
     <div
@@ -115,8 +114,7 @@
           play();
         }
       }}
-      tabindex="0"
-    >
+      tabindex="0">
       {#if showLoading}
         <Circle color="#52501c" size={2} unit="rem" duration="1s" />
       {:else if !playing}
@@ -145,8 +143,7 @@
         style="--progress:{progress * 100}"
         bind:this={trackDiv}
         on:mousedown={playheadDrag}
-        class:isDragging
-      >
+        class:isDragging>
         <div class="progress" />
         <div class="playhead">
           <div class="playhead-content" />

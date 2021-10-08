@@ -28,8 +28,7 @@
 <svelte:head>
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;800&display=swap"
-    rel="stylesheet"
-  />
+    rel="stylesheet" />
   <title>The Writer</title>
 </svelte:head>
 
@@ -71,8 +70,7 @@
             `${rootUrl}/entry${i + 1}_${key}-2x.png 1190w`,
             `${rootUrl}/entry${i + 1}_${key}-3x.png 1785w`,
           ].join(',')}
-          alt="Entry #{i + 1}"
-        />
+          alt="Entry #{i + 1}" />
       </div>
     </div>
   {/each}
