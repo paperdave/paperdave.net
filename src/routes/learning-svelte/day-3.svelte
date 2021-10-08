@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { ArtifactClient, MusicArtifact } from '$lib/client/IArtifactClient';
+  import { ArtifactClient } from '$lib/client/ArtifactClient';
+  import { MusicArtifact } from '$lib/client/MusicArtifact';
   import { useEffect } from '$lib/hooks/useEffect';
 
   let fetchPromise;

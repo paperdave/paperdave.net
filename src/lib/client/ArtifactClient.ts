@@ -49,17 +49,3 @@ export class ArtifactClient {
     return this.data.get(key);
   }
 }
-
-export class MusicArtifact extends ArtifactClient {
-  constructor(data: IArtifactClient) {
-    super(data);
-  }
-
-  get file(): string {
-    return this.getProperty('file');
-  }
-
-  get sheetmusicImage(): string {
-    return this.getProperty('sheetmusic_image');
-  }
-}
