@@ -9,10 +9,6 @@
       button{count === 0 ? '' : ` has been clicked ${count} time${count === 1 ? '' : 's'}`}
     </button>
   </p>
-  <br />
-  <br />
-  <br />
-  <p><a href="/copyright">&copy; dave caruso 2021. all rights reserved.</a></p>
 </main>
 
 <style lang="scss">

@@ -7,14 +7,13 @@
 </script>
 
 <script lang="ts">
-  import { MusicArtifact } from '$lib/client/ArtifactClient';
+  import { slide } from 'svelte/transition';
+  import { Circle } from 'svelte-loading-spinners';
   import PlaySVG from '$lib/svg/Play.svg?component';
   import PauseSVG from '$lib/svg/Pause.svg?component';
   import DownloadSVG from '$lib/svg/Download.svg?component';
   import { useEffect } from '$lib/hooks/useEffect';
-  import { Circle } from 'svelte-loading-spinners';
-  import { slide } from 'svelte/transition';
-
+  import { MusicArtifact } from '$lib/structures';
   export let artifact: MusicArtifact;
 
   let trackDiv: HTMLDivElement;
@@ -103,7 +102,8 @@
     on:playing={() => (playing = true)}
     on:pause={() => (playing = false)}
     on:durationchange={() => (loading = true)}
-    on:canplay={() => (loading = false)} />
+    on:canplay={() => (loading = false)}
+    loop={artifact.hasTag('loop')} />
 
   <header>
     <div
@@ -127,7 +127,7 @@
       <h3>{artifact.title}</h3>
       <div class="tags">
         <span class="date">{formatDate(artifact.date)}</span>
-        {#each artifact.tags as tag}
+        {#each [...artifact.tags] as tag}
           <span class="tag">{tag}</span>
         {/each}
       </div>

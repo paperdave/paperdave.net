@@ -8,4 +8,10 @@ export async function connect() {
     });
   }
 }
+
 export * from './Artifact';
+export * from './BrainPost';
+export * from './LegacyRedirect';
+export * from './Question';
+export * from './QuestionRequest';
+export * from './VaultKey';
