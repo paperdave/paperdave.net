@@ -4,7 +4,9 @@
   export const load: Load = async () => {
     return {
       props: {
-        files: Object.keys(import.meta.glob('./day-*.svelte')).map((file) => file.slice(2, -7)),
+        files: Object.keys(import.meta.glob('./day-*.sv*')).map((file) =>
+          file.slice(2).replace(/\.sv.*$/, '')
+        ),
       },
     };
   };
