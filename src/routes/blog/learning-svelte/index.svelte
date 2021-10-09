@@ -34,7 +34,7 @@
   <ul>
     {#each files as file}
       <li>
-        - <a href="/learning-svelte/{file}">{formatPageName(file)}</a>
+        - <a href="/blog/learning-svelte/{file}">{formatPageName(file)}</a>
       </li>
     {/each}
   </ul>

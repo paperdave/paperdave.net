@@ -1,7 +1,6 @@
 <script lang="ts">
-  import { ArtifactClient } from '$lib/client/ArtifactClient';
-  import { MusicArtifact } from '$lib/client/MusicArtifact';
   import { useEffect } from '$lib/hooks/useEffect';
+  import { Artifact, MusicArtifact } from '$lib/structures';
 
   let fetchPromise;
   function startFetch() {
@@ -14,7 +13,7 @@
   useEffect(
     () => {
       let valid = true;
-      window['Artifact'] = ArtifactClient;
+      window['Artifact'] = Artifact;
       window['MusicArtifact'] = MusicArtifact;
 
       if (fetchPromise) {
@@ -92,11 +91,6 @@
 
   <br />
   <p>i apologize for the delay in todays post</p>
-
-  <br />
-  <br />
-  <br />
-  <p><a href="/copyright">&copy; dave caruso 2021. all rights reserved.</a></p>
 </main>
 
 <style lang="scss">

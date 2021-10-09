@@ -1,13 +1,12 @@
 <script>
   import Meta from '$lib/components/Meta.svelte';
 
-  import Page from './learning-svelte/day-4.svelte';
+  import Page from './blog/learning-svelte/day-4.svelte';
 </script>
 
 <Meta
   title="davecode: computer art to the limit"
-  description="davecode is a creative project by dave caruso to take computer software and it's artistic and automation capabilities to the limits."
-/>
+  description="davecode is a creative project by dave caruso to take computer software and it's artistic and automation capabilities to the limits." />
 
 <main>
   <header>
