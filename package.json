@@ -15,6 +15,8 @@
     "dotenv": "^10.0.0",
     "mdsvex": "^0.9.8",
     "modern-normalize": "^1.1.0",
+    "prettier-plugin-jsdoc": "^0.3.24",
+    "prettier-plugin-organize-imports": "^2.3.4",
     "sass": "^1.42.1",
     "svelte": "^3.38.3",
     "svelte-preprocess": "^4.9.8",
@@ -26,7 +28,7 @@
     "monaco-editor": "^0.28.1",
     "mongoose": "^6.0.9",
     "prettier": "^2.3.2",
-    "prettier-plugin-svelte": "^2.3.1",
+    "prettier-plugin-svelte": "^2.4.0",
     "svelte-loading-spinners": "^0.1.7"
   }
 }

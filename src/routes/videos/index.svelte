@@ -1,5 +1,5 @@
 <script lang="ts" context="module">
-  import { VideoArtifact } from '$lib/client/VideoArtifact';
+  import { VideoArtifact } from '$lib/structures/VideoArtifact';
 
   import BackButton from '$lib/components/BackButton.svelte';
   import type { Load } from '@sveltejs/kit';

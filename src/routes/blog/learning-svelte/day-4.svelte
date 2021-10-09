@@ -9,10 +9,6 @@
   <p>
     <a href="/404">you can go to it here</a>
   </p>
-  <br />
-  <br />
-  <br />
-  <p><a href="/copyright">&copy; dave caruso 2021. all rights reserved.</a></p>
 </main>
 
 <style lang="scss">
