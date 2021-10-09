@@ -13,5 +13,6 @@
     ".vercel_build_output": true,
     ".svelte-kit": true,
     "node_modules": true
-  }
+  },
+  "workspace.isHidden": false
 }

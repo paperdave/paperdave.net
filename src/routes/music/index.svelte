@@ -1,6 +1,6 @@
 <script context="module" lang="ts">
   import type { Load } from '@sveltejs/kit';
-  import { MusicArtifact } from '$lib/client/MusicArtifact';
+  import { MusicArtifact } from '$lib/structures';
   import BackButton from '$lib/components/BackButton.svelte';
   import MusicCard from './_MusicCard.svelte';
 
@@ -8,7 +8,7 @@
     const res = await fetch('/music/page-data.json').then((res) => res.json());
     return {
       props: {
-        music: res.map((x) => new MusicArtifact(x)),
+        music: res.map((x) => MusicArtifact.fromJSON(x)),
       },
     };
   };

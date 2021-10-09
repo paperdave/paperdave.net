@@ -8,12 +8,15 @@ import svgSvelte from 'vite-plugin-svelte-svg';
 const conf = {
   extensions: ['.svelte', '.svx'],
   preprocess: [
-    mdsvex({
-      smartypants: true,
-    }),
     preprocess({
       scss: {
         prependData: "@import 'src/lib/util';",
+      },
+    }),
+    mdsvex({
+      smartypants: true,
+      layout: {
+        _: './src/routes/blog/_SVXLayout.svelte',
       },
     }),
   ],

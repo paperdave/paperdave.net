@@ -1,0 +1,51 @@
+import { Data, JSONData } from './structure-utils';
+
+export class VaultKey {
+  key: string;
+  value: string;
+
+  constructor(data?: Data<VaultKey>) {
+    if (data) {
+      this.key = data.key;
+      this.value = data.value;
+    }
+  }
+
+  toJSON(): JSONData<VaultKey> {
+    return {
+      key: this.key,
+      value: this.value,
+    };
+  }
+
+  static fromJSON(data: JSONData<VaultKey>) {
+    return new VaultKey({
+      key: data.key,
+      value: data.value,
+    });
+  }
+
+  setKey(key: string) {
+    this.key = key;
+    return this;
+  }
+
+  setValue(value: string) {
+    this.value = value;
+    return this;
+  }
+
+  /** Matches a vault key input with this VaultKey */
+  match(input: string): string | null {
+    if (this.key.startsWith('/')) {
+      const regex = new RegExp(this.key.substring(1));
+      const match = regex.exec(input);
+      if (match) {
+        return this.value.replace(/\$(\d+)/g, (x, y) => match[parseInt(y)]);
+      }
+    } else if (this.key === input) {
+      return this.value;
+    }
+    return null;
+  }
+}

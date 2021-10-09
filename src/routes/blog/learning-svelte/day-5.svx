@@ -1,0 +1,38 @@
+<script lang="ts">
+  import { useDebugGlobal } from '$lib/hooks/useDebugGlobal';
+
+  import * as structures from '$lib/structures';
+
+  for (const [key, value] of Object.entries(structures)) {
+    useDebugGlobal(key, () => value);
+  }
+</script>
+
+today i decided to add [MDsveX](https://mdsvex.com/) to my project. it works pretty well, but it
+doesn't yet have a good vscode plugin, so i may not actually use these much. we'll see.
+
+alongside that, i worked on the website's *data structures*. instead of just using typescript interfaces
+they are *classes* with a handful of useful methods that can be used builder-style, or by casting an
+`Artifact` to a subclass, you can access it's properties via autocomplete. Some structures have
+helper methods, such as the `VaultKey` structure having a validation method on it.
+
+Here's the full list of structures, and for your enjoyment, they are all available in the
+browser console for you to play with.
+
+<ul>
+  {#each Object.keys(structures).filter((x) => x[0].toLowerCase() !== x[0]) as key}
+    <li><code>{key}</code></li>
+  {/each}
+</ul>
+
+you can cast a JSON object to a structure by running the static `fromJSON` on it, you can also use
+an object as a builder by creating a blank instance of it, chaining the `set*` methods, then
+converting it to JSON with to `toJSON` method.
+
+i would give access to the database that stores all of the data, but i'll be honest and say there
+isn't anything inside of it besides the 5 music entries. i have to go through my content archive to
+find all the stuff i want to publish, and index it in this new format.
+
+the next steps are going to be getting a nicer "blog" theme setup (i think i'm going to want to do
+more write up stuff in the future, and i really like this format of doing so), and then also getting
+the rest of the pages all set up properly. maybe we'll see a true home page in the coming week? idk!
