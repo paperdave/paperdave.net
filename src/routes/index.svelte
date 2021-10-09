@@ -1,7 +1,7 @@
 <script>
   import Meta from '$lib/components/Meta.svelte';
 
-  import Page from './blog/learning-svelte/day-4.svelte';
+  import Page from './blog/learning-svelte/day-5.svx';
 </script>
 
 <Meta
