@@ -1,3 +1,5 @@
 /learning-svelte/*: /blog/learning-svelte/*
-/the-writer: /series/the-writer
+/the-writer: /stories/the-writer
+/series/the-writer: /stories/the-writer
 /word-magnets: /treehouse/word-magnets
+/476: /stories/life-in-476

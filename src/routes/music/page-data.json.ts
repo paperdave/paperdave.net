@@ -1,8 +1,8 @@
-import { Artifact, connect } from '$lib/db';
+import { Artifact, databaseReady } from '$lib/db';
 import { RequestHandler } from '@sveltejs/kit';
 
 export const get: RequestHandler = async ({}) => {
-  await connect();
+  await databaseReady();
 
   const artifacts = await Artifact.find({ type: 'music' });
 

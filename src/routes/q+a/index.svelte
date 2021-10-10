@@ -1,5 +1,12 @@
+<script lang="ts" context="module">
+  import type { Load } from '@sveltejs/kit';
+
+  export const load: Load = async ({ page, fetch }) => {};
+</script>
+
 <main>
-  <a href="https://react.davecode.me/q+a">
-    I WILL GET THIS REMADE SOON. USE THIS LINK INSTEAD FOR NOW.
-  </a>
+  <!-- -->
 </main>
+
+<style lang="scss">
+</style>

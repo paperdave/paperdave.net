@@ -10,7 +10,7 @@ export class QuestionRequest {
     this.content = data.content;
   }
 
-  toJSON(): JSONData<QuestionRequest> {
+  toJSON() {
     return {
       date: this.date.toISOString(),
       content: this.content,

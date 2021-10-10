@@ -6,22 +6,24 @@ export class QuestionParagraph {
 
   constructor(data?: Data<QuestionParagraph>) {
     if (data) {
-      this.message = data.message;
-      this.who = data.who;
+      if (Array.isArray(data)) {
+        this.message = data[1];
+        this.who = data[0];
+      } else {
+        this.message = data.message;
+        this.who = data.who;
+      }
     }
   }
 
-  toJSON(): JSONData<QuestionParagraph> {
-    return {
-      message: this.message,
-      who: this.who,
-    };
+  toJSON() {
+    return [this.who === 'question' ? 'q' : 'a', this.message];
   }
 
   static fromJSON(data: JSONData<QuestionParagraph>) {
     return new QuestionParagraph({
-      message: data.message,
-      who: (data as any).who === 'q' ? 'question' : 'answer',
+      message: data[1],
+      who: data[0] === 'q' ? 'question' : 'answer',
     });
   }
 
@@ -42,6 +44,20 @@ export class QuestionParagraph {
     this.who = who;
     return this;
   }
+
+  static answer(message: string) {
+    return new QuestionParagraph({
+      message,
+      who: 'answer',
+    });
+  }
+
+  static question(message: string) {
+    return new QuestionParagraph({
+      message,
+      who: 'question',
+    });
+  }
 }
 
 export class Question {
@@ -50,23 +66,32 @@ export class Question {
 
   constructor(data?: Data<Question>) {
     if (data) {
-      this.date = data.date;
-      this.content = data.content;
+      if ('d' in data) {
+        let legacy = data as any;
+        this.date = new Date(legacy.d);
+        if (legacy.q) {
+          this.content = [QuestionParagraph.question(legacy.q), QuestionParagraph.answer(legacy.a)];
+        } else {
+          this.content = legacy.c.map((paragraph) => new QuestionParagraph(paragraph));
+        }
+      } else {
+        this.date = data.date;
+        this.content = data.content.map((paragraph) => new QuestionParagraph(paragraph));
+      }
     }
   }
 
-  toJSON(): JSONData<Question> {
+  toJSON() {
     return {
-      date: this.date.toISOString(),
-      // @ts-expect-error
-      content: this.content.map((paragraph) => paragraph.toJSON()),
+      d: this.date.toISOString(),
+      c: this.content.map((paragraph) => paragraph.toJSON()),
     };
   }
 
   static fromJSON(data: JSONData<Question>) {
     return new Question({
-      date: new Date(data.date),
-      content: data.content.map((paragraph) => QuestionParagraph.fromJSON(paragraph)),
+      date: new Date(data.d),
+      content: data.c.map((paragraph) => QuestionParagraph.fromJSON(paragraph)),
     });
   }
 
