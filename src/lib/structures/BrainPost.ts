@@ -11,7 +11,7 @@ export class BrainPost {
     }
   }
 
-  toJSON(): JSONData<BrainPost> {
+  toJSON() {
     return {
       date: this.date.toUTCString(),
       text: this.text,

@@ -2,9 +2,9 @@ import { Artifact } from './Artifact';
 import { FileArtifact } from './FileArtifact';
 import { JSONData } from './structure-utils';
 
-export class SeriesArtifact extends FileArtifact {
+export class StoryArtifact extends FileArtifact {
   static fromJSON(data: JSONData<Artifact>) {
-    return new SeriesArtifact(Artifact.fromJSON(data));
+    return new StoryArtifact(Artifact.fromJSON(data));
   }
 
   get description(): string {

@@ -21,7 +21,7 @@ export class Artifact {
     }
   }
 
-  toJSON(): JSONData<Artifact> {
+  toJSON() {
     return {
       id: this.id,
       title: this.title,

@@ -1,13 +1,7 @@
+import { Data, Question } from '$lib/structures';
 import m from 'mongoose';
 
-export type IQuestionParagraph = ['q' | 'a', string];
-
-export interface IQuestion {
-  date: Date;
-  strings: IQuestionParagraph[];
-}
-
-export const QuestionSchema = new m.Schema<IQuestion, m.Model<IQuestion>>({
+export const QuestionSchema = new m.Schema<Data<Question>>({
   date: {
     type: Date,
     required: true,
@@ -26,4 +20,6 @@ export const QuestionSchema = new m.Schema<IQuestion, m.Model<IQuestion>>({
   },
 } as any);
 
-export const QuestionModel = (m as any).model('Question', QuestionSchema) as m.Model<IQuestion>;
+export const QuestionModel = (m as any).model('Question', QuestionSchema) as m.Model<
+  Data<Question>
+>;
