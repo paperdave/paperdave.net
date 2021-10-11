@@ -6,8 +6,13 @@ export class QuestionParagraph {
 
   constructor(data?: Data<QuestionParagraph>) {
     if (data) {
-      this.message = data.message;
-      this.who = data.who;
+      if (Array.isArray(data)) {
+        this.message = data[1];
+        this.who = data[0] === 'question' || data[0] === 'q' ? 'question' : 'answer';
+      } else {
+        this.message = data.message;
+        this.who = data.who;
+      }
     }
   }
 
@@ -20,8 +25,8 @@ export class QuestionParagraph {
 
   static fromJSON(data: JSONData<QuestionParagraph>) {
     return new QuestionParagraph({
-      message: data.message,
-      who: (data as any).who === 'q' ? 'question' : 'answer',
+      message: data[1],
+      who: data[0] === 'q' || data[0] === 'question' ? 'question' : 'answer',
     });
   }
 
