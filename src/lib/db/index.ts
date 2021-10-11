@@ -14,4 +14,5 @@ export * from './BrainPost';
 export * from './LegacyRedirect';
 export * from './Question';
 export * from './QuestionRequest';
+export * from './User';
 export * from './VaultKey';
