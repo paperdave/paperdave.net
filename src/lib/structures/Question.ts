@@ -16,11 +16,8 @@ export class QuestionParagraph {
     }
   }
 
-  toJSON(): JSONData<QuestionParagraph> {
-    return {
-      message: this.message,
-      who: this.who,
-    };
+  toJSON() {
+    return [this.who === 'question' ? 'q' : 'a', this.message];
   }
 
   static fromJSON(data: JSONData<QuestionParagraph>) {
@@ -47,6 +44,20 @@ export class QuestionParagraph {
     this.who = who;
     return this;
   }
+
+  static question(message: string) {
+    return new QuestionParagraph({
+      message,
+      who: 'question',
+    });
+  }
+
+  static answer(message: string) {
+    return new QuestionParagraph({
+      message,
+      who: 'answer',
+    });
+  }
 }
 
 export class Question {
@@ -60,18 +71,19 @@ export class Question {
     }
   }
 
-  toJSON(): JSONData<Question> {
+  toJSON() {
     return {
       date: this.date.toISOString(),
-      // @ts-expect-error
       content: this.content.map((paragraph) => paragraph.toJSON()),
     };
   }
 
-  static fromJSON(data: JSONData<Question>) {
+  static fromJSON(data: any) {
     return new Question({
-      date: new Date(data.date),
-      content: data.content.map((paragraph) => QuestionParagraph.fromJSON(paragraph)),
+      date: new Date(data.date ?? data.d),
+      content: data.q
+        ? [QuestionParagraph.question(data.q), QuestionParagraph.answer(data.a)]
+        : (data.content || data.c).map((paragraph) => QuestionParagraph.fromJSON(paragraph)),
     });
   }
 

@@ -1,5 +1,18 @@
+<script>
+  import BackButton from '$lib/components/BackButton.svelte';
+
+  import { page } from '$app/stores';
+</script>
+
 <main>
-  <slot />
+  <BackButton
+    position="off-center"
+    href={$page.path === '/auth' ? '/' : '/auth'}
+    text={$page.path === '/auth' ? 'go home' : 'nevermind'} />
+
+  <section>
+    <slot />
+  </section>
 </main>
 
 <style lang="scss">
@@ -81,7 +94,7 @@
     border: none;
   }
 
-  main :global(a) {
+  section :global(a) {
     color: #22c6ad;
     &:hover {
       text-decoration: underline;
