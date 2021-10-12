@@ -1,24 +1,16 @@
-import { Artifact, connect } from '$lib/db';
+import { getDB } from '$lib/db';
+import { Artifact } from '$lib/structures';
 import { RequestHandler } from '@sveltejs/kit';
 
 export const get: RequestHandler = async ({}) => {
-  await connect();
+  const artifactDb = await getDB(Artifact);
 
-  const artifacts = await Artifact.find({ type: 'video' });
+  const artifacts = await artifactDb.find({ type: 'video' }).toArray();
 
   return {
     body: artifacts
+      .map((a) => Artifact.fromJSON(a))
       .sort((a, b) => b.date.getTime() - a.date.getTime())
-      .map((item) => {
-        return {
-          id: item.id,
-          title: item.title,
-          date: item.date.toISOString(),
-          type: item.type,
-          tags: item.tags,
-          thumbnail: item.thumbnail,
-          data: Object.fromEntries([...item.data.entries()]),
-        };
-      }),
+      .map((a) => a.toJSON()),
   };
 };

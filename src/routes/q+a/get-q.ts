@@ -1,4 +1,4 @@
-import { getDB } from '$lib/db';
+import { getDB, stripDatabaseInternals } from '$lib/db';
 import { Question } from '$lib/structures';
 import { RequestHandler } from '@sveltejs/kit';
 
@@ -39,12 +39,12 @@ export const get: RequestHandler = async ({ query }) => {
   console.log(questionDate);
 
   const question = await questionDb.findOne({
-    date: { $gt: questionDate, $lt: questionDate + 1000 },
+    date: { $eq: questionDate },
   });
 
   return {
     body: {
-      question,
+      question: stripDatabaseInternals(question),
     },
   };
 };
