@@ -4,11 +4,12 @@
   }
 </script>
 
-<form on:submit={submit}>
+<!-- <form on:submit={submit}>
   <div class="container">
     <textarea name="question" id="question" placeholder="ask a question..." />
   </div>
-</form>
+</form> -->
+<form action="#" on:submit={submit}>[sending questions will be added soon]</form>
 
 <style lang="scss">
 </style>
