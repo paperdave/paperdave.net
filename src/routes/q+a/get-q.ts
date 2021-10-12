@@ -1,9 +1,9 @@
-import { databaseReady, QuestionModel } from '$lib/db';
+import { getDB } from '$lib/db';
 import { Question } from '$lib/structures';
 import { RequestHandler } from '@sveltejs/kit';
 
 export const get: RequestHandler = async ({ query }) => {
-  await databaseReady();
+  const questionDb = await getDB(Question);
 
   const questionDateId = query.get('id');
 
@@ -34,13 +34,17 @@ export const get: RequestHandler = async ({ query }) => {
     parseInt(hour),
     parseInt(minute),
     parseInt(second)
-  );
+  ).getTime();
 
-  const question = await QuestionModel.findOne({});
+  console.log(questionDate);
+
+  const question = await questionDb.findOne({
+    date: { $gt: questionDate, $lt: questionDate + 1000 },
+  });
 
   return {
     body: {
-      question: question ? Question.fromJSON(JSON.parse(JSON.stringify(question))).toJSON() : null,
+      question,
     },
   };
 };

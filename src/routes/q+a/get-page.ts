@@ -1,13 +1,13 @@
-import { databaseReady, QuestionModel } from '$lib/db';
+import { getDB } from '$lib/db';
 import { Question } from '$lib/structures';
 import { RequestHandler } from '@sveltejs/kit';
 
 const PAGE_SIZE = 25;
 
 export const get: RequestHandler = async ({ query }) => {
-  await databaseReady();
+  const questionDB = await getDB(Question);
 
-  const count = await QuestionModel.countDocuments();
+  const count = await questionDB.countDocuments();
   const lastPage = Math.floor(count / PAGE_SIZE) - 1;
   const pageNumber = parseInt(query.get('page') ?? '0');
 
@@ -19,18 +19,17 @@ export const get: RequestHandler = async ({ query }) => {
     };
   }
 
-  const questions = await QuestionModel.find({})
+  const questions = await questionDB
+    .find({})
     .sort({ date: 1, d: 1 })
     .skip(pageNumber * PAGE_SIZE)
     .limit(PAGE_SIZE)
-    .exec();
+    .toArray();
 
   return {
     body: {
       page: pageNumber,
-      questions: questions
-        .reverse()
-        .map((q) => Question.fromJSON(JSON.parse(JSON.stringify(q))).toJSON()) as any,
+      questions: questions.reverse(),
     },
   };
 };

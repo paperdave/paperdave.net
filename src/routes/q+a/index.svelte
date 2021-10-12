@@ -19,7 +19,7 @@
       return {
         props: {
           isLatestPage: false,
-          page: data.page,
+          pageNumber: data.page,
           questions: data.questions.map((x) => Question.fromJSON(x)),
         },
       };
@@ -28,7 +28,7 @@
       return {
         props: {
           isLatestPage: true,
-          page: data.page,
+          pageNumber: data.page,
           questions: data.questions.map((x) => Question.fromJSON(x)),
         },
       };
@@ -37,42 +37,74 @@
 </script>
 
 <script lang="ts">
+  import { page } from '$app/stores';
+  import QuestionForm from './_QuestionForm.svelte';
   import QuestionRender from './_QuestionRender.svelte';
 
   export let isLatestPage: boolean;
-  export let page: number;
+  export let pageNumber: number;
   export let questions: Question[];
 </script>
 
 <main>
   <QAHeader />
-  <p>i answer anonymous questions you ask, because it's fun.</p>
-  {#if isLatestPage}
-    <p>todo: svelte form</p>
-    <p>and the answers:</p>
-  {:else}
+  <section>
+    <p>i answer anonymous questions you ask, because it's fun.</p>
     <p>
-      page #{page}
-      {#if page === 0}
-        (we are programmers, start at 0!!!)
-      {/if} <br />
-      <a href="/q+a?page={page + 1}">newer</a>
+      {#if !isLatestPage}
+        <a href="/q+a">latest</a>
+      {:else}
+        <strong>latest</strong>
+      {/if}
+      |
+      <a href="/q+a/search">search</a>
+      |
+      <a href="/q+a/random">random</a>
+      |
+      {#if $page.path === '/q+a' && $page.query.get('page') === '0'}
+        <strong>start</strong>
+      {:else}
+        <a href="/q+a?page=0">start</a>
+      {/if}
     </p>
+  </section>
+  {#if isLatestPage}
+    <section>
+      <QuestionForm />
+    </section>
+    <section>
+      <p>and the answers:</p>
+    </section>
+  {:else}
+    <section>
+      <p>
+        page #{pageNumber}
+        {#if pageNumber === 0}
+          (we are programmers, start at 0!!!)
+        {/if} <br />
+        <a href="/q+a?page={pageNumber + 1}">newer</a>
+      </p>
+    </section>
   {/if}
-  <div class="questions">
+  <section class="questions">
     {#each questions as question}
       <QuestionRender {question} />
     {/each}
-  </div>
-  {#if page !== 0}
-    <p>
-      <a href="/q+a?page={page - 1}">older</a>
-    </p>
+  </section>
+  {#if pageNumber !== 0}
+    <section>
+      <p>
+        <a href="/q+a?page={pageNumber - 1}">older</a>
+      </p>
+    </section>
   {/if}
 </main>
 
 <style lang="scss">
-  p {
+  section {
     margin-bottom: 3rem;
+  }
+  p {
+    margin-bottom: 1rem;
   }
 </style>

@@ -1,5 +1,4 @@
-import { schema } from '.';
-import { Data, JSONData } from './structure-utils';
+import { Data, JSONData, schema } from './structure-utils';
 
 @schema('vault')
 export class VaultKey {
@@ -13,8 +12,9 @@ export class VaultKey {
     }
   }
 
-  toJSON(): JSONData<VaultKey> {
+  toJSON() {
     return {
+      _v: 0,
       key: this.key,
       value: this.value,
     };

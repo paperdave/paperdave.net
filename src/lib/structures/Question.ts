@@ -1,5 +1,4 @@
-import { schema } from '.';
-import { Data, JSONData } from './structure-utils';
+import { Data, JSONData, schema } from './structure-utils';
 
 export class QuestionParagraph {
   who: 'question' | 'answer';
@@ -24,7 +23,7 @@ export class QuestionParagraph {
   static fromJSON(data: JSONData<QuestionParagraph>) {
     return new QuestionParagraph({
       message: data[1],
-      who: data[0] === 'q' || data[0] === 'question' ? 'question' : 'answer',
+      who: data[0] === 'q' ? 'question' : 'answer',
     });
   }
 
@@ -68,24 +67,24 @@ export class Question {
 
   constructor(data?: Data<Question>) {
     if (data) {
-      this.date = data.date;
+      // remove milliseconds
+      this.date = new Date(data.date.getTime() - data.date.getMilliseconds());
       this.content = data.content;
     }
   }
 
   toJSON() {
     return {
-      date: this.date.toISOString(),
+      _v: 0,
+      date: this.date.getTime(),
       content: this.content.map((paragraph) => paragraph.toJSON()),
     };
   }
 
   static fromJSON(data: any) {
     return new Question({
-      date: new Date(data.date ?? data.d),
-      content: data.q
-        ? [QuestionParagraph.question(data.q), QuestionParagraph.answer(data.a)]
-        : (data.content || data.c).map((paragraph) => QuestionParagraph.fromJSON(paragraph)),
+      date: new Date(data.date),
+      content: data.content.map((paragraph) => QuestionParagraph.fromJSON(paragraph)),
     });
   }
 
@@ -110,5 +109,18 @@ export class Question {
   setContent(content: QuestionParagraph[]) {
     this.content = content;
     return this;
+  }
+
+  getDateId() {
+    return [
+      this.date.getFullYear().toString().slice(2),
+      (this.date.getMonth() + 1).toString(),
+      this.date.getDate().toString(),
+      this.date.getHours().toString(),
+      this.date.getMinutes().toString(),
+      this.date.getSeconds().toString(),
+    ]
+      .map((x) => x.padStart(2, '0'))
+      .join('');
   }
 }
