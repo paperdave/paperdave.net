@@ -9,7 +9,10 @@ if (global._mongoDbClient) {
   client = global._mongoDbClient;
 } else {
   connectionPromise = global._mongoDbConnectionPromise =
-    global._mongoDbConnectionPromise ?? new MongoClient(MONGODB_URI).connect();
+    global._mongoDbConnectionPromise ??
+    new MongoClient(MONGODB_URI).connect().catch(() => {
+      connectionPromise = global._mongoDbConnectionPromise = new MongoClient(MONGODB_URI).connect();
+    });
 }
 
 export async function getDatabase<T>(type: {
