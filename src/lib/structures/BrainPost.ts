@@ -1,5 +1,7 @@
+import { schema } from '.';
 import { Data, JSONData } from './structure-utils';
 
+@schema('brain')
 export class BrainPost {
   date: Date;
   text: string;

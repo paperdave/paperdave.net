@@ -5,6 +5,7 @@ export enum UserPermission {
   RESPOND_TO_QUESTIONS = 'RESPOND_TO_QUESTIONS',
 }
 
+@schema('users')
 export class User {
   email: string;
   passwordHash: string;

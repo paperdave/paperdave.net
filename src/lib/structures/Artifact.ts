@@ -1,5 +1,7 @@
+import { schema } from '.';
 import { Data, JSONData, mapToRecord, recordToMap } from './structure-utils';
 
+@schema('artifacts')
 export class Artifact {
   id: string;
   title: string;

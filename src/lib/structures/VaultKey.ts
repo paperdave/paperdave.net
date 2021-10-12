@@ -1,5 +1,7 @@
+import { schema } from '.';
 import { Data, JSONData } from './structure-utils';
 
+@schema('vault')
 export class VaultKey {
   key: string;
   value: string;

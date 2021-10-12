@@ -1,18 +1,20 @@
-import { MONGODB_DB, MONGODB_URI } from '$lib/env';
-import m from 'mongoose';
+import { MONGODB_DB } from '$lib/env';
+import { JSONData } from '$lib/structures';
+import mongo from 'mongodb';
 
-export async function databaseReady() {
-  if (m.connection.readyState === 0 || m.connection.readyState === 3) {
-    await m.connect(MONGODB_URI, {
-      dbName: MONGODB_DB,
-    });
+// export function initDb() {
+//   new mongo.MongoClient(MONGODB_URI);
+// }
+
+let connection: mongo.MongoClient;
+
+export async function getDB<T>(type: { new (): T }): Promise<mongo.Collection<JSONData<T>>> {
+  if (!connection) {
+    // todo await
   }
+  const structureName = (type as any).structureName;
+  if (!structureName) {
+    throw new Error('Type is not tagged with @schema');
+  }
+  return connection.db(MONGODB_DB).collection(structureName);
 }
-
-export * from './Artifact';
-export * from './BrainPost';
-export * from './LegacyRedirect';
-export * from './Question';
-export * from './QuestionRequest';
-export * from './User';
-export * from './VaultKey';
