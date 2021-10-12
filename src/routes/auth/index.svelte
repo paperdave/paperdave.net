@@ -8,9 +8,12 @@
   let isFailedLogin = false;
 
   async function submit(ev: Event) {
+    isFailedLogin = false;
     ev.preventDefault();
 
     let formData = new FormData(form);
+
+    formData.set('email', email);
 
     let result = await fetch('/auth/submit', {
       method: 'POST',

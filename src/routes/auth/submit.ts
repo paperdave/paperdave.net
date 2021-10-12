@@ -2,16 +2,16 @@ import { getDB } from '$lib/db';
 import { User } from '$lib/structures/User';
 import { RequestHandler } from '@sveltejs/kit';
 
-export const get: RequestHandler = async ({ body }) => {
-  if (!(body instanceof FormData)) {
-    return {
-      status: 400,
-      body: {
-        success: false,
-        message: 'Invalid request body',
-      },
-    };
-  }
+export const post: RequestHandler = async ({ body }) => {
+  // if (!(body instanceof FormData)) {
+  //   return {
+  //     status: 400,
+  //     body: {
+  //       success: false,
+  //       message: 'Invalid request body',
+  //     },
+  //   };
+  // }
 
   const submitType = body.get('type').toString();
 
