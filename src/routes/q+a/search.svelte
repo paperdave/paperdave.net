@@ -32,11 +32,11 @@
       <a href="/q+a?page=0">start</a>
     </p>
   </section>
-  <section class="form">
+  <!-- <section class="form">
     <QaInput type="text" placeholder="search..." fullWidth />
-  </section>
+  </section> -->
   <section>
-    <p>[the answers]</p>
+    <p>[search will be added soon]</p>
   </section>
 </main>
 

@@ -75,15 +75,15 @@ export class Question {
   toJSON() {
     return {
       _v: 0,
-      date: this.date.getTime(),
+      date: this.date.getTime() - this.date.getMilliseconds(),
       content: this.content.map((paragraph) => paragraph.toJSON()),
     };
   }
 
   static fromJSON(data: any) {
     return new Question({
-      date: new Date(data.d),
-      content: data.c.map((paragraph) => QuestionParagraph.fromJSON(paragraph)),
+      date: new Date(data.date),
+      content: data.content.map((paragraph) => QuestionParagraph.fromJSON(paragraph)),
     });
   }
 
