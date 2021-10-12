@@ -1,11 +1,11 @@
-import { getDB } from '$lib/db';
+import { getDatabase, stripDatabaseInternals } from '$lib/db';
 import { Question } from '$lib/structures';
 import { RequestHandler } from '@sveltejs/kit';
 
 const PAGE_SIZE = 25;
 
 export const get: RequestHandler = async ({ query }) => {
-  const questionDB = await getDB(Question);
+  const questionDB = await getDatabase(Question);
 
   const count = await questionDB.countDocuments();
   const lastPage = Math.floor(count / PAGE_SIZE) - 1;
@@ -29,7 +29,7 @@ export const get: RequestHandler = async ({ query }) => {
   return {
     body: {
       page: pageNumber,
-      questions: questions.reverse(),
+      questions: stripDatabaseInternals(questions.reverse()),
     },
   };
 };

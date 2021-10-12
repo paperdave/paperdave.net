@@ -3,7 +3,7 @@
   let isLoading = false;
   let isSubmit = false;
 
-  let value = 'dave@davecode.me';
+  let email = 'dave@davecode.me';
 
   async function submit(ev: Event) {
     ev.preventDefault();
@@ -18,7 +18,6 @@
     }).then((x) => x.json());
 
     isLoading = false;
-
     isSubmit = true;
   }
 </script>
@@ -33,7 +32,7 @@
       email, contact support.
     </p>
     <label for="email">email</label>
-    <input id="email" name="email" type="text" bind:value disabled readonly />
+    <input id="email" name="email" type="text" bind:value={email} disabled readonly />
     <div class="button-container">
       <button type="submit">go</button>
     </div>

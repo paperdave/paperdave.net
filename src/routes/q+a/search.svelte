@@ -2,7 +2,6 @@
   import { Question } from '$lib/structures';
   import type { Load } from '@sveltejs/kit';
   import QAHeader from './_QAHeader.svelte';
-  import QaInput from './_QAInput.svelte';
 
   export const load: Load = async ({}) => {
     return {

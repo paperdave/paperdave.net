@@ -1,4 +1,4 @@
-import { getDB } from '$lib/db';
+import { getDatabase } from '$lib/db';
 import { Question, QuestionParagraph } from '$lib/structures';
 import { RequestHandler } from '@sveltejs/kit';
 import fs from 'fs-extra';
@@ -25,7 +25,7 @@ const deletes = [
 export const get: RequestHandler = async ({}) => {
   return { body: 'This endpoint is disabled' };
 
-  const db = await getDB(Question);
+  const db = await getDatabase(Question);
 
   const questions = fs.readJsonSync(`C:\\Code\\davecode.me\\src\\routes\\q+a\\migrate.json`);
 

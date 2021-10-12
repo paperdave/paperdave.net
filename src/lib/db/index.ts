@@ -2,17 +2,28 @@ import { MONGODB_DB, MONGODB_URI } from '$lib/env';
 import { JSONData } from '$lib/structures';
 import { Collection, MongoClient, ObjectId } from 'mongodb';
 
-let connection = new MongoClient(MONGODB_URI).connect();
+let connectionPromise: null | Promise<MongoClient> = null;
+let client: MongoClient | null = null;
 
-export async function getDB<T>(type: {
+if (global._mongoDbClient) {
+  client = global._mongoDbClient;
+} else {
+  connectionPromise = global._mongoDbConnectionPromise =
+    global._mongoDbConnectionPromise ?? new MongoClient(MONGODB_URI).connect();
+}
+
+export async function getDatabase<T>(type: {
   new (): T;
 }): Promise<Collection<JSONData<T> & { _id: ObjectId }>> {
-  let conn = await connection;
+  if (connectionPromise) {
+    client = global._mongoDbClient = await connectionPromise;
+  }
+  connectionPromise = null;
   const structureName = (type as any).structureName;
   if (!structureName) {
     throw new Error('Type is not tagged with @schema');
   }
-  return conn.db(MONGODB_DB).collection(structureName);
+  return client.db(MONGODB_DB).collection(structureName);
 }
 
 export type WithoutDatabaseInternals<X> = X extends Record<string, any>
@@ -21,7 +32,7 @@ export type WithoutDatabaseInternals<X> = X extends Record<string, any>
   ? WithoutDatabaseInternals<Y>[]
   : X;
 
-export function stripDatabaseInternals<X>(x: X): WithoutDatabaseInternals<X> {
+export function stripDatabaseInternals<X>(x: X): any {
   if (Array.isArray(x)) {
     return x.map(stripDatabaseInternals) as any;
   } else if (typeof x === 'object' && x) {
