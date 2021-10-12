@@ -142,11 +142,10 @@
         class="track"
         style="--progress:{progress * 100}"
         bind:this={trackDiv}
-        on:mousedown={playheadDrag}
-        class:isDragging>
+        on:mousedown={playheadDrag}>
         <div class="progress" />
         <div class="playhead">
-          <div class="playhead-content" />
+          <div class="playhead-content" class:isDragging />
         </div>
       </div>
     </section>
