@@ -1,5 +1,11 @@
+<script>
+  import { page } from '$app/stores';
+
+  $: fullWidth = $page.path === '/q+a/respond';
+</script>
+
 <main>
-  <section>
+  <section class:fullWidth>
     <slot />
   </section>
 </main>
@@ -23,5 +29,9 @@
     &:active {
       color: #e089c8;
     }
+  }
+
+  .fullWidth {
+    max-width: 100%;
   }
 </style>

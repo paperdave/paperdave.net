@@ -4,25 +4,17 @@ import { RequestHandler } from '@sveltejs/kit';
 
 const PAGE_SIZE = 25;
 
-export const get: RequestHandler = async ({ query }) => {
+export const get: RequestHandler = async ({}) => {
   await databaseReady();
 
   const count = await QuestionModel.countDocuments();
-  const lastPage = Math.floor(count / PAGE_SIZE) - 1;
-  const pageNumber = parseInt(query.get('page') ?? '0');
 
-  if (pageNumber >= lastPage) {
-    return {
-      body: {
-        tooNew: true,
-      },
-    };
-  }
+  const pageNumber = Math.floor(count / PAGE_SIZE) - 1;
 
   const questions = await QuestionModel.find({})
     .sort({ date: 1, d: 1 })
+    .limit(PAGE_SIZE * 2)
     .skip(pageNumber * PAGE_SIZE)
-    .limit(PAGE_SIZE)
     .exec();
 
   return {
