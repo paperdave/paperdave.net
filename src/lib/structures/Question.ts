@@ -67,7 +67,6 @@ export class Question {
 
   constructor(data?: Data<Question>) {
     if (data) {
-      // remove milliseconds
       this.date = new Date(data.date.getTime() - data.date.getMilliseconds());
       this.content = data.content;
     }
@@ -83,8 +82,8 @@ export class Question {
 
   static fromJSON(data: any) {
     return new Question({
-      date: new Date(data.date),
-      content: data.content.map((paragraph) => QuestionParagraph.fromJSON(paragraph)),
+      date: new Date(data.d),
+      content: data.c.map((paragraph) => QuestionParagraph.fromJSON(paragraph)),
     });
   }
 

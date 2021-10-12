@@ -1,4 +1,6 @@
 {
+  "editor.wordWrap": "wordWrapColumn",
+  "editor.wordWrapColumn": 100,
   "files.associations": {
     "*.svx": "markdown"
   },

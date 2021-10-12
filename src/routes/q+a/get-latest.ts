@@ -1,4 +1,4 @@
-import { getDB } from '$lib/db';
+import { getDB, stripDatabaseInternals } from '$lib/db';
 import { Question } from '$lib/structures';
 import { RequestHandler } from '@sveltejs/kit';
 
@@ -21,7 +21,7 @@ export const get: RequestHandler = async ({}) => {
   return {
     body: {
       page: pageNumber,
-      questions: questions.reverse(),
+      questions: stripDatabaseInternals(questions.reverse()),
     },
   };
 };

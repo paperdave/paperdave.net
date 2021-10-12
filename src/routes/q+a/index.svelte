@@ -1,6 +1,5 @@
 <script lang="ts" context="module">
   import { Question } from '$lib/structures';
-  import { User } from '$lib/structures/User';
 
   import type { Load } from '@sveltejs/kit';
   import QAHeader from './_QAHeader.svelte';
