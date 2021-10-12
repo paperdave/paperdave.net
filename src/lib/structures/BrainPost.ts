@@ -1,5 +1,6 @@
-import { Data, JSONData } from './structure-utils';
+import { Data, JSONData, schema } from './structure-utils';
 
+@schema('brain')
 export class BrainPost {
   date: Date;
   text: string;
@@ -13,6 +14,7 @@ export class BrainPost {
 
   toJSON() {
     return {
+      _v: 0,
       date: this.date.toUTCString(),
       text: this.text,
     };

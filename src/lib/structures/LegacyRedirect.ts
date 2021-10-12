@@ -1,5 +1,6 @@
-import { Data, JSONData } from './structure-utils';
+import { Data, JSONData, schema } from './structure-utils';
 
+@schema('redirects')
 export class LegacyRedirect {
   key: string;
   value: string;
@@ -11,8 +12,9 @@ export class LegacyRedirect {
     }
   }
 
-  toJSON(): JSONData<LegacyRedirect> {
+  toJSON() {
     return {
+      _v: 0,
       key: this.key,
       value: this.value,
     };

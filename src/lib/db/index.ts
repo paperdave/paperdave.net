@@ -1,17 +1,49 @@
 import { MONGODB_DB, MONGODB_URI } from '$lib/env';
-import m from 'mongoose';
+import { JSONData } from '$lib/structures';
+import { Collection, MongoClient, ObjectId } from 'mongodb';
 
-export async function databaseReady() {
-  if (m.connection.readyState === 0 || m.connection.readyState === 3) {
-    await m.connect(MONGODB_URI, {
-      dbName: MONGODB_DB,
-    });
-  }
+let connectionPromise: null | Promise<MongoClient> = null;
+let client: MongoClient | null = null;
+
+if (global._mongoDbClient) {
+  client = global._mongoDbClient;
+} else {
+  connectionPromise = global._mongoDbConnectionPromise =
+    global._mongoDbConnectionPromise ?? new MongoClient(MONGODB_URI).connect();
 }
 
-export * from './Artifact';
-export * from './BrainPost';
-export * from './LegacyRedirect';
-export * from './Question';
-export * from './QuestionRequest';
-export * from './VaultKey';
+export async function getDatabase<T>(type: {
+  new (): T;
+}): Promise<Collection<JSONData<T> & { _id: ObjectId }>> {
+  if (connectionPromise) {
+    client = global._mongoDbClient = await connectionPromise;
+  }
+  connectionPromise = null;
+  const structureName = (type as any).structureName;
+  if (!structureName) {
+    throw new Error('Type is not tagged with @schema');
+  }
+  return client.db(MONGODB_DB).collection(structureName);
+}
+
+export type WithoutDatabaseInternals<X> = X extends Record<string, any>
+  ? Omit<X, '_id' | '_v'>
+  : X extends Array<infer Y>
+  ? WithoutDatabaseInternals<Y>[]
+  : X;
+
+export function stripDatabaseInternals<X>(x: X): any {
+  if (Array.isArray(x)) {
+    return x.map(stripDatabaseInternals) as any;
+  } else if (typeof x === 'object' && x) {
+    return Object.entries(x).reduce((acc, [key, value]) => {
+      if (key === '_id' || key === '_v') {
+        return acc;
+      } else {
+        return { ...acc, [key]: stripDatabaseInternals(value) };
+      }
+    }, {} as any);
+  } else {
+    return x as any;
+  }
+}

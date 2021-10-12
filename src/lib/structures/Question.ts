@@ -1,4 +1,4 @@
-import { Data, JSONData } from './structure-utils';
+import { Data, JSONData, schema } from './structure-utils';
 
 export class QuestionParagraph {
   who: 'question' | 'answer';
@@ -8,7 +8,7 @@ export class QuestionParagraph {
     if (data) {
       if (Array.isArray(data)) {
         this.message = data[1];
-        this.who = data[0];
+        this.who = data[0] === 'question' || data[0] === 'q' ? 'question' : 'answer';
       } else {
         this.message = data.message;
         this.who = data.who;
@@ -45,53 +45,45 @@ export class QuestionParagraph {
     return this;
   }
 
-  static answer(message: string) {
-    return new QuestionParagraph({
-      message,
-      who: 'answer',
-    });
-  }
-
   static question(message: string) {
     return new QuestionParagraph({
       message,
       who: 'question',
     });
   }
+
+  static answer(message: string) {
+    return new QuestionParagraph({
+      message,
+      who: 'answer',
+    });
+  }
 }
 
+@schema('questions')
 export class Question {
   date: Date;
   content: QuestionParagraph[];
 
   constructor(data?: Data<Question>) {
     if (data) {
-      if ('d' in data) {
-        let legacy = data as any;
-        this.date = new Date(legacy.d);
-        if (legacy.q) {
-          this.content = [QuestionParagraph.question(legacy.q), QuestionParagraph.answer(legacy.a)];
-        } else {
-          this.content = legacy.c.map((paragraph) => new QuestionParagraph(paragraph));
-        }
-      } else {
-        this.date = data.date;
-        this.content = data.content.map((paragraph) => new QuestionParagraph(paragraph));
-      }
+      this.date = new Date(data.date.getTime() - data.date.getMilliseconds());
+      this.content = data.content;
     }
   }
 
   toJSON() {
     return {
-      d: this.date.toISOString(),
-      c: this.content.map((paragraph) => paragraph.toJSON()),
+      _v: 0,
+      date: this.date.getTime() - this.date.getMilliseconds(),
+      content: this.content.map((paragraph) => paragraph.toJSON()),
     };
   }
 
-  static fromJSON(data: JSONData<Question>) {
+  static fromJSON(data: any) {
     return new Question({
-      date: new Date(data.d),
-      content: data.c.map((paragraph) => QuestionParagraph.fromJSON(paragraph)),
+      date: new Date(data.date),
+      content: data.content.map((paragraph) => QuestionParagraph.fromJSON(paragraph)),
     });
   }
 
@@ -116,5 +108,18 @@ export class Question {
   setContent(content: QuestionParagraph[]) {
     this.content = content;
     return this;
+  }
+
+  getDateId() {
+    return [
+      this.date.getFullYear().toString().slice(2),
+      (this.date.getMonth() + 1).toString(),
+      this.date.getDate().toString(),
+      this.date.getHours().toString(),
+      this.date.getMinutes().toString(),
+      this.date.getSeconds().toString(),
+    ]
+      .map((x) => x.padStart(2, '0'))
+      .join('');
   }
 }

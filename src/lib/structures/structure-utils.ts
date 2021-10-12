@@ -7,19 +7,7 @@ export type Data<T> = {
  * Takes a class and removes all methods, and converts Maps into Records, Sets into arrays, and
  * dates into strings
  */
-export type JSONData<T> = T extends { toJSON(): infer json }
-  ? json
-  : Data<
-      {
-        [P in keyof T]: T[P] extends Map<string, infer V>
-          ? Record<string, V>
-          : T[P] extends Set<infer V>
-          ? V[]
-          : T[P] extends Date
-          ? string
-          : T[P];
-      }
-    >;
+export type JSONData<T> = T extends { toJSON(): infer U } ? U : never;
 
 /** Converts an record to a map */
 export function recordToMap<T>(obj: Record<string, T>): Map<string, T> {
@@ -39,4 +27,10 @@ export function mapToRecord<T>(map: Map<string, T>): Record<string, T> {
     obj[key] = value;
   }
   return obj;
+}
+
+export function schema(name: string) {
+  return function (target: any) {
+    target.structureName = name;
+  };
 }
