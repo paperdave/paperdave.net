@@ -1,8 +1,8 @@
-import { getDB } from '$lib/db';
+import { getDatabase } from '$lib/db';
 import { User } from '$lib/structures/User';
 import { RequestHandler } from '@sveltejs/kit';
 
-export const post: RequestHandler = async ({ body }) => {
+export const post: RequestHandler = async ({ body }: { body: FormData }) => {
   // if (!(body instanceof FormData)) {
   //   return {
   //     status: 400,
@@ -15,7 +15,7 @@ export const post: RequestHandler = async ({ body }) => {
 
   const submitType = body.get('type').toString();
 
-  const userDb = await getDB(User);
+  const userDb = await getDatabase(User);
 
   if (submitType === 'login') {
     const email = body.get('email').toString();

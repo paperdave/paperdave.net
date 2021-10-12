@@ -1,9 +1,9 @@
-import { getDB, stripDatabaseInternals } from '$lib/db';
+import { getDatabase, stripDatabaseInternals } from '$lib/db';
 import { Question } from '$lib/structures';
 import { RequestHandler } from '@sveltejs/kit';
 
 export const get: RequestHandler = async ({ query }) => {
-  const questionDb = await getDB(Question);
+  const questionDb = await getDatabase(Question);
 
   const questionDateId = query.get('id');
 

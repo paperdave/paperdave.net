@@ -1,9 +1,9 @@
-import { getDB } from '$lib/db';
+import { getDatabase } from '$lib/db';
 import { Artifact } from '$lib/structures';
 import { RequestHandler } from '@sveltejs/kit';
 
 export const get: RequestHandler = async ({}) => {
-  const artifactDb = await getDB(Artifact);
+  const artifactDb = await getDatabase(Artifact);
 
   const artifacts = await artifactDb.find({ type: 'video' }).toArray();
 

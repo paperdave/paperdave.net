@@ -1,11 +1,11 @@
-import { getDB, stripDatabaseInternals } from '$lib/db';
+import { getDatabase, stripDatabaseInternals } from '$lib/db';
 import { Question } from '$lib/structures';
 import { RequestHandler } from '@sveltejs/kit';
 
 const PAGE_SIZE = 25;
 
 export const get: RequestHandler = async ({}) => {
-  const questionDB = await getDB(Question);
+  const questionDB = await getDatabase(Question);
 
   const count = await questionDB.countDocuments();
 
