@@ -1,5 +1,7 @@
+import { schema } from '.';
 import { Data, JSONData } from './structure-utils';
 
+@schema('redirects')
 export class LegacyRedirect {
   key: string;
   value: string;

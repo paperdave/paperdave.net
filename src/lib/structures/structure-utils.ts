@@ -38,3 +38,9 @@ export function mapToRecord<T>(map: Map<string, T>): Record<string, T> {
   }
   return obj;
 }
+
+export function schema(name: string) {
+  return function (target: any) {
+    target.structureName = name;
+  };
+}

@@ -1,5 +1,7 @@
+import { schema } from '.';
 import { Data, JSONData } from './structure-utils';
 
+@schema('question-requests')
 export class QuestionRequest {
   date: Date;
   content: string;

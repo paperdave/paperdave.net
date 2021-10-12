@@ -1,3 +1,4 @@
+import { schema } from '.';
 import { Data, JSONData } from './structure-utils';
 
 export class QuestionParagraph {
@@ -60,6 +61,7 @@ export class QuestionParagraph {
   }
 }
 
+@schema('questions')
 export class Question {
   date: Date;
   content: QuestionParagraph[];
