@@ -1,5 +1,5 @@
 import { sha256 } from 'crypto-hash';
-import { Data, JSONData } from './structure-utils';
+import { Data, JSONData, schema } from './structure-utils';
 
 export enum UserPermission {
   RESPOND_TO_QUESTIONS = 'RESPOND_TO_QUESTIONS',
@@ -21,6 +21,7 @@ export class User {
 
   toJSON() {
     return {
+      _v: 0,
       email: this.email,
       passwordHash: this.passwordHash,
       permissions: [...this.permissions],

@@ -1,5 +1,4 @@
-import { schema } from '.';
-import { Data, JSONData } from './structure-utils';
+import { Data, JSONData, schema } from './structure-utils';
 
 @schema('question-requests')
 export class QuestionRequest {
@@ -12,8 +11,9 @@ export class QuestionRequest {
     this.content = data.content;
   }
 
-  toJSON(): JSONData<QuestionRequest> {
+  toJSON() {
     return {
+      _v: 0,
       date: this.date.toISOString(),
       content: this.content,
       notificationEmail: this.notificationEmail,

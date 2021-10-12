@@ -33,25 +33,41 @@
 
 <main>
   <QaHeader />
-  {#if question}
+  <section>
     <p>i answer anonymous questions you ask, because it's fun.</p>
-    <div class="question">
+    <p>
+      <a href="/q+a">latest</a> |
+      <a href="/q+a/search">search</a> |
+      <a href="/q+a/random">random</a> |
+      <a href="/q+a?page=0">start</a>
+    </p>
+  </section>
+
+  {#if question}
+    <section>
       <p>this page is a permalink for the following question:</p>
+    </section>
+    <section>
       <QuestionRender {question} />
-    </div>
+    </section>
   {:else}
-    <p>
-      yikes! <br />
-      question permalink was not found. did you type it in manually?
-    </p>
-    <p>
-      <a href="/q+a">view questions that do exist</a>
-    </p>
+    <section>
+      <p>
+        yikes! <br />
+        question permalink was not found. did you type it in manually?
+      </p>
+      <p>
+        <a href="/q+a">view questions that do exist</a>
+      </p>
+    </section>
   {/if}
 </main>
 
 <style lang="scss">
-  p {
+  section {
     margin-bottom: 3rem;
+  }
+  p {
+    margin-bottom: 1rem;
   }
 </style>

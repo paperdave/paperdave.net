@@ -1,5 +1,4 @@
-import { schema } from '.';
-import { Data, JSONData, mapToRecord, recordToMap } from './structure-utils';
+import { Data, JSONData, mapToRecord, recordToMap, schema } from './structure-utils';
 
 @schema('artifacts')
 export class Artifact {
@@ -15,7 +14,7 @@ export class Artifact {
     if (data) {
       this.id = data.id;
       this.title = data.title;
-      this.date = data.date;
+      this.date = new Date(data.date);
       this.thumbnail = data.thumbnail;
       this.type = data.type;
       this.tags = data.tags;
@@ -23,11 +22,12 @@ export class Artifact {
     }
   }
 
-  toJSON(): JSONData<Artifact> {
+  toJSON() {
     return {
+      _v: 0,
       id: this.id,
       title: this.title,
-      date: this.date.toUTCString(),
+      date: this.date.getTime(),
       thumbnail: this.thumbnail,
       type: this.type,
       tags: Array.from(this.tags),

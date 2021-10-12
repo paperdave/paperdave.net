@@ -9,18 +9,8 @@
   async function copy() {
     if (copyState) return;
 
-    const dateStr = [
-      question.date.getFullYear().toString().slice(2),
-      (question.date.getMonth() + 1).toString(),
-      question.date.getDate().toString(),
-      question.date.getHours().toString(),
-      question.date.getMinutes().toString(),
-      question.date.getSeconds().toString(),
-    ]
-      .map((x) => x.padStart(2, '0'))
-      .join('');
-
-    const url = `${window.location.origin}/q+a/${dateStr}`;
+    const id = question.getDateId();
+    const url = `${window.location.origin}/q+a/${id}`;
 
     try {
       await navigator.clipboard.writeText(url);

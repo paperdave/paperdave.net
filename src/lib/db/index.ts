@@ -1,20 +1,16 @@
-import { MONGODB_DB } from '$lib/env';
+import { MONGODB_DB, MONGODB_URI } from '$lib/env';
 import { JSONData } from '$lib/structures';
-import mongo from 'mongodb';
+import { Collection, MongoClient, ObjectId } from 'mongodb';
 
-// export function initDb() {
-//   new mongo.MongoClient(MONGODB_URI);
-// }
+let connection = new MongoClient(MONGODB_URI).connect();
 
-let connection: mongo.MongoClient;
-
-export async function getDB<T>(type: { new (): T }): Promise<mongo.Collection<JSONData<T>>> {
-  if (!connection) {
-    // todo await
-  }
+export async function getDB<T>(type: {
+  new (): T;
+}): Promise<Collection<JSONData<T> & { _id: ObjectId }>> {
+  let conn = await connection;
   const structureName = (type as any).structureName;
   if (!structureName) {
     throw new Error('Type is not tagged with @schema');
   }
-  return connection.db(MONGODB_DB).collection(structureName);
+  return conn.db(MONGODB_DB).collection(structureName);
 }

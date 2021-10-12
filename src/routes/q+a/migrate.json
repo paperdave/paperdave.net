@@ -1,0 +1,3066 @@
+[
+  {
+    "_id": "60ff3d5188d09461029909c8",
+    "d": 1564629300000,
+    "q": "whats your favorite swear word",
+    "a": "JoJ"
+  },
+  {
+    "_id": "60ff3d5188d09461029909c9",
+    "d": 1564581120000,
+    "q": "how many numbers in the number ...bet",
+    "a": "There are 10, the numbers in the number-bet are as follows:\nRootElement=p{\"style\":{\"fontFamily\":\"times\",\"fontSize\":\"40px\",\"marginTop\":0}}<span style='margin-right:30px'>0</span><span style='margin-right:30px'>1</span>"
+  },
+  {
+    "_id": "60ff3d5188d09461029909ca",
+    "d": 1564148460000,
+    "q": "Im not sure if you use it, but how useful is typescript for web games such as elementals and/or incrementals?",
+    "a": "I've used TypeScript before. It's quite amazing... Definitely worth learning if you already know JavaScript. But the main reason i use it is because in Visual Studio Code (which you should be using with it) gives a very good auto complete from your typings. That said, writing very large projects in TypeScript is not as easy as doing it in JavaScript, so i stopped doing this, since i realized i can place the typings as definition files (.d.ts) and the code editor does the magic for me.\nAs a conclusion, I'd just say know what it does for you, what it doesn't and if you really want to use it."
+  },
+  {
+    "_id": "60ff3d5188d09461029909cb",
+    "d": 1563975660000,
+    "q": "What are your thoughts on modern gender studies?",
+    "a": "I haven't really payed much attention to it. Normally I try to ignore someones gender (i consider the 2 equal), I think personality matters more than things like gender, etc. [I just read a wikipedia on the subject] After reading a little about what \"modern gender studies\" actually is, I don't know why this is happening, but it is. I'll probably just continue ignoring gender since it doesn't really play a huge role."
+  },
+  {
+    "_id": "60ff3d5188d09461029909cc",
+    "d": 1563975120000,
+    "q": "Is it tonga time?",
+    "a": "It is not."
+  },
+  {
+    "_id": "60ff3d5188d09461029909cd",
+    "d": 1563971220000,
+    "q": "How many letters are in the alphabet?",
+    "a": "Between 12 and 109,384."
+  },
+  {
+    "_id": "60ff3d5188d09461029909ce",
+    "d": 1563753840000,
+    "q": "Did you change your website or where did the projects and stuff go?",
+    "a": "It was getting too hard to work with the fancy layout of the last site design, and also easily show everything i've done. Now, the site looks less fancy, and it lists everything i could find that i've made, and it's easier than ever to add more things to it."
+  },
+  {
+    "_id": "60ff3d5188d09461029909cf",
+    "d": 1563376740000,
+    "q": "How do you feel about the shutdown of adobe flash player in late 2020.",
+    "a": "I think it should've been done earlier. We've had other standards (that are real and open standards) to replace it. JavaScript has definitely come a long way and can do much more than Flash has ever done."
+  },
+  {
+    "_id": "60ff3d5188d09461029909d0",
+    "d": 1563374580000,
+    "q": "&lt;h1&gt;Does innerHTML work?&lt;/h1&gt;",
+    "a": "<code>HTMLElement.prototype.innerHTML</code> does work on all browsers, but if you want to insert html into your question, you can't. However, if you write a link i will probably make it a real link. <em>(remember i do this all manually)</em>"
+  },
+  {
+    "_id": "60ff3d5188d09461029909d1",
+    "d": 1563344580000,
+    "q": "Is the cake a lie?",
+    "a": "on some subjects, the cake lies. on others, like mathematics, it tells the truth."
+  },
+  {
+    "_id": "60ff3d5188d09461029909d2",
+    "d": 1563289320000,
+    "q": "Do you watch BFB?",
+    "a": "when i have time to."
+  },
+  {
+    "_id": "60ff3d5188d09461029909d3",
+    "d": 1563268020000,
+    "q": "Is the sun a deadly lazer?",
+    "a": "if you use it for too long."
+  },
+  {
+    "_id": "60ff3d5188d09461029909d4",
+    "d": 1563263580000,
+    "q": "🎵What is love?🎵",
+    "a": "i haven't figured it out, and i'm not sure how much i want to."
+  },
+  {
+    "_id": "60ff3d5188d09461029909d5",
+    "d": 1563167880000,
+    "q": "What is your favourite spelling of favorite?",
+    "a": "favuorite."
+  },
+  {
+    "_id": "60ff3d5188d09461029909d6",
+    "d": 1563167220000,
+    "q": "if you get a divorce in alabama are you still brother and sister",
+    "a": "if you were brother and sister to begin with."
+  },
+  {
+    "_id": "60ff3d5188d09461029909d7",
+    "d": 1563241320000,
+    "q": "from a scale of 1-10 what is your favorite color of the alphabet?",
+    "a": "yes."
+  },
+  {
+    "_id": "60ff3d5188d09461029909d8",
+    "d": 1563206820000,
+    "q": "do you EGG?",
+    "a": "only if it's scrambled."
+  },
+  {
+    "_id": "60ff3d5188d09461029909d9",
+    "d": 1563179460000,
+    "q": "why green?",
+    "a": "favorite color, doesn't it look amazing?"
+  },
+  {
+    "_id": "60ff3d5188d09461029909da",
+    "d": 1563167280000,
+    "q": "do u pay for this website template or is it free",
+    "a": "i made it from scratch."
+  },
+  {
+    "_id": "60ff3d5188d09461029909db",
+    "d": 1563162900000,
+    "q": "does this work",
+    "a": "no."
+  },
+  {
+    "_id": "60ff3d5188d09461029909dc",
+    "d": 1563162780000,
+    "q": "Hey, it's ShadeTheNarwhal. What is your favourite tv show?",
+    "a": "i generally don't watch TV too much, but one of the good ones i can think of off the top of my head would be <a href=\"https://en.wikipedia.org/wiki/Adam_Ruins_Everything\">adam ruins everything</a>."
+  },
+  {
+    "_id": "60ff3d5188d09461029909dd",
+    "d": 1563162000000,
+    "q": "What is your favorite Elemental game? (1, 2, 3, 4 or Lite)",
+    "a": "all but my unofficial one."
+  },
+  {
+    "_id": "60ff3d5188d09461029909de",
+    "d": 1563161340000,
+    "q": "How easy it is to make an elemental game?",
+    "a": "if you know how to program, yes."
+  },
+  {
+    "_id": "60ff3d5188d09461029909df",
+    "d": 1566925380000,
+    "q": "How do you feel about putting pineapple on pizza?",
+    "a": "I think it's something everyone should try, and maybe even like. Also try <a href=\"/other/pineapple.png\">pizza on pineapple</a>."
+  },
+  {
+    "_id": "60ff3d5188d09461029909e0",
+    "d": 1566852240000,
+    "q": "How much wood could a woodchuck chuck if a woodchuck could chuck wood?",
+    "a": "All of it."
+  },
+  {
+    "_id": "60ff3d5188d09461029909e1",
+    "d": 1566851400000,
+    "q": "How many miles are in a year?",
+    "a": "RootElement=div{\"style\":{\"transform\":\"rotate(180deg)\",\"textAlign\":\"right\"}}about 525600 miles if you go 60mph."
+  },
+  {
+    "_id": "60ff3d5188d09461029909e2",
+    "d": 1565507640000,
+    "q": "do you manually notify people when you respond to their question or have you automated it?",
+    "a": "i would like to automate it but i'm far too lazy. but without the automation i can see who sent what question and i don't fully like that."
+  },
+  {
+    "_id": "60ff3d5188d09461029909e3",
+    "d": 1564660860000,
+    "q": "JS vs TS + explanation please?",
+    "a": "TypeScript is JavaScript with static typing, it checks them and then outputs the JavaScript that doesn't have the type info. This lets do you do fancy stuff like enums and very rich typing on complex structures, and if your code editor supports it (use vscode), you can use that type information in auto complete. TS is nice to learn but you must know what you're doing in regular javascript first."
+  },
+  {
+    "_id": "60ff3d5188d09461029909e4",
+    "d": 1569422580000,
+    "q": "how do you type uppercase numbers on ubuntu 18.04 lts",
+    "a": "never figured it out, perhaps the macos keyboard has something like that. i mean you do have all the alt+stuff thing."
+  },
+  {
+    "_id": "60ff3d5188d09461029909e5",
+    "d": 1569421920000,
+    "c": [
+      [
+        "q",
+        "can you split up questions into multiple segments, bill wurtz style?"
+      ],
+      [
+        "a",
+        "no, but i just added that feature, as it is useful now. so yes, i can!"
+      ],
+      [
+        "q",
+        "as in, have multiple answer paragraphs per q?"
+      ]
+    ]
+  },
+  {
+    "_id": "60ff3d5188d09461029909e6",
+    "d": 1569420900000,
+    "q": "can you run backwards?",
+    "a": "i could try."
+  },
+  {
+    "_id": "60ff3d5188d09461029909e7",
+    "d": 1570698840000,
+    "q": "please ignore this question im just testing something to report a bug to you",
+    "a": "absolutely not!"
+  },
+  {
+    "_id": "60ff3d5188d09461029909e8",
+    "d": 1570698720000,
+    "q": "will you learn and write code in other programming languages?",
+    "a": "sure, when there's time and a cool idea."
+  },
+  {
+    "_id": "60ff3d5188d09461029909e9",
+    "d": 1570117020000,
+    "q": "Ubuntu is gay. Xubuntu is were it's at.",
+    "a": "i don't know the difference, but i know for sure <a href=\"/2019-10-03-17-36-24.png\"><em>my</em> ubuntu setup</a> is pretty good."
+  },
+  {
+    "_id": "60ff3d5188d09461029909ea",
+    "d": 1577737620000,
+    "q": "hey dave",
+    "a": "👋"
+  },
+  {
+    "_id": "60ff3d5188d09461029909eb",
+    "d": 1577737260000,
+    "q": "What’s ur favorite number",
+    "a": "<a href=\"/random\">this</a>"
+  },
+  {
+    "_id": "60ff3d5188d09461029909ec",
+    "d": 1577737140000,
+    "c": [
+      [
+        "q",
+        "how hard is it to track askers’ IPs"
+      ],
+      [
+        "a",
+        "i'd just have to tell the computer to write it down somewhere."
+      ],
+      [
+        "q",
+        "and do you track our IPs"
+      ],
+      [
+        "a",
+        "no. it doesn't seem super useful."
+      ]
+    ]
+  },
+  {
+    "_id": "60ff3d5188d09461029909ed",
+    "d": 1577737020000,
+    "q": "Hi can you hear me",
+    "a": "i think."
+  },
+  {
+    "_id": "60ff3d5188d09461029909ee",
+    "d": 1578881220000,
+    "q": "First question of 2020 LET'S GO",
+    "a": "good job"
+  },
+  {
+    "_id": "60ff3d5188d09461029909ef",
+    "d": 1582351440000,
+    "q": "if there were two androids on the moon and one of them depreciated AsyncTask literally 2 days before you were about to write an android app that used it which then forced it to learn however kotlin coroutines work on android would that be fucked up or what",
+    "a": "they were one step ahead of your plan. outsmart them and don't update."
+  },
+  {
+    "_id": "60ff3d5188d09461029909f0",
+    "d": 1585677180000,
+    "q": "I used a different method to calculate the amount of ueqstions and i got 7420.",
+    "a": "it's very large, but you're getting somewhere more reasonable. you're also increasing the question rate."
+  },
+  {
+    "_id": "60ff3d5188d09461029909f1",
+    "d": 1585651380000,
+    "q": "i calculated that considering that you get, like, 1 question per 5 days with around 50 subs, bill wurtz gets 72 000 ueqstions per day",
+    "a": "i'd try to get some more data on other people as that calculation seems flawed. you should also consider questions that are left unanswered, except you cant.\nto check your work, i just ran the numbers and i got a much lower, but still extremely high number of 13250 per day. <a href='https://davecode.me/2020-03-31-bwgraph.png'>i also graphed it</a>"
+  },
+  {
+    "_id": "60ff3d5188d09461029909f2",
+    "d": 1585448520000,
+    "q": "will you use the pinephone (the linux phone)",
+    "a": "no. on a mobile device i'd prefer iMessage over terminals and segmentation faults."
+  },
+  {
+    "_id": "60ff3d5188d09461029909f3",
+    "d": 1585054500000,
+    "q": "you should make all journals/reality vids public",
+    "a": "not yet"
+  },
+  {
+    "_id": "60ff3d5188d09461029909f4",
+    "d": 1584991800000,
+    "q": "you should start making reality vids",
+    "a": "<a href='/journal2019-05-06-18-47-08.mp4'>i'm already way ahead of you</a>"
+  },
+  {
+    "_id": "60ff3d5188d09461029909f5",
+    "d": 1583475900000,
+    "q": "Where did elemental 4 go?",
+    "a": "i suck too much at keeping network based programs alive"
+  },
+  {
+    "_id": "60ff3d5188d09461029909f6",
+    "d": 1583409720000,
+    "q": "TS or JSX",
+    "a": "i'd try combining them, but only if a reaction is needed."
+  },
+  {
+    "_id": "60ff3d5188d09461029909f7",
+    "d": 1588277760000,
+    "q": "is there a list of vault codes?",
+    "a": "not created by me. make your own list."
+  },
+  {
+    "_id": "60ff3d5188d09461029909f8",
+    "d": 1587996180000,
+    "q": "Is there a difference between a password and a passport?",
+    "a": "yes"
+  },
+  {
+    "_id": "60ff3d5188d09461029909f9",
+    "d": 1587417420000,
+    "q": "Do roosters lay eggs",
+    "a": "if you believe in them"
+  },
+  {
+    "_id": "60ff3d5188d09461029909fa",
+    "d": 1587395340000,
+    "q": "is the sign up page broken on purpose or is it another code guessing game?",
+    "a": "yes, it's a commentary on how weird some sign up pages are, and bad web design. it doesn't sign you up for anything"
+  },
+  {
+    "_id": "60ff3d5188d09461029909fb",
+    "d": 1587058440000,
+    "q": "what's the password?",
+    "a": "try \"login\""
+  },
+  {
+    "_id": "60ff3d5188d09461029909fc",
+    "d": 1587024300000,
+    "q": "why is the sky blue?",
+    "a": "it isn't always blue. but for the time it is, that's just what the sky decided to do."
+  },
+  {
+    "_id": "60ff3d5188d09461029909fd",
+    "d": 1586926320000,
+    "q": "drop all the tables.",
+    "a": "they are as far to the ground as they could go; i am not holding any tables."
+  },
+  {
+    "_id": "60ff3d5188d09461029909fe",
+    "d": 1589397900000,
+    "q": "I used the password <div data-custom=\"block\"></div> on the vault and it took me to an error page. Is that meant to happen or is it a bug?",
+    "a": "no. it no longer happens."
+  },
+  {
+    "_id": "60ff3d5188d09461029909ff",
+    "d": 1589137800000,
+    "q": "Can you make a voting system for elemental lite",
+    "a": "if i could find something to vote on."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a00",
+    "d": 1589051280000,
+    "q": "hey dave wassup",
+    "a": "figuring out how to make cooler things faster."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a01",
+    "d": 1589002380000,
+    "q": "WHAT IS THE PASSWORD FOR THE VAULT -zlby",
+    "a": "it seems you misunderstood the challenge here. use <span style='opacity:0.97'>your eyes</span>."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a02",
+    "d": 1588890540000,
+    "q": "where is dsv at? it no at https://davecode.me/dime-shear-venture",
+    "a": "it was taken down for being a failed project, but a very similar and much better project <a href='https://davecode.me/476'>will be going live by the next month</a>."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a03",
+    "d": 1588667100000,
+    "c": [
+      [
+        "q",
+        "would you like to make your own country?"
+      ],
+      [
+        "a",
+        "you clearly do not know how hard it is to run one."
+      ],
+      [
+        "q",
+        "(or pretend that your website/yt channel is a country)"
+      ],
+      [
+        "a",
+        "that's more interesting, but i don't see the full point of it. i guess the 'nation of davecode.me' consists of just me, but has <em>a lot</em> of tourism."
+      ]
+    ]
+  },
+  {
+    "_id": "60ff3d5188d0946102990a04",
+    "d": 1588581240000,
+    "q": "what's the passport?",
+    "a": "a secret with an expiration date."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a05",
+    "d": 1588371840000,
+    "q": "My birthday was on Friday why did you have to upload on Thursday",
+    "a": "thursday was my birthday."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a06",
+    "d": 1588363560000,
+    "q": "what is the significance of thursday?",
+    "a": "originally when i wanted to start a weekly publish schedule, i noticed there was already a video that satisfied the theme of the thursday videos (the dice roll). that video was called thursday just because it was on thursday. i thought we could just continue off there when doing the future videos of math problem and so on. on the day of the thursday something amazing happened and set thursday as <em>THE DAY</em> for me, but i'll share that story later. thursday continued to show it's superiority over other days of the week, being in the middle of all other days, and landing on me and my father's birthdays this year."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a07",
+    "d": 1589521842000,
+    "q": "whats your favorite color?",
+    "a": "green, but they all look amazing."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a08",
+    "d": 1589523934000,
+    "q": "Dave. Why is null not empty and \"\" not null?",
+    "a": "because they are two different things."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a09",
+    "d": 1589781943000,
+    "q": "hecc no",
+    "a": "you shouldn't be so negative."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a0a",
+    "d": 1589787696000,
+    "q": "what do you think of the word stellar",
+    "a": "i'd define it to be a synonym of amazing, but with a different feeling. it's a word i'd like to use more in the future to vary my vocabulary."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a0b",
+    "d": 1589798473000,
+    "q": "what happened to your reddit account?",
+    "a": "deleted to reduce distractions."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a0c",
+    "d": 1589814113000,
+    "q": "would you prefer to watch filthy frank videos or listening to Joji's music?",
+    "a": "i looked up both as i never had really seen either of them much. interesting twist with those two being more or less the same person. as for the choice, i'd probably go for his music."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a0d",
+    "d": 1589930856000,
+    "q": "is bread cool",
+    "a": "depends on which type you get, and if it's still fresh."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a0e",
+    "d": 1590081246000,
+    "q": "should my hemoglobin be purple?",
+    "a": "no, but i'm curious how you encountered that bug."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a0f",
+    "d": 1590302511000,
+    "q": "raisins in bread is cool or not cool",
+    "a": "depends who eats it. for example, if the person was on a no carb diet, they wouldn't think it's cool. i'm kind of in the middle, and think each person should draw their own conclusions."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a10",
+    "d": 1590302532000,
+    "q": "wait did the previous question send or not",
+    "a": "depends if it was on bread or not."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a11",
+    "d": 1590419479000,
+    "q": "What gender are you?",
+    "a": "male."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a12",
+    "d": 1590612877000,
+    "q": "ugh forgot my previous question",
+    "a": "that's unfortunate, if you are ever out of ideas you can <a href=\"https://conversationstartersworld.com/random-question-generator/\">generate them</a>"
+  },
+  {
+    "_id": "60ff3d5188d0946102990a13",
+    "d": 1590653210000,
+    "q": "thanks dave",
+    "a": "you're welcome, but i can't tell if you're who i think you're."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a14",
+    "d": 1591300929000,
+    "q": "I want a video editing software by dave",
+    "a": "that is in the works, but i don't think it's what you think. but before we get too ahead of ourselves we definetly need a way to put ui on the screen without having a stroke during development."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a15",
+    "d": 1591553813000,
+    "q": "for the name paint bot, is there a way to automatically place the role above another role? They spawn at the very bottom of the list. We have a general member/default color role that overrides the name paint role. We have to manually move the name color role above it. Thank you!",
+    "a": "no, the bot is extremely simple. if you or someone else wants to contribute any code, <a href=\"https://github.com/davecaruso/discord-name-painter/blob/master/index.js#L50\">you can do so here</a>."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a16",
+    "d": 1591562486000,
+    "q": "davecode.me/i_am_green_sniff is not valid :(",
+    "a": "that would be true"
+  },
+  {
+    "_id": "60ff3d5188d0946102990a17",
+    "d": 1591838636000,
+    "c": [
+      [
+        "q",
+        "Hello! You are like UPGRADED BILL WURTZ!"
+      ],
+      [
+        "a",
+        "i wouldn't call myself that."
+      ],
+      [
+        "q",
+        "ARE YOU HEAVILY INFLUENCED?"
+      ],
+      [
+        "a",
+        "i took a lot of influence, probably too much. i want to make myself my own self and not a copy. so far that difference is just that i mainly do software development."
+      ],
+      [
+        "q",
+        "Thanks!!"
+      ]
+    ]
+  },
+  {
+    "_id": "60ff3d5188d0946102990a18",
+    "d": 1591952739000,
+    "q": "In the rare case I murdered someone and the feds were hot on my trail where should I hide the body",
+    "a": "the police's car, the last place they'd look for it."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a19",
+    "d": 1591985864000,
+    "c": [
+      [
+        "q",
+        "how many times do you think bill has submitted something on this page? can you tell which of the Discord regulars he is?"
+      ],
+      [
+        "a",
+        "my guess is 0. and my only way of tracking who is who is by what they say and their email. but recently i've automated the emailing process so i don't get to see them anymore."
+      ],
+      [
+        "q",
+        "howope you have a good day! *wink*"
+      ]
+    ]
+  },
+  {
+    "_id": "60ff3d5188d0946102990a1a",
+    "d": 1592016706000,
+    "q": "whats the magic number?",
+    "a": "0 is pretty magical."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a1b",
+    "d": 1592016721000,
+    "q": "HINTS FOR THE VAULT???",
+    "a": "use your 👀 eyes"
+  },
+  {
+    "_id": "60ff3d5188d0946102990a1c",
+    "d": 1592178678000,
+    "c": [
+      [
+        "q",
+        "What games do you play?"
+      ],
+      [
+        "a",
+        "not really anything anymore. sometimes i play minecraft and i used to be play geometry dash with a decent skill (perhaps my extreme skills at it's level editor helped be become a nerd at wanting to sync video elements to music). oh also portal 2 and thomas was alone and 140 and more like those."
+      ],
+      [
+        "a",
+        "<sub><sub>p.s. tell me if rob makes a 2.2</sub></sub>."
+      ]
+    ]
+  },
+  {
+    "_id": "60ff3d5188d0946102990a1d",
+    "d": 1592180975000,
+    "c": [
+      [
+        "q",
+        "ueqstion: Why did you remove your \"how to make a bill Wurtz video\" ? BRING IT BACK"
+      ],
+      [
+        "a",
+        "video was inaccurate and it really was a video on how i made stuff (and that process has changed a bit). it's still available on some link somewhere. if you missed it the only important thing you need to know is that you can do anything and as long as you experiment and learn and don't let \"limits\" exist you'll do amazing, and also Helvetica."
+      ],
+      [
+        "a",
+        "i might create a new video explaining the way i make things and in more detail, since that's a process i actually know."
+      ]
+    ]
+  },
+  {
+    "_id": "60ff3d5188d0946102990a1e",
+    "d": 1592185236000,
+    "c": [
+      [
+        "q",
+        "q&a: what's the HISTORY OF THE WORLD????"
+      ],
+      [
+        "a",
+        "someone realized they could write stuff down, nowadays way too many things to comprehend are written down."
+      ],
+      [
+        "q",
+        "(are you gonna make a documentary like Bill Wurtz?)"
+      ],
+      [
+        "a",
+        "sure."
+      ]
+    ]
+  },
+  {
+    "_id": "60ff3d5188d0946102990a1f",
+    "d": 1592188996000,
+    "q": "q&a: are you gonna sing every day? cool, thanks",
+    "a": "no"
+  },
+  {
+    "_id": "60ff3d5188d0946102990a20",
+    "d": 1592195046000,
+    "q": "Will you make automatic answer messages one day?",
+    "a": "i won't automate the actual answering part, but i already automated the part that brings the questions to me, and sends them out."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a21",
+    "d": 1592199279000,
+    "q": "how is school",
+    "a": "most people would be surprised but i saw it coming from the very start. i think i can get by."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a22",
+    "d": 1592295818000,
+    "q": "Do you ever look up and wonder why the fuck we exists",
+    "a": "two days ago."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a23",
+    "d": 1592361244000,
+    "q": "How does it feel to join Reddit?",
+    "a": "if you think i just joined it you are mistaken, i've used it before but deleted my account. i might delete it again."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a24",
+    "d": 1592446848000,
+    "q": "You said 0 is pretty magical! WHY didn't it work on THE V A U L T? (I already used \"your eyes\")",
+    "a": "you're not supposed to use every single thing i say as a vault code."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a25",
+    "d": 1592738254000,
+    "q": "are you a gamer?",
+    "a": "no but in a way yes."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a26",
+    "d": 1592738374000,
+    "q": "how do i close thunderbird",
+    "a": "pkill thunderbird"
+  },
+  {
+    "_id": "60ff3d5188d0946102990a27",
+    "d": 1592738382000,
+    "q": "do you like eating chairs?",
+    "a": "no"
+  },
+  {
+    "_id": "60ff3d5188d0946102990a28",
+    "d": 1592738391000,
+    "q": "ubuntu satanic edition",
+    "a": "you make a good point."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a29",
+    "d": 1592780230000,
+    "q": "does using vim and linux actually benefit me or do i just like feeling like a 1337 h4x0r",
+    "a": "if you can do things better with it compared to other tools. if it slows you down, stop."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a2a",
+    "d": 1594151764000,
+    "q": "what platform do you listen to music on?",
+    "a": "spotify"
+  },
+  {
+    "_id": "60ff3d5188d0946102990a2b",
+    "d": 1594210790000,
+    "q": "banana sauce",
+    "a": "you make a good point."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a2c",
+    "d": 1594210878000,
+    "c": [
+      [
+        "q",
+        "do you like eating fruit with ketchup?"
+      ],
+      [
+        "a",
+        "no"
+      ],
+      [
+        "q",
+        "because i don't."
+      ]
+    ]
+  },
+  {
+    "_id": "60ff3d5188d0946102990a2d",
+    "d": 1594380270000,
+    "q": "how to make website like this?",
+    "a": "open your code editor and type away. start out small. add more. do not use any templates, but maybe small pieces of code. also make sure to have years of web design/development."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a2e",
+    "d": 1594603457000,
+    "q": "where do you get your ideas?",
+    "a": "brain"
+  },
+  {
+    "_id": "60ff3d5188d0946102990a2f",
+    "d": 1594778396000,
+    "q": "finish the bw lyric: Old McDonald had a farm",
+    "a": "and the farm was closed all night."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a30",
+    "d": 1594900063000,
+    "q": "what is your favorite object to press?",
+    "a": "the home button introduced on the iphone 7."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a31",
+    "d": 1594928191000,
+    "c": [
+      [
+        "q",
+        "Dave Caruso"
+      ],
+      [
+        "q",
+        "="
+      ],
+      [
+        "q",
+        "Davros U Ace"
+      ],
+      [
+        "a",
+        "you make a good point."
+      ]
+    ]
+  },
+  {
+    "_id": "60ff3d5188d0946102990a32",
+    "d": 1594987781000,
+    "q": "bbc radio cambridgeshire",
+    "a": "you make a good point."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a33",
+    "d": 1594990365000,
+    "q": "How does your brain retrieve ideas? How?",
+    "a": "i don't really know, scientists have been trying to figure that out for centuries."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a34",
+    "d": 1595289515000,
+    "q": "yandere simulator more like love and support simulator amirite gamers",
+    "a": "i don't think so"
+  },
+  {
+    "_id": "60ff3d5188d0946102990a35",
+    "d": 1595363402000,
+    "q": "u ded bro? u haven't posted a video since thursday jun 25",
+    "a": "not posting videos does not signify i am dead. i'll make videos once the <a href=\"https://discord.gg/86TJzA5\">new software</a> is finished."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a36",
+    "d": 1595529205000,
+    "q": "<code>2020-07-21 16:30</code> guess we'll put u in the grave along with bill wurtz and yoylecake",
+    "a": "what"
+  },
+  {
+    "_id": "60ff3d5188d0946102990a37",
+    "d": 1595538727000,
+    "q": "how do you do the noise overlay texture?",
+    "a": "with noise, and overlaying them"
+  },
+  {
+    "_id": "60ff3d5188d0946102990a38",
+    "d": 1595538747000,
+    "q": "how did you do the wavy taco bell video?",
+    "a": "taco bell, and making it wavy. i think there was also an outline or something"
+  },
+  {
+    "_id": "60ff3d5188d0946102990a39",
+    "d": 1595577283000,
+    "c": [
+      [
+        "q",
+        "no seriously, how do you do the noise texture (you know, like bill wurtz in his monday videos)?"
+      ],
+      [
+        "a",
+        "1. they aren't like the bill wurtz monday videos. 2. i thought that was clear enough. guess not? the noise is done by combining <a href='/2020-07-24-14-29-23i.png'>two noise layers</a> (the tool is called FastNoise but i have a slightly modified default that is set to be scaled down a bit and with colors black and white), with each one being different colors. idk what blend mode i used on that specific example but you just choose one"
+      ],
+      [
+        "q",
+        "and while at it, how DID you make the taco bell logo wavy? please don't answer \"with noise\" and tell me the technical details (how do you do it with your video editor)"
+      ],
+      [
+        "a",
+        "<a href='/2020-07-24-14-19-42i.png'>i literally applied an effect (custom made) called Wave</a> (technicals on that: <a href='/2020-07-24-14-27-47i.png'>built from a generator (CustomTool) based on a sine wave + Displace</a>). it makes stuff wavy. again i already said that. Wave is one of the tools in my custom collection i still need to rewrite (the cache bug, but theres also an issue using it in proxy/low-quality mode)"
+      ]
+    ]
+  },
+  {
+    "_id": "60ff3d5188d0946102990a3a",
+    "d": 1595616645000,
+    "q": "please come to cambridgeshire",
+    "a": "sure"
+  },
+  {
+    "_id": "60ff3d5188d0946102990a3b",
+    "d": 1595674909000,
+    "c": [
+      [
+        "q",
+        "are video games e-sports?"
+      ],
+      [
+        "a",
+        "sure"
+      ],
+      [
+        "q",
+        "are video games sports?"
+      ],
+      [
+        "a",
+        "sure"
+      ],
+      [
+        "q",
+        "can you kick a ball in league of legends?"
+      ],
+      [
+        "a",
+        "yes"
+      ]
+    ]
+  },
+  {
+    "_id": "60ff3d5188d0946102990a3c",
+    "d": 1595802378000,
+    "q": "what's snow + gasoline?",
+    "a": "slowline. known for it's oddly extreme stickiness, but also it's extreme flamability."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a3d",
+    "d": 1595825736000,
+    "q": "do you exist within the constraints of the universe?",
+    "a": "yes"
+  },
+  {
+    "_id": "60ff3d5188d0946102990a3e",
+    "d": 1596132181000,
+    "q": "how many votes did loser get in bfb 7?",
+    "a": "432789"
+  },
+  {
+    "_id": "60ff3d5188d0946102990a3f",
+    "d": 1596752961000,
+    "q": "what time is it?",
+    "a": "2020-08-07 01:12:34.648047086"
+  },
+  {
+    "_id": "60ff3d5188d0946102990a40",
+    "d": 1596823680000,
+    "q": "are you hyped that yoylecake is back from his hiatus?",
+    "a": "no, but i guess that is cool."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a41",
+    "d": 1597137976000,
+    "q": "what time is it rn in your time zone?",
+    "a": "it is 2020-08-11 13:48:36"
+  },
+  {
+    "_id": "60ff3d5188d0946102990a42",
+    "d": 1597197679000,
+    "q": "how old are you",
+    "a": "16 but in under a year that answer will be incorrect."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a43",
+    "d": 1597291580000,
+    "q": "How does it feel to become a moderator of the Bill Wurtz Server?",
+    "a": "the same as when i wasn't."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a44",
+    "d": 1597295012000,
+    "q": "I blame you for making me forget my question.",
+    "a": "i'm sorry. <a href=\"/50_random_words.txt.txt\">here's some ideas</a>"
+  },
+  {
+    "_id": "60ff3d5188d0946102990a45",
+    "d": 1597295353000,
+    "q": "What is your favorite way to annoy someone? (Anyone)",
+    "a": "subtle mind destruction games."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a46",
+    "d": 1597295481000,
+    "q": "What is the happiest you've ever been?",
+    "a": "when i finish making sequencer. gonna be so god damn happy."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a47",
+    "d": 1597295589000,
+    "q": "What’s the most ridiculous thing you have convinced someone is true?",
+    "a": "that giving them $2 for $20 is a fair trade."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a48",
+    "d": 1597295637000,
+    "q": "What is something of yours that one day someone will borrow and may never return?",
+    "a": "a piece of notebook paper."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a49",
+    "d": 1597295736000,
+    "q": "What is your opinion on hats (any kind of hat)?",
+    "a": "i'd say they are pretty good, but i don't have enough hat wearing experience to give a valid opinion on that topic right now."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a4a",
+    "d": 1597295843000,
+    "q": "What songs can I sing that you’ll know after hearing two words of the song?",
+    "a": "one word songs."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a4b",
+    "d": 1597295987000,
+    "q": "Give a brief summary of the next five years of your life plans,goals,etc..",
+    "a": "no one is allowed to know that, not even me. i only know of the next month being for sequencer."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a4c",
+    "d": 1597316323000,
+    "q": "do you have a bedtime you must follow every day, or are you like bill wurtz in that you and him both sleep whenever you want? billwurtz.com/reality",
+    "a": "sometimes. it's best to not stay up to 4am because it messes with your sleep wake schedule. however, i end up staying up late sometimes. i've been becoming better at controling it but not entirely. \"sleep at night, and wake up before double digits\" is the bedtime/unbedtime"
+  },
+  {
+    "_id": "60ff3d5188d0946102990a4d",
+    "d": 1597843381000,
+    "q": "when is tpot 1 coming out?",
+    "a": "after tomorrow. but you're definetly asking the wrong person."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a4e",
+    "d": 1598049438000,
+    "q": "in a previous question, you said that the most ridiculous thing you have convinced someone is true is that giving them $2 for $20 is a fair trade. How did you manage to convince them that??",
+    "a": "the $20 bill had more IQ than them probably."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a4f",
+    "d": 1598144769000,
+    "q": "how much of the wurtz questions page have you read and what do you think you learned most from it?",
+    "a": "some; you can learn a lot but i don't know anything specific."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a50",
+    "d": 1598410169000,
+    "q": "when did all the windmills start to turn so slow?",
+    "a": "when the wind goes away. definetly wouldnt happen today."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a51",
+    "d": 1598438853000,
+    "q": "favorite bfb ost moment?",
+    "a": "<a href='https://youtu.be/k4TioJbmuIA?t=33'>hit it drop</a>"
+  },
+  {
+    "_id": "60ff3d5188d0946102990a52",
+    "d": 1598464720000,
+    "q": "favorite bill wurtz moment?",
+    "a": "<a href=\"/other/billwurtz_hiddenvideo_s65d7f87g9h.mp4\">long gone outtake</a> or <a href=\"https://billwurtz.com/how-to-make-mistakes.mp4\">mistake vid</a> or <a href=\"https://billwurtz.com/you-make-me-smile.mp3\">this jazz cover</a>."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a53",
+    "d": 1598482469000,
+    "q": "yayhehehehehehhehe!!!!!!😃😃😃😃😃😃😃😃😃😃😃😃😃😃😃😃😃",
+    "a": "you seem exited about something."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a55",
+    "d": 1598895710000,
+    "q": "Are you going to bring back elemental 4?",
+    "a": "thursday"
+  },
+  {
+    "_id": "60ff3d5188d0946102990a56",
+    "d": 1598955937000,
+    "q": "ooba wooba grooba shmooba?",
+    "a": "ah yes, how wonderful."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a57",
+    "d": 1598967628000,
+    "q": "2020-09-01 06:25 dave, did you seriously not, like, know the answer was frooba dwooba?",
+    "a": "my brain wasn't enabled. shut up, match."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a59",
+    "d": 1599011144000,
+    "q": "how is",
+    "a": "oh you know i'm doing good."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a5a",
+    "d": 1599055844000,
+    "q": "26",
+    "a": "ah yes, how wonderful."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a5b",
+    "d": 1599061751000,
+    "q": "favorite bfb black hole moment?",
+    "a": "<a href='https://youtu.be/m_7nnajnaI8?t=598'>the series intro</a>"
+  },
+  {
+    "_id": "60ff3d5188d0946102990a5c",
+    "d": 1599077943000,
+    "q": "it's \"i'm doing well\" you fool",
+    "a": "stop impersonating."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a5d",
+    "d": 1599096790000,
+    "q": "Would you consider adding the etc. notes to your site? (I still feel terrible about not being able to remember the name btw)",
+    "a": "that would be totally fun, and <a href=\"/math-problem.jpeg\">i already have</a> kind of,"
+  },
+  {
+    "_id": "60ff3d5188d0946102990a5e",
+    "d": 1599105634000,
+    "q": "give me a code i'm new :(",
+    "a": "no"
+  },
+  {
+    "_id": "60ff3d5188d0946102990a5f",
+    "d": 1599107307000,
+    "q": "How long will the number 27 be hated?",
+    "a": "i should be asking you that."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a60",
+    "d": 1599107375000,
+    "q": "Should I make lists more often?",
+    "a": "i was thinking no but i changed my mind; yes."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a61",
+    "d": 1599247794000,
+    "q": "what's your favourite musical scale?",
+    "a": "i don't know any of them yet."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a62",
+    "d": 1599312658000,
+    "q": "Could a Mermaid Dream of Being a Human?",
+    "a": "oh for sure. if you are a mermaid, you can start today if that's what you want to do."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a63",
+    "d": 1599637089000,
+    "c": [
+      [
+        "q",
+        "Are you normal?"
+      ],
+      [
+        "a",
+        "no."
+      ],
+      [
+        "q",
+        "Is being normal cool?"
+      ],
+      [
+        "a",
+        "to some people."
+      ]
+    ]
+  },
+  {
+    "_id": "60ff3d5188d0946102990a64",
+    "d": 1599979024000,
+    "q": "hey dave, you didnt answer my question about the question from 2020-05-01 16:06. what is the significance of thursday? why not?",
+    "a": "i still don't want to answer it yet"
+  },
+  {
+    "_id": "60ff3d5188d0946102990a65",
+    "d": 1599991839000,
+    "q": "four or two?",
+    "a": "i don't think i can decide."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a66",
+    "d": 1600093422000,
+    "q": "is hatred island gonna get an update so that you dont break the game every time you break a furnace",
+    "a": "no. i'm sorry."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a67",
+    "d": 1600324432000,
+    "q": "If i ask the question that shows up in this box's default text do you redirect anywhere? i'd try it but i don't want to spam you",
+    "a": "no it just sends it. i should totally add that."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a68",
+    "d": 1600456173000,
+    "q": "why",
+    "a": "i don't know but as soon as it was too late there wasn't any going back. i just have to do this."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a69",
+    "d": 1600502975000,
+    "q": "does this auto-answer questions?",
+    "a": "no. i prefer to answer them by hand, but i do have an auto collection and processing part. everything but the answering is automated."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a6a",
+    "d": 1600503027000,
+    "q": "would it be surprising if all of the bill wurtz questions suddenly transferred to your page?",
+    "a": "yes."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a6b",
+    "d": 1600536868000,
+    "q": "how to divide by 0?",
+    "a": "there should be a divide by symbol on the calculator. if it's text based, try the / operator. if that doesn't work, try the ÷ operator. if you're using latex you can use \\frac{x}{0} to write it out."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a6c",
+    "d": 1600537603000,
+    "q": "coolio",
+    "a": "ah yes, how wonderful."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a6d",
+    "d": 1601022437000,
+    "c": [
+      [
+        "q",
+        "i don't know why, but this website is the beautiful'est thing I've ever seen."
+      ],
+      [
+        "a",
+        "woah that's a compliment. thing is the \"new version\" i have in my head, which is like 1000x better, but also takes in 100x the work, as it's almost a full recreation. it's a little hard to describe."
+      ],
+      [
+        "q",
+        "for bonus points, type the classic format answer."
+      ],
+      [
+        "a",
+        "the classic format answer."
+      ]
+    ]
+  },
+  {
+    "_id": "60ff3d5188d0946102990a6e",
+    "d": 1601035575000,
+    "q": "answer this question in one word only?",
+    "a": "no."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a6f",
+    "d": 1601215651000,
+    "q": "help!?",
+    "a": "step one is to figure out the problem."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a70",
+    "d": 1601243280000,
+    "q": "hi",
+    "a": "oh hello there. glad to see it's working."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a71",
+    "d": 1601383889000,
+    "q": "can you teach me how to code",
+    "a": "no, i can only help you along the way a little."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a72",
+    "d": 1601528403000,
+    "q": "Are you familiar with the number 17? Is it the number for you?",
+    "a": "i'd rather go with 12, something i can count to."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a73",
+    "d": 1601607719000,
+    "q": "Can you please make \"davecode.me/i_am_green_sniff\" a valid url?",
+    "a": "only once i make something called \"I am Green Sniff.\""
+  },
+  {
+    "_id": "60ff3d5188d0946102990a74",
+    "d": 1601642575000,
+    "q": "are you green sniff?",
+    "a": "absolutely not"
+  },
+  {
+    "_id": "60ff3d5188d0946102990a75",
+    "d": 1601909306000,
+    "c": [
+      [
+        "q",
+        "that is a lot of questions."
+      ],
+      [
+        "a",
+        "if you average everything including stuff i don't answer, it's a round about 0.75 questions per day"
+      ],
+      [
+        "q",
+        "How's your day going?"
+      ],
+      [
+        "a",
+        "it's going well besides the fact i haven't done a lot of stuff, but i have done a bit of schoolwork."
+      ]
+    ]
+  },
+  {
+    "_id": "60ff3d5188d0946102990a76",
+    "d": 1602521482000,
+    "q": "if you could choose between deltarune chapter 2, tpot 1 and sapphire panlogism full version to come out, which would you choose (only one) and why?",
+    "a": "i'm most excited to see deltarune but those other two might be awesome too. but we all need to wait a bit longer."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a77",
+    "d": 1602549195000,
+    "q": "can i eat your car",
+    "a": "no i have some driving to do."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a78",
+    "d": 1602922766000,
+    "q": "what are your opinions on lofi hip hop",
+    "a": "it's ok"
+  },
+  {
+    "_id": "60ff3d5188d0946102990a79",
+    "d": 1603134631000,
+    "q": "do you ever feel sad",
+    "a": "yes"
+  },
+  {
+    "_id": "60ff3d5188d0946102990a7a",
+    "d": 1603144876000,
+    "q": "Have you heard about Roblox?",
+    "a": "yes"
+  },
+  {
+    "_id": "60ff3d5188d0946102990a7b",
+    "d": 1603151286000,
+    "q": "what's the limit for the amount of dice able to be rolled at once? how many dice can be rolled at the same time only by one person? havw you ever rolled dice 😮",
+    "a": "<a href=\"https://rpg.stackexchange.com/questions/94529/whats-the-maximum-number-of-dice-that-could-be-rolled-at-any-one-time#:~:text=There%20is%20no%20limit%20on,can%20be%20rolled%20at%20once.\">there is no limit</a>"
+  },
+  {
+    "_id": "60ff3d5188d0946102990a7c",
+    "d": 1603179744000,
+    "q": "yooooo whassup omega bill wurtz",
+    "a": "i don't know who you're talking to."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a7d",
+    "d": 1603193882000,
+    "q": "What is something new that you have learned over the past few months?",
+    "a": "that the level of quality i desire is still way too high. <br> also the fact you cannot use unicode characters inside of HTTP headers."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a7e",
+    "d": 1603457047000,
+    "q": "why do people compare you with bill wurtz? apart from the video style similarities, you're better in every other way",
+    "a": "because we're comparable. but i'm trying to move away from his exact style of videos, but we will have to wait till VS5 is a thing."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a7f",
+    "d": 1605986979000,
+    "c": [
+      [
+        "q",
+        "website is back again"
+      ],
+      [
+        "a",
+        "indeed!"
+      ],
+      [
+        "q",
+        "hi dave how are you"
+      ],
+      [
+        "a",
+        "i'm good"
+      ]
+    ]
+  },
+  {
+    "_id": "60ff3d5188d0946102990a80",
+    "d": 1605987096000,
+    "q": "wait was this ever down",
+    "a": "submitting a question would not do anything because PHP was not able to run. the workaround is the submission code is on a different domain (questions.davecode.me) where PHP can run properly. this also means the vault is down."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a81",
+    "d": 1605987145000,
+    "q": "Are you lucky or unlucky?",
+    "a": "give me one second (<em>rolls die</em>) ...  <strong>1</strong>. yeah, i usually have better luck."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a82",
+    "d": 1605987604000,
+    "q": "Can i trust you?",
+    "a": "that's a question for you."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a83",
+    "d": 1605987619000,
+    "q": "Why do you prefer year-month-day over month-day-year when doing literally anything?",
+    "a": "It was originally used when i had folders and files, and i didn't trust the \"sort by date\" feature, and i instead used a name prefix of YYYY-MM-DD, with leading zeros, which would cause \"sort by name\" to rather sort by the date instead. I use dashes since slashes aren't allowed in pathnames. For the website, I don't actually use this system anymore but rather have the date put in a separate file alongside the display name (<a href=\"https://davecode.me/sample_entry.json\">Example</a>). Since i used that for file naming i decided to use it for everything else too."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a84",
+    "d": 1605987855000,
+    "q": "Does the FBI see all the questions I ask?",
+    "a": "yes but only if they checked <a href=\"https://davecode.me/q+a\">https://davecode.me/q+a</a>."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a85",
+    "d": 1605988068000,
+    "q": "What's something you hate?",
+    "a": "The default mode of content creation seems to be MONEY instead of PASSION. I can't change that but I can at least opt myself out of the default."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a86",
+    "d": 1605988173000,
+    "q": "hi dave",
+    "a": "what's up my guy i see you figured out how to send a question"
+  },
+  {
+    "_id": "60ff3d5188d0946102990a87",
+    "d": 1605988585000,
+    "q": "How do your opinions on yuri (the genre) and Yuri Gagarin (the cosmonaut) differ?",
+    "a": "while they both aren't super interesting to me, the difference between them is one i'd never find any interest and the other one maybe."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a88",
+    "d": 1605989638000,
+    "q": "why do you have a paper airplane as your pfp?",
+    "a": "i just needed something and i wasn't sure what."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a89",
+    "d": 1606016122000,
+    "q": "what is your favorite visual novel?",
+    "a": "i haven't really read enough to say a favorite. send me your recommendations at dave@davecode.me and we can get my opinions later."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a8a",
+    "d": 1606091721000,
+    "q": "Has your opinion on hats changed since the question on 2020-08-13 01:15? ",
+    "a": "Yes."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a8b",
+    "d": 1606091760000,
+    "q": "Do you like cookies?",
+    "a": "Yes."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a8c",
+    "d": 1606169460000,
+    "q": "what the fuck am i doing and what the fuck should i be doing",
+    "a": "invading france or studying for your math quiz. your pick."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a8d",
+    "d": 1606206945000,
+    "q": "What school subject do you hate the most? Why?",
+    "a": "I've been sitting at this question for 10 minuntes and I haven't decided on just ONE subject to truly hate. They're all too highly medium."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a8e",
+    "d": 1606334500000,
+    "q": "What is your new opinion on hats?",
+    "a": "good. i need more."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a8f",
+    "d": 1606358594000,
+    "q": "Opinion on keyboard macros?",
+    "a": "they are useful but i forgot to have the program that uses them invented. fixing that atm, doing things a bit backwards here."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a90",
+    "d": 1606407174000,
+    "q": "do you archive your website on the wayback machine",
+    "a": "i don't archive it myself but i believe it is archived to some degree."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a91",
+    "d": 1606499646000,
+    "q": "Main server for elem4 looks like down. Why?",
+    "a": "because there was a bug and also no one was expecting 600 new users."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a92",
+    "d": 1606530781000,
+    "q": "what did you expect to happen to daveElem4 and its elements when cary featured it in humany and his community flooded the game?",
+    "a": "i mean, i would've expected there to be a ton more elements since the voting stuff was very low. i did NOT expect the vpn detection stuff to break, but it DID."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a93",
+    "d": 1606690221000,
+    "q": "Do you watch BFDI",
+    "a": "not the recent stuff past bfb 20 ish"
+  },
+  {
+    "_id": "60ff3d5188d0946102990a94",
+    "d": 1606918532000,
+    "q": "do you participate in advent of code?",
+    "a": "no. i aleady have too many real programming challenges to partake in."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a95",
+    "d": 1607096938000,
+    "q": "how old are you",
+    "a": "in 2020 i would be 16 years old."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a96",
+    "d": 1607439838000,
+    "q": "why doesn’t she love me anymore",
+    "a": "you probably stole one of her pineapples without asking, and then hid the truth from her. it's too late, she won't forgive you anymore."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a97",
+    "d": 1607691069000,
+    "q": "what is your new opinion on hats?",
+    "a": "they are nice."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a98",
+    "d": 1607693863000,
+    "q": "2020-11-25 21:43 Aw, come on! It's your program kb0 !!!",
+    "a": "kb0 is my main keyboard, not a program. i was referring to sequencer."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a99",
+    "d": 1607693880000,
+    "q": "t",
+    "a": "t=more than 3.5 months"
+  },
+  {
+    "_id": "60ff3d5188d0946102990a9a",
+    "d": 1607693933000,
+    "q": "how cool do you think you are",
+    "a": "not as cool as you are"
+  },
+  {
+    "_id": "60ff3d5188d0946102990a9b",
+    "d": 1607745493000,
+    "q": "why are all the program links broken",
+    "a": "because every other link is down because i haven't fully setup the new server. try again in two days."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a9c",
+    "d": 1608034297000,
+    "q": "elemental lite does not want to load for me and i am frankly not amused by its tomfoolery",
+    "a": "i don't really remember how that game does it's loading but i swear it checked for errors."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a9d",
+    "d": 1608161543000,
+    "q": "<a href=\"https://davecode.me/2020-12-16T18:32:23+00:00.txt\">[error]</a> i'm not sure what this means but these were in the console of elemental lite",
+    "a": "i dont know either."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a9e",
+    "d": 1608318834000,
+    "q": "where is the [as] logo?",
+    "a": "because i am not adult swim, if anything we should have a [dc] logo for dave code."
+  },
+  {
+    "_id": "60ff3d5188d0946102990a9f",
+    "d": 1608404922000,
+    "q": "What happened to the vault?",
+    "a": "taken down because of the current website situation. i'm actually rewriting it all from nearly scratch, but the current one is held up only by insane nginx configurations that do not fully work. it was either questions or vault to keep working so i chose questions."
+  },
+  {
+    "_id": "60ff3d5188d0946102990aa0",
+    "d": 1608467020000,
+    "q": "what is your opinion on sequencer",
+    "a": "from my perspective it is a game changing automation tool."
+  },
+  {
+    "_id": "60ff3d5188d0946102990aa1",
+    "d": 1608467061000,
+    "c": [
+      [
+        "q",
+        "What's your opinion on HTML, CSS, JS, C, C++, C#, and PHP?"
+      ],
+      [
+        "a",
+        "I honestly love all of those you listed above (though i dont use the C/C++/C# much ever)."
+      ],
+      [
+        "a",
+        "<ul><li>html - powerful markup</li><li>css - cool styling, though i'd use scss</li><li>js - paradoxically fast and dynamic, though i'd use typescript</li><li>c / c++ - low level but power. not a fan of headers though.</li><li>c# - a cooler version of java</li><li>php - simple to use dynamic web, but don't go overboard.</li></ul>"
+      ]
+    ]
+  },
+  {
+    "_id": "60ff3d5188d0946102990aa2",
+    "d": 1608467083000,
+    "q": "answer this question with a keyboard macro",
+    "a": "ah yes, how wonderful."
+  },
+  {
+    "_id": "60ff3d5188d0946102990aa3",
+    "d": 1608542749000,
+    "q": "What is your opinion on PERL?",
+    "a": "i haven't used it so i don't have an opinion yet."
+  },
+  {
+    "_id": "60ff3d5188d0946102990aa4",
+    "d": 1608563901000,
+    "q": "What happened to your YouTube account?",
+    "a": "i dislike their new policies so i decided to downgrade my youtube channel from \"secondary video location\" to \"not in use.\" i'll make one more video on the platform when i get my new video tools, but nothing more."
+  },
+  {
+    "_id": "60ff3d5188d0946102990aa5",
+    "d": 1608563940000,
+    "q": "Why did you leave the bw discord?",
+    "a": "it's a long long long story that can be told."
+  },
+  {
+    "_id": "60ff3d5188d0946102990aa6",
+    "d": 1608641507000,
+    "q": "is (HNLY) your 24?",
+    "a": "you already know the answer."
+  },
+  {
+    "_id": "60ff3d5188d0946102990aa7",
+    "d": 1608641602000,
+    "q": "how many hats do you own?",
+    "a": "2 or so"
+  },
+  {
+    "_id": "60ff3d5188d0946102990aa8",
+    "d": 1608641768000,
+    "c": [
+      [
+        "q",
+        "is it logical to use a hairbrush as a toothbrush?"
+      ],
+      [
+        "a",
+        "no"
+      ],
+      [
+        "q",
+        "a toothbrush as a hairbrush?"
+      ],
+      [
+        "a",
+        "no"
+      ],
+      [
+        "q",
+        "a powerwasher as a squirtgun?"
+      ],
+      [
+        "a",
+        "i mean... you could."
+      ]
+    ]
+  },
+  {
+    "_id": "60ff3d5188d0946102990aa9",
+    "d": 1608818223000,
+    "c": [
+      [
+        "q",
+        "how do you divide by 0"
+      ],
+      [
+        "q",
+        "i don't think we can, but i can see how you can"
+      ],
+      [
+        "a",
+        "glad you figured it out"
+      ]
+    ]
+  },
+  {
+    "_id": "60ff3d5188d0946102990aaa",
+    "d": 1609262899000,
+    "q": "who used a Fork in the Spreadable Butter again.",
+    "a": "it was james"
+  },
+  {
+    "_id": "60ff3d5188d0946102990aab",
+    "d": 1609715471000,
+    "q": "How many elements are there in the elemental 4 anarchy server?",
+    "a": "24631"
+  },
+  {
+    "_id": "60ff3d5188d0946102990aac",
+    "d": 1609749668000,
+    "q": "does an album have to be music, or can it be marshmallows",
+    "a": "i'd love to see your marshmallow album, but i think we're both joking. here's a real idea though: albums of video games and/or other programs."
+  },
+  {
+    "_id": "60ff3d5188d0946102990aad",
+    "d": 1609779875000,
+    "q": "how are you doing?",
+    "a": "the usual answer to this i believe should be good but i don't think so."
+  },
+  {
+    "_id": "60ff3d5188d0946102990aae",
+    "d": 1609933762000,
+    "q": "oh wow. you have a website,",
+    "a": "this thing? you have no idea what i <em>want</em> to do."
+  },
+  {
+    "_id": "60ff3d5188d0946102990aaf",
+    "d": 1610092403000,
+    "c": [
+      [
+        "q",
+        "hello. do you play minecraft?"
+      ],
+      [
+        "a",
+        "yes"
+      ],
+      [
+        "q",
+        "also do you like shoes?"
+      ],
+      [
+        "a",
+        "yes but not like how some people are addicted to them."
+      ]
+    ]
+  },
+  {
+    "_id": "60ff3d5188d0946102990ab0",
+    "d": 1610244309000,
+    "q": "what if your favorite quote from someone you know?",
+    "a": "\"Don't eat the radioactive Skittles, I don't want to you to die, and then have me losing my job. In that order.\""
+  },
+  {
+    "_id": "60ff3d5188d0946102990ab1",
+    "d": 1610244664000,
+    "q": "what's something you hate?",
+    "a": "this question."
+  },
+  {
+    "_id": "60ff3d5188d0946102990ab2",
+    "d": 1610244777000,
+    "q": "whats the most absurd thing you have used as a chair?",
+    "a": "the air."
+  },
+  {
+    "_id": "60ff3d5188d0946102990ab3",
+    "d": 1610488371000,
+    "q": "wheres elemental anarchy?",
+    "a": "it's in the server switcher. you can also go to new york to find it but you won't be let in that way."
+  },
+  {
+    "_id": "60ff3d5188d0946102990ab4",
+    "d": 1611177048000,
+    "q": "house + god",
+    "a": "god church"
+  },
+  {
+    "_id": "60ff3d5188d0946102990ab5",
+    "d": 1611478508000,
+    "q": "does anyone else get secretly paid by the pizza industry to make pizza tweets, or am i the only one",
+    "a": "you would have to ask the other pizza birds."
+  },
+  {
+    "_id": "60ff3d5188d0946102990ab6",
+    "d": 1611544391000,
+    "q": "how big can one extend the question submission box?",
+    "a": "most browsers should have a resize thing at the bottom right of the question container. you can click and drag it. there is also a scrollbar if it gets very long. i have a limit of 1000 or something characters but i might change that as now that i think about it, it could be larger"
+  },
+  {
+    "_id": "60ff3d5188d0946102990ab7",
+    "d": 1611575464000,
+    "q": "<a href=\"https://preview.redd.it/esr2207k5e651.jpg?width=960&crop=smart&auto=webp&s=8a459ae027f53f9599573144ec33c4681ba9df7f\">image: what is going on</a>",
+    "a": "i have written ~5 virtual pages of plans to implement today. it probably will take multiple days though."
+  },
+  {
+    "_id": "60ff3d5188d0946102990ab8",
+    "d": 1611612868000,
+    "c": [
+      [
+        "q",
+        "i saw in another in another answer that you used play geometry dash and portal 2, are you my clone? if so, why?"
+      ],
+      [
+        "a",
+        "not sure. but those are popular games though. i was more into the editor aspects of geometry dash which is why i said that, and portal 2 is just fantastic. another game i love and played recently was celeste (got to the start of 7b before is stopped)."
+      ],
+      [
+        "q",
+        "i will also let you know if rob releases 2.2"
+      ],
+      [
+        "a",
+        "camera rotation and dynamic music(idk if this is set for 2.2) is gonna be awesome"
+      ]
+    ]
+  },
+  {
+    "_id": "60ff3d5188d0946102990ab9",
+    "d": 1611613772000,
+    "q": "what time is it",
+    "a": "11:43:46"
+  },
+  {
+    "_id": "60ff3d5188d0946102990aba",
+    "d": 1611613827000,
+    "q": "also how to do i send a question for you to answer",
+    "a": "get a time machine and go back in time to when you sent this question, and watch"
+  },
+  {
+    "_id": "60ff3d5188d0946102990abb",
+    "d": 1611619510000,
+    "c": [
+      [
+        "q",
+        "How many questions have you been asked?"
+      ],
+      [
+        "a",
+        "a lot"
+      ],
+      [
+        "q",
+        "How many have you answered?"
+      ],
+      [
+        "a",
+        "i checked and its about 242. i dont log deleted questions, since theyre just deleted. (this also extends to email information, everything about a question besides the final q&a data that you see on the page is removed from existance)"
+      ],
+      [
+        "q",
+        "How many weren't questions but you answered anyway?"
+      ],
+      [
+        "a",
+        "anything can be a question, see 2020-12-11 08:38, however i have some non question questions like 2020-11-21 14:49. i guess the q&a is just a simple anonymous communication channel with a ~20 hour delay"
+      ]
+    ]
+  },
+  {
+    "_id": "60ff3d5188d0946102990abc",
+    "d": 1611652434000,
+    "q": "did anyone figure out why food is not free",
+    "a": "if it was free they wouldn't be able to profit"
+  },
+  {
+    "_id": "60ff3d5188d0946102990abd",
+    "d": 1611676266000,
+    "q": "opinion on the @ sign?",
+    "a": "it is used in javascript decorators and i love those. the @ meaning \"at\" is also cool and i forget it's a thing (kind of how & means \"and\"), and i just use it for email addresses and user+hostnames. i guess just never in the habit"
+  },
+  {
+    "_id": "60ff3d5188d0946102990abe",
+    "d": 1611684979000,
+    "q": "Why is there a cute face and body on my water bottle? And why does it resemble BFDI?",
+    "a": "i knew they were selling some merchandise, but no one would've ever thought of a themed water bottle."
+  },
+  {
+    "_id": "60ff3d5188d0946102990abf",
+    "d": 1611684990000,
+    "q": "Has carykh asked you a question before?",
+    "a": "You'd have to ask him."
+  },
+  {
+    "_id": "60ff3d5188d0946102990ac0",
+    "d": 1611699282000,
+    "q": "Why did you return to the bw discord?",
+    "a": "feeling bored, might quit"
+  },
+  {
+    "_id": "60ff3d5188d0946102990ac1",
+    "d": 1611700437000,
+    "q": "why is the sky blue?",
+    "a": "it's your choice for what you think \"blue\" is."
+  },
+  {
+    "_id": "60ff3d5188d0946102990ac2",
+    "d": 1611714395000,
+    "q": "are you dave caruso????????????????????????????????",
+    "a": "yes i am dave caruso. good job finding me."
+  },
+  {
+    "_id": "60ff3d5188d0946102990ac3",
+    "d": 1611714409000,
+    "q": "are you also cool?????????????????????",
+    "a": "that's for you to decide"
+  },
+  {
+    "_id": "60ff3d5188d0946102990ac4",
+    "d": 1611714421000,
+    "q": "is eating something that you do?????????????????????",
+    "a": "sometimes, i should probably do it now"
+  },
+  {
+    "_id": "60ff3d5188d0946102990ac5",
+    "d": 1611714434000,
+    "q": "and last, is you human?",
+    "a": "i am, but the thing with being human is a lot of people don't do that much, and i don't know who would want to be like those other humans."
+  },
+  {
+    "_id": "60ff3d5188d0946102990ac6",
+    "d": 1611725900000,
+    "q": "How are you getting so popular?",
+    "a": "i don't know but i don't think it's a giant big deal"
+  },
+  {
+    "_id": "60ff3d5188d0946102990ac7",
+    "d": 1611736078000,
+    "q": "There's something just magical about the feeling of programming, right? It's not just me?",
+    "a": "i got like a billion things to say about this. writing clean code, even if the implementation is messy, is such an awesome feeling."
+  },
+  {
+    "_id": "60ff3d5188d0946102990ac8",
+    "d": 1611812561000,
+    "c": [
+      [
+        "q",
+        "why did you choose to remake something like elemental 3?"
+      ],
+      [
+        "a",
+        "back in 2018 it wasn't running so i wanted to try to make my own. the result was medium. i'd say the issues around it all came from me telling others that i was making it, and being bugged and rushed that it wasn't done. in 2020, i remade <em>that</em> game, mainly cause filip asked about it and wanted to rerun the old game, which i said \"what if we fixed some of the big bugs\", which turned to me rewriting this whole thing into the crazy new one it is now."
+      ],
+      [
+        "q",
+        "and is there something you would wish you could change about e4, but you just cant figure out how?"
+      ],
+      [
+        "a",
+        "i never knew how to calculate how to display those element trees, only reason we have them in the game now is because zelo made a almost working one, but it has cases that it breaks. if i was zelo, i wouldn't ever even released that feature to the main game, even if the half working solution is better than having a blank screen. i'm just not able to do that kind of thing"
+      ],
+      [
+        "a",
+        "this goes to the new thing that people probably just think i don't know how, singleplayer mode. i have everything in my head and all the edge cases figured out, it's just a lot to add because i'd want it to be is a lot more than what elemental lite ever did (the approach i had on this project was way better than either of elemental 4's approaches). the reason singleplayer doesn't exist now is 1. rushed to get the game out of beta, 2. i myself was getting tired/bored of working on the project for any longer. i'm also realizing a lot of things should be changed in regards to code structure (i mean a full refactor where every bit of code is moved again, plus changing the way servers/mods are internally structured)."
+      ],
+      [
+        "a",
+        "we have two main lessons with this kind of thing: for the love of god do not ever use the raw dom apis when building something big. elemental 4's ui is built off of this <a href='https://github.com/davecaruso/elemental4/blob/master/game/views/game.html'>one template</a> file, then querySelector and createElement for the rest. This happened because old e4 and elemental lite started as <em>just</em> the element renderer, and that approach worked fine, until you add a trillion popups, highly dynamic data, and a settings page with 9 tabs (2 were left out of the real game), it is very cancer. my other lesson would be to think more about code structure and if something isn't a working idea, don't stick with it until the end (e4 is a huge mess because theres this folder called `shared` which does not depend on any node/browser apis, and could theoretically be imported to allow the e4 server to be played on a separate client, but this is a bit too far and not a good abstraction, as this now limits what interaction these apis have with the game itself)"
+      ],
+      [
+        "a",
+        "i have a new answer actually as of writing, but the above is an interesting rant / discussion on the game so it stays. i'd want to figure out how to fully stop indexedDB corruption but have no idea as to how it occurs. i've given up and put a test if it's corrupted, and to just redownload/reindex the whole thing."
+      ]
+    ]
+  },
+  {
+    "_id": "60ff3d5188d0946102990ac9",
+    "d": 1611860274000,
+    "q": "why is elemental 4 fun to play",
+    "a": "because justin made some rad music that even i cant stop listening to. well at the time that was the case."
+  },
+  {
+    "_id": "60ff3d5188d0946102990aca",
+    "d": 1611862473000,
+    "q": "do you have any advice on how to not be bored?",
+    "a": "get a piece of paper / android tablet with <a href=\"https://play.google.com/store/apps/details?id=com.styluslabs.write&hl=en_US&gl=US\">this app</a>, and <a href=\"/electron-security-notes.png\">write all your future ideas down so you can do them later</a>"
+  },
+  {
+    "_id": "60ff3d5188d0946102990acb",
+    "d": 1611883514000,
+    "q": "what is your opinion on apioforms?",
+    "a": "you would have to explain what exactly you mean first."
+  },
+  {
+    "_id": "60ff3d5188d0946102990acc",
+    "d": 1611885049000,
+    "q": "Annoy me in your favorite way to do so.",
+    "a": "<a href=\"/2021-01-28-18-03-49i.png\">this might be in the video</a>"
+  },
+  {
+    "_id": "60ff3d5188d0946102990acd",
+    "d": 1611902527000,
+    "q": "Tell me one oddly specific fact about yourself.",
+    "a": "i am a human being"
+  },
+  {
+    "_id": "60ff3d5188d0946102990ace",
+    "d": 1611902902000,
+    "q": "What is your favorite question someone asked you here? (Or one you really liked)",
+    "a": "i forgot a lot of them but i know actual questions are cool but if they are actual questions they take longer to properly answer."
+  },
+  {
+    "_id": "60ff3d5188d0946102990acf",
+    "d": 1611903394000,
+    "q": "can you make something called \"I am Green Sniff.\"?",
+    "a": "no"
+  },
+  {
+    "_id": "60ff3d5188d0946102990ad0",
+    "d": 1611903530000,
+    "q": "Will the vault ever come back?",
+    "a": "yes"
+  },
+  {
+    "_id": "60ff3d5188d0946102990ad1",
+    "d": 1611924595000,
+    "c": [
+      [
+        "q",
+        "I should probably code something but I don't know what to code."
+      ],
+      [
+        "a",
+        "btw it doesn't need to be useful to others, or even yourself, unless you think you've actually learned enough to try one of those. either way doing things that may be called \"useless\" or have no real end product, still always yield something invaluable: knowledge and experience. and i cannot stress that fact enough, even if you think you wont. trust me you will."
+      ],
+      [
+        "a",
+        "tldr just make anything, even basic tic tac toe game or a davecode question search. (i'll probably try both of those at somepoint myself too)"
+      ]
+    ]
+  },
+  {
+    "_id": "60ff3d5188d0946102990ad2",
+    "d": 1611974220000,
+    "q": "what is a good question to ask?",
+    "a": "that's you to decide."
+  },
+  {
+    "_id": "60ff3d5188d0946102990ad3",
+    "d": 1612068048000,
+    "q": "What other thing would you remake if you couldn't manage to remake Elemental 3?",
+    "a": "a video editor, which is why that is my current project. it's also not a remake. i think i'm done with remakes, and onto original software/videos."
+  },
+  {
+    "_id": "60ff3d5188d0946102990ad4",
+    "d": 1612221883000,
+    "q": "what is your favorite color in the alphabet, from 1-10 (answers only, must be about the number 2763)",
+    "a": "<a href=\"https://davecode.me/other/17.mp4\">17</a>"
+  },
+  {
+    "_id": "60ff3d5188d0946102990ad5",
+    "d": 1612250684000,
+    "q": "Who asked this?",
+    "a": "you"
+  },
+  {
+    "_id": "60ff3d5188d0946102990ad6",
+    "d": 1612250875000,
+    "c": [
+      [
+        "q",
+        "Have you asked yourself a question ever?"
+      ],
+      [
+        "a",
+        "through the question page, for testing yes, but i remove them from the page or press the [deny] button."
+      ],
+      [
+        "a",
+        "for actual questions, i found a faster way where i just ask my brain it without typing it out."
+      ]
+    ]
+  },
+  {
+    "_id": "60ff3d5188d0946102990ad7",
+    "d": 1612388920000,
+    "c": [
+      [
+        "q",
+        "Have you thought about adding a Delete Pack Option in Single Player Mode for the Elemental 4 Remake?"
+      ],
+      [
+        "a",
+        "of course, when i get to adding singleplayer mode to elemental 4 you will be able to add and remove them."
+      ],
+      [
+        "q",
+        "If you haven't thunk about it I think you should because it appears that you can only make 3 packs max."
+      ],
+      [
+        "a",
+        "wait i dont know what youre talking about. i have not made the singleplayer mode yet. we are talking about differernt things."
+      ]
+    ]
+  },
+  {
+    "_id": "60ff3d5188d0946102990ad8",
+    "d": 1612409382000,
+    "q": "hi, how was your day today",
+    "a": "it was ok"
+  },
+  {
+    "_id": "60ff3d5188d0946102990ad9",
+    "d": 1612471337000,
+    "q": "Every once in a while when i go on elemental 4 main server my progress gets messed up and none of the elements i made are there do you have any idea why this is happening and how I can fix it?",
+    "a": "i don't know"
+  },
+  {
+    "_id": "60ff3d5188d0946102990ada",
+    "d": 1612481693000,
+    "c": [
+      [
+        "q",
+        "What is something about yourself that you wish more people knew?"
+      ],
+      [
+        "a",
+        "i don't actually know what people know but the main piece of knowledge i'd need out is i have not stopped making videos i'm just working on a lot of video-production tools and am forcing myself to make those before i continue with any new videos. it's been a big delay in publishing so people ask me about it sometimes."
+      ],
+      [
+        "a",
+        "i also dislike owning dogs."
+      ]
+    ]
+  },
+  {
+    "_id": "60ff3d5188d0946102990adb",
+    "d": 1612481792000,
+    "c": [
+      [
+        "q",
+        "What language should I learn if I want to get into programming? And where could I learn?"
+      ],
+      [
+        "a",
+        "You may have heard that it doesn't really matter at all. Yes, it really doesn't matter how you start. Some languages are fancier than others meaning you may have to worry about certain things that you may not in others (data types, memory management, clousures, etc...), but the general logic building part of them is shared between them all. However, different languages may do things differently, so here's a taste of some of the popular ones and what they do differently."
+      ],
+      [
+        "a",
+        "For where, just google something or use a youtube tutorial, as the internet is full of free resources to learn. There's also <a href=\"https://developer.mozilla.org/en-US/docs/Web/Tutorials\">the mdn web tutorials</a> for getting into web dev which is my sort of specialty and i am a bit biased towards recommending it, but in reality you should choose what area of programming is <em>actually</em> interesting."
+      ]
+    ]
+  },
+  {
+    "_id": "60ff3d5188d0946102990adc",
+    "d": 1612489159000,
+    "q": "how did you do this",
+    "a": "do what?"
+  },
+  {
+    "_id": "60ff3d5188d0946102990add",
+    "d": 1612501407000,
+    "c": [
+      [
+        "a",
+        "whoa there buddy you got a lot of questions"
+      ],
+      [
+        "q",
+        "Favorite color?"
+      ],
+      [
+        "a",
+        "lime green"
+      ],
+      [
+        "q",
+        "Favorite number?"
+      ],
+      [
+        "a",
+        "0"
+      ],
+      [
+        "q",
+        "Favorite letter?"
+      ],
+      [
+        "a",
+        "e"
+      ],
+      [
+        "q",
+        "Favorite game?"
+      ],
+      [
+        "a",
+        "celeste"
+      ],
+      [
+        "q",
+        "Favorite song?"
+      ],
+      [
+        "a",
+        "[redacted, will be using in a video soon]"
+      ],
+      [
+        "q",
+        "Favorite favorite?"
+      ],
+      [
+        "a",
+        "these were all average questions."
+      ]
+    ]
+  },
+  {
+    "_id": "60ff3d5188d0946102990ade",
+    "d": 1612505515000,
+    "q": "You can say \"have a nice day.\" and no problem. But you can't say \"enjoy the next 24 hours!\" and not sound gauely threatening, isnt that weird?",
+    "a": "maybe if you had some kind of rental pass that lasts 24 hours you could integrate that phrasing into it. idk man."
+  },
+  {
+    "_id": "60ff3d5188d0946102990adf",
+    "d": 1612509016000,
+    "q": "are cults tax exempt",
+    "a": "i don't know as i have never been in or made one"
+  },
+  {
+    "_id": "60ff3d5188d0946102990ae0",
+    "d": 1612509039000,
+    "q": "what videos will you make during vs5",
+    "a": "long, full of information, and lot's of visual quality. also may be looking into the 3d world but vs5's fundamentals only require the 2d software to work."
+  },
+  {
+    "_id": "60ff3d5188d0946102990ae1",
+    "d": 1612557041000,
+    "q": "Have you ever tried coding in brainfuck?",
+    "a": "yes"
+  },
+  {
+    "_id": "60ff3d5188d0946102990ae2",
+    "d": 1612571291000,
+    "q": "hello, its me again, is your day still ok",
+    "a": "i will check"
+  },
+  {
+    "_id": "60ff3d5188d0946102990ae3",
+    "d": 1612602740000,
+    "q": "How was it when you first started programming?",
+    "a": "either with scratch blocks, batchfile scripting, or gamemaker 8.1 lite d&d blocks"
+  },
+  {
+    "_id": "60ff3d5188d0946102990ae4",
+    "d": 1612648659000,
+    "q": "why is asking a random person on the internet questions every day become my new hobby?",
+    "a": "you should make a question page so i can ask you that, but in general asking questions is the only way to get anywhere. a lot of my progress is asking myself \"what if i do this.\" and now i'm here building a very overcomplicated but minimal video editor."
+  },
+  {
+    "_id": "60ff3d5188d0946102990ae5",
+    "d": 1612671793000,
+    "q": "winter 2018 or winter 2019?",
+    "a": "ooooh i don't remember the difference. tbh the winters in this state are getting so fucked up i dont even know when they start or end because the clouds do not seem to follow ANY rules anymore when it comes to snow."
+  },
+  {
+    "_id": "60ff3d5188d0946102990ae6",
+    "d": 1612683777000,
+    "q": "Can you barbecue the person who asked the question on 2021-02-05 01:11..... gauely IS NOT A WORD",
+    "a": "i can try."
+  },
+  {
+    "_id": "60ff3d5188d0946102990ae7",
+    "d": 1612749063000,
+    "q": "What’s your opinion on the super bowl?",
+    "a": "always forget it exists until the day before."
+  },
+  {
+    "_id": "60ff3d5188d0946102990ae8",
+    "d": 1612769307000,
+    "q": "How do you decide what to program?",
+    "a": "personal needs, or i am bored."
+  },
+  {
+    "_id": "60ff3d5188d0946102990ae9",
+    "d": 1612826595000,
+    "q": "Something CRAZY happened on Elemental 4: Reamake Revival. So I was suggesting an Element. So while I sent the suggestion I see the creators mark request so I'm like \" Oh I guess this will become the new element nice!\" But I was WRONG because on the new Element screen it showed that the element suggestion I was suggestion WAS NOT the one that popped it it was INSTEAD ONE OF THE OTHER PEOPLE'S SUGGESTIONS!! *Deep breath* How crazy is that?",
+    "a": "a quirk of the voting system is because of time passing, a winner can be decided, and only on the next vote it realizes such, and the thing you picked doesn't neccecarily matter. it still counts you as the winner though. it's a weird system."
+  },
+  {
+    "_id": "60ff3d5188d0946102990aea",
+    "d": 1612826958000,
+    "q": "Which came 1st the chicken or the egg? I think It's the egg because how would the chicken come to be? It's Somethin to think about.",
+    "a": "they both were invented at the same time, kind of how every part of sequencer has to be written at the same time for it to make any sense."
+  },
+  {
+    "_id": "60ff3d5188d0946102990aeb",
+    "d": 1612846703000,
+    "q": "Is there going to be a tool that can convert from Elemental Lite element packs to Elemental 4 Packs?",
+    "a": "no because when i make the elemental 4 pack system they will work seamlessly."
+  },
+  {
+    "_id": "60ff3d5188d0946102990aec",
+    "d": 1612848237000,
+    "q": "what is gauly",
+    "a": "probably vaguely spelled incorrectly"
+  },
+  {
+    "_id": "60ff3d5188d0946102990aed",
+    "d": 1612935392000,
+    "q": "Wait, so are Elemental 4 Packs going to be formatted the same as Elemental Lite packs? Or how will what you explained in 2021-02-08 23:58 work?",
+    "a": "yes but ill have to work out differences in the two games, mainly with the fact that one uses a theming system to get the 15 base colors."
+  },
+  {
+    "_id": "60ff3d5188d0946102990aee",
+    "d": 1612935523000,
+    "c": [
+      [
+        "q",
+        "<em>[sent a copy paste of a question, then apologized, then send the apology again]</em>"
+      ],
+      [
+        "q",
+        "shit I did it again last time I promise, I hope these aren't annoying to remove."
+      ],
+      [
+        "a",
+        "<a href=\"https://davecode.me/qa_its_not.png\">it's not</a>."
+      ]
+    ]
+  },
+  {
+    "_id": "60ff3d5188d0946102990aef",
+    "d": 1612950718000,
+    "q": "What do you think of the Elemental community in general? (referring mostly to the one of the Discord server you own)",
+    "a": "the discord server i own, hate it."
+  },
+  {
+    "_id": "60ff3d5188d0946102990af0",
+    "d": 1612983920000,
+    "q": "<a href=\"https://translate.google.com/?sl=fr&tl=en&text=%20Parlez-vous%20d%27autres%20langues%20que%20l%27anglais%3F&op=translate\">Parlez-vous d'autres langues que l'anglais?</a>",
+    "a": "non"
+  },
+  {
+    "_id": "60ff3d5188d0946102990af1",
+    "d": 1612997348000,
+    "q": "Will there be an up and coming feature like elemental 3?",
+    "a": "yes"
+  },
+  {
+    "_id": "60ff3d5188d0946102990af2",
+    "d": 1613024081000,
+    "c": [
+      [
+        "q",
+        "What programming languages/tools did you use to make Elemental 4? I wanna know because I want to make something like that and don't know where to begin. The only programming language I know how to code in is Python."
+      ],
+      [
+        "a",
+        "you can peek how badly it's made <a href=\"https://github.com/davecaruso/elemental4\">here</a>, but it's written in typescript with visual studio code, and uses a slightly custom and slightly outdated webpack setup. whatever works."
+      ],
+      [
+        "a",
+        "real trick is to not begin with a thing as complex as elemental 4. if you're asking where to begin, i cannot say how well you'll be if you try something really complex. but web dev doesnt have to be complex, so i wouldn't tell you to not try javascript and all."
+      ]
+    ]
+  },
+  {
+    "_id": "60ff3d5188d0946102990af3",
+    "d": 1613062464000,
+    "q": "Sometimes, do you bake your videos under the sun inside a clay pot?",
+    "a": "no, computers like to work in cool temperature controlled environments"
+  },
+  {
+    "_id": "60ff3d5188d0946102990af4",
+    "d": 1613062491000,
+    "q": "Dave, why does 1 equal 2?",
+    "a": "i'm sure you're mistaken."
+  },
+  {
+    "_id": "60ff3d5188d0946102990af5",
+    "d": 1613103268000,
+    "q": "What do you think of the other elemental games shown in the Elemental server?",
+    "a": "not polished enough but i bet some might implement some of the features better than i did."
+  },
+  {
+    "_id": "60ff3d5188d0946102990af6",
+    "d": 1613109837000,
+    "q": "do you play minceraft?",
+    "a": "sometimes"
+  },
+  {
+    "_id": "60ff3d5188d0946102990af7",
+    "d": 1613153194000,
+    "q": "What is a window?",
+    "a": "a peek at what's outside."
+  },
+  {
+    "_id": "60ff3d5188d0946102990af8",
+    "d": 1613362870000,
+    "c": [
+      [
+        "q",
+        "Are you doing alright?"
+      ],
+      [
+        "a",
+        "what a hardball question, i'm gonna throw a hard <strong>maybe</strong> at you."
+      ],
+      [
+        "a",
+        "if you meant production wise, things are going smoothly but overkill so it will be a while."
+      ]
+    ]
+  },
+  {
+    "_id": "60ff3d5188d0946102990af9",
+    "d": 1613386756000,
+    "q": "What kind of tunes you listen to?",
+    "a": "all of them"
+  },
+  {
+    "_id": "60ff3d5188d0946102990afa",
+    "d": 1613402545000,
+    "q": "why do you have a problem with the bw discord?",
+    "a": "something feels wrong, and it's impossible to know anything for sure."
+  },
+  {
+    "_id": "60ff3d5188d0946102990afb",
+    "d": 1613454802000,
+    "q": "What do you feel about that Cary made a video showing elemental 4? (I know this happened a while ago, but still)",
+    "a": "it was very surprising"
+  },
+  {
+    "_id": "60ff3d5188d0946102990afc",
+    "d": 1613580409000,
+    "q": "why are there so many \"Opinion on ____\" questions on Bill Wurtz's questions page",
+    "a": "you should ask him for his opinion on opinion on questions"
+  },
+  {
+    "_id": "60ff3d5188d0946102990afd",
+    "d": 1614183129000,
+    "q": "What's something you hate?",
+    "a": "the passage of time"
+  },
+  {
+    "_id": "60ff3d5188d0946102990afe",
+    "d": 1614195075000,
+    "c": [
+      [
+        "q",
+        "Do you sanitise the inputs from this and the email box?"
+      ],
+      [
+        "a",
+        "yes. everything is escaped and if needed i can modify your qeustion, add <em>html<div style=\"display:none\">woah it's html!!!</div></em> and links to it, and also can do stuff like this where the answer is in between a question, for questions where i'm asked more than one thing."
+      ],
+      [
+        "q",
+        "I imagine you do but just checking."
+      ]
+    ]
+  },
+  {
+    "_id": "60ff3d5188d0946102990aff",
+    "d": 1614213107000,
+    "q": "was i3 a little bit confusing when you first started using it?",
+    "a": "a little but once you know what you're dealing with it's pretty simple. whatever thing you use just makes every other computer you're not used to confusing."
+  },
+  {
+    "_id": "60ff3d5188d0946102990b00",
+    "d": 1614311375000,
+    "q": "Have you ever tried Unity?",
+    "a": "yes, didnt use it much, nothing much. i like gamemaker's 2d stuff way more than unity, and never learned enough to make anything super fancy in the 3d engine. if i needed to do a 3d game project ever, i'd probably just do it in some web stuff, not sure exactly how—i work best alone and with typescript."
+  },
+  {
+    "_id": "60ff3d5188d0946102990b01",
+    "d": 1614583686000,
+    "q": "why i cant send suggestion in Elemental 4?",
+    "a": "i don't know."
+  },
+  {
+    "_id": "60ff3d5188d0946102990b02",
+    "d": 1615049574000,
+    "q": "at least how many percent of questions get answered, from all the questions asked, on average?",
+    "a": "i don't keep logs so i cant find an actual answer but i'd guess 96%"
+  },
+  {
+    "_id": "60ff3d5188d0946102990b03",
+    "d": 1615049624000,
+    "q": "what is your favorite node module",
+    "a": "<a href=\"https://www.npmjs.com/package/is-ten-thousand\">is-ten-thousand</a>"
+  },
+  {
+    "_id": "60ff3d5188d0946102990b04",
+    "d": 1615049639000,
+    "q": "At least how many things can you do with Node.js?",
+    "a": "at least 3"
+  },
+  {
+    "_id": "60ff3d5188d0946102990b05",
+    "d": 1615049892000,
+    "q": "In which project of yours did you use programming languages to the max?",
+    "a": "i haven't done nearly that yet."
+  },
+  {
+    "_id": "60ff3d5188d0946102990b06",
+    "d": 1615147089000,
+    "q": "do you like bill wurtz?",
+    "a": "he is neat and he is nice. the thing he did with the 3d video magic is quite cool but i think i figured out a cooler way of doing it."
+  },
+  {
+    "_id": "60ff3d5188d0946102990b07",
+    "d": 1615192606000,
+    "q": "what is your opinion on the word chunch",
+    "a": "it is chunchful."
+  },
+  {
+    "_id": "60ff3d5188d0946102990b08",
+    "d": 1615361701000,
+    "q": "Who is your least favorite person?",
+    "a": "maybe it's you"
+  },
+  {
+    "_id": "60ff3d5188d0946102990b09",
+    "d": 1615425779000,
+    "q": "Who is your favorite person?",
+    "a": "maybe it's you"
+  },
+  {
+    "_id": "60ff3d5188d0946102990b0a",
+    "d": 1615485701000,
+    "q": "What's your opinion on the music for Elemental 4?",
+    "a": "the person who wrote it really knows what they're doing with music"
+  },
+  {
+    "_id": "60ff3d5188d0946102990b0b",
+    "d": 1615485721000,
+    "q": "HAY IM DAT GUY LOLOLOL. HA HA HA HA HA HA HA HA HA HA HA HA HA",
+    "a": "a big congratulations goes towards you now."
+  },
+  {
+    "_id": "60ff3d5188d0946102990b0c",
+    "d": 1615723392000,
+    "q": "hi. whats up",
+    "a": "lack of sleep"
+  },
+  {
+    "_id": "60ff3d5188d0946102990b0d",
+    "d": 1615862000000,
+    "q": "What's your opinion on pi+0.01 day?",
+    "a": "i prefer tau+0.01 day."
+  },
+  {
+    "_id": "60ff3d5188d0946102990b0e",
+    "d": 1615891964000,
+    "q": "Hey Dave, can I still ask questions on your questions page?",
+    "a": "you can try."
+  },
+  {
+    "_id": "60ff3d5188d0946102990b0f",
+    "d": 1615892053000,
+    "c": [
+      [
+        "q",
+        "2021-03-14 08:03 Lack of sleep? That's bad. Someone asked me a question about how to fall asleep when you can't, on my website. Here is my exact answer: Try to just... sleep. Like, do nothing and relax your body."
+      ],
+      [
+        "a",
+        "this is good advice"
+      ],
+      [
+        "q",
+        "Can't do that? Maybe because you haven't been sleeping early."
+      ],
+      [
+        "a",
+        "this is true"
+      ],
+      [
+        "q",
+        "Probably sleeping early could help. Also, no coffee/tea or anything with caffeine in it.\""
+      ],
+      [
+        "a",
+        "not a huge coffee fan but i do use it sometimes. these are all good tips but my issue is just telling myself that i should go to sleep and not stay up and get a lack of sleep."
+      ]
+    ]
+  },
+  {
+    "_id": "60ff3d5188d0946102990b10",
+    "d": 1615892213000,
+    "q": "If bologna is pronounced \"Baloney\", why isn't Lasagna pronounced \"Lasahney\"?",
+    "a": "it is if you are a part of the lasahney cult."
+  },
+  {
+    "_id": "60ff3d5188d0946102990b11",
+    "d": 1615892240000,
+    "q": "If I drink half a glass of whole milk, would you say it's still whole?",
+    "a": "it would be whole and half milk at the same time. you can graph these sorts of things on desmos with lists like <code>x=[0.5, 1]</code>."
+  },
+  {
+    "_id": "60ff3d5188d0946102990b12",
+    "d": 1615892255000,
+    "q": "Ever wonder where they get the seeds to plant seedless grapes?",
+    "a": "seedful grapes."
+  },
+  {
+    "_id": "60ff3d5188d0946102990b13",
+    "d": 1615892277000,
+    "q": "Why are they called Peanut Butter Cups, when the cup is made out of chocolate?",
+    "a": "because the cup contains peanut butter. for example: my coffee mug is not made out of coffee."
+  },
+  {
+    "_id": "60ff3d5188d0946102990b14",
+    "d": 1615956063000,
+    "q": "2021-03-16 06:57 Oh yeah? Then what else can you do with them?",
+    "a": "you're sending so many questions i'm lost as to which one you're replying to. i'm gonna add to my list to add a literal question mention button so you can link an exact question."
+  },
+  {
+    "_id": "60ff3d5188d0946102990b15",
+    "d": 1615956174000,
+    "c": [
+      [
+        "q",
+        "Hi Dave. I just got asked a question from Mr. Antonio Perez Domingo, a lawyer in Madrid Spain."
+      ],
+      [
+        "q",
+        "He said that he wanted money. He sent me his email. He said the transaction is 100% no-risk."
+      ],
+      [
+        "q",
+        "Is this a scam?"
+      ],
+      [
+        "a",
+        "if you don't owe them money then yes"
+      ]
+    ]
+  },
+  {
+    "_id": "60ff3d5188d0946102990b16",
+    "d": 1615959216000,
+    "c": [
+      [
+        "q",
+        "How do I warp something - text or image - across a sphere, something like https://imgur.com/a/2cqgxFn"
+      ],
+      [
+        "q",
+        "(1) is the warped text."
+      ],
+      [
+        "a",
+        "<a href=\"https://davecode.me/qa_dent.png\">dent</a>"
+      ],
+      [
+        "q",
+        "Question two: How do I make the thing go back to normal, like (2)?"
+      ],
+      [
+        "a",
+        "inverted dent"
+      ],
+      [
+        "q",
+        "BONUS QUESTION: Will you be using this in your future videos?"
+      ],
+      [
+        "a",
+        "i already have"
+      ]
+    ]
+  },
+  {
+    "_id": "60ff3d5188d0946102990b17",
+    "d": 1615959655000,
+    "q": "How are you getting a constant amount of questions?",
+    "a": "i have a suspicion that you're the only one sending them."
+  },
+  {
+    "_id": "60ff3d5188d0946102990b18",
+    "d": 1616040541000,
+    "c": [
+      [
+        "q",
+        "Question 1: It seems like this qna page goes from a dry spell for >month and then explodes for a few days. Isn't that weird? Just got reminded of the 20-80 rule, which this thread might follow, like 20% of questions is made on 80% of days, and 80% of questions are made on 20% of the days. TL;DR: This thread might follow the 20-80 rule."
+      ],
+      [
+        "a",
+        "a person can only ask so many questions"
+      ],
+      [
+        "q",
+        "Question 2: I think it would be cool to have a data page for this qna thing. Would you be considering that?"
+      ],
+      [
+        "a",
+        "i dont know what a data page is, arent all the pages data pages, as they have data on them."
+      ]
+    ]
+  },
+  {
+    "_id": "60ff3d5188d0946102990b19",
+    "d": 1616060181000,
+    "q": "What can 0 do?",
+    "a": "convert others to it's cult of 0, through multiplication. it's a virus; end it."
+  },
+  {
+    "_id": "6118d9f931f754bf6a69a711",
+    "d": "2021-08-15T09:07:06.715Z",
+    "c": [
+      [
+        "q",
+        "wow this page is cooler now"
+      ],
+      [
+        "a",
+        "it was worth the time spent"
+      ],
+      [
+        "q",
+        "when did you add it back to the site"
+      ],
+      [
+        "a",
+        "right now"
+      ]
+    ]
+  },
+  {
+    "_id": "611932e568828a244796e6e7",
+    "d": "2021-08-15T10:22:23.921Z",
+    "q": "hi would you be interested in numbering your next constructed building's floors to have ground be 0 and floors going up be positive integers and floors going down be negative integers",
+    "a": "yes, though it may be a while until i construct my next building, as i am not in the building building market now"
+  },
+  {
+    "_id": "611932fa68828a244796e6e8",
+    "d": "2021-08-15T12:54:41.451Z",
+    "q": "Who's deez?",
+    "a": "you"
+  },
+  {
+    "_id": "6119332268828a244796e6e9",
+    "d": "2021-08-15T13:42:24.296Z",
+    "q": "will there be a light or a dark mode option?",
+    "a": "i designed the pages the way they are for a reason. for that reason it will most likely not be light/dark"
+  },
+  {
+    "_id": "6119c3684979f1ede842614a",
+    "d": "2021-08-15T19:21:37.424Z",
+    "q": "will you get mad about the dream?",
+    "a": "when it isn't achieved."
+  },
+  {
+    "_id": "6119c373d3da73afeffd5708",
+    "d": "2021-08-15T20:43:29.600Z",
+    "q": "Why?",
+    "a": "...why not?!"
+  },
+  {
+    "_id": "6119c3904979f1ede842614b",
+    "d": "2021-08-15T22:54:58.968Z",
+    "q": "what did you do to the ε",
+    "a": "i am unsure what you are talking about. i don't remember this website having an ε"
+  },
+  {
+    "_id": "6119c39e4979f1ede842614c",
+    "d": "2021-08-16T01:43:56.588Z",
+    "q": "hello, is this the police?",
+    "a": "no this is patrick"
+  },
+  {
+    "_id": "611aac9c779dfb1e324d75eb",
+    "d": "2021-08-16T05:59:16.908Z",
+    "q": "good morning",
+    "a": "top of the morning to you too"
+  },
+  {
+    "_id": "611aad92bb0c7d0840a783c6",
+    "d": "2021-08-16T16:25:37.645Z",
+    "q": "Put a number into 3x+1 if the out put is odd then do output*3+1 if the output is even divide it by 2 it will always go to 1 and back to 4 in a loop. Prove me wrong",
+    "a": "well i bet you don't have <a href=\"https://store.xkcd.com/products/collatz-conjecture\">this shirt</a>"
+  },
+  {
+    "_id": "611c9947f064d6b5d858187a",
+    "d": "2021-08-17T16:42:24.956Z",
+    "q": "can i ask a question",
+    "a": "i dont know, can you?"
+  },
+  {
+    "_id": "61286a9f387e3d1031e07f4e",
+    "d": "2021-08-26T03:46:39.796Z",
+    "c": [
+      [
+        "q",
+        "Hey Dave, last night I dreamed that your website revamp just finished and it looked AMAZING with animated backgrounds, and like a dynamic thing of some sort. It looked WAY better than I expected."
+      ],
+      [
+        "a",
+        "seems like you got a time machine. cause that's about 35% right"
+      ],
+      [
+        "q",
+        "Thank you for existing and making amazing content. Your content is too good to be described in words.\nNow, here's the question: I've heard that you have a wide knowledge database. I've come to test it.\n<a href=\"https://www.youtube.com/watch?v=Gvh-4IR50Fs\">https://www.youtube.com/watch?v=Gvh-4IR50Fs</a>\nDo you know this song? Because I do."
+      ],
+      [
+        "a",
+        "i don't"
+      ],
+      [
+        "q",
+        "-Justin"
+      ]
+    ]
+  },
+  {
+    "_id": "61286abc387e3d1031e07f4f",
+    "d": "2021-08-26T23:10:18.126Z",
+    "q": "What's in the box",
+    "a": "hopes and dreams, and maybe a google pixel 5a"
+  },
+  {
+    "_id": "612bb37dd80e20d78544974f",
+    "d": "2021-08-28T19:25:52.870Z",
+    "q": "heloe is dis daev reale ?",
+    "a": "very"
+  },
+  {
+    "_id": "612bb39ad80e20d785449750",
+    "d": "2021-08-29T13:26:31.450Z",
+    "q": "Are you even aware that your content is getting too powerful?",
+    "a": "are you even aware i havent really started yet. because i am aware of it all."
+  },
+  {
+    "_id": "6131104a94cd4919b680d94a",
+    "d": "2021-08-31T10:50:50.611Z",
+    "q": "do you like enums",
+    "a": "i usually use constant strings instead of enums (TypeScript) but enums are great."
+  },
+  {
+    "_id": "6131104e94cd4919b680d94b",
+    "d": "2021-08-31T11:22:49.686Z",
+    "q": "how are you",
+    "a": "i am"
+  },
+  {
+    "_id": "6131105a94cd4919b680d94c",
+    "d": "2021-09-02T02:01:32.557Z",
+    "q": "h",
+    "a": "that is actually a good question"
+  },
+  {
+    "_id": "61414c0c54db20c0638f3672",
+    "d": "2021-09-06T11:47:05.634Z",
+    "q": "dave, i am planning to use scss for my new website &lt;s&gt;because you forced me to.&lt;/s&gt; now, how do I use sass or scss?",
+    "a": "scss, because it looks like regular css. you'll have a nicer time with it. unless youre a python nerd, then go regular sass. remember, having a css preprocessor and all that is handy but not required"
+  },
+  {
+    "_id": "61414cbda41ce94ddb348c67",
+    "d": "2021-09-06T13:55:43.099Z",
+    "q": "<qref id=\"190801111500\"></qref>what does JoJ mean?",
+    "a": "it 100% means something"
+  },
+  {
+    "_id": "61414d07a41ce94ddb348c68",
+    "d": "2021-09-08T00:51:07.465Z",
+    "q": "teach me your ways... how do you get that bill wurtz style with linux?",
+    "a": "it should also be noted i moved to windows 11 as of around july this year. however the core of the process remains the same.\nthe first step is realizing that anything is possible with software, the second step is not using blender for everything"
+  },
+  {
+    "_id": "61414d1da41ce94ddb348c69",
+    "d": "2021-09-08T02:11:24.925Z",
+    "q": "Do you code in Lua?",
+    "a": "not usually but i know the language"
+  },
+  {
+    "_id": "61414d84a41ce94ddb348c6a",
+    "d": "2021-09-08T12:46:25.541Z",
+    "q": "How does one open up their creative juices?",
+    "a": "you need some form of brain juicer, but not too fancy of one. you can also spend an hour a day writing on a whiteboard or talking into a webcam or both at the same time."
+  },
+  {
+    "_id": "6141ef9166c077727c14493c",
+    "d": "2021-09-15T12:38:48.464Z",
+    "q": "Hey Dave, do you get your creative juice from Blender? Hmmmm. ",
+    "a": "now heres the thing, SOME OF IT. i never fully learned blender, and i only really use it for modeling complex things, but \"complex\" here is a super relative term. here's the blender file for what i had in the revolution video: <a href=\"https://davecaruso-my.sharepoint.com/:u:/g/personal/dave_davecode_me/EY_69hpAfRBKnNtKJa-w7QoBdE4XPZ_yuj0rp299EWgPLw?e=lpa1ph\">field.blend</a>"
+  },
+  {
+    "_id": "6145e1e2ba74a33f92b4cfc8",
+    "d": "2021-09-15T19:39:55.424Z",
+    "q": "Do you like Bill Wurtz's songs",
+    "a": "yes"
+  },
+  {
+    "_id": "614932ba0bfd641cbd4de536",
+    "d": "2021-09-18T12:08:49.266Z",
+    "q": "When are you gonna make more games",
+    "a": "soon"
+  },
+  {
+    "_id": "61493308ea4fa37ce9608d3d",
+    "d": "2021-09-18T16:49:46.309Z",
+    "q": "Will you make a video on how you created the top 10000 bread video? It would really interest me!",
+    "a": "i would like to. for now ill give you the short version: node.js + editly module + partially automated image scraping + ton of rendering time"
+  },
+  {
+    "_id": "6149331a0bfd641cbd4de537",
+    "d": "2021-09-19T01:42:43.214Z",
+    "q": "wha is the music in the 10000 breds video",
+    "a": "jazz"
+  },
+  {
+    "_id": "6149335c0bfd641cbd4de538",
+    "d": "2021-09-19T07:18:06.517Z",
+    "q": "are the breads in \"top 10000 bread\" ranked by an objective measure or by personal enjoyment of the bread (if its arbitrary please dont say so for the sake of the joke)",
+    "a": "i send each bread to my friend joanne to rank and this was the ordering i was given."
+  },
+  {
+    "_id": "614b500dcbfc80aa25fe2f68",
+    "d": "2021-09-21T14:02:43.880Z",
+    "q": "what's your favorite song? mine is <a href=\"https://youtu.be/-51AfyMqnpI\">https://youtu.be/-51AfyMqnpI</a>",
+    "a": "it changes a lot but right now i love this one song from 10cc"
+  },
+  {
+    "_id": "6151cd10c02fff993583df08",
+    "d": "2021-09-26T19:36:48.312Z",
+    "q": "when website",
+    "a": "i wish"
+  },
+  {
+    "_id": "61537a4e09868c39f3ceb057",
+    "d": "2021-09-26T19:38:24.262Z",
+    "q": "what do you use to host websites",
+    "a": "davecode is currently run off vercel and azure"
+  },
+  {
+    "_id": "615afc000b1b8e6883ec2396",
+    "d": "2021-09-28T21:35:52.871Z",
+    "q": "yo the man dave plane guy, its me, the guy who said if you are my clone because you also played gd and portal which are my favorite games, well i have good news, im a bit late, and i kinda forgot if i already reminded you a bit earlier, but the 2.2 sneak peek came out! its really cool and im wondering what you think, thanks!",
+    "a": "the 2.2 features are quite interesting. i've messed around with it a bit and the camera controls are quite fun to play around with. that and the direction changing and platformer mode stuff. i can't wait to see what others do with it, especially situations where levels' music can be dynamic based on what you do (looping music, alternate routes, etc). if only the editor was easier to use for people, would this be the most legendary platformer to ever exist."
+  },
+  {
+    "_id": "615afc160b1b8e6883ec2397",
+    "d": "2021-10-01T08:42:42.800Z",
+    "q": "do you accept collabing with certain people or working in another project",
+    "a": "sometimes but i have a tight schedule of my own"
+  },
+  {
+    "_id": "615afcf09e40da730b849856",
+    "d": "2021-10-03T12:44:18.019Z",
+    "q": "how do you choose your image sizes for drawings or illustrations, such as the shape men doing a good trade in your money visual cover?",
+    "a": "very large. since you can scale them down. heres a breakdown of assets from that scene\n- manA.png: 153x572\n- manB.png: 161x547\n- money.png: 139x70\n- worth.png: 174x125"
+  },
+  {
+    "_id": "615afd329e40da730b849857",
+    "d": "2021-10-03T12:46:14.057Z",
+    "q": "regarding usage of your music, do I put \"davecode\" or \"dave caruso\" in the artist name? also, how should i format it?",
+    "a": "consider not using it at all, or 'dave caruso.' im quite sure all the music on davecode.me is properly tagged though."
+  },
+  {
+    "_id": "615afd529e40da730b849858",
+    "d": "2021-10-03T12:48:00.929Z",
+    "q": "how do you do your backgrounds? especially the ones in text scenes.",
+    "a": "i'm deciding how that will work right now, since all of that is going to change - theres another revolution in store about to happen."
+  },
+  {
+    "_id": "615afe250b1b8e6883ec2398",
+    "d": "2021-10-03T12:48:41.034Z",
+    "q": "how's vs5 going? what's new? what are you working on? KEEP PUSHING ONWARD, TO DESTINY. -justin",
+    "a": "rewriting the resource manager, so i can do nice tricks like <code>updateResource(clip, x => { x.offset = 10; })</code> and it properly works. that was done a couple of days ago and now i have to fix SequenceEditor to use these new nicer apis. also implementing the new renderer that lets me do what the question that talked about the backgrounds."
+  },
+  {
+    "_id": "615afe390b1b8e6883ec2399",
+    "d": "2021-10-03T14:54:43.968Z",
+    "c": [
+      [
+        "q",
+        "have you tried putting a soundgoodizer on the master in fl studio?"
+      ],
+      [
+        "a",
+        "i have not"
+      ],
+      [
+        "q",
+        "only use this under certain circumstances."
+      ]
+    ]
+  },
+  {
+    "_id": "615afe690b1b8e6883ec239a",
+    "d": "2021-10-03T16:00:40.493Z",
+    "q": "what do you think about constructing radiators using a pc and blender instead of having to use natural gas",
+    "a": "it could work."
+  },
+  {
+    "_id": "615cb5e7c79283072a76312e",
+    "d": "2021-10-05T20:07:57.835Z",
+    "q": "What is the best feeling you'll ever achieve as a coder? The end result?",
+    "a": "being able to get something finally working and also having that thing be the most interesting piece of code you've written (creative toolkit's resource system)"
+  },
+  {
+    "_id": "615ddebcb2af0fb13837d52c",
+    "d": "2021-10-06T00:46:25.455Z",
+    "q": "when will you recreate elemental 4",
+    "a": "i already did"
+  },
+  {
+    "_id": "615ddef6b2af0fb13837d52d",
+    "d": "2021-10-06T15:47:10.977Z",
+    "q": "Bad joke incoming: What does a coder like to make his coffee with? JavaScript beans. ",
+    "a": "i prefer my coffee with svelte components dipped in typescript."
+  },
+  {
+    "_id": "615fa661db5a88cc170dbec4",
+    "d": "2021-10-07T04:00:17.765Z",
+    "c": [
+      [
+        "q",
+        "Why are you running windows 11? I dont think anything substantial (re switching from linux) actually changed between win10 and win11."
+      ],
+      [
+        "a",
+        "the real answer is someone told me to play genshin impact. i really wish i could've said there was a bigger \"trigger moment\" to this.\n\nhowever, after i thought about that, i realized my only issue with windows was speed, and the last time i'd've used it was years back on my older laptop. the thing i use now is an absolute powerhouse of a computer compared to before. and it seems to run windows fine. so powerful pc + 'luck' = i can use windows.\n\nso i decided to try out windows and microsoft services (a friend i know is always raving about how cool it is). they are very intresting. so now i use onedrive, office, edge, intune, the whole ordeal. it runs wonderfully most of the time.\n\nthe reason i grabbed windows 11 just happened to line up with the timings. it was gonna come out later in the year so i decided to get it right out of the gate so i didnt have to deal with any more migration pain than i had to. (i was running the early early build of it)"
+      ],
+      [
+        "q",
+        "Was it just a general frusteration with the way linux worked?"
+      ],
+      [
+        "a",
+        "linux lets you customize every aspect about it very easily. that is a plus but also a minus, because someone like me is going to want to do absolutely everything possible. instead, i'm focusing that energy of customation to the stuff that will actually matter: the actual video building tools, music production, and making this website."
+      ]
+    ]
+  },
+  {
+    "_id": "615fa6fddb5a88cc170dbec5",
+    "d": "2021-10-07T04:02:47.592Z",
+    "q": "Can you bridge your discord server to a (set of) matrix room(s)? If thats too much work for someone with your workload, I could help.",
+    "a": "it sounds like a lot of work for something not a lot of people would be interested in. i've used matrix before, but i dont currently use it for much since no one else i knows actually uses it much.\n\ndont see much harm in this. if you would like to help me set this up, please get in contact."
+  },
+  {
+    "_id": "6160b0e75c5c2cb52baa0d31",
+    "d": "2021-10-08T04:55:23.718Z",
+    "c": [
+      [
+        "q",
+        "help! i'm becoming WAY too influenced by you, what should i do?"
+      ],
+      [
+        "a",
+        "a trick i use when i get in this situation is to stop using the internet."
+      ],
+      [
+        "q",
+        "I'M LITERALLY COPYING YOUR PROPORTIONS AND SIZES"
+      ],
+      [
+        "a",
+        "i mean so did i. dont we all use 1920x1080 or did i invent that?"
+      ]
+    ]
+  },
+  {
+    "_id": "6161de860fa2143366a23424",
+    "d": "2021-10-09T03:31:41.240Z",
+    "q": "[qref 211008125523] No! I meant... the sizes you use for the headers and stuff! 3rem... 2rem... 1.5rem... 1.25rem...",
+    "a": "i didn't even know i use those sizes. ok. dont steal the entire website's code and you're good and i don't really care. but remember to be your self when you make stuff."
+  },
+  {
+    "_id": "6161defc0fa2143366a23425",
+    "d": "2021-10-09T14:33:21.165Z",
+    "q": "how do i delete an element in elemental 4?",
+    "a": "question how you even opened the game in october 2021. i don't own the domain to it and the code has been archived for months."
+  },
+  {
+    "_id": "6162e566d2e8ecbf71f62f57",
+    "d": "2021-10-10T02:16:26.061Z",
+    "q": "Can you upload your PC's ISO to the site?",
+    "a": "i dont understand the question. its windows 11 with intune configuration, not a customized iso."
+  },
+  {
+    "_id": "6162e5e4d2e8ecbf71f62f58",
+    "d": "2021-10-10T04:02:11.639Z",
+    "c": [
+      [
+        "q",
+        "I think all your songs need cover art."
+      ],
+      [
+        "a",
+        "I WILL BE MAKING COVER ARTS. eventually. theres a <code>thumbnail</code> property on the artifact data which is percisely for this reason."
+      ],
+      [
+        "q",
+        "This is because some people could use them as a reference to design the levels in 'A Dance of Fire and Ice' and 'Rhythm Doctor'. Without these, the levels might be quite bland if the creators don't have any ideas for design."
+      ],
+      [
+        "q",
+        "Especially 'party with the gang of 3', because I'm MAKING that level. Could you make one album cover on the spot for it?"
+      ]
+    ]
+  },
+  {
+    "_id": "616437edde6a5dc2edb0580e",
+    "d": "2021-10-11T02:37:04.944Z",
+    "q": "For a response to the PC ISO question, that is a disk image, as in a file that would let someone create a duplicate of the drive",
+    "a": "i know. my confusion is the fact that i would have one of those for my pc, and more importantly, would <em>share</em> that."
+  },
+  {
+    "_id": "61644762e7d0d5c086efcc04",
+    "d": "2021-10-11T13:30:25.459Z",
+    "q": "how old are you",
+    "a": "17"
+  },
+  {
+    "_id": "6164476de7d0d5c086efcc05",
+    "d": "2021-10-11T13:36:40.558Z",
+    "q": "is grace your girlfriend",
+    "a": "at the moment"
+  },
+  {
+    "_id": "61644784e7d0d5c086efcc06",
+    "d": "2021-10-11T13:39:28.337Z",
+    "q": "where do these questions get sent for you to respond",
+    "a": "to <a href=\"https://davecode.me/q+a/respond\">https://davecode.me/q+a/respond</a>"
+  }
+]
