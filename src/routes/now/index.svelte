@@ -1,9 +1,9 @@
 <script>
   const things = [
     //
-    'school',
+    'doing high school',
     'is rewriting this website in svelte',
-    'is working on other projects',
+    'helping make a discord bot',
   ];
 </script>
 
