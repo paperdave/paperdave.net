@@ -1253,6 +1253,11 @@ svelte-hmr@^0.14.5:
   resolved "https://registry.yarnpkg.com/svelte-hmr/-/svelte-hmr-0.14.6.tgz#d3f3be88bebb50ef2fb1ed4ebfb8ba4f03874098"
   integrity sha512-0oXQmRiEh3uNjyVQiGmIE7imbKO4dYc1WL6XRXTC0X9XbSacJgj9MOLguqqbZygPsNnlglhlk4eB0pCmM6nQAA==
 
+svelte-kit-cookie-session@^1.3.3:
+  version "1.3.3"
+  resolved "https://registry.yarnpkg.com/svelte-kit-cookie-session/-/svelte-kit-cookie-session-1.3.3.tgz#43d57cb2e2dd08eb83dde3194c4a4db0dd150975"
+  integrity sha512-GQKs5dcGPWn9F2hb1gu+czIJYu4DaYniuj/k/KexNaGDVl5HrJOYhHO1K8NXOpV4xKwM9QNHFS8MAtLUETGaUg==
+
 svelte-loading-spinners@^0.1.7:
   version "0.1.7"
   resolved "https://registry.yarnpkg.com/svelte-loading-spinners/-/svelte-loading-spinners-0.1.7.tgz#3fa6fa0ef67ab635773bf20b07d0b071debbadaa"

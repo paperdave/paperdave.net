@@ -26,6 +26,7 @@
   const dateEst = new Date(
     question.date.getTime() + question.date.getTimezoneOffset() * 60000 - 4 * 60 * 60 * 1000
   );
+
   const dateString = [
     dateEst.getFullYear().toString(),
     '-',
