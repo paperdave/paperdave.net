@@ -27,7 +27,7 @@ export const get: RequestHandler = async ({}) => {
 
   const db = await getDatabase(Question);
 
-  const questions = fs.readJsonSync(`C:\\Code\\davecode.me\\src\\routes\\q+a\\migrate.json`);
+  const questions = fs.readJsonSync(`C:\\Code\\davecode.net\\src\\routes\\q+a\\migrate.json`);
 
   let mapped = questions
     .map(

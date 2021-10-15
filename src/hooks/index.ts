@@ -12,7 +12,7 @@ export const handle = handleSession(
       ...response,
       headers: {
         ...response.headers,
-        'X-Powered-By': 'chocolate; see https://davecode.me/donate',
+        'X-Powered-By': 'chocolate; see https://davecode.net/donate',
       },
     };
   }

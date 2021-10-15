@@ -7,8 +7,8 @@
   }
 
   const sourceUrl =
-    'https://github.com/davecaruso/davecode.me/tree/main/src/routes/series/the-writer/index.html';
-  const rootUrl = 'https://media.davecode.me/content/2020';
+    'https://github.com/davecaruso/davecode.net/tree/main/src/routes/series/the-writer/index.html';
+  const rootUrl = 'https://media.davecode.net/content/2020';
   const pages = [
     ['I', 'loxu72p7', 'Canvas', -2, '2020-10-01'],
     ['II', 'y6ajpo8u', 'Feedback', -1, '2020-10-08'],

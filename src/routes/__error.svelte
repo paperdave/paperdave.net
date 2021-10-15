@@ -76,7 +76,9 @@
         <li><a href="https://reddit.com/r/all">browse memes</a></li>
         <!-- <li><a href="#game">play a game</a></li> -->
       {:else}
-        <li><a href="https://github.com/davecaruso/davecode.me/issues">browse github issues</a></li>
+        <li>
+          <a href="https://github.com/davecaruso/davecode.net/issues">browse github issues</a>
+        </li>
       {/if}
     </ul>
   </section>

@@ -215,7 +215,7 @@
       Entries release every Thursday at 4:30pm EST.
     </p>
     <p class="footer">
-      Written and Programmed by <a href="https://davecode.me/">dave caruso</a>.
+      Written and Programmed by <a href="https://davecode.net/">dave caruso</a>.
     </p>
   </div>
 
