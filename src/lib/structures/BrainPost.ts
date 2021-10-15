@@ -15,7 +15,7 @@ export class BrainPost {
   toJSON() {
     return {
       _v: 0,
-      date: this.date.toUTCString(),
+      date: this.date.getTime(),
       text: this.text,
     };
   }
