@@ -1,7 +1,10 @@
 <script lang="ts">
+  import { fade } from 'svelte/transition';
+
   export let value: string = '';
   export let expanded: boolean = false;
   export let sending: boolean = false;
+  export let sendingState: 'success' | 'failure' | null = null;
 
   let textarea: HTMLTextAreaElement | undefined;
   let wrapCalculator: HTMLDivElement | undefined;
@@ -25,6 +28,13 @@
   {#if sending}
     <div class="bar">
       <div class="anim" />
+      {#if sendingState !== null}
+        <div
+          class="result"
+          class:success={sendingState === 'success'}
+          class:failure={sendingState === 'failure'}
+          transition:fade={{ duration: 200 }} />
+      {/if}
     </div>
   {/if}
 
@@ -133,6 +143,21 @@
     background-color: rgba(255, 255, 255, 0.7);
     animation: indeterminateAnimation 1s 400ms both infinite linear;
     transform-origin: 0% 50%;
+  }
+
+  .result {
+    position: absolute;
+    top: 0;
+    left: 1px;
+    width: calc(100% - 2px);
+    height: 100%;
+    animation: resultAnimation 1s ease-in-out both;
+    &.success {
+      background-color: #51d064;
+    }
+    &.failure {
+      background-color: #df4f3d;
+    }
   }
 
   @keyframes indeterminateAnimation {

@@ -7,7 +7,7 @@
 </script>
 
 {#if type === 'text'}
-  <input class:fullWidth type="text" bind:value {placeholder} {disabled} />
+  <input class:fullWidth type="text" on:change on:input bind:value {placeholder} {disabled} />
 {:else if type === 'button'}
   <button class:fullWidth on:click {disabled}><slot>{value}</slot></button>
 {:else if type === 'submit'}

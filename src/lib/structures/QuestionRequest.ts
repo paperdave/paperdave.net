@@ -20,7 +20,7 @@ export class QuestionRequest {
   toJSON() {
     return {
       _v: 0,
-      date: this.date.toISOString(),
+      date: this.date.getTime(),
       content: this.content,
       notificationEmail: this.notificationEmail,
     };

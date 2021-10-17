@@ -1,6 +1,6 @@
 <script lang="ts" context="module">
   import { Question } from '$lib/structures';
-
+  import type { JSONData } from '$lib/structures';
   import type { Load } from '@sveltejs/kit';
   import QAHeader from './_QAHeader.svelte';
 
@@ -19,7 +19,7 @@
         props: {
           isLatestPage: false,
           pageNumber: data.page,
-          questions: data.questions.map((x) => Question.fromJSON(x)),
+          questions: data.questions.map((x: JSONData<Question>) => Question.fromJSON(x)),
         },
       };
     } else {
@@ -28,7 +28,7 @@
         props: {
           isLatestPage: true,
           pageNumber: data.page,
-          questions: data.questions.map((x) => Question.fromJSON(x)),
+          questions: data.questions.map((x: JSONData<Question>) => Question.fromJSON(x)),
         },
       };
     }

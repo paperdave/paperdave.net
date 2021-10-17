@@ -43,14 +43,18 @@
   let search = $page.query.get('q') ?? '';
 
   async function runSearch() {
+    if (!browser) return;
+
     if (search) {
       const data = await fetch(`/q+a/get-search?q=${encodeURIComponent(search)}`).then((x) =>
         x.json()
       );
 
       questions = data.questions.map((x: JSONData<Question>) => Question.fromJSON(x));
+      history.pushState(null, document.title, `/q+a/search?q=${encodeURIComponent(search)}`);
     } else {
       questions = [];
+      history.pushState(null, document.title, `/q+a/search`);
     }
     lastSearch = search;
   }
@@ -82,7 +86,7 @@
     };
   }
 
-  const debouncedSearch = debounce(runSearch, 500);
+  const debouncedSearch = debounce(runSearch, 200);
 
   $: browser && search !== lastSearch && search ? debouncedSearch() : runSearch();
   $: loading = search !== lastSearch;
@@ -136,6 +140,6 @@
 
   .noresult {
     text-align: center;
-    color: red;
+    color: #df4f3d;
   }
 </style>

@@ -2,7 +2,7 @@ import { getDatabase } from '$lib/db';
 import { JSONData, Question, QuestionRequest } from '$lib/structures';
 import { RequestHandler } from '@sveltejs/kit';
 
-export const get: RequestHandler = async ({ body }) => {
+export const post: RequestHandler = async ({ body }) => {
   const q = QuestionRequest.fromJSON(body as unknown as JSONData<QuestionRequest>);
 
   q.setDate(new Date());

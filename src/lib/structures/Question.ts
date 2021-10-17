@@ -1,6 +1,8 @@
 import { Data, JSONData, schema } from './structure-utils';
 
 export class QuestionParagraph {
+  private ui_uid = Math.floor(Math.random() * 999999).toString();
+
   who: 'question' | 'answer';
   message: string;
 
@@ -23,6 +25,10 @@ export class QuestionParagraph {
       message: data[1],
       who: data[0] === 'q' ? 'question' : 'answer',
     });
+  }
+
+  getUiUid() {
+    return this.ui_uid;
   }
 
   isQuestion() {
