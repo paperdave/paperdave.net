@@ -4,12 +4,13 @@
   import QuestionParagraph from './_QuestionParagraph.svelte';
 
   export let question: Question;
+  export let search: string = '';
 </script>
 
 <main>
   <QuestionDate {question} />
   {#each question.content as paragraph}
-    <QuestionParagraph {question} {paragraph} />
+    <QuestionParagraph {paragraph} />
   {/each}
 </main>
 

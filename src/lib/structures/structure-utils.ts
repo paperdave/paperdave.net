@@ -1,6 +1,6 @@
 /** Takes a class and removes all methods. */
 export type Data<T> = {
-  [P in keyof T as T[P] extends (...args: unknown[]) => unknown ? never : P]: T[P];
+  [P in keyof T as T[P] extends (...args: never[]) => unknown ? never : P]: T[P];
 };
 
 /**
@@ -34,3 +34,5 @@ export function schema(name: string) {
     target.structureName = name;
   };
 }
+
+export const REDACTED = '[REDACTED]';

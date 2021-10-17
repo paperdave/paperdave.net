@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { page } from '$app/stores';
 
   $: fullWidth = $page.path === '/q+a/respond';

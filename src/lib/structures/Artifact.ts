@@ -5,7 +5,7 @@ export class Artifact {
   id: string;
   title: string;
   date: Date;
-  thumbnail: string;
+  thumbnail: string | null;
   type: string;
   tags: Set<string>;
   data: Map<string, any>;
@@ -19,6 +19,14 @@ export class Artifact {
       this.type = data.type;
       this.tags = data.tags;
       this.data = data.data;
+    } else {
+      this.id = '';
+      this.title = '';
+      this.date = new Date();
+      this.thumbnail = null;
+      this.type = 'unknown';
+      this.tags = new Set();
+      this.data = new Map();
     }
   }
 

@@ -9,6 +9,9 @@ export class LegacyRedirect {
     if (data) {
       this.key = data.key;
       this.value = data.value;
+    } else {
+      this.key = '';
+      this.value = '';
     }
   }
 

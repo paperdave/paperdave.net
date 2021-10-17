@@ -1,35 +1,32 @@
 import { getDatabase } from '$lib/db';
+import { ISession } from '$lib/structures/Session';
 import { User } from '$lib/structures/User';
 import { RequestHandler } from '@sveltejs/kit';
+import { sha256 } from 'crypto-hash';
 
-export const post: RequestHandler = async ({ body }: { body: FormData }) => {
-  // if (!(body instanceof FormData)) {
-  //   return {
-  //     status: 400,
-  //     body: {
-  //       success: false,
-  //       message: 'Invalid request body',
-  //     },
-  //   };
-  // }
-
-  const submitType = body.get('type').toString();
+export const post: RequestHandler<Record<string, unknown>, FormData> = async ({ body, locals }) => {
+  const submitType = body.get('type')?.toString();
 
   const userDb = await getDatabase(User);
 
   if (submitType === 'login') {
-    const email = body.get('email').toString();
-    const password = body.get('password').toString();
+    const email = body.get('email')?.toString().toLowerCase();
+    const password = body.get('password')?.toString();
 
     const one = await userDb.findOne({ email });
+
     if (one) {
       const user = User.fromJSON(one);
-      if (await user.checkPassword(password)) {
+      if (user.passwordHash === (await sha256(`${one.salt}_${email}_${password}`))) {
+        const userData = user.getClientUser();
+        locals.session.data = {
+          user: userData,
+        } as ISession;
         return {
           status: 200,
           body: {
             success: true,
-            message: 'cool man, except theres no login logic yet',
+            userData,
           },
         };
       } else {

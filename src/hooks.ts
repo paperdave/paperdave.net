@@ -1,8 +1,10 @@
+import { COOKIE_SECRET } from '$lib/env';
+import { GetSession } from '@sveltejs/kit';
 import { handleSession } from 'svelte-kit-cookie-session';
 
 export const handle = handleSession(
   {
-    secret: 'th7dc2qc7MR9CaGPkzWrVFUhQR5Zunkg',
+    secret: COOKIE_SECRET,
     rolling: true,
   },
   async ({ request, resolve }) => {
@@ -17,3 +19,7 @@ export const handle = handleSession(
     };
   }
 );
+
+export const getSession: GetSession = ({ locals }) => {
+  return locals.session.data;
+};

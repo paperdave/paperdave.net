@@ -25,6 +25,9 @@ const conf = {
     target: 'body',
     vite: {
       plugins: [svgSvelte(), content.default()],
+      optimizeDeps: {
+        exclude: ['svelte-kit-cookie-session', 'mongodb', 'bson'],
+      },
     },
   },
 };

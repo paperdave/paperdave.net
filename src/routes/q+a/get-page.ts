@@ -15,6 +15,8 @@ export const get: RequestHandler = async ({ query }) => {
     return {
       body: {
         tooNew: true,
+        page: lastPage,
+        questions: [],
       },
     };
   }
@@ -28,6 +30,7 @@ export const get: RequestHandler = async ({ query }) => {
 
   return {
     body: {
+      tooNew: null,
       page: pageNumber,
       questions: stripDatabaseInternals(questions.reverse()),
     },

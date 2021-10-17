@@ -43,6 +43,8 @@
   export let isLatestPage: boolean;
   export let pageNumber: number;
   export let questions: Question[];
+
+  let formExpanded = false;
 </script>
 
 <main>
@@ -69,9 +71,9 @@
   </section>
   {#if isLatestPage}
     <section>
-      <QuestionForm />
+      <QuestionForm bind:expanded={formExpanded} />
     </section>
-    <section>
+    <section class="opacity-transition" style="opacity:{formExpanded ? 0 : 1}">
       <p>and the answers:</p>
     </section>
   {:else}
@@ -105,5 +107,8 @@
   }
   p {
     margin-bottom: 1rem;
+  }
+  .opacity-transition {
+    transition: 100ms opacity ease-in-out;
   }
 </style>

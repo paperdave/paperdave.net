@@ -7,8 +7,14 @@ export class QuestionRequest {
   notificationEmail: string | undefined;
 
   constructor(data?: Data<QuestionRequest>) {
-    this.date = data.date;
-    this.content = data.content;
+    if (data) {
+      this.date = data.date;
+      this.content = data.content;
+      this.notificationEmail = data.notificationEmail;
+    } else {
+      this.date = new Date();
+      this.content = '';
+    }
   }
 
   toJSON() {

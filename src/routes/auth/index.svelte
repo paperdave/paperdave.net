@@ -1,4 +1,9 @@
 <script lang="ts">
+  import { session, page } from '$app/stores';
+  import { goto } from '$app/navigation';
+
+  $: returnPage = $page.query.get('r') ?? '/profile';
+
   let form: HTMLFormElement;
 
   let email = 'dave@davecode.me';
@@ -24,7 +29,12 @@
 
     if (result.success) {
       // do a thing with token
-      console.log(result.token);
+      session.set({
+        ...$session,
+        user: result.userData,
+      });
+
+      goto(returnPage);
     } else {
       isFailedLogin = true;
     }
@@ -34,7 +44,7 @@
 <form bind:this={form} on:submit={submit} class:isLoading>
   <noscript>Currently, this form requires JavaScript to submit it.</noscript>
   <input type="hidden" name="type" value="login" />
-  <h1>log in</h1>
+  <h1>authorize</h1>
   {#if isFailedLogin}
     <p>Login failed, email or password is incorrect.</p>
   {/if}

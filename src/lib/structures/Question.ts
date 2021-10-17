@@ -6,13 +6,11 @@ export class QuestionParagraph {
 
   constructor(data?: Data<QuestionParagraph>) {
     if (data) {
-      if (Array.isArray(data)) {
-        this.message = data[1];
-        this.who = data[0] === 'question' || data[0] === 'q' ? 'question' : 'answer';
-      } else {
-        this.message = data.message;
-        this.who = data.who;
-      }
+      this.message = data.message;
+      this.who = data.who;
+    } else {
+      this.message = '';
+      this.who = 'question';
     }
   }
 
@@ -69,6 +67,9 @@ export class Question {
     if (data) {
       this.date = new Date(data.date.getTime() - data.date.getMilliseconds());
       this.content = data.content;
+    } else {
+      this.date = new Date();
+      this.content = [];
     }
   }
 
@@ -80,7 +81,7 @@ export class Question {
     };
   }
 
-  static fromJSON(data: any) {
+  static fromJSON(data: JSONData<Question>) {
     return new Question({
       date: new Date(data.date),
       content: data.content.map((paragraph) => QuestionParagraph.fromJSON(paragraph)),

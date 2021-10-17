@@ -36,8 +36,6 @@ export const get: RequestHandler = async ({ query }) => {
     parseInt(second)
   ).getTime();
 
-  console.log(questionDate);
-
   const question = await questionDb.findOne({
     date: { $eq: questionDate },
   });

@@ -1,6 +1,4 @@
 {
-  "editor.wordWrap": "wordWrapColumn",
-  "editor.wordWrapColumn": 100,
   "files.associations": {
     "*.svx": "markdown"
   },
@@ -14,7 +12,8 @@
     ".vscode": true,
     ".vercel_build_output": true,
     ".svelte-kit": true,
-    "node_modules": true
+    "node_modules": true,
+    ".prettierignore": true,
   },
   "workspace.isHidden": false
 }

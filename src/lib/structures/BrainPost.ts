@@ -9,6 +9,9 @@ export class BrainPost {
     if (data) {
       this.date = data.date;
       this.text = data.text;
+    } else {
+      this.date = new Date();
+      this.text = '';
     }
   }
 
