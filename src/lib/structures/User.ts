@@ -1,4 +1,3 @@
-import { ObjectId } from 'bson';
 import { Data, JSONData, schema } from './structure-utils';
 
 export enum UserPermission {
@@ -7,7 +6,6 @@ export enum UserPermission {
 
 @schema('users')
 export class User {
-  id: ObjectId;
   email: string;
   passwordHash: string;
   permissions: Set<UserPermission>;
@@ -15,13 +13,11 @@ export class User {
 
   constructor(data?: Data<User>) {
     if (data) {
-      this.id = data.id;
       this.email = data.email;
       this.passwordHash = data.passwordHash;
       this.permissions = data.permissions;
       this.salt = data.salt;
     } else {
-      this.id = new ObjectId();
       this.email = '';
       this.passwordHash = '';
       this.permissions = new Set();
@@ -32,7 +28,6 @@ export class User {
   toJSON() {
     return {
       _v: 0,
-      _id: this.id,
       email: this.email,
       passwordHash: this.passwordHash,
       permissions: [...this.permissions],
@@ -42,7 +37,6 @@ export class User {
 
   static fromJSON(data: JSONData<User>) {
     return new User({
-      id: data._id,
       email: data.email,
       passwordHash: data.passwordHash,
       permissions: new Set(data.permissions),
@@ -65,14 +59,8 @@ export class User {
     return this;
   }
 
-  setId(id: ObjectId) {
-    this.id = id;
-    return this;
-  }
-
   getClientUser() {
     return {
-      id: this.id.toHexString(),
       email: this.email,
       name: this.email,
       permissions: [...this.permissions],
