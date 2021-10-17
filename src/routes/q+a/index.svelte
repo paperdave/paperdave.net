@@ -37,6 +37,7 @@
 
 <script lang="ts">
   import { page } from '$app/stores';
+  import A from '../[...redirect].svelte';
   import QuestionForm from './_QuestionForm.svelte';
   import QuestionRender from './_QuestionRender.svelte';
 
@@ -89,7 +90,9 @@
   {/if}
   <section class="questions">
     {#each questions as question}
-      <QuestionRender {question} />
+      {#key question.date.getTime()}
+        <QuestionRender {question} />
+      {/key}
     {/each}
   </section>
   {#if pageNumber !== 0}

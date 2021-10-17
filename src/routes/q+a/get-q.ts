@@ -11,33 +11,23 @@ export const get: RequestHandler = async ({ query }) => {
     return {
       status: 400,
       body: {
-        error: 'Missing question id',
+        question: null,
       },
     };
   }
 
-  const match = questionDateId.match(/^(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})$/);
+  const match = Question.parseDateId(questionDateId);
   if (!match) {
     return {
       status: 400,
       body: {
-        error: 'Invalid question id',
+        question: null,
       },
     };
   }
-  const [_, year, month, day, hour, minute, second] = match;
-
-  const questionDate = new Date(
-    2000 + parseInt(year),
-    parseInt(month) - 1,
-    parseInt(day),
-    parseInt(hour),
-    parseInt(minute),
-    parseInt(second)
-  ).getTime();
 
   const question = await questionDb.findOne({
-    date: { $eq: questionDate },
+    date: { $eq: match.getTime() },
   });
 
   return {

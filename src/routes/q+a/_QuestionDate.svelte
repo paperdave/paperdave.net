@@ -23,9 +23,7 @@
     }, 1500);
   }
 
-  const dateEst = new Date(
-    question.date.getTime() + question.date.getTimezoneOffset() * 60000 - 4 * 60 * 60 * 1000
-  );
+  const dateEst = question.getDisplayDate();
 
   const dateString = [
     dateEst.getFullYear().toString(),

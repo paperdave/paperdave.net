@@ -94,6 +94,10 @@ export class Question {
     });
   }
 
+  getDisplayDate() {
+    return new Date(this.date.toLocaleString('en-US', { timeZone: 'America/Detroit' }));
+  }
+
   setDate(date: Date = new Date()) {
     this.date = date;
     return this;
@@ -118,15 +122,25 @@ export class Question {
   }
 
   getDateId() {
+    const date = this.getDisplayDate();
     return [
-      this.date.getFullYear().toString().slice(2),
-      (this.date.getMonth() + 1).toString(),
-      this.date.getDate().toString(),
-      this.date.getHours().toString(),
-      this.date.getMinutes().toString(),
-      this.date.getSeconds().toString(),
+      date.getFullYear().toString().slice(2),
+      (date.getMonth() + 1).toString(),
+      date.getDate().toString(),
+      date.getHours().toString(),
+      date.getMinutes().toString(),
+      date.getSeconds().toString(),
     ]
       .map((x) => x.padStart(2, '0'))
       .join('');
+  }
+
+  static parseDateId(id: string) {
+    const match = id.match(/^(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})$/);
+    if (!match) {
+      return null;
+    }
+    const [, year, month, day, hour, minute, second] = match;
+    return new Date(`${month} ${day} ${year} ${hour}:${minute}:${second} EDT`);
   }
 }
