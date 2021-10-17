@@ -9,6 +9,11 @@
 </main>
 
 <style lang="scss">
+  main {
+    line-height: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+
   .q {
     font-family: 'Roboto Slab';
     font-size: 1.15em;

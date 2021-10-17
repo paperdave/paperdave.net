@@ -26,6 +26,7 @@
     <ul>
       <li><a href="/q+a">question answer</a></li>
       <li><a href="/music">the music</a></li>
+      <li><a href="/brain">brain thoughts</a></li>
       <li><a href="/now">now</a></li>
       <li><a href="/blog/learning-svelte">blog: learning svelte</a></li>
       <li>more coming very soon.</li>

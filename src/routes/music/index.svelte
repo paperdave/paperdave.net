@@ -5,7 +5,7 @@
   import MusicCard from './_MusicCard.svelte';
 
   export const load: Load = async ({ fetch }) => {
-    const res = await fetch('/music/page-data.json').then((res) => res.json());
+    const res = await fetch('/music/get-music').then((res) => res.json());
     return {
       props: {
         music: res.map((x) => MusicArtifact.fromJSON(x)),

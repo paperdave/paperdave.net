@@ -5,7 +5,7 @@
   import type { Load } from '@sveltejs/kit';
 
   export const load: Load = async ({ fetch }) => {
-    const res = await fetch('/videos/page-data.json').then((res) => res.json());
+    const res = await fetch('/videos/get-videos.json').then((res) => res.json());
     return {
       props: {
         videos: res.map((x) => new VideoArtifact(x)),

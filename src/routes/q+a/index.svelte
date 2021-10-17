@@ -37,7 +37,6 @@
 
 <script lang="ts">
   import { page } from '$app/stores';
-  import A from '../[...redirect].svelte';
   import QuestionForm from './_QuestionForm.svelte';
   import QuestionRender from './_QuestionRender.svelte';
 
