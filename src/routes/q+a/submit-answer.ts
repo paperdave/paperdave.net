@@ -1,8 +1,19 @@
 import { getDatabase } from '$lib/db';
-import { Question, QuestionRequest } from '$lib/structures';
+import { Question, QuestionRequest, UserPermission } from '$lib/structures';
 import { RequestHandler } from '@sveltejs/kit';
 
-export const post: RequestHandler = async ({ body }) => {
+export const post: RequestHandler = async ({ locals, body }) => {
+  const user = locals.session.data?.user;
+
+  if (!user || !user.permissions.includes(UserPermission.RESPOND_TO_QUESTIONS)) {
+    return {
+      status: 403,
+      body: {
+        error: 'You do not have permission to query this endpoint.',
+      },
+    };
+  }
+
   const date: number = body.date;
 
   const requestDb = await getDatabase(QuestionRequest);
