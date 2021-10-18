@@ -39,6 +39,7 @@
   import { page } from '$app/stores';
   import QuestionForm from './_QuestionForm.svelte';
   import QuestionRender from './_QuestionRender.svelte';
+  import BackButton from '$lib/components/BackButton.svelte';
 
   export let isLatestPage: boolean;
   export let pageNumber: number;
@@ -48,6 +49,7 @@
 </script>
 
 <main>
+  <BackButton position="off-center-right" inverted />
   <QAHeader />
   <section>
     <p>i answer anonymous questions you ask, because it's fun.</p>

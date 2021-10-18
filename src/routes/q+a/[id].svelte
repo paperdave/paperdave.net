@@ -25,6 +25,8 @@
 </script>
 
 <script lang="ts">
+  import BackButton from '$lib/components/BackButton.svelte';
+
   import QaHeader from './_QAHeader.svelte';
   import QuestionRender from './_QuestionRender.svelte';
 
@@ -32,6 +34,7 @@
 </script>
 
 <main>
+  <BackButton position="off-center-right" inverted />
   <QaHeader />
   <section>
     <p>i answer anonymous questions you ask, because it's fun.</p>

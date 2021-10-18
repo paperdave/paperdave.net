@@ -37,6 +37,7 @@
   import { fly } from 'svelte/transition';
   import { flip } from 'svelte/animate';
   import { cubicIn, cubicInOut, cubicOut } from 'svelte/easing';
+  import BackButton from '$lib/components/BackButton.svelte';
 
   export let questions: Question[];
   export let lastSearch: string = '';
@@ -93,6 +94,7 @@
 </script>
 
 <main>
+  <BackButton position="off-center-right" inverted />
   <QaHeader />
 
   <section>
