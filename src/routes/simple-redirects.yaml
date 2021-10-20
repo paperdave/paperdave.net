@@ -1,6 +1,8 @@
 # stuff
 /name-painter-invite: https://discord.com/oauth2/authorize?client_id=604738745224134675&scope=bot+applications.commands&permissions=268504064
 
+/matrix: https://matrix.to/#/#davecode:matrix.org
+
 # legacy moved content
 /learning-svelte/*: /blog/learning-svelte/*
 /the-writer: /stories/the-writer
