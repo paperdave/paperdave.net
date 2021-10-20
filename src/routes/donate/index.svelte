@@ -1,5 +1,20 @@
 <script lang="ts">
   import BackButton from '$lib/components/BackButton.svelte';
+
+  const hardcodedData = [
+    {
+      name: 'Filip Kin',
+      amount: -1,
+    },
+    {
+      name: 'Egrodo',
+      amount: -1,
+    },
+    {
+      name: 'Aya',
+      amount: -1,
+    },
+  ];
 </script>
 
 <main>
@@ -20,9 +35,10 @@
 
   <h2>donator hall of fame</h2>
   <ul>
-    <li>Filip Kin</li>
-    <li>egrodo</li>
-    <li>and other anonymous people</li>
+    {#each hardcodedData as dontation}
+      <li>{dontation.name}</li>
+    {/each}
+    <li class="other">and other anonymous people</li>
   </ul>
 </main>
 
@@ -55,8 +71,12 @@
   }
   h2 {
     text-align: center;
+    margin-top: 5rem;
   }
   li {
     text-align: center;
+  }
+  .other {
+    opacity: 0.5;
   }
 </style>
