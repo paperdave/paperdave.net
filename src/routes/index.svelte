@@ -21,6 +21,11 @@
       <li><a href="/matrix">chat on matrix</a></li>
       <li><a href="mailto:dave@davecode.me">send email</a></li>
       <li><a href="https://youtube.com/davecode">youtube</a></li>
+      <li><a href="https://www.tiktok.com/@dave_caruso">tiktok</a></li>
+      <!-- <li><a href="https://twitch.tv/davecaruso">twitch</a></li>
+      <li><a href="https://twitter.com/davecode_me">twitter</a></li>
+      <li><a href="https://instagram.com/davecode.me">instagram</a></li> -->
+      <li><a href="/donate">give me chocolate</a></li>
     </ul>
 
     <p>existing pages</p>
@@ -31,6 +36,9 @@
       <li><a href="/now">now</a></li>
       <li><a href="/blog/learning-svelte">blog: learning svelte</a></li>
       <li>more coming very soon.</li>
+      <br />
+      <br />
+      <li style="opacity:.25"><a href="/vault">what's the password</a></li>
     </ul>
   </header>
 </main>

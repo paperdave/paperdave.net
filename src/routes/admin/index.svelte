@@ -16,19 +16,12 @@
 </script>
 
 <script lang="ts">
-  import { session } from '$app/stores';
   import BackButton from '$lib/components/BackButton.svelte';
 </script>
 
 <main>
   <BackButton position="corner" />
-  <h1>your profile</h1>
-  <button>logout (not supported yet)</button>
-  <pre>
-    <code>
-      {JSON.stringify($session, null, 2)}
-    </code>
-  </pre>
+  <h1>admin</h1>
 </main>
 
 <style lang="scss">

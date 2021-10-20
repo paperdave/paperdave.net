@@ -1,5 +1,5 @@
 <script lang="ts">
-  export let position: 'corner' | 'off-center';
+  export let position: 'corner' | 'off-center' | 'off-center-right';
 
   export let text = 'go home';
   export let href = '/';
@@ -11,6 +11,8 @@
     {text}
   </a>
 </main>
+
+<div class="spacer-{position}" />
 
 <style lang="scss">
   main {
@@ -52,6 +54,22 @@
 
     @media (max-width: 45rem) {
       left: 1rem;
+    }
+  }
+
+  .position-off-center-right {
+    position: absolute;
+    top: 0.5rem;
+    right: calc(50% - 20rem);
+
+    @media (max-width: 45rem) {
+      right: 1rem;
+    }
+  }
+
+  .spacer-off-center-right {
+    @media (max-width: 45rem) {
+      height: 2rem;
     }
   }
 

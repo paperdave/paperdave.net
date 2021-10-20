@@ -3,7 +3,8 @@
     //
     'doing high school',
     'is rewriting this website in svelte',
-    'helping make a discord bot',
+    'making a video editor',
+    'writing songs',
   ];
 </script>
 

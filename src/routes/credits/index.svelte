@@ -3,5 +3,5 @@
 </script>
 
 <main>
-  {JSON.stringify(yaml)}
+  <!-- {JSON.stringify(yaml)} -->
 </main>
