@@ -17,7 +17,8 @@
     </p>
 
     <ul>
-      <li><a href="https://discord.gg/4AbvSXV">the discord</a></li>
+      <li><a href="/discord">chat on discord</a></li>
+      <li><a href="/matrix">chat on matrix</a></li>
       <li><a href="mailto:dave@davecode.me">send email</a></li>
       <li><a href="https://youtube.com/davecode">youtube</a></li>
     </ul>
