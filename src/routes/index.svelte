@@ -10,6 +10,11 @@
   <header>
     <h1>dave caruso's website</h1>
 
+    <br />
+    <br />
+    <h2>new game: <a href="https://davecode.itch.io/phoenix-write">phoenix, write!</a></h2>
+    <br /><br />
+
     <p>
       cool things are happening behind the scenes related to this website. i am rewriting the entire
       thing in svelte, a wonderful javascript framework. for now, you can check out my existance on
