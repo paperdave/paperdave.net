@@ -46,7 +46,6 @@
     <ul>
       <li>
         <a href="/discord">chat on discord</a>
-        <span style="font-size:0.8em;">(or <a href="/matrix">matrix</a>)</span>
       </li>
       <li><a href="mailto:dave@davecode.me">send email</a></li>
       <li><a href="https://youtube.com/davecode">youtube</a></li>
