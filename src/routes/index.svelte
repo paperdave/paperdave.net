@@ -4,7 +4,7 @@
 
 <Meta
   title="davecode: computer art to the limit"
-  description="davecode is a creative project by dave caruso to take computer software and it's artistic and automation capabilities to the limits." />
+  description="davecode is a creative project by dave caruso to take computer software and its artistic and automation capabilities to the limits." />
 
 <main>
   <header>
@@ -44,9 +44,7 @@
 
     <p>external links</p>
     <ul>
-      <li>
-        <a href="/discord">chat on discord</a>
-      </li>
+      <li><a href="/discord">chat on discord</a></li>
       <li><a href="mailto:dave@davecode.me">send email</a></li>
       <li><a href="https://youtube.com/davecode">youtube</a></li>
       <li><a href="https://www.tiktok.com/@dave_caruso">tiktok</a></li>

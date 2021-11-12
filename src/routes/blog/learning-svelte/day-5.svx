@@ -13,7 +13,7 @@ doesn't yet have a good vscode plugin, so i may not actually use these much. we'
 
 alongside that, i worked on the website's *data structures*. instead of just using typescript interfaces
 they are *classes* with a handful of useful methods that can be used builder-style, or by casting an
-`Artifact` to a subclass, you can access it's properties via autocomplete. Some structures have
+`Artifact` to a subclass, you can access its properties via autocomplete. Some structures have
 helper methods, such as the `VaultKey` structure having a validation method on it.
 
 Here's the full list of structures, and for your enjoyment, they are all available in the
