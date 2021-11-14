@@ -2,7 +2,9 @@ import { getDatabase } from '$lib/db';
 import { ISession } from '$lib/structures/Session';
 import { User } from '$lib/structures/User';
 import { RequestHandler } from '@sveltejs/kit';
-import { sha256 } from 'crypto-hash';
+import crypto from 'crypto';
+
+// note: move to bcrypt for passwords. but i dont care since it's literally one user account LOL.
 
 export const post: RequestHandler<Record<string, unknown>, FormData> = async ({ body, locals }) => {
   const submitType = body.get('type')?.toString();
@@ -17,7 +19,11 @@ export const post: RequestHandler<Record<string, unknown>, FormData> = async ({ 
 
     if (one) {
       const user = User.fromJSON(one);
-      if (user.passwordHash === (await sha256(`${one.salt}_${email}_${password}`))) {
+      const hashed = crypto
+        .createHash('sha256')
+        .update(`${one.salt}_${email}_${password}`)
+        .digest('hex');
+      if (user.passwordHash === hashed) {
         const userData = user.getClientUser();
         locals.session.data = {
           user: userData,
