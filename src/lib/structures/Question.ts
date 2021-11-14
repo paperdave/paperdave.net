@@ -99,7 +99,7 @@ export class Question {
   }
 
   setDate(date: Date = new Date()) {
-    this.date = date;
+    this.date = new Date(date.getTime() - date.getMilliseconds());
     return this;
   }
 
@@ -141,6 +141,6 @@ export class Question {
       return null;
     }
     const [, year, month, day, hour, minute, second] = match;
-    return new Date(`${month} ${day} ${year} ${hour}:${minute}:${second} EDT`);
+    return new Date(`${month} ${day} ${year} ${hour}:${minute}:${second} EST`);
   }
 }
