@@ -34,7 +34,7 @@
         user: result.userData,
       });
 
-      goto(returnPage);
+      goto(decodeURIComponent(returnPage));
     } else {
       isFailedLogin = true;
     }

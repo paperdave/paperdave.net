@@ -3,6 +3,8 @@ import { SoftwareArtifact } from './SoftwareArtifact';
 import { JSONData } from './structure-utils';
 
 export class GameArtifact extends SoftwareArtifact {
+  static type = 'game';
+  
   static fromJSON(data: JSONData<Artifact>) {
     return new GameArtifact(Artifact.fromJSON(data));
   }

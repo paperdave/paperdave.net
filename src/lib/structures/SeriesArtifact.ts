@@ -3,6 +3,8 @@ import { FileArtifact } from './FileArtifact';
 import { JSONData } from './structure-utils';
 
 export class StoryArtifact extends FileArtifact {
+  static type = 'story';
+  
   static fromJSON(data: JSONData<Artifact>) {
     return new StoryArtifact(Artifact.fromJSON(data));
   }

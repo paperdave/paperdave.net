@@ -3,6 +3,8 @@ import { FileArtifact } from './FileArtifact';
 import { JSONData } from './structure-utils';
 
 export class VideoArtifact extends FileArtifact {
+  static type = 'video';
+  
   static fromJSON(data: JSONData<Artifact>) {
     return new VideoArtifact(Artifact.fromJSON(data));
   }

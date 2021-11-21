@@ -1,11 +1,6 @@
 import { Artifact } from './Artifact';
-import { JSONData } from './structure-utils';
 
-export class FileArtifact extends Artifact {
-  static fromJSON(data: JSONData<Artifact>) {
-    return new FileArtifact(Artifact.fromJSON(data));
-  }
-
+export abstract class FileArtifact extends Artifact {
   get file(): string {
     return this.getProperty('file');
   }

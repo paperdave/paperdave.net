@@ -2,6 +2,8 @@ import { Data, JSONData, mapToRecord, recordToMap, schema } from './structure-ut
 
 @schema('artifacts')
 export class Artifact {
+  static type = 'unknown';
+  
   id: string;
   title: string;
   date: Date;
@@ -23,8 +25,10 @@ export class Artifact {
       this.id = '';
       this.title = '';
       this.date = new Date();
+      this.date.setSeconds(0);
       this.thumbnail = null;
-      this.type = 'unknown';
+      // @ts-ignore
+      this.type = this.constructor.type ?? 'unknown';
       this.tags = new Set();
       this.data = new Map();
     }

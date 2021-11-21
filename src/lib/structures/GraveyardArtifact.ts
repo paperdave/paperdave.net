@@ -2,6 +2,8 @@ import { Artifact } from './Artifact';
 import { JSONData, mapToRecord, recordToMap } from './structure-utils';
 
 export class GraveyardArtifact extends Artifact {
+  static type = 'graveyard';
+  
   static fromJSON(data: JSONData<Artifact>) {
     return new GraveyardArtifact(Artifact.fromJSON(data));
   }

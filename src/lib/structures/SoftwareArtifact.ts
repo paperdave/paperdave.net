@@ -30,7 +30,9 @@ const categories = ['game', 'app', 'nerd-gear'] as const;
 
 export type SoftwareCategory = typeof categories[number];
 
-export class SoftwareArtifact extends Artifact {
+export abstract class SoftwareArtifact extends Artifact {
+  static type = 'software';
+
   get description(): string {
     return this.getProperty('description');
   }
@@ -59,32 +61,6 @@ export class SoftwareArtifact extends Artifact {
 
   addVersion(version: SoftwareVersion): this {
     this.versions.push(version);
-    return this;
-  }
-
-  isGame(): this is GameArtifact {
-    return this.hasTag('game');
-  }
-
-  isNerdGear(): this is NerdGearArtifact {
-    return this.hasTag('nerd-gear');
-  }
-
-  isApp(): this is AppArtifact {
-    return this.hasTag('app');
-  }
-
-  set category(category: SoftwareCategory) {
-    categories.forEach((c) => this.removeTag(c));
-    this.addTag(category);
-  }
-
-  get category(): SoftwareCategory | undefined {
-    return categories.find((c) => this.hasTag(c));
-  }
-
-  setCategory(category: SoftwareCategory): this {
-    this.category = category;
     return this;
   }
 }
