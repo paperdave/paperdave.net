@@ -2,9 +2,9 @@
   const things = [
     //
     'doing high school',
-    'is rewriting this website in svelte',
-    'making a video editor',
-    'writing songs',
+    'is learning autohotkey',
+    'is making a music video',
+    'is slowly rewriting this website in svelte',
   ];
 </script>
 
