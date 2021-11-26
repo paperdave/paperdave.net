@@ -8,7 +8,7 @@
 
 <script lang="ts">
   import { slide } from 'svelte/transition';
-  import { Circle } from 'svelte-loading-spinners';
+  import { ProgressRing } from 'fluent-svelte';
   import PlaySVG from '$lib/svg/Play.svg?component';
   import PauseSVG from '$lib/svg/Pause.svg?component';
   import DownloadSVG from '$lib/svg/Download.svg?component';
@@ -116,7 +116,7 @@
       }}
       tabindex="0">
       {#if showLoading}
-        <Circle color="#52501c" size={2} unit="rem" duration="1s" />
+        <ProgressRing />
       {:else if !playing}
         <PlaySVG />
       {:else}
@@ -207,6 +207,10 @@
     border-radius: 50%;
     cursor: pointer;
     transition: transform 100ms ease-in-out;
+
+    // override fluent
+    --fds-accent-default: #52501c;
+
     & > :global(svg) {
       width: 2rem;
       height: 2rem;

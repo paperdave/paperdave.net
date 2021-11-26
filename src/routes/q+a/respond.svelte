@@ -46,7 +46,7 @@
 
   $: latestQuestion = questions[0];
 
-  function sendQuestion(q: Question) {
+  function sendQuestion(q: Question, request: QuestionRequest) {
     if (!isDemo) {
       fetch('/q+a/submit-answer', {
         method: 'POST',
@@ -54,7 +54,7 @@
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          date: q.date.getTime(),
+          date: request.date.getTime(),
           result: q.toJSON(),
         }),
       });
@@ -65,7 +65,7 @@
     questions = questions.slice(1);
   }
 
-  function denyQuestion(q: Question) {
+  function denyQuestion(q: Question, request: QuestionRequest) {
     if (!isDemo) {
       fetch('/q+a/submit-answer', {
         method: 'POST',
@@ -73,7 +73,7 @@
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          date: q.date.getTime(),
+          date: request.date.getTime(),
           result: null,
         }),
       });
@@ -97,8 +97,8 @@
       {#key latestQuestion.date.getTime()}
         <QuestionRespondApp
           request={latestQuestion}
-          on:send={(ev) => sendQuestion(ev.detail)}
-          on:deny={(ev) => denyQuestion(ev.detail)} />
+          on:send={(ev) => sendQuestion(ev.detail, latestQuestion)}
+          on:deny={(ev) => denyQuestion(ev.detail, latestQuestion)} />
       {/key}
     {:else}
       <p>caught up :D</p>

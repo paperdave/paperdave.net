@@ -4,7 +4,7 @@ import { JSONData } from './structure-utils';
 
 export class VideoArtifact extends FileArtifact {
   static type = 'video';
-  
+
   static fromJSON(data: JSONData<Artifact>) {
     return new VideoArtifact(Artifact.fromJSON(data));
   }
@@ -27,7 +27,8 @@ export class VideoArtifact extends FileArtifact {
   }
 
   set ttms(value: number) {
-    this.setProperty('ttms', value);
+    const v = Number(value);
+    this.setProperty('ttms', v ? v : undefined);
   }
 
   setTTMS(ttms: number) {

@@ -1,16 +1,24 @@
-import { Data, JSONData, mapToRecord, recordToMap, schema } from './structure-utils';
+import { Data, JSONData, recordToMap, schema } from './structure-utils';
+
+export enum ArtifactVisibility {
+  PUBLIC = 'PUBLIC',
+  PRIVATE = 'PRIVATE',
+  DRAFT = 'DRAFT',
+  UNLISTED = 'UNLISTED',
+}
 
 @schema('artifacts')
 export class Artifact {
   static type = 'unknown';
-  
+
   id: string;
   title: string;
   date: Date;
-  thumbnail: string | null;
+  thumbnail: string | undefined;
   type: string;
   tags: Set<string>;
   data: Map<string, any>;
+  visibility: ArtifactVisibility;
 
   constructor(data?: Data<Artifact>) {
     if (data) {
@@ -21,30 +29,40 @@ export class Artifact {
       this.type = data.type;
       this.tags = data.tags;
       this.data = data.data;
+      this.visibility = data.visibility || ArtifactVisibility.PUBLIC;
     } else {
       this.id = '';
       this.title = '';
       this.date = new Date();
       this.date.setSeconds(0);
-      this.thumbnail = null;
+      this.date.setMinutes(0);
+      this.date.setHours(12);
+      this.thumbnail = undefined;
       // @ts-ignore
       this.type = this.constructor.type ?? 'unknown';
       this.tags = new Set();
       this.data = new Map();
+      this.visibility = ArtifactVisibility.DRAFT;
     }
   }
 
   toJSON() {
-    return {
+    const data = {
       _v: 0,
       id: this.id,
       title: this.title,
       date: this.date.getTime(),
-      thumbnail: this.thumbnail,
+      thumbnail: this.thumbnail || undefined,
       type: this.type,
       tags: Array.from(this.tags),
-      data: mapToRecord(this.data),
+      data: Object.fromEntries(
+        [...this.data.entries()].filter(
+          ([key, value]) => value !== undefined && value !== null && value !== ''
+        )
+      ),
+      visibility: this.visibility ?? ArtifactVisibility.DRAFT,
     };
+    return data;
   }
 
   static fromJSON(data: JSONData<Artifact>) {
@@ -56,6 +74,7 @@ export class Artifact {
       type: data.type,
       tags: new Set(data.tags),
       data: recordToMap(data.data),
+      visibility: data.visibility,
     });
   }
 
@@ -110,5 +129,14 @@ export class Artifact {
 
   getProperty(key: string) {
     return this.data.get(key);
+  }
+
+  getVisibility() {
+    return this.visibility;
+  }
+
+  setVisibility(visibility: ArtifactVisibility) {
+    this.visibility = visibility;
+    return this;
   }
 }

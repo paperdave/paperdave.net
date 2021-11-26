@@ -22,6 +22,8 @@
 <main>
   <BackButton position="corner" />
   <h1>admin</h1>
+
+  <a href="/admin/artifact-explorer">Artifact Explorer</a>
 </main>
 
 <style lang="scss">

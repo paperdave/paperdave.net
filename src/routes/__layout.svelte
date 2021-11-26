@@ -1,5 +1,6 @@
 <script lang="ts">
   import '../global.scss';
+  import '../fluent.scss';
 
   if (process.env.NODE_ENV === 'production' && typeof window !== 'undefined') {
     console.log('hey nerd.');
