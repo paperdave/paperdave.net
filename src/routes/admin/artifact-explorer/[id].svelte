@@ -132,9 +132,7 @@
       <ArtifactPreview artifact={edited} />
     </div>
     <ContentDialog bind:open={deleteDialogOpen} title={`Delete "${artifact.id}"?`}>
-      <div style="display: flex; flex-direction: column; gap: 12px; margin: 0;">
-        Once you delete an artifact, it cannot be recovered.
-      </div>
+      <div>Once you delete an artifact, it cannot be recovered.</div>
       <svelte:fragment slot="footer">
         <Button
           variant="accent"
@@ -160,11 +158,13 @@
 <style lang="scss">
   main {
     display: grid;
-    grid-template-columns: 3fr 2fr;
+    grid-template-columns: 1fr 50rem;
     grid-template-rows: 1fr 1fr;
     grid-template-areas:
       'editor json'
       'editor page-preview';
+
+    height: 100%;
   }
   header {
     padding: 1rem;
@@ -178,12 +178,15 @@
     font-family: Hack, monospace;
     background-color: #000;
     padding: 1rem;
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: auto;
   }
   .page-preview {
     grid-area: page-preview;
     background-color: white;
     color: black;
+    display: grid;
+    overflow-y: auto;
+    overflow-x: auto;
   }
 </style>

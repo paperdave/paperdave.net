@@ -1,3 +1,4 @@
+<!-- this component is a mess. i will clean it up eventually -->
 <script context="module" lang="ts">
   function formatDate(date: Date) {
     return [date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()]
@@ -11,6 +12,7 @@
   import { ProgressRing } from 'fluent-svelte';
   import PlaySVG from '$lib/svg/Play.svg?component';
   import PauseSVG from '$lib/svg/Pause.svg?component';
+  import LinkSVG from '$lib/svg/Link.svg?component';
   import DownloadSVG from '$lib/svg/Download.svg?component';
   import { useEffect } from '$lib/hooks/useEffect';
   import { MusicArtifact } from '$lib/structures';
@@ -132,6 +134,9 @@
         {/each}
       </div>
     </div>
+    <a href={`/${artifact.id}`} class="icon">
+      <LinkSVG />
+    </a>
     <a href={artifact.file} target="_blank" class="icon">
       <DownloadSVG />
     </a>

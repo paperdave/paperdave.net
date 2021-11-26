@@ -1,0 +1,39 @@
+<script context="module" lang="ts">
+  import type { Load } from '@sveltejs/kit';
+  import { MusicArtifact } from '$lib/structures';
+  import BackButton from '$lib/components/BackButton.svelte';
+  import MusicCard from './_MusicCard.svelte';
+</script>
+
+<script lang="ts">
+  import Meta from '$lib/components/Meta.svelte';
+  import MusicHeader from './_MusicHeader.svelte';
+  import Layout from './__layout.svelte';
+
+  export let artifact: MusicArtifact;
+</script>
+
+<Meta title={artifact.title} description="music by dave caruso" />
+
+<Layout>
+  <BackButton position="off-center" />
+
+  <MusicHeader />
+
+  <p>
+    <a href="/music">see all music</a>
+  </p>
+
+  <div>
+    <MusicCard {artifact} />
+  </div>
+</Layout>
+
+<style lang="scss">
+  p {
+    text-align: center;
+  }
+  a {
+    text-decoration: underline;
+  }
+</style>

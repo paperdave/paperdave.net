@@ -2,6 +2,7 @@
   import { Artifact, enhanceArtifact } from '$lib/structures';
 
   import type { Load } from '@sveltejs/kit';
+  import { SvelteComponentDev, SvelteComponentTyped } from 'svelte/internal';
 
   export const load: Load = async ({ fetch, page }) => {
     const artifactId = page.path.slice(1);
@@ -25,17 +26,27 @@
       status: 404,
     };
   };
+
+  declare class ViewerClass extends SvelteComponentTyped<{ artifact: any }> {}
 </script>
 
 <script lang="ts">
+  import MusicArtifactViewer from './music/_MusicArtifactViewer.svelte';
+
   export let artifact: Artifact;
+
+  const viewers: Record<string, typeof ViewerClass> = {
+    music: MusicArtifactViewer,
+  };
+
+  $: viewer = viewers[artifact.type];
 </script>
 
-<main>
-  {JSON.stringify(artifact.toJSON(), null, 2)}
-  <br />
-  {artifact.constructor.name}
-</main>
+{#if viewer}
+  <svelte:component this={viewer} {artifact} />
+{:else}
+  <p>No viewer component exists for artifact type "{artifact.type}".</p>
+{/if}
 
 <style lang="scss">
 </style>
