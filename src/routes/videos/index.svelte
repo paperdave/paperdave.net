@@ -1,14 +1,15 @@
 <script lang="ts" context="module">
-  import { VideoArtifact } from '$lib/structures/VideoArtifact';
-
+  import { VideoArtifact } from '$lib/structures';
   import BackButton from '$lib/components/BackButton.svelte';
   import type { Load } from '@sveltejs/kit';
+  import type { JSONData } from '$lib/structures';
+  import VideoButton from './_VideoButton.svelte';
 
   export const load: Load = async ({ fetch }) => {
-    const res = await fetch('/videos/get-videos.json').then((res) => res.json());
+    const res = await fetch('/videos/get-videos').then((res) => res.json());
     return {
       props: {
-        videos: res.map((x) => new VideoArtifact(x)),
+        videos: res.map((x: JSONData<VideoArtifact>) => VideoArtifact.fromJSON(x)),
       },
     };
   };
@@ -22,14 +23,13 @@
   <BackButton position="corner" inverted />
   <div class="content">
     <h1>videos</h1>
-    <p>you wish, lol. ill get to this soon!!!</p>
   </div>
-  <div>
-    <pre>
-      <code>
-        {JSON.stringify(videos, null, 2)}
-      </code>
-    </pre>
+  <div class="videos">
+    {#each videos as video}
+      <div class="video-cell">
+        <VideoButton {video} />
+      </div>
+    {/each}
   </div>
 </main>
 
@@ -43,5 +43,15 @@
   }
   .content {
     padding-top: 2rem;
+  }
+  .videos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+    padding: 0 2rem;
+  }
+  .video-cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 </style>

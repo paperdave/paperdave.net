@@ -100,13 +100,34 @@
     }
   }
 
-  function guessUrls() {
+  async function guessUrls() {
     if (!edited) return;
 
     const year = edited.date.getFullYear();
 
     if (edited.type === 'video') {
-      edited.thumbnail = `https://media.davecode.net/content/${year}/${edited.id}.png`;
+      let imageUrl: string | null = null;
+      const imagePotentialLocations = [
+        `https://media.davecode.net/content/${year}/${edited.id}.png`,
+        `https://media.davecode.net/content/${year}/${edited.id}.jpeg`,
+        `https://media.davecode.net/content/${year}/${edited.id}.jpg`,
+      ];
+
+      for (const potentialLocation of imagePotentialLocations) {
+        try {
+          const response = await fetch(potentialLocation, {
+            method: 'HEAD',
+          });
+          if (response.ok) {
+            imageUrl = potentialLocation;
+            break;
+          }
+        } catch (e) {
+          //
+        }
+      }
+
+      edited.thumbnail = imageUrl ?? '[failed]';
       edited.data.set('file', `https://media.davecode.net/content/${year}/${edited.id}.mp4`);
     }
   }
