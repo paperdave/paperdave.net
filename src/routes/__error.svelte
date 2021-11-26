@@ -67,7 +67,7 @@
       <strong>server says</strong>: {message}
     </p>
   {/if}
-  {#if stack}
+  {#if stack && variant !== 'not-found'}
     <p>
       <strong>stack trace</strong>:
     </p>
