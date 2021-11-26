@@ -31,6 +31,7 @@
 </script>
 
 <script lang="ts">
+  import ErrorPage from '$lib/components/ErrorPage.svelte';
   import MusicArtifactViewer from './music/_MusicArtifactViewer.svelte';
 
   export let artifact: Artifact;
@@ -45,8 +46,13 @@
 {#if viewer}
   <svelte:component this={viewer} {artifact} />
 {:else}
-  <p>No viewer component exists for artifact type "{artifact.type}".</p>
+  <ErrorPage>
+    <h1>not implemented</h1>
+    <p>
+      there is no viewer for artifact type <em>{artifact.type}</em> yet.
+    </p>
+    <p>below is the serialized data for it, so you can see what it looks like.</p>
+    <pre>{JSON.stringify(artifact, null, 2)}</pre>
+    <p>check back later, and maybe you'll be able to properly view it.</p>
+  </ErrorPage>
 {/if}
-
-<style lang="scss">
-</style>

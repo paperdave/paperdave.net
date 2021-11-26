@@ -20,7 +20,7 @@
   import Sidebar from './_Sidebar.svelte';
 </script>
 
-<main>
+<main class="fds-dark">
   <header>
     <div>
       <a href="/admin" class="icon">
