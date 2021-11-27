@@ -9,4 +9,10 @@
   }
 </script>
 
+<svelte:head>
+  {#if process.env.INDEX !== 'true'}
+    <meta name="robots" content="noindex, nofollow" />
+  {/if}
+</svelte:head>
+
 <slot />

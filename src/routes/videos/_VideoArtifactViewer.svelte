@@ -59,9 +59,6 @@
     display: flex;
     gap: 0.5rem;
   }
-  .date {
-    margin-right: 0.5rem;
-  }
   tag {
     padding: 0.25rem 0.5rem;
     margin: 0;
