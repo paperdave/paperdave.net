@@ -1,11 +1,11 @@
 import { getDatabase, stripDatabaseInternals } from '$lib/db';
-import { QuestionRequest, UserPermission } from '$lib/structures';
+import { Permission, QuestionRequest } from '$lib/structures';
 import { RequestHandler } from '@sveltejs/kit';
 
 export const get: RequestHandler = async ({ locals }) => {
   const user = locals.session.data?.user;
 
-  if (!user || !user.permissions.includes(UserPermission.RESPOND_TO_QUESTIONS)) {
+  if (!user || !user.permissions.includes(Permission.RESPOND_TO_QUESTIONS)) {
     return {
       status: 403,
       body: {

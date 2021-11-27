@@ -1,11 +1,11 @@
 import { getDatabase } from '$lib/db';
-import { Artifact, ArtifactVisibility, UserPermission } from '$lib/structures';
+import { Artifact, ArtifactVisibility, Permission } from '$lib/structures';
 import { RequestHandler } from '@sveltejs/kit';
 
 export const get: RequestHandler = async ({ locals }) => {
   const user = locals.session.data?.user;
 
-  if (!user || !user.permissions.includes(UserPermission.CREATE_ARTIFACTS)) {
+  if (!user || !user.permissions.includes(Permission.CREATE_ARTIFACTS)) {
     return {
       status: 403,
       body: {

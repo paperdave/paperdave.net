@@ -1,6 +1,6 @@
 import { Data, JSONData, schema } from './structure-utils';
 
-export enum UserPermission {
+export enum Permission {
   RESPOND_TO_QUESTIONS = 'RESPOND_TO_QUESTIONS',
   VIEW_QUESTION_REQUESTS = 'VIEW_QUESTION_REQUESTS',
   MANAGE_USERS = 'MANAGE_USERS',
@@ -17,7 +17,7 @@ export enum UserPermission {
 export class User {
   email: string;
   passwordHash: string;
-  permissions: Set<UserPermission>;
+  permissions: Set<Permission>;
   salt: string;
 
   constructor(data?: Data<User>) {
@@ -76,16 +76,16 @@ export class User {
     };
   }
 
-  hasPermission(permission: UserPermission) {
+  hasPermission(permission: Permission) {
     return this.permissions.has(permission);
   }
 
-  addPermission(permission: UserPermission) {
+  addPermission(permission: Permission) {
     this.permissions.add(permission);
     return this;
   }
 
-  removePermission(permission: UserPermission) {
+  removePermission(permission: Permission) {
     this.permissions.delete(permission);
     return this;
   }

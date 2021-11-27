@@ -31,11 +31,6 @@
       the thing you are trying to find either doesn't exist, is under a different filename, or has
       disappeared...
     </p>
-    <p>
-      <em>
-        please note that this website is under a full rewrite, see the home page for more details.
-      </em>
-    </p>
   {:else if status >= 500}
     <h1>server bad / my fault</h1>
     <p>there was an error processing your request, please try again later.</p>
