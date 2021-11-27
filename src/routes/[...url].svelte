@@ -33,11 +33,13 @@
 <script lang="ts">
   import ErrorPage from '$lib/components/ErrorPage.svelte';
   import MusicArtifactViewer from './music/_MusicArtifactViewer.svelte';
+  import VideoArtifactViewer from './videos/_VideoArtifactViewer.svelte';
 
   export let artifact: Artifact;
 
   const viewers: Record<string, typeof ViewerClass> = {
     music: MusicArtifactViewer,
+    video: VideoArtifactViewer,
   };
 
   $: viewer = viewers[artifact.type];

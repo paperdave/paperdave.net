@@ -1,13 +1,15 @@
 <script lang="ts">
   import { VideoArtifact } from '$lib/structures';
+  import { formatDate } from '$lib/utils/date';
 
   export let video: VideoArtifact;
 </script>
 
 <a href="/{video.id}">
-  <div class="thumb" style="--bg:url({video.thumbnail})" />
-  <div class="info">
-    <span>{video.title}</span>
+  <figure style="--bg:url({video.thumbnail})" />
+  <div>
+    <strong>{video.title}</strong>
+    <date>{formatDate(video.date, 'date')}</date>
   </div>
 </a>
 
@@ -37,9 +39,6 @@
     &:hover::after {
       background-color: rgba(255, 255, 255, 0.1);
     }
-    &:active::after {
-      background-color: rgba(255, 255, 255, 0.2);
-    }
     &:focus {
       outline: none;
     }
@@ -47,19 +46,32 @@
       border-color: rgba(255, 255, 255, 0.6);
       background-color: rgba(255, 255, 255, 0.1);
     }
+    &:active::after {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
   }
 
-  .thumb {
+  figure {
     max-width: 100%;
     aspect-ratio: 16/9;
     border: 2px solid #ade6dc;
     background-image: var(--bg);
     background-size: cover;
+    margin-bottom: 0.25rem;
   }
 
-  .info {
-    font-weight: medium;
-    margin: 0.1rem 0;
-    height: 3rem;
+  div {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: -0.1rem;
+  }
+
+  strong {
+    font-weight: 500;
+  }
+
+  date {
+    font-weight: 200;
   }
 </style>

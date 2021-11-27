@@ -1,3 +1,4 @@
+import { formatDate } from '$lib/utils/date';
 import { Data, JSONData, schema } from './structure-utils';
 
 export class QuestionParagraph {
@@ -123,16 +124,7 @@ export class Question {
 
   getDateId() {
     const date = this.getDisplayDate();
-    return [
-      date.getFullYear().toString().slice(2),
-      (date.getMonth() + 1).toString(),
-      date.getDate().toString(),
-      date.getHours().toString(),
-      date.getMinutes().toString(),
-      date.getSeconds().toString(),
-    ]
-      .map((x) => x.padStart(2, '0'))
-      .join('');
+    return formatDate(date, 'question-id');
   }
 
   static parseDateId(id: string) {

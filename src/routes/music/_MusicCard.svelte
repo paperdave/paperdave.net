@@ -1,12 +1,4 @@
 <!-- this component is a mess. i will clean it up eventually -->
-<script context="module" lang="ts">
-  function formatDate(date: Date) {
-    return [date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()]
-      .map((val) => String(val).padStart(2, '0'))
-      .join('-');
-  }
-</script>
-
 <script lang="ts">
   import { slide } from 'svelte/transition';
   import { ProgressRing } from 'fluent-svelte';
@@ -16,6 +8,7 @@
   import DownloadSVG from '$lib/svg/Download.svg?component';
   import { useEffect } from '$lib/hooks/useEffect';
   import { MusicArtifact } from '$lib/structures';
+  import { formatDate } from '$lib/utils/date';
   export let artifact: MusicArtifact;
 
   let trackDiv: HTMLDivElement;
@@ -128,7 +121,7 @@
     <div class="title">
       <h3>{artifact.title}</h3>
       <div class="tags">
-        <span class="date">{formatDate(artifact.date)}</span>
+        <span class="date">{formatDate(artifact.date, 'date')}</span>
         {#each [...artifact.tags] as tag}
           <span class="tag">{tag}</span>
         {/each}

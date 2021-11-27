@@ -19,6 +19,7 @@
   import SquareSVG from '$lib/svg/Magnet.svg?component';
   import EditSVG from '$lib/svg/Edit.svg?component';
   import { page } from '$app/stores';
+  import { formatDate } from '$lib/utils/date';
 
   const typeToIcon: Record<string, typeof SvelteComponentDev> = {
     video: VideoClipSVG,
@@ -63,9 +64,7 @@
       {/if}
     </span>
     <span class="date">
-      {artifact.date.getFullYear()}-{(artifact.date.getMonth() + 1)
-        .toString()
-        .padStart(2, '0')}-{artifact.date.getDate().toString().padStart(2, '0')}
+      {formatDate(artifact.date, 'date')}
     </span>
     <span class="title">{artifact.id}</span>
   </a>

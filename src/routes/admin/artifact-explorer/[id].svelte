@@ -6,6 +6,7 @@
   import { Button } from 'fluent-svelte';
   import deepEqual from 'fast-deep-equal';
   import ArtifactPreview from '../../[...url].svelte';
+  import hljs from 'highlight.js';
 
   export const load: Load = async ({ fetch, page }) => {
     if (page.params.id === 'new') {
@@ -51,6 +52,7 @@
     sidebarDeleteArtifact,
     sidebarModifyArtifact,
   } from './_Sidebar.svelte';
+  import { browser } from '$app/env';
 
   export let artifact: Artifact | null = null;
 
@@ -147,7 +149,13 @@
       {/key}
     </div>
     <div class="json">
-      <pre>{JSON.stringify(edited.toJSON(), null, 2)}</pre>
+      <pre>
+        {#if browser}
+          {@html hljs.highlight(JSON.stringify(edited.toJSON(), null, 2), {
+            language: 'json'
+          }).value}
+        {/if}
+      </pre>
     </div>
     <div class="page-preview">
       <ArtifactPreview artifact={edited} />
@@ -180,7 +188,7 @@
   main {
     display: grid;
     grid-template-columns: 1fr 50rem;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: auto 1fr;
     grid-template-areas:
       'editor json'
       'editor page-preview';
@@ -197,7 +205,9 @@
   .json {
     grid-area: json;
     font-family: Hack, monospace;
-    background-color: #000;
+    background-color: #050505;
+    color: #f7f7f7;
+    font-size: 0.7rem;
     padding: 1rem;
     overflow-y: auto;
     overflow-x: auto;
@@ -209,5 +219,16 @@
     display: grid;
     overflow-y: auto;
     overflow-x: auto;
+  }
+  .json :global {
+    .hljs-attr {
+      color: #f37274;
+    }
+    .hljs-string {
+      color: #76d982;
+    }
+    .hljs-number {
+      color: #f77d0a;
+    }
   }
 </style>

@@ -16,42 +16,35 @@
 </script>
 
 <script lang="ts">
+  import VideoHeader from './_VideoHeader.svelte';
+
   export let videos: VideoArtifact[];
 </script>
 
-<main>
-  <BackButton position="corner" inverted />
-  <div class="content">
-    <h1>videos</h1>
-  </div>
-  <div class="videos">
-    {#each videos as video}
-      <div class="video-cell">
-        <VideoButton {video} />
-      </div>
-    {/each}
-  </div>
-</main>
+<BackButton position="off-center" inverted />
+<VideoHeader />
+<grid>
+  {#each videos as video}
+    <article>
+      <VideoButton {video} />
+    </article>
+  {/each}
+</grid>
+<p>welcome to the end of the video list</p>
 
 <style lang="scss">
-  main {
-    background-color: #005d40;
-    color: white;
-  }
-  h1 {
-    color: #22c6ad;
-  }
-  .content {
-    padding-top: 2rem;
-  }
-  .videos {
+  grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
     padding: 0 2rem;
   }
-  .video-cell {
+  article {
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+  p {
+    margin: 2rem 0;
+    text-align: center;
   }
 </style>

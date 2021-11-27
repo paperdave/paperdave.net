@@ -10,6 +10,8 @@
 </script>
 
 <script lang="ts">
+  import { formatDate } from '$lib/utils/date';
+
   export let artifact: SvelteStore<Artifact>;
 
   let tagBuffer = [...$artifact.tags].join(', ');
@@ -56,26 +58,8 @@
 </EditorField>
 <EditorField label="Date">
   <div class="date-picker">
-    <TextBox
-      type="text"
-      value={[
-        $artifact.date.getFullYear(), //
-        $artifact.date.getMonth() + 1,
-        $artifact.date.getDate(),
-      ]
-        .map((n) => n.toString().padStart(2, '0'))
-        .join('-')}
-      on:change={updateDate} />
-    <TextBox
-      type="text"
-      value={[
-        $artifact.date.getHours(), //
-        $artifact.date.getMinutes(),
-        $artifact.date.getSeconds(),
-      ]
-        .map((x) => x.toString().padStart(2, '0'))
-        .join(':')}
-      on:change={updateTime} />
+    <TextBox type="text" value={formatDate($artifact.date, 'date')} on:change={updateDate} />
+    <TextBox type="text" value={formatDate($artifact.date, 'time')} on:change={updateTime} />
   </div>
 </EditorField>
 <EditorField label="Tags">
