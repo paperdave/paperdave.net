@@ -1,6 +1,7 @@
 import { ServerWebSession } from '$lib/db/ServerWebSession';
 import { COOKIE_SECRET } from '$lib/env';
 import { JSONData, WebSession } from '$lib/structures';
+import { isSameOrigin } from '$lib/utils/api';
 import { GetSession } from '@sveltejs/kit';
 import { handleSession } from 'svelte-kit-cookie-session';
 
@@ -25,16 +26,22 @@ export const handle = handleSession<{ session: JSONData<WebSession> }>(
       session.data.session = webSession.toJSON();
     }
 
+    const sameOrigin = isSameOrigin(request.headers.origin);
+
     return {
       ...response,
       headers: {
         ...response.headers,
         'X-Powered-By': 'chocolate; see https://davecode.net/donate',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': sameOrigin ? 'GET, PUT, PATCH, DELETE, POST' : 'GET',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+        'Access-Control-Max-Age': '86400',
       },
     };
   }
 );
 
 export const getSession: GetSession = ({ locals }) => {
-  return locals.session.data;
+  return locals.session.destroyed ? null : locals.session.toJSON();
 };

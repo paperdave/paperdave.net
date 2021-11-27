@@ -94,4 +94,12 @@ export class WebSessionUser {
       permissions: [...this.permissions],
     };
   }
+
+  hasPermission(permission: Permission) {
+    return this.permissions.has(permission);
+  }
+
+  hasPermissions(permissions: Permission[]) {
+    return permissions.every((permission) => this.hasPermission(permission));
+  }
 }

@@ -1,83 +1,55 @@
 <script context="module" lang="ts">
   import type { JSONData, Question } from '$lib/structures';
-  import { QuestionRequest, UserPermission } from '$lib/structures';
+  import { QuestionRequest, Permission } from '$lib/structures';
+  import { restrictedPage } from '$lib/utils/client';
 
   import type { Load } from '@sveltejs/kit';
 
-  export const load: Load = async ({ session, page, fetch }) => {
-    if (page.query.get('demo')) {
-      return {
-        props: {
-          isDemo: true,
-          isAuthorized: true,
-          questions: [new QuestionRequest().setContent('hello demo').setDate(new Date())],
-        },
-      };
-    }
-
-    if (!session.user) {
-      return {
-        status: 302,
-        redirect: '/auth?r=' + encodeURIComponent(page.path),
-      };
-    }
-
+  export const load: Load = restrictedPage([Permission.RESPOND_TO_QUESTIONS], async ({ fetch }) => {
     return {
       props: {
-        isAuthorized: session.user.permissions.includes(UserPermission.RESPOND_TO_QUESTIONS),
-        isDemo: false,
-        questions: session.user.permissions.includes(UserPermission.RESPOND_TO_QUESTIONS)
-          ? await fetch('/q+a/get-requests')
-              .then((x) => x.json())
-              .then((x) => x.map((y: JSONData<QuestionRequest>) => QuestionRequest.fromJSON(y)))
-          : [],
+        questions: await fetch('/q+a/get-requests')
+          .then((x) => x.json())
+          .then((x) => x.map((y: JSONData<QuestionRequest>) => QuestionRequest.fromJSON(y))),
       },
     };
-  };
+  });
 </script>
 
 <script lang="ts">
   import QaHeader from './_QAHeader.svelte';
   import QuestionRespondApp from './_QuestionRespondApp.svelte';
 
-  export let isAuthorized: boolean;
-  export let isDemo: boolean;
   export let questions: QuestionRequest[];
 
   $: latestQuestion = questions[0];
 
   function sendQuestion(q: Question, request: QuestionRequest) {
-    if (!isDemo) {
-      fetch('/q+a/submit-answer', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          date: request.date.getTime(),
-          result: q.toJSON(),
-        }),
-      });
-    } else {
-      alert('submission content: ' + q.toJSON());
-    }
+    fetch('/q+a/submit-answer', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        date: request.date.getTime(),
+        result: q.toJSON(),
+      }),
+    });
 
     questions = questions.slice(1);
   }
 
   function denyQuestion(q: Question, request: QuestionRequest) {
-    if (!isDemo) {
-      fetch('/q+a/submit-answer', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          date: request.date.getTime(),
-          result: null,
-        }),
-      });
-    }
+    fetch('/q+a/submit-answer', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        date: request.date.getTime(),
+        result: null,
+      }),
+    });
     questions = questions.slice(1);
   }
 </script>
@@ -86,25 +58,18 @@
   <div style="pointer-events:none">
     <QaHeader />
   </div>
-  {#if isAuthorized}
-    <div class="stats">
-      {#if isDemo}
-        <p>THIS IS THE DEMO VERSION OF THE Q&A BACKEND. YOUR SUBMISSIONS DO GET SENT ANYWHERE.</p>
-      {/if}
-      <p>#q: {questions.length}</p>
-    </div>
-    {#if latestQuestion}
-      {#key latestQuestion.date.getTime()}
-        <QuestionRespondApp
-          request={latestQuestion}
-          on:send={(ev) => sendQuestion(ev.detail, latestQuestion)}
-          on:deny={(ev) => denyQuestion(ev.detail, latestQuestion)} />
-      {/key}
-    {:else}
-      <p>caught up :D</p>
-    {/if}
+  <div class="stats">
+    <p>#q: {questions.length}</p>
+  </div>
+  {#if latestQuestion}
+    {#key latestQuestion.date.getTime()}
+      <QuestionRespondApp
+        request={latestQuestion}
+        on:send={(ev) => sendQuestion(ev.detail, latestQuestion)}
+        on:deny={(ev) => denyQuestion(ev.detail, latestQuestion)} />
+    {/key}
   {:else}
-    <p>You do not have permission to respond to questions.</p>
+    <p>caught up :D</p>
   {/if}
 </main>
 

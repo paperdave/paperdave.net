@@ -9,36 +9,29 @@
   import hljs from 'highlight.js';
 
   export const load: Load = async ({ fetch, page }) => {
-    if (page.params.id === 'new') {
-      const response = await fetch('/admin/artifact-explorer/create-artifact') //
-        .then((r) => r.json());
+    const API = wrapAPI(fetch);
 
-      sidebarAddArtifact(
-        new Artifact() //
-          .setId(response.id)
-          .setType('unknown')
-          .setVisibility(ArtifactVisibility.DRAFT)
-      );
+    // creating a new artifact
+    if (page.params.id === 'new') {
+      const artifact = new Artifact()
+        .setId('id generation is client side now')
+        .setType('unknown')
+        .setVisibility(ArtifactVisibility.DRAFT);
+
+      await API.artifacts.createArtifact(artifact);
+
+      sidebarAddArtifact(artifact);
 
       return {
         status: 302,
-        redirect: '/admin/artifact-explorer/' + response.id,
-      };
-    }
-    const data = await fetch(`/admin/artifact-explorer/get-artifact?id=${page.params.id}`) //
-      .then((res) => res.json());
-
-    if (data.error) {
-      return {
-        props: {
-          artifact: null,
-        },
+        redirect: '/admin/artifact-explorer/' + artifact.id,
       };
     }
 
+    // editing an existing artifact
     return {
       props: {
-        artifact: data && Artifact.fromJSON(data),
+        artifact: await API.artifacts.getArtifact(page.params.id),
       },
     };
   };
@@ -53,6 +46,8 @@
     sidebarModifyArtifact,
   } from './_Sidebar.svelte';
   import { browser } from '$app/env';
+  import { wrapAPI } from '$lib/api-client/singleton';
+  import { restrictedPage } from '$lib/utils/client';
 
   export let artifact: Artifact | null = null;
 

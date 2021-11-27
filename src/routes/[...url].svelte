@@ -1,17 +1,21 @@
 <script context="module" lang="ts">
-  import { Artifact, enhanceArtifact } from '$lib/structures';
+  import { Artifact } from '$lib/structures';
 
   import type { Load } from '@sveltejs/kit';
-  import { SvelteComponentDev, SvelteComponentTyped } from 'svelte/internal';
+  import { SvelteComponentTyped } from 'svelte/internal';
+  import { wrapAPI } from '$lib/api-client/singleton';
 
-  export const load: Load = async ({ fetch, page }) => {
+  export const load: Load = async ({ page, fetch }) => {
+    const API = wrapAPI(fetch);
+
     const artifactId = page.path.slice(1);
     if (artifactId.match(/^[a-z0-9_-]+$/)) {
-      const artifact = await fetch(`/get-artifact?id=${artifactId}`).then((res) => res.json());
-      if (artifact && !artifact.error) {
+      const artifact = await API.artifacts.getArtifact(artifactId);
+      console.log(artifact);
+      if (artifact) {
         return {
           props: {
-            artifact: enhanceArtifact(artifact),
+            artifact,
           },
         };
       }

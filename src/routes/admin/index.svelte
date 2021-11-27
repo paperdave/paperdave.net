@@ -1,22 +1,13 @@
 <script context="module" lang="ts">
   import type { Load } from '@sveltejs/kit';
 
-  export const load: Load = async ({ session, page }) => {
-    if (!session.user) {
-      return {
-        status: 302,
-        redirect: '/auth?r=' + encodeURIComponent(page.path),
-      };
-    }
-
-    return {
-      props: {},
-    };
-  };
+  export const load: Load = restrictedPage([]);
 </script>
 
 <script lang="ts">
   import BackButton from '$lib/components/BackButton.svelte';
+  import { restrictedPage } from '$lib/utils/client';
+  import { Permission } from '$lib/structures';
 </script>
 
 <main>
