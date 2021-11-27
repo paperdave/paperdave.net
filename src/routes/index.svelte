@@ -25,7 +25,7 @@
     <ul>
       <li><a href="/now">what's now</a></li>
       <br />
-      <li class="wip"><del>videos</del> - not ready</li>
+      <li><a href="/videos">videos</a></li>
       <li><a href="/music">music</a></li>
       <li class="wip"><del>video games</del> - not ready</li>
       <li class="wip"><del>applications</del> - not ready</li>
