@@ -10,11 +10,6 @@
   <header>
     <h1>dave caruso's website</h1>
 
-    <br />
-    <br />
-    <h2>new game: <a href="https://davecode.itch.io/phoenix-write">phoenix, write!</a></h2>
-    <br /><br />
-
     <p>
       cool things are happening behind the scenes related to this website. i am rewriting the entire
       thing in svelte, a wonderful javascript framework. for now, you can check out my existance on
@@ -25,7 +20,7 @@
     <ul>
       <li><a href="/now">what's now</a></li>
       <br />
-      <li><a href="/videos">videos</a></li>
+      <li><a href="/videos">videos</a> (new)</li>
       <li><a href="/music">music</a></li>
       <li class="wip"><del>video games</del> - not ready</li>
       <li class="wip"><del>applications</del> - not ready</li>
@@ -48,21 +43,19 @@
       <li><a href="mailto:dave@davecode.me">send email</a></li>
       <li><a href="https://youtube.com/davecode">youtube</a></li>
       <li><a href="https://www.tiktok.com/@dave_caruso">tiktok</a></li>
+      <li><a href="https://davecode.itch.io">play games on itch.io</a></li>
       <li><a href="https://twitch.tv/davecaruso">twitch</a> (not touched much)</li>
       <li><a href="https://twitter.com/davecode_me">twitter</a> (not touched much)</li>
       <li><a href="https://instagram.com/davecode.me">instagram</a> (not touched much)</li>
       <li><a href="/donate">give me chocolate</a></li>
     </ul>
-
-    <br />
-    <br />
-    <ul>
-      <li style="opacity:.25"><a href="/vault">what's the password</a></li>
-    </ul>
   </header>
 </main>
 
 <style lang="scss">
+  main {
+    background-color: #c6eec9;
+  }
   header {
     padding: 2rem;
   }
