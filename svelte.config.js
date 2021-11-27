@@ -24,6 +24,9 @@ const conf = {
     adapter: vercel(),
     target: 'body',
     vite: {
+      define: {
+        'process.env.INDEX': JSON.stringify(process.env.INDEX),
+      },
       plugins: [svgSvelte(), content.default()],
       optimizeDeps: {
         exclude: ['svelte-kit-cookie-session', 'mongodb', 'bson'],

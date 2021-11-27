@@ -1,6 +1,7 @@
 <script lang="ts">
   import '../global.scss';
   import '../fluent.scss';
+  import { browser } from '$app/env';
 
   if (process.env.NODE_ENV === 'production' && typeof window !== 'undefined') {
     console.log('hey nerd.');
@@ -12,6 +13,8 @@
 <svelte:head>
   {#if process.env.INDEX !== 'true'}
     <meta name="robots" content="noindex, nofollow" />
+  {:else}
+    <meta name="robots" content="index, follow" />
   {/if}
 </svelte:head>
 
