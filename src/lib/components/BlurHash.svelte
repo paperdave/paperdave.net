@@ -19,7 +19,7 @@
   let img: HTMLImageElement;
 
   let start = 0;
-  let showCanvas = false;
+  let showCanvas = true;
   let loaded = false;
   let transition = true;
 
@@ -28,7 +28,11 @@
       start = Date.now();
       loaded = img.complete;
       transition = !loaded;
-      showCanvas = !loaded;
+      if (loaded) {
+        setTimeout(() => {
+          showCanvas = false;
+        }, 100);
+      }
     },
     () => [img]
   );
@@ -38,32 +42,34 @@
   {#if showCanvas}
     <BlurHashCanvas {hash} {resolutionX} {resolutionY} {punch} />
   {/if}
-  <img
-    bind:this={img}
-    {src}
-    {alt}
-    style={browser && transition ? `transition-duration:${fade}ms` : undefined}
-    loading="lazy"
-    decoding="async"
-    on:load={() => {
-      console.log(Date.now() - start);
-      if (Date.now() - start < threshold) {
-        transition = false;
-      }
+  {#if browser}
+    <img
+      bind:this={img}
+      {src}
+      {alt}
+      style={browser && transition ? `transition-duration:${fade}ms` : undefined}
+      loading="lazy"
+      decoding="async"
+      on:load={() => {
+        console.log(Date.now() - start);
+        if (Date.now() - start < threshold) {
+          transition = false;
+        }
 
-      loaded = true;
+        loaded = true;
 
-      if (transition) {
-        let thisImage = img;
-        setTimeout(() => {
-          if (thisImage === img) {
-            showCanvas = false;
-          }
-        }, fade + 100);
-      }
-    }}
-    class:loaded
-    class:transition />
+        if (transition) {
+          let thisImage = img;
+          setTimeout(() => {
+            if (thisImage === img) {
+              showCanvas = false;
+            }
+          }, fade + 100);
+        }
+      }}
+      class:loaded
+      class:transition />
+  {/if}
 </main>
 
 <style lang="scss">
