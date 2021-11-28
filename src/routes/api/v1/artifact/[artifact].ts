@@ -23,7 +23,7 @@ export const get: APIHandler<void, Artifact> = async ({ params, locals, query })
     // Send 404 if the artifact is private and the user does not have the `VIEW_ARTIFACTS` permission
     ((artifact.visibility === ArtifactVisibility.PRIVATE ||
       artifact.visibility === ArtifactVisibility.DRAFT) &&
-      !(await locals.session.queryPermission(Permission.VIEW_ARTIFACTS)))
+      !(await locals.session.refreshAndCheckPermission(Permission.VIEW_ARTIFACTS)))
   ) {
     return {
       status: 404,
@@ -49,7 +49,7 @@ export const post: APIHandler<Artifact, GenericSuccess> = async ({ body, locals,
   const db = await getDatabase(Artifact);
   const artifact = Artifact.fromJSON(body);
 
-  if (!(await locals.session.queryPermission(Permission.CREATE_ARTIFACTS))) {
+  if (!(await locals.session.refreshAndCheckPermission(Permission.EDIT_ARTIFACTS))) {
     return {
       status: 403,
       body: { error: 'You do not have permission to create artifacts' },
@@ -81,7 +81,7 @@ export const post: APIHandler<Artifact, GenericSuccess> = async ({ body, locals,
  * - If the artifact does not exist, a 404 Error is returned.
  */
 export const del: APIHandler<void, GenericSuccess> = async ({ locals, params }) => {
-  if (!(await locals.session.queryPermission(Permission.DELETE_ARTIFACTS))) {
+  if (!(await locals.session.refreshAndCheckPermission(Permission.EDIT_ARTIFACTS))) {
     return {
       status: 403,
       body: { error: 'You do not have permission to delete artifacts' },
@@ -115,7 +115,7 @@ export const del: APIHandler<void, GenericSuccess> = async ({ locals, params }) 
  * - If the artifact does not exist, a 404 Error is returned.
  */
 export const put: APIHandler<Artifact, GenericSuccess> = async ({ body, locals, params }) => {
-  if (!(await locals.session.queryPermission(Permission.EDIT_ARTIFACTS))) {
+  if (!(await locals.session.refreshAndCheckPermission(Permission.EDIT_ARTIFACTS))) {
     return {
       status: 403,
       body: { error: 'You do not have permission to edit artifacts' },
@@ -151,7 +151,7 @@ export const put: APIHandler<Artifact, GenericSuccess> = async ({ body, locals, 
  * - If the artifact does not exist, a 404 Error is returned.
  */
 export const patch: APIHandler<Artifact, GenericSuccess> = async ({ body, locals, params }) => {
-  if (!(await locals.session.queryPermission(Permission.EDIT_ARTIFACTS))) {
+  if (!(await locals.session.refreshAndCheckPermission(Permission.EDIT_ARTIFACTS))) {
     return {
       status: 403,
       body: { error: 'You do not have permission to edit artifacts' },

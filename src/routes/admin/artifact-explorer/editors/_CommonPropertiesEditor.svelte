@@ -1,6 +1,6 @@
 <script context="module" lang="ts">
   import { Artifact, ArtifactVisibility } from '$lib/structures';
-  import { ComboBox, TextBox } from 'fluent-svelte';
+  import { Button, ComboBox, TextBox } from 'fluent-svelte';
   import { sentenceCase } from 'change-case';
   import EditorField from '../util/_EditorField.svelte';
 
@@ -10,7 +10,10 @@
 </script>
 
 <script lang="ts">
+  import BlurHashCanvas from '$lib/components/BlurHashCanvas.svelte';
   import { formatDate } from '$lib/utils/date';
+  import { encode } from 'blurhash';
+  import { tick } from 'svelte';
 
   export let artifact: SvelteStore<Artifact>;
 
@@ -46,6 +49,43 @@
     date.setSeconds(parseInt(timeParts[2]) || 0);
     $artifact.date = date;
   }
+
+  let blurHashLoading = false;
+  async function recalculateBlurHash() {
+    // Taken from blurhash example
+    const loadImage = async (src: string) =>
+      new Promise<HTMLImageElement>((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => resolve(img);
+        img.onerror = (...args) => reject(args);
+        img.crossOrigin = 'Anonymous';
+        img.src = src;
+      });
+
+    const getImageData = (image: HTMLImageElement) => {
+      const canvas = document.createElement('canvas');
+      canvas.width = image.width;
+      canvas.height = image.height;
+      const context = canvas.getContext('2d')!;
+      context.drawImage(image, 0, 0);
+      return context.getImageData(0, 0, image.width, image.height);
+    };
+
+    const encodeImageToBlurhash = async (imageUrl: string) => {
+      const image = await loadImage(imageUrl);
+      const imageData = getImageData(image);
+      return encode(imageData.data, imageData.width, imageData.height, 4, 3);
+    };
+    // End blurhash example
+
+    if ($artifact.thumbnail) {
+      blurHashLoading = true;
+      $artifact.blurhash = 'calculating...';
+      await tick();
+      $artifact.blurhash = await encodeImageToBlurhash($artifact.thumbnail);
+      blurHashLoading = false;
+    }
+  }
 </script>
 
 <EditorField label="Title">
@@ -67,6 +107,18 @@
 </EditorField>
 <EditorField label="Thumbnail URL">
   <TextBox bind:value={$artifact.thumbnail} />
+</EditorField>
+<EditorField label="BlurHash">
+  <Button on:click={recalculateBlurHash} disabled={blurHashLoading}>Recalculate</Button>
+  <TextBox bind:value={$artifact.blurhash} disabled={blurHashLoading} />
+</EditorField>
+<EditorField label="">
+  <div class="thumnail-preview">
+    <img src={$artifact.thumbnail} alt="Artifact Thumbnail" />
+    {#if $artifact.blurhash}
+      <BlurHashCanvas hash={$artifact.blurhash} />
+    {/if}
+  </div>
 </EditorField>
 <EditorField label="Visibility">
   <ComboBox
@@ -92,5 +144,15 @@
     flex-direction: row;
     align-items: center;
     gap: 0.5rem;
+  }
+  .thumnail-preview {
+    height: 6rem;
+    display: flex;
+    gap: 1rem;
+    & > :global(*) {
+      height: 6rem;
+      width: 10.6rem;
+      display: flex;
+    }
   }
 </style>

@@ -3,7 +3,7 @@ import { Artifact, JSONData, Permission } from '$lib/structures';
 import { APIHandler } from '$lib/utils/api';
 
 export const get: APIHandler<void, JSONData<Artifact>[]> = async ({ locals }) => {
-  if (!locals.session.queryPermission(Permission.VIEW_ARTIFACTS)) {
+  if (!locals.session.refreshAndCheckPermission(Permission.VIEW_ARTIFACTS)) {
     return {
       status: 403,
       body: {

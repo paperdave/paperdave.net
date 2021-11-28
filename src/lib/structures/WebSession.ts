@@ -101,4 +101,13 @@ export class WebSessionUser {
   hasPermissions(permissions: Permission[]) {
     return permissions.every((permission) => this.hasPermission(permission));
   }
+
+  queryPermission(permission: Permission) {
+    console.log(this.permissions);
+    return this.permissions.has(permission) || this.permissions.has(Permission.DAVE);
+  }
+
+  queryPermissions(permissions: Permission[]) {
+    return permissions.every((permission) => this.queryPermission(permission));
+  }
 }

@@ -36,9 +36,9 @@ export class ServerWebSession extends WebSession {
     return this.serverUser;
   }
 
-  async queryPermission(permission: Permission) {
+  async refreshAndCheckPermission(permission: Permission) {
     await this.ensureUpToDate();
-    return this.user && this.user.permissions.has(permission);
+    return this.user && this.user.queryPermission(permission);
   }
 
   logout() {

@@ -1,33 +1,34 @@
 import { getDatabase } from '$lib/db';
-import { Permission, Question, QuestionRequest } from '$lib/structures';
-import { RequestHandler } from '@sveltejs/kit';
+import { JSONData, Permission, Question, QuestionRequest } from '$lib/structures';
+import { APIHandler, GenericSuccess } from '$lib/utils/api';
 
-export const post: RequestHandler = async ({ locals, body }) => {
-  const user = locals.session.data?.user;
+export interface SubmitAnswerInput {
+  date: number;
+  result: JSONData<Question>;
+}
 
-  if (!user || !user.permissions.includes(Permission.RESPOND_TO_QUESTIONS)) {
+export const post: APIHandler<SubmitAnswerInput, GenericSuccess> = async ({ locals, body }) => {
+  if (!locals.session.refreshAndCheckPermission(Permission.RESPOND_TO_QUESTIONS)) {
     return {
       status: 403,
       body: {
-        error: 'You do not have permission to query this endpoint.',
+        error: 'You do not have permission to respond to questions.',
       },
     };
   }
 
-  const date: number = body.date;
-
   const requestDb = await getDatabase(QuestionRequest);
-
-  requestDb.deleteOne({ date: { $eq: date } });
+  requestDb.deleteOne({ date: { $eq: body.date } });
 
   const question = body.result ? Question.fromJSON(body.result) : null;
-
   if (question) {
     const qdb = await getDatabase(Question);
     await qdb.insertOne(question.toJSON());
   }
 
   return {
-    body: { ok: true },
+    body: {
+      success: true,
+    },
   };
 };

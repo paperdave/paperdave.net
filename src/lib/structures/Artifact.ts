@@ -15,6 +15,7 @@ export class Artifact {
   title: string;
   date: Date;
   thumbnail: string | undefined;
+  blurhash: string | undefined;
   type: string;
   tags: Set<string>;
   data: Map<string, any>;
@@ -26,6 +27,7 @@ export class Artifact {
       this.title = data.title;
       this.date = new Date(data.date);
       this.thumbnail = data.thumbnail;
+      this.blurhash = data.blurhash;
       this.type = data.type;
       this.tags = data.tags;
       this.data = data.data;
@@ -38,6 +40,7 @@ export class Artifact {
       this.date.setMinutes(0);
       this.date.setHours(12);
       this.thumbnail = undefined;
+      this.blurhash = undefined;
       // @ts-ignore
       this.type = this.constructor.type ?? 'unknown';
       this.tags = new Set();
@@ -57,6 +60,7 @@ export class Artifact {
       title: this.title,
       date: this.date.getTime(),
       thumbnail: this.thumbnail ?? undefined,
+      blurhash: this.blurhash ?? undefined,
       type: this.type,
       tags: this.tags.size > 0 ? Array.from(this.tags) : undefined,
       data: dataProperties,
@@ -71,6 +75,7 @@ export class Artifact {
       title: data.title,
       date: new Date(data.date),
       thumbnail: data.thumbnail,
+      blurhash: data.blurhash,
       type: data.type,
       tags: new Set(data.tags),
       data: recordToMap(data.data ?? {}),
@@ -95,6 +100,11 @@ export class Artifact {
 
   setThumbnail(thumbnail: string) {
     this.thumbnail = thumbnail;
+    return this;
+  }
+
+  setBlurHash(blurhash: string) {
+    this.blurhash = blurhash;
     return this;
   }
 
@@ -129,10 +139,6 @@ export class Artifact {
 
   getProperty(key: string) {
     return this.data.get(key);
-  }
-
-  getVisibility() {
-    return this.visibility;
   }
 
   setVisibility(visibility: ArtifactVisibility) {

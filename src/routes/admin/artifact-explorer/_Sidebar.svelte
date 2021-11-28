@@ -70,7 +70,7 @@
   import { webSession } from '$lib/utils/client';
   import AddSVG from '$lib/svg/Add.svg?component';
 
-  $: canCreate = $webSession.user?.hasPermission(Permission.CREATE_ARTIFACTS);
+  $: canEdit = $webSession.user?.queryPermission(Permission.EDIT_ARTIFACTS);
 
   const sortMethods: Record<string, (a: Artifact, b: Artifact) => number> = {
     ID: (a, b) => (a.id.toLowerCase() > b.id.toLowerCase() ? 1 : -1),
@@ -99,7 +99,7 @@
 {:then}
   <div class="artifact-list">
     <div class="sort-methods">
-      <IconButton href="/admin/artifact-explorer/new" disabled={!canCreate}>
+      <IconButton href="/admin/artifact-explorer/new" disabled={!canEdit}>
         <AddSVG />
       </IconButton>
       {#each Object.keys(sortMethods) as method}

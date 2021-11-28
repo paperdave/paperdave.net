@@ -6,6 +6,7 @@
   import { Button } from 'fluent-svelte';
   import deepEqual from 'fast-deep-equal';
   import ArtifactPreview from '../../[...url].svelte';
+  import { API, wrapAPI } from '$lib/api-client/singleton';
 
   export const prerender = false;
 
@@ -46,24 +47,18 @@
     sidebarDeleteArtifact,
     sidebarModifyArtifact,
   } from './_Sidebar.svelte';
-  import { API, wrapAPI } from '$lib/api-client/singleton';
   import { webSession } from '$lib/utils/client';
   import { browser } from '$app/env';
   import highlightjs from 'highlight.js';
 
-  $: canEdit = $webSession.user?.hasPermission(Permission.EDIT_ARTIFACTS);
-  $: canDelete = $webSession.user?.hasPermission(Permission.DELETE_ARTIFACTS);
+  $: canEdit = $webSession.user?.queryPermission(Permission.EDIT_ARTIFACTS);
 
   export let artifact: Artifact | null = null;
 
   $: edited = artifact && Artifact.fromJSON(artifact.toJSON());
 
   function handleChange(event: CustomEvent) {
-    if (canEdit) {
-      edited = event.detail;
-    } else if (artifact) {
-      edited = Artifact.fromJSON(artifact.toJSON());
-    }
+    edited = event.detail;
   }
 
   function reset() {
@@ -135,7 +130,7 @@
           <Button variant="accent" on:click={saveArtifact} disabled={equal || !canEdit}
             >Save</Button>
           <Button on:click={reset} disabled={equal || !canEdit}>Reset</Button>
-          <Button disabled={!canDelete} on:click={() => (deleteDialogOpen = true)}>Delete</Button>
+          <Button disabled={!canEdit} on:click={() => (deleteDialogOpen = true)}>Delete</Button>
           <Button disabled={!canEdit} on:click={guessUrls}>Guess URLs</Button>
         </header>
         {#key $page.path}

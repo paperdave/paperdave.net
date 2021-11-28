@@ -34,7 +34,7 @@ export function restrictedPage(permissions: Permission[], load = defaultLoadFunc
         status: 302,
         redirect: '/auth?r=' + encodeRedirect(page.path.slice(1)),
       };
-    } else if (!session.user.hasPermissions(permissions)) {
+    } else if (!session.user.queryPermissions(permissions)) {
       return {
         status: 302,
         redirect:

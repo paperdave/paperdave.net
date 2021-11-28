@@ -1,16 +1,20 @@
 import { Data, JSONData, schema } from './structure-utils';
 
 export enum Permission {
+  /** Grants all permissions, and also access to user-modification APIs and some other dave-only pages. */
+  DAVE = 'DAVE',
+  /** Grants access to the question responding dashboard */
   RESPOND_TO_QUESTIONS = 'RESPOND_TO_QUESTIONS',
-  VIEW_QUESTION_REQUESTS = 'VIEW_QUESTION_REQUESTS',
-  MANAGE_USERS = 'MANAGE_USERS',
+  /** Grants access to list all artifacts / use the artifact explorer. */
   VIEW_ARTIFACTS = 'VIEW_ARTIFACTS',
+  /** Grants access to modify artifact data. */
   EDIT_ARTIFACTS = 'EDIT_ARTIFACTS',
-  CREATE_ARTIFACTS = 'CREATE_ARTIFACTS',
-  DELETE_ARTIFACTS = 'DELETE_ARTIFACTS',
-  PUBLISH_ARTIFACTS = 'PUBLISH_ARTIFACTS',
+  /** Grants access to manage the /now page */
   MANAGE_NOW = 'MANAGE_NOW',
+  /** Grants access to manage the featured list on the homepage */
   MANAGE_FEATURED = 'MANAGE_FEATURED',
+  /** Grants access to view and manage the list of vault keys */
+  MANAGE_VAULT = 'MANAGE_VAULT',
 }
 
 @schema('users')
@@ -93,5 +97,13 @@ export class User {
   removePermission(permission: Permission) {
     this.permissions.delete(permission);
     return this;
+  }
+
+  queryPermission(permission: Permission) {
+    return this.permissions.has(permission) || this.permissions.has(Permission.DAVE);
+  }
+
+  queryPermissions(permissions: Permission[]) {
+    return permissions.some((permission) => this.queryPermission(permission));
   }
 }
