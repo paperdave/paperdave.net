@@ -1,47 +1,20 @@
-import { ServerWebSession } from '$lib/db/ServerWebSession';
-import { COOKIE_SECRET } from '$lib/env';
-import { JSONData, WebSession } from '$lib/structures';
 import { isSameOrigin } from '$lib/utils/api';
-import { GetSession } from '@sveltejs/kit';
-import { handleSession } from 'svelte-kit-cookie-session';
+import { Handle } from '@sveltejs/kit';
 
-export const handle = handleSession<JSONData<WebSession>>(
-  {
-    secret: COOKIE_SECRET,
-    rolling: true,
-  },
-  async ({ request, resolve }) => {
-    const session = request.locals.session;
+export const handle: Handle = async ({ request, resolve }) => {
+  const sameOrigin = isSameOrigin(request.headers.origin);
+  const response = await resolve(request);
 
-    const webSession = session.data
-      ? ServerWebSession.fromJSON(session.data)
-      : ServerWebSession.empty;
-
-    (request.locals as any).session = webSession;
-    const response = await resolve(request);
-
-    if (session.data && webSession.destroyed) {
-      session.destroy();
-    } else if (!webSession.destroyed) {
-      session.data = webSession.toJSON();
-    }
-
-    const sameOrigin = isSameOrigin(request.headers.origin);
-
-    return {
-      ...response,
-      headers: {
-        ...response.headers,
-        'X-Powered-By': 'chocolate; see https://davecode.net/donate',
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': sameOrigin ? 'GET, PUT, PATCH, DELETE, POST' : 'GET',
-        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-        'Access-Control-Max-Age': '86400',
-      },
-    };
-  }
-);
-
-export const getSession: GetSession = ({ locals }) => {
-  return locals.session.destroyed ? null : locals.session.toJSON();
+  return {
+    ...response,
+    headers: {
+      ...response.headers,
+      'X-Powered-By': 'chocolate; see https://davecode.net/donate',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': sameOrigin ? 'GET, PUT, PATCH, DELETE, POST' : 'GET',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      'Access-Control-Max-Age': '86400',
+      // 'Cache-Control': 's-maxage=30, stale-while-revalidate=500',
+    },
+  };
 };
