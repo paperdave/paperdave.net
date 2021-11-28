@@ -8,8 +8,6 @@
   import ArtifactPreview from '../../[...url].svelte';
   import { API, wrapAPI } from '$lib/api-client/singleton';
 
-  export const prerender = false;
-
   export const load: Load = async ({ fetch, page }) => {
     const API = wrapAPI(fetch);
 

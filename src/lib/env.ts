@@ -1,6 +1,4 @@
-import { config } from 'dotenv';
-
-config();
+import 'dotenv/config';
 
 function envNonEmpty(name: string) {
   const value = process.env[name];
