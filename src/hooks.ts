@@ -5,6 +5,8 @@ export const handle: Handle = async ({ request, resolve }) => {
   const sameOrigin = isSameOrigin(request.headers.origin);
   const response = await resolve(request);
 
+  const doCache = request.method === 'GET';
+
   return {
     ...response,
     headers: {
@@ -14,7 +16,9 @@ export const handle: Handle = async ({ request, resolve }) => {
       'Access-Control-Allow-Methods': sameOrigin ? 'GET, PUT, PATCH, DELETE, POST' : 'GET',
       'Access-Control-Allow-Headers': 'Content-Type, Authorization',
       'Access-Control-Max-Age': '86400',
-      // 'Cache-Control': 's-maxage=30, stale-while-revalidate=500',
+      ...(doCache && {
+        'Cache-Control': 's-maxage=30, stale-while-revalidate=500',
+      }),
     },
   };
 };
