@@ -16,7 +16,11 @@
       const [p, resolve] = deferred<typeof artifacts>();
       artifactPromise = p;
       const artifactListing: Artifact[] = browser
-        ? await fetch('/admin/artifact-explorer/get-all-artifacts')
+        ? await fetch('/admin/artifact-explorer/get-all-artifacts', {
+            headers: {
+              Authorization: `Bearer ${getToken()}`,
+            },
+          })
             .then((res) => res.json())
             .then((json) => {
               if (json.error) {
@@ -67,10 +71,10 @@
   import { writable } from 'svelte/store';
   import { deferred } from '$lib/utils/promise';
   import { persist, localStorage as local } from '@macfja/svelte-persistent-store';
-  import { webSession } from '$lib/utils/client';
   import AddSVG from '$lib/svg/Add.svg?component';
+  import { getToken, user } from '$lib/api-client/session';
 
-  $: canEdit = $webSession.user?.queryPermission(Permission.EDIT_ARTIFACTS);
+  $: canEdit = $user?.queryPermission(Permission.EDIT_ARTIFACTS);
 
   const sortMethods: Record<string, (a: Artifact, b: Artifact) => number> = {
     ID: (a, b) => (a.id.toLowerCase() > b.id.toLowerCase() ? 1 : -1),

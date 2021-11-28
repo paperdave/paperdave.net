@@ -19,5 +19,4 @@ export * from './structure-utils';
 export * from './User';
 export * from './VaultKey';
 export * from './VideoArtifact';
-export * from './WebSession';
 export * from './WordMagnetArtifact';

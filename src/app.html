@@ -5,15 +5,20 @@
     <link rel="icon" href="/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    %gtag%
+    <style>
+      blurhash-image {
+        background: no-repeat center;
+        background-size: 100% 100%;
+      }
+    </style>
+
+    %gtag% %svelte.head%
+  </head>
+  <body>
+    %svelte.body%
 
     <script>
       %blurhash%
     </script>
-
-    %svelte.head%
-  </head>
-  <body>
-    %svelte.body%
   </body>
 </html>

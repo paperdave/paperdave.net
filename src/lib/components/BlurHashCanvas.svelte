@@ -1,10 +1,10 @@
 <script lang="ts">
+  import { browser } from '$app/env';
   import { decode } from 'blurhash';
 
   export let resolutionX = 8;
   export let resolutionY = 8;
   export let punch = 1;
-
   export let hash: string;
 
   let canvas: HTMLCanvasElement;
@@ -20,4 +20,8 @@
   }
 </script>
 
-<canvas bind:this={canvas} width={resolutionX} height={resolutionY} />
+{#if browser}
+  <canvas bind:this={canvas} width={resolutionX} height={resolutionY} />
+{:else}
+  <blurhash-image blurhash={hash} />
+{/if}

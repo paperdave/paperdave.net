@@ -1,5 +1,6 @@
 import { JSONData } from '$lib/structures';
 import { AsJson } from '$lib/utils/api';
+import { getToken, token as tokenStore } from './session';
 
 /** Result of an api query, it is organized this way to include http status codes and other metadata */
 export interface FetchResult<Output = unknown> {
@@ -36,15 +37,27 @@ export class APIClient {
     method: string,
     body?: JSONData<Input> & AsJson<JSONData<Input>>
   ): Promise<FetchResult<JSONData<Output>>> {
+    const token = getToken();
+
     const response = await this.fetchFunction(`${this.baseUrl}${url}`, {
       method,
-      headers: body
-        ? {
-            'Content-Type': 'application/json',
-          }
-        : undefined,
+      headers: {
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        ...(body ? { 'Content-Type': 'application/json' } : {}),
+      },
       body: body ? JSON.stringify(body) : undefined,
     });
+
+    if (response.status === 401) {
+      if (token) {
+        // Retry without a token.
+        // This will never cause an infinite loop, because the token will be removed from the store.
+        tokenStore.set(null);
+        return this.fetch<Input, Output>(url, method, body);
+      } else {
+        throw new APIError(response, 'Invalid token');
+      }
+    }
 
     const json = await response.json();
 

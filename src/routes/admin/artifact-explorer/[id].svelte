@@ -45,11 +45,11 @@
     sidebarDeleteArtifact,
     sidebarModifyArtifact,
   } from './_Sidebar.svelte';
-  import { webSession } from '$lib/utils/client';
   import { browser } from '$app/env';
   import highlightjs from 'highlight.js';
+  import { user } from '$lib/api-client/session';
 
-  $: canEdit = $webSession.user?.queryPermission(Permission.EDIT_ARTIFACTS);
+  $: canEdit = $user?.queryPermission(Permission.EDIT_ARTIFACTS);
 
   export let artifact: Artifact | null = null;
 

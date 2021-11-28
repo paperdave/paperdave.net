@@ -7,7 +7,6 @@
 <script lang="ts">
   import BackButton from '$lib/components/BackButton.svelte';
   import { restrictedPage } from '$lib/utils/client';
-  import { Permission } from '$lib/structures';
 </script>
 
 <main>

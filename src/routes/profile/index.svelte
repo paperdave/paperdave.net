@@ -3,8 +3,11 @@
 </script>
 
 <script lang="ts">
+  import { expires, token, user } from '$lib/api-client/session';
+
   import BackButton from '$lib/components/BackButton.svelte';
-  import { restrictedPage, webSession } from '$lib/utils/client';
+  import { restrictedPage } from '$lib/utils/client';
+  import { formatDate } from '$lib/utils/date';
 </script>
 
 <main>
@@ -13,9 +16,17 @@
   <button>logout (not supported yet)</button>
   <pre>
     <code>
-      {JSON.stringify($webSession.toJSON(), null, 2)}
+      {JSON.stringify($user?.toJSON(), null, 2)}
     </code>
   </pre>
+
+  <code>
+    your token: {$token}
+  </code>
+
+  <code>
+    expires on: {$expires ? formatDate(new Date($expires), 'date-time') : 'unknown'}
+  </code>
 </main>
 
 <style lang="scss">
@@ -24,5 +35,8 @@
   }
   h1 {
     margin-top: 2rem;
+  }
+  code {
+    display: block;
   }
 </style>

@@ -15,9 +15,13 @@ if (global._mongoDbClient) {
     });
 }
 
-export async function getDatabase<T>(type: {
-  new (): T;
-}): Promise<Collection<JSONData<T> & { _id: ObjectId }>> {
+export async function getDatabase<T>(
+  type:
+    | {
+        new (): T;
+      }
+    | { structureName: string }
+): Promise<Collection<JSONData<T> & { _id: ObjectId }>> {
   if (connectionPromise) {
     client = global._mongoDbClient = await connectionPromise;
   }
@@ -36,6 +40,7 @@ export type WithoutDatabaseInternals<X> = X extends Record<string, any>
   : X;
 
 export function stripDatabaseInternals<X>(x: X): any {
+  console.warn('stripDatabaseInternals is deprecated');
   if (Array.isArray(x)) {
     return x.map(stripDatabaseInternals) as any;
   } else if (typeof x === 'object' && x) {

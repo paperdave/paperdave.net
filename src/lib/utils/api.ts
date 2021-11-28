@@ -1,10 +1,9 @@
-import { ServerWebSession } from '$lib/db/ServerWebSession';
-import { JSONData } from '$lib/structures';
+import { JSONData, User } from '$lib/structures';
 import { Headers, Location, MaybePromise } from '@sveltejs/kit/types/helper';
 import { StrictBody } from '@sveltejs/kit/types/hooks';
 
 export interface APILocals {
-  session: ServerWebSession;
+  user: User;
 }
 
 export interface APIErrorResponse {
@@ -54,16 +53,4 @@ export function getProperties<T>(data: T, props: string | null): T {
     obj[prop] = (data as any)[prop];
   });
   return obj;
-}
-
-export function isSameOrigin(origin: string | null) {
-  return (
-    !origin ||
-    [
-      //
-      'http://localhost:3000',
-      'https://davecode.net',
-      'https://davecode.me',
-    ].includes(origin)
-  );
 }

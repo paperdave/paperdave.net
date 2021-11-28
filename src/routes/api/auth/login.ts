@@ -1,7 +1,8 @@
 import { getDatabase } from '$lib/db';
-import { JSONData, User, WebSessionUser } from '$lib/structures';
+import { JSONData, User } from '$lib/structures';
 import { APIErrorResponse, APIHandler, APIResponse, GenericSuccess } from '$lib/utils/api';
-import { createHash } from 'crypto';
+import { createHash, randomBytes } from 'crypto';
+import { EXPIRE_TIME, Token } from '../../../hooks';
 
 // note: move to bcrypt for passwords. but i dont care since it's literally one user account LOL.
 
@@ -11,7 +12,9 @@ export interface LoginRequest {
 }
 
 export interface LoginSuccess extends GenericSuccess {
-  user: JSONData<WebSessionUser>;
+  user: JSONData<User>;
+  token: string;
+  expires: number;
 }
 
 const IncorrectLogin: APIResponse<APIErrorResponse> = {
@@ -21,10 +24,19 @@ const IncorrectLogin: APIResponse<APIErrorResponse> = {
   },
 };
 
-/** Attempts to login your current session. Returns your session's new WebSessionUser if successful. */
-export const post: APIHandler<LoginRequest, LoginSuccess> = async ({ body, locals }) => {
-  locals.session.logout();
+function generateTokenString() {
+  return new Promise<string>((resolve, reject) => {
+    randomBytes(32, function (err, buffer) {
+      if (err) {
+        reject(err);
+      }
+      resolve(buffer.toString('hex'));
+    });
+  });
+}
 
+/** Creates a login token */
+export const post: APIHandler<LoginRequest, LoginSuccess> = async ({ body, locals }) => {
   const { email, password } = body;
 
   const userDB = await getDatabase(User);
@@ -41,14 +53,22 @@ export const post: APIHandler<LoginRequest, LoginSuccess> = async ({ body, local
     return IncorrectLogin;
   }
 
-  locals.session.initialize();
-  locals.session.user = WebSessionUser.fromUser(user);
+  const tokenText = await generateTokenString();
+
+  const tokenDB = await getDatabase<Token>({ structureName: 'tokens' });
+  await tokenDB.insertOne({
+    email: user.email,
+    token: tokenText,
+    expires: Date.now() + EXPIRE_TIME,
+  });
 
   return {
     status: 200,
     body: {
       success: true,
-      user: locals.session.user.toJSON(),
+      user: user.toClientJSON(),
+      token: tokenText,
+      expires: Date.now() + EXPIRE_TIME,
     },
   };
 };

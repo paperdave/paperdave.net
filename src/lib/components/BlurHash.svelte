@@ -3,7 +3,6 @@
 
   import { useEffect } from '$lib/hooks/useEffect';
 
-  import { decode } from 'blurhash';
   import BlurHashCanvas from './BlurHashCanvas.svelte';
 
   export let resolutionX = 8;
@@ -51,7 +50,6 @@
       loading="lazy"
       decoding="async"
       on:load={() => {
-        console.log(Date.now() - start);
         if (Date.now() - start < threshold) {
           transition = false;
         }

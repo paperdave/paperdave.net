@@ -29,8 +29,6 @@
 </script>
 
 <form on:submit={submit} class:isLoading>
-  <noscript>Currently, this form requires JavaScript to submit it.</noscript>
-  <input type="hidden" name="type" value="login" />
   <h1>authorize</h1>
   {#if isFailedLogin}
     <p>Login failed, email or password is incorrect.</p>

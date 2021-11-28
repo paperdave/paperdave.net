@@ -8,7 +8,7 @@
   "singleQuote": true,
   "jsxSingleQuote": true,
   "svelteBracketNewLine": false,
-  "printWidth": 95,
+  "printWidth": 100,
   "tabWidth": 2,
   "trailingComma": "es5",
   "proseWrap": "always",

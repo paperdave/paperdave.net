@@ -1,8 +1,8 @@
-import { WebSessionUser } from '$lib/structures';
-import { getWebSession, webSession } from '$lib/utils/client';
+import { User } from '$lib/structures';
 import { resolveAPIError } from '$lib/utils/promise';
-import { LoginRequest, LoginSuccess } from 'src/routes/api/v1/auth/login';
+import type { LoginRequest, LoginSuccess } from 'src/routes/api/auth/login';
 import { APIClient } from './ApiClient';
+import { expires, token, user } from './session';
 
 /** Client API class that parallels the /artifact endpoints */
 export class DavecodeAuthenticationAPI {
@@ -20,8 +20,11 @@ export class DavecodeAuthenticationAPI {
     if (err && err.status === 401) {
       return false;
     }
+
     if (response && response.data.success) {
-      webSession.set(getWebSession().setUser(WebSessionUser.fromJSON(response.data.user)));
+      token.set(response.data.token);
+      expires.set(response.data.expires);
+      user.set(User.fromJSON(response.data.user));
       return true;
     } else {
       throw err ?? new Error('Unknown error');

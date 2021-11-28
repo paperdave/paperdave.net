@@ -21,23 +21,26 @@ export enum Permission {
 export class User {
   name: string;
   email: string;
-  passwordHash: string;
+  avatar: string;
   permissions: Set<Permission>;
+  passwordHash: string;
   salt: string;
 
   constructor(data?: Data<User>) {
     if (data) {
       this.name = data.name;
       this.email = data.email;
+      this.avatar = data.avatar;
       this.passwordHash = data.passwordHash;
       this.permissions = data.permissions;
       this.salt = data.salt;
     } else {
       this.name = '';
       this.email = '';
+      this.avatar = '';
       this.passwordHash = '';
-      this.permissions = new Set();
       this.salt = '';
+      this.permissions = new Set();
     }
   }
 
@@ -46,24 +49,44 @@ export class User {
       _v: 0,
       name: this.name,
       email: this.email,
-      passwordHash: this.passwordHash,
+      avatar: this.avatar,
       permissions: [...this.permissions],
+      passwordHash: this.passwordHash,
       salt: this.salt,
     };
+  }
+
+  /** Removes sensitive server-side details. */
+  toClientJSON() {
+    const json = this.toJSON() as any;
+    delete json.passwordHash;
+    delete json.salt;
+    return json as JSONData<User>;
   }
 
   static fromJSON(data: JSONData<User>) {
     return new User({
       name: data.name,
       email: data.email,
-      passwordHash: data.passwordHash,
+      avatar: data.avatar,
       permissions: new Set(data.permissions),
+      passwordHash: data.passwordHash,
       salt: data.salt,
     });
   }
 
+  setName(name: string) {
+    this.name = name;
+    return this;
+  }
+
   setEmail(email: string) {
     this.email = email;
+    return this;
+  }
+
+  setAvatar(avatar: string) {
+    this.avatar = avatar;
     return this;
   }
 
@@ -75,14 +98,6 @@ export class User {
   setPasswordHashed(passwordHash: string) {
     this.passwordHash = passwordHash;
     return this;
-  }
-
-  getClientUser() {
-    return {
-      email: this.email,
-      name: this.email,
-      permissions: [...this.permissions],
-    };
   }
 
   hasPermission(permission: Permission) {
@@ -104,6 +119,6 @@ export class User {
   }
 
   queryPermissions(permissions: Permission[]) {
-    return permissions.some((permission) => this.queryPermission(permission));
+    return permissions.every((permission) => this.queryPermission(permission));
   }
 }

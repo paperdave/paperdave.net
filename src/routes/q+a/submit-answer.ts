@@ -8,7 +8,7 @@ export interface SubmitAnswerInput {
 }
 
 export const post: APIHandler<SubmitAnswerInput, GenericSuccess> = async ({ locals, body }) => {
-  if (!locals.session.refreshAndCheckPermission(Permission.RESPOND_TO_QUESTIONS)) {
+  if (!locals.user.queryPermission(Permission.RESPOND_TO_QUESTIONS)) {
     return {
       status: 403,
       body: {
