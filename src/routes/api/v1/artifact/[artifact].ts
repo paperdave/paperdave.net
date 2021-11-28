@@ -5,15 +5,14 @@ import { APIHandler, GenericSuccess, getProperties } from '$lib/utils/api';
 /**
  * Retrives an artifact by it's id
  *
- * - Private artifacts will be invisible to the public, but returned if the user has the
+ * - Private or draft artifacts will be invisible to the public, but returned if the user has the
  *   `VIEW_ARTIFACTS` permission.
- * - Draft artifacts will never be returned.
  * - If it does not exist, a 404 Error is returned.
  * - You can pass a `props` query parameter to return only the properties you want (separated by commas).
  */
 export const get: APIHandler<void, Artifact> = async ({ params, locals, query }) => {
   const db = await getDatabase(Artifact);
-  const id = params.id;
+  const id = params.artifact;
   const find = await db.findOne({ id });
 
   const artifact = find && Artifact.fromJSON(find);
@@ -22,10 +21,9 @@ export const get: APIHandler<void, Artifact> = async ({ params, locals, query })
     // Send 404 if the artifact does not exist
     !artifact ||
     // Send 404 if the artifact is private and the user does not have the `VIEW_ARTIFACTS` permission
-    (artifact.visibility === ArtifactVisibility.PRIVATE &&
-      !(await locals.session.queryPermission(Permission.VIEW_ARTIFACTS))) ||
-    // Send 404 if the artifact is a draft
-    artifact.visibility === ArtifactVisibility.DRAFT
+    ((artifact.visibility === ArtifactVisibility.PRIVATE ||
+      artifact.visibility === ArtifactVisibility.DRAFT) &&
+      !(await locals.session.queryPermission(Permission.VIEW_ARTIFACTS)))
   ) {
     return {
       status: 404,
@@ -58,7 +56,7 @@ export const post: APIHandler<Artifact, GenericSuccess> = async ({ body, locals,
     };
   }
 
-  if (artifact.id !== params.id) {
+  if (artifact.id !== params.artifact) {
     return {
       status: 400,
       body: { error: 'Artifact id does not match the path' },
@@ -91,7 +89,7 @@ export const del: APIHandler<void, GenericSuccess> = async ({ locals, params }) 
   }
 
   const db = await getDatabase(Artifact);
-  const id = params.id;
+  const id = params.artifact;
   const find = await db.findOne({ id });
 
   if (!find) {
@@ -125,7 +123,7 @@ export const put: APIHandler<Artifact, GenericSuccess> = async ({ body, locals, 
   }
 
   const db = await getDatabase(Artifact);
-  const id = params.id;
+  const id = params.artifact;
   const find = await db.findOne({ id });
 
   if (!find) {
@@ -137,7 +135,7 @@ export const put: APIHandler<Artifact, GenericSuccess> = async ({ body, locals, 
 
   const artifact = Artifact.fromJSON(body);
 
-  await db.updateOne({ id }, artifact.toJSON());
+  await db.findOneAndReplace({ id }, artifact.toJSON());
 
   return {
     status: 200,
@@ -161,7 +159,7 @@ export const patch: APIHandler<Artifact, GenericSuccess> = async ({ body, locals
   }
 
   const db = await getDatabase(Artifact);
-  const id = params.id;
+  const id = params.artifact;
   const find = await db.findOne({ id });
 
   if (!find) {
@@ -173,7 +171,7 @@ export const patch: APIHandler<Artifact, GenericSuccess> = async ({ body, locals
 
   const artifact = Artifact.fromJSON({ ...find, ...body });
 
-  await db.updateOne({ id }, artifact.toJSON());
+  await db.findOneAndUpdate({ id }, artifact.toJSON());
 
   return {
     status: 200,

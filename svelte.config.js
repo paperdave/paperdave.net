@@ -31,6 +31,11 @@ const conf = {
       optimizeDeps: {
         exclude: ['svelte-kit-cookie-session', 'mongodb', 'bson'],
       },
+      resolve: {
+        alias: {
+          $vendor: process.cwd() + '/src/vendor',
+        },
+      },
     },
   },
 };

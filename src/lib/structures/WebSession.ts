@@ -3,15 +3,18 @@ import { Permission, User } from './User';
 
 export class WebSession {
   user?: WebSessionUser;
+  expires: Date;
   destroyed: boolean;
 
   constructor(data?: Data<WebSession>) {
     if (data) {
       this.user = data.user;
       this.destroyed = data.destroyed;
+      this.expires = data.expires;
     } else {
       this.user = undefined;
       this.destroyed = false;
+      this.expires = new Date();
     }
   }
 
@@ -19,16 +22,18 @@ export class WebSession {
     return new WebSession({
       user: data.user ? WebSessionUser.fromJSON(data.user) : undefined,
       destroyed: false,
+      expires: new Date(data.expires),
     });
   }
 
-  static get destroyedSession() {
+  static get empty() {
     return new WebSession().destroy();
   }
 
   toJSON() {
     return {
       user: this.user ? this.user.toJSON() : undefined,
+      expires: this.expires.getTime(),
     };
   }
 
@@ -49,19 +54,16 @@ export class WebSession {
 }
 
 export class WebSessionUser {
-  id: string;
   name: string;
   email: string;
   permissions: Set<Permission>;
 
   constructor(data?: Data<WebSessionUser>) {
     if (data) {
-      this.id = data.id;
       this.name = data.name;
       this.email = data.email;
       this.permissions = data.permissions;
     } else {
-      this.id = '';
       this.name = '';
       this.email = '';
       this.permissions = new Set();
@@ -70,7 +72,6 @@ export class WebSessionUser {
 
   static fromJSON(data: JSONData<WebSessionUser>) {
     return new WebSessionUser({
-      id: data.id,
       name: data.name,
       email: data.email,
       permissions: new Set(data.permissions),
@@ -79,8 +80,7 @@ export class WebSessionUser {
 
   static fromUser(user: User) {
     return new WebSessionUser({
-      id: user.email,
-      name: user.email,
+      name: user.name,
       email: user.email,
       permissions: user.permissions,
     });
@@ -88,7 +88,6 @@ export class WebSessionUser {
 
   toJSON() {
     return {
-      id: this.id,
       name: this.name,
       email: this.email,
       permissions: [...this.permissions],

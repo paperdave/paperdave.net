@@ -1,15 +1,14 @@
 <script context="module" lang="ts">
   import type { Load } from '@sveltejs/kit';
-  import type { JSONData } from '$lib/structures';
   import { MusicArtifact } from '$lib/structures';
   import BackButton from '$lib/components/BackButton.svelte';
   import MusicCard from './_MusicCard.svelte';
 
   export const load: Load = async ({ fetch }) => {
-    const res = await fetch('/music/get-music').then((res) => res.json());
+    const API = wrapAPI(fetch);
     return {
       props: {
-        music: res.map((x: JSONData<MusicArtifact>) => MusicArtifact.fromJSON(x)),
+        music: await API.artifacts.getArtifactList('music'),
       },
     };
   };
@@ -18,6 +17,7 @@
 <script lang="ts">
   import Meta from '$lib/components/Meta.svelte';
   import MusicHeader from './_MusicHeader.svelte';
+  import { wrapAPI } from '$lib/api-client/singleton';
 
   export let music: MusicArtifact[];
 

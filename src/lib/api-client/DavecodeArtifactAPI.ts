@@ -10,14 +10,13 @@ export class DavecodeArtifactAPI {
   /**
    * Retrives an artifact by it's id
    *
-   * - Private artifacts will be invisible to the public, but returned if the user has the
+   * - Private or draft artifacts will be invisible to the public, but returned if the user has the
    *   `VIEW_ARTIFACTS` permission.
-   * - Draft artifacts will never be returned.
    * - If it does not exist, a 404 Error is returned.
    * - You can pass a `props` query parameter to return only the properties you want (separated by commas).
    */
   async getArtifact(id: string) {
-    const { data: response } = await resolveError(this.client.get<Artifact>(`/artifacts/${id}`));
+    const { data: response } = await resolveError(this.client.get<Artifact>(`/artifact/${id}`));
     if (!response) {
       return null;
     }
@@ -34,7 +33,7 @@ export class DavecodeArtifactAPI {
    */
   async createArtifact(newArtifact: Artifact) {
     const response = await this.client.post<Artifact, GenericSuccess>(
-      `/artifacts/${newArtifact.id}`,
+      `/artifact/${newArtifact.id}`,
       newArtifact.toJSON()
     );
     return response.data.success;
@@ -49,7 +48,7 @@ export class DavecodeArtifactAPI {
    */
   async updateArtifact(id: string, artifact: Artifact) {
     const response = await this.client.put<Artifact, GenericSuccess>(
-      `/artifacts/${id}`,
+      `/artifact/${id}`,
       artifact.toJSON()
     );
     return response.data.success;
@@ -63,7 +62,7 @@ export class DavecodeArtifactAPI {
    * - If the artifact does not exist, a 404 Error is returned.
    */
   async patchArtifact(id: string, artifact: JSONData<Artifact> & { id: string }) {
-    const response = await this.client.put<Artifact, GenericSuccess>(`/artifacts/${id}`, artifact);
+    const response = await this.client.put<Artifact, GenericSuccess>(`/artifact/${id}`, artifact);
     return response.data.success;
   }
 
@@ -75,7 +74,16 @@ export class DavecodeArtifactAPI {
    * - If the artifact does not exist, a 404 Error is returned.
    */
   async deleteArtifact(id: string) {
-    const response = await this.client.del<GenericSuccess>(`/artifacts/${id}`);
+    const response = await this.client.del<GenericSuccess>(`/artifact/${id}`);
     return response.data.success;
+  }
+
+  /**
+   * Get an artifact list by it's list id. Lists are hardcoded into the api code, so the api does
+   * not support modifying these presets.
+   */
+  async getArtifactList(listName: string): Promise<Artifact[]> {
+    const response = await this.client.get<JSONData<Artifact>[]>(`/artifact/list/${listName}`);
+    return response.data.map(enhanceArtifact);
   }
 }

@@ -6,15 +6,11 @@ export class ServerWebSession extends WebSession {
   private serverUser?: User;
 
   static fromJSON(json: JSONData<WebSession>) {
-    const x = WebSession.fromJSON(json);
-    (x as any).__proto = ServerWebSession.prototype;
-    return x as ServerWebSession;
+    return new ServerWebSession(WebSession.fromJSON(json));
   }
 
-  static get destroyedSession() {
-    const x = WebSession.destroyedSession;
-    (x as any).__proto = ServerWebSession.prototype;
-    return x as ServerWebSession;
+  static get empty() {
+    return new ServerWebSession(WebSession.empty);
   }
 
   async updateUserMeta() {

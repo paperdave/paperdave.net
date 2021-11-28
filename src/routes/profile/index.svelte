@@ -1,23 +1,10 @@
 <script context="module" lang="ts">
-  import type { Load } from '@sveltejs/kit';
-
-  export const load: Load = async ({ session, page }) => {
-    if (!session.user) {
-      return {
-        status: 302,
-        redirect: '/auth?r=' + encodeURIComponent(page.path),
-      };
-    }
-
-    return {
-      props: {},
-    };
-  };
+  export const load = restrictedPage([]);
 </script>
 
 <script lang="ts">
-  import { session } from '$app/stores';
   import BackButton from '$lib/components/BackButton.svelte';
+  import { restrictedPage, webSession } from '$lib/utils/client';
 </script>
 
 <main>
@@ -26,7 +13,7 @@
   <button>logout (not supported yet)</button>
   <pre>
     <code>
-      {JSON.stringify($session, null, 2)}
+      {JSON.stringify($webSession.toJSON(), null, 2)}
     </code>
   </pre>
 </main>

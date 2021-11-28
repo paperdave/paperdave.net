@@ -8,6 +8,15 @@ export interface FetchResult<Output = unknown> {
   data: Output;
 }
 
+export class APIError extends Error {
+  status: number;
+
+  constructor(response: Response, message?: string) {
+    super(message);
+    this.status = response.status;
+  }
+}
+
 /** Shared code for fetching data from the davecode API or any similarly formatted api. */
 export class APIClient {
   baseUrl: string;
@@ -40,7 +49,7 @@ export class APIClient {
     const json = await response.json();
 
     if (json.error) {
-      throw new Error(json.error);
+      throw new APIError(response, json);
     }
 
     return {

@@ -15,6 +15,7 @@ export enum Permission {
 
 @schema('users')
 export class User {
+  name: string;
   email: string;
   passwordHash: string;
   permissions: Set<Permission>;
@@ -22,11 +23,13 @@ export class User {
 
   constructor(data?: Data<User>) {
     if (data) {
+      this.name = data.name;
       this.email = data.email;
       this.passwordHash = data.passwordHash;
       this.permissions = data.permissions;
       this.salt = data.salt;
     } else {
+      this.name = '';
       this.email = '';
       this.passwordHash = '';
       this.permissions = new Set();
@@ -37,6 +40,7 @@ export class User {
   toJSON() {
     return {
       _v: 0,
+      name: this.name,
       email: this.email,
       passwordHash: this.passwordHash,
       permissions: [...this.permissions],
@@ -46,6 +50,7 @@ export class User {
 
   static fromJSON(data: JSONData<User>) {
     return new User({
+      name: data.name,
       email: data.email,
       passwordHash: data.passwordHash,
       permissions: new Set(data.permissions),

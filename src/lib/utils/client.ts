@@ -1,19 +1,23 @@
-import { session } from '$app/stores';
-import { Permission, WebSession } from '$lib/structures';
+import { browser } from '$app/env';
+import { JSONData, Permission, WebSession } from '$lib/structures';
 import { Load } from '@sveltejs/kit';
 import { writable } from 'svelte/store';
 import { encodeRedirect } from './encodeRedirect';
 
-let webSessionInstance: WebSession = new WebSession();
+declare const davecode: { session: JSONData<WebSession> };
+
+let webSessionInstance: WebSession = browser
+  ? typeof davecode !== 'undefined' && davecode.session
+    ? WebSession.fromJSON(davecode.session)
+    : WebSession.empty
+  : WebSession.empty;
 
 export const webSession = writable(webSessionInstance);
 
-session.subscribe((session) => {
-  webSessionInstance = session ? WebSession.fromJSON(session) : WebSession.destroyedSession;
-  webSession.set(webSessionInstance);
-});
-
-export function getWebSession() {
+export function getWebSession(s?: any) {
+  if (s !== undefined) {
+    return s ? WebSession.fromJSON(s) : WebSession.empty;
+  }
   return webSessionInstance;
 }
 
@@ -24,7 +28,7 @@ const defaultLoadFunction: Load = () => {
 export function restrictedPage(permissions: Permission[], load = defaultLoadFunction) {
   const fn: Load = (input) => {
     const page = input.page;
-    const session = getWebSession();
+    const session = getWebSession(input.session);
     if (!session.user) {
       return {
         status: 302,

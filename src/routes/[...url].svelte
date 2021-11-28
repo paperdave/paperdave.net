@@ -11,7 +11,6 @@
     const artifactId = page.path.slice(1);
     if (artifactId.match(/^[a-z0-9_-]+$/)) {
       const artifact = await API.artifacts.getArtifact(artifactId);
-      console.log(artifact);
       if (artifact) {
         return {
           props: {

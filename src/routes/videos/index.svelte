@@ -2,14 +2,13 @@
   import { VideoArtifact } from '$lib/structures';
   import BackButton from '$lib/components/BackButton.svelte';
   import type { Load } from '@sveltejs/kit';
-  import type { JSONData } from '$lib/structures';
   import VideoButton from './_VideoButton.svelte';
 
   export const load: Load = async ({ fetch }) => {
-    const res = await fetch('/videos/get-videos').then((res) => res.json());
+    const API = wrapAPI(fetch);
     return {
       props: {
-        videos: res.map((x: JSONData<VideoArtifact>) => VideoArtifact.fromJSON(x)),
+        videos: await API.artifacts.getArtifactList('videos'),
       },
     };
   };
@@ -17,6 +16,7 @@
 
 <script lang="ts">
   import VideoHeader from './_VideoHeader.svelte';
+  import { wrapAPI } from '$lib/api-client/singleton';
 
   export let videos: VideoArtifact[];
 </script>

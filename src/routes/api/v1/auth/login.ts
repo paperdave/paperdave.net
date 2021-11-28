@@ -21,6 +21,7 @@ const IncorrectLogin: APIResponse<APIErrorResponse> = {
   },
 };
 
+/** Attempts to login your current session. Returns your session's new WebSessionUser if successful. */
 export const post: APIHandler<LoginRequest, LoginSuccess> = async ({ body, locals }) => {
   locals.session.logout();
 
@@ -40,6 +41,7 @@ export const post: APIHandler<LoginRequest, LoginSuccess> = async ({ body, local
     return IncorrectLogin;
   }
 
+  locals.session.initialize();
   locals.session.user = WebSessionUser.fromUser(user);
 
   return {

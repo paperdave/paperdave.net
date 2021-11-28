@@ -1,12 +1,13 @@
 <script lang="ts" context="module">
   import type { Load } from '@sveltejs/kit';
-  import { Artifact, ArtifactVisibility } from '$lib/structures';
+  import { Artifact, ArtifactVisibility, Permission, User } from '$lib/structures';
   import ArtifactEditor from './_ArtifactEditor.svelte';
   import { page } from '$app/stores';
   import { Button } from 'fluent-svelte';
   import deepEqual from 'fast-deep-equal';
   import ArtifactPreview from '../../[...url].svelte';
-  import hljs from 'highlight.js';
+
+  export const prerender = false;
 
   export const load: Load = async ({ fetch, page }) => {
     const API = wrapAPI(fetch);
@@ -14,7 +15,7 @@
     // creating a new artifact
     if (page.params.id === 'new') {
       const artifact = new Artifact()
-        .setId('id generation is client side now')
+        .setId('new-artifact-' + Date.now())
         .setType('unknown')
         .setVisibility(ArtifactVisibility.DRAFT);
 
@@ -45,16 +46,24 @@
     sidebarDeleteArtifact,
     sidebarModifyArtifact,
   } from './_Sidebar.svelte';
+  import { API, wrapAPI } from '$lib/api-client/singleton';
+  import { webSession } from '$lib/utils/client';
   import { browser } from '$app/env';
-  import { wrapAPI } from '$lib/api-client/singleton';
-  import { restrictedPage } from '$lib/utils/client';
+  import highlightjs from 'highlight.js';
+
+  $: canEdit = $webSession.user?.hasPermission(Permission.EDIT_ARTIFACTS);
+  $: canDelete = $webSession.user?.hasPermission(Permission.DELETE_ARTIFACTS);
 
   export let artifact: Artifact | null = null;
 
   $: edited = artifact && Artifact.fromJSON(artifact.toJSON());
 
   function handleChange(event: CustomEvent) {
-    edited = event.detail;
+    if (canEdit) {
+      edited = event.detail;
+    } else if (artifact) {
+      edited = Artifact.fromJSON(artifact.toJSON());
+    }
   }
 
   function reset() {
@@ -70,13 +79,7 @@
   async function deleteArtrifact() {
     if (artifact) {
       sidebarDeleteArtifact(artifact.id);
-      await fetch('/admin/artifact-explorer/delete-artifact', {
-        method: 'POST',
-        body: JSON.stringify({ id: artifact.id }),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }).then((r) => r.json());
+      await API.artifacts.deleteArtifact(artifact.id);
 
       goto('/admin/artifact-explorer');
     }
@@ -85,13 +88,7 @@
   async function saveArtifact() {
     if (artifact && edited) {
       sidebarModifyArtifact(artifact.id, edited);
-      await fetch('/admin/artifact-explorer/save-artifact', {
-        method: 'POST',
-        body: JSON.stringify({ id: artifact.id, artifact: edited.toJSON() }),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }).then((r) => r.json());
+      await API.artifacts.updateArtifact(artifact.id, edited);
       history.replaceState(null, document.title, '/admin/artifact-explorer/' + edited.id);
       artifact = edited;
     }
@@ -130,54 +127,55 @@
   }
 </script>
 
-<main>
-  {#if artifact !== null && edited !== null}
-    <div class="editor">
-      <header>
-        <Button variant="accent" on:click={saveArtifact} disabled={equal}>Save</Button>
-        <Button on:click={reset} disabled={equal}>Reset</Button>
-        <Button on:click={() => (deleteDialogOpen = true)}>Delete</Button>
-        <Button on:click={guessUrls}>Guess URLs</Button>
-      </header>
-      {#key $page.path}
-        <ArtifactEditor rawArtifact={edited} on:change={handleChange} />
-      {/key}
-    </div>
-    <div class="json">
-      <pre>
-        {#if browser}
-          {@html hljs.highlight(JSON.stringify(edited.toJSON(), null, 2), {
-            language: 'json'
-          }).value}
-        {/if}
+{#if browser}
+  <main>
+    {#if artifact !== null && edited !== null}
+      <div class="editor">
+        <header>
+          <Button variant="accent" on:click={saveArtifact} disabled={equal || !canEdit}
+            >Save</Button>
+          <Button on:click={reset} disabled={equal || !canEdit}>Reset</Button>
+          <Button disabled={!canDelete} on:click={() => (deleteDialogOpen = true)}>Delete</Button>
+          <Button disabled={!canEdit} on:click={guessUrls}>Guess URLs</Button>
+        </header>
+        {#key $page.path}
+          <ArtifactEditor rawArtifact={edited} on:change={handleChange} />
+        {/key}
+      </div>
+      <div class="json">
+        <pre>
+        {@html highlightjs.highlight(JSON.stringify(edited.toJSON(), null, 2), {
+          language: 'json'
+        }).value}
       </pre>
-    </div>
-    <div class="page-preview">
-      <ArtifactPreview artifact={edited} />
-    </div>
-    <ContentDialog bind:open={deleteDialogOpen} title={`Delete "${artifact.id}"?`}>
-      <div>Once you delete an artifact, it cannot be recovered.</div>
-      <svelte:fragment slot="footer">
-        <Button
-          variant="accent"
-          on:click={() => {
-            deleteDialogOpen = false;
-            deleteArtrifact();
-          }}>Delete</Button>
-        <Button
-          on:click={() => {
-            deleteDialogOpen = false;
-          }}>Cancel</Button>
-      </svelte:fragment>
-    </ContentDialog>
-  {:else}
-    <div class="empty">
-      <p>
-        Cannot find artifact with id: <code>{$page.params.id}</code>
-      </p>
-    </div>
-  {/if}
-</main>
+      </div>
+      <div class="page-preview">
+        <ArtifactPreview artifact={edited} />
+      </div>
+      <ContentDialog bind:open={deleteDialogOpen} title={`Delete "${artifact.id}"?`}>
+        <div>Once you delete an artifact, it cannot be recovered.</div>
+        <svelte:fragment slot="footer">
+          <Button
+            variant="accent"
+            on:click={() => {
+              deleteDialogOpen = false;
+              deleteArtrifact();
+            }}>Delete</Button>
+          <Button
+            on:click={() => {
+              deleteDialogOpen = false;
+            }}>Cancel</Button>
+        </svelte:fragment>
+      </ContentDialog>
+    {:else}
+      <div class="empty">
+        <p>
+          Cannot find artifact with id: <code>{$page.params.id}</code>
+        </p>
+      </div>
+    {/if}
+  </main>
+{/if}
 
 <style lang="scss">
   main {

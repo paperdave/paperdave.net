@@ -35,6 +35,8 @@
 
 <style lang="scss">
   main {
+    user-select: none;
+
     display: grid;
     height: 100vh;
     background-color: #101010;

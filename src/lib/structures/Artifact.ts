@@ -47,19 +47,19 @@ export class Artifact {
   }
 
   toJSON() {
+    const dataEntries = [...this.data.entries()] //
+      .filter(([key, value]) => value !== undefined && value !== null && value !== '');
+    const dataProperties = dataEntries.length > 0 ? Object.fromEntries(dataEntries) : undefined;
+
     const data = {
       _v: 0,
       id: this.id,
       title: this.title,
       date: this.date.getTime(),
-      thumbnail: this.thumbnail || undefined,
+      thumbnail: this.thumbnail ?? undefined,
       type: this.type,
-      tags: Array.from(this.tags),
-      data: Object.fromEntries(
-        [...this.data.entries()].filter(
-          ([key, value]) => value !== undefined && value !== null && value !== ''
-        )
-      ),
+      tags: this.tags.size > 0 ? Array.from(this.tags) : undefined,
+      data: dataProperties,
       visibility: this.visibility ?? ArtifactVisibility.DRAFT,
     };
     return data;
@@ -73,7 +73,7 @@ export class Artifact {
       thumbnail: data.thumbnail,
       type: data.type,
       tags: new Set(data.tags),
-      data: recordToMap(data.data),
+      data: recordToMap(data.data ?? {}),
       visibility: data.visibility,
     });
   }

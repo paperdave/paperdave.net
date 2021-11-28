@@ -5,7 +5,7 @@ import { isSameOrigin } from '$lib/utils/api';
 import { GetSession } from '@sveltejs/kit';
 import { handleSession } from 'svelte-kit-cookie-session';
 
-export const handle = handleSession<{ session: JSONData<WebSession> }>(
+export const handle = handleSession<JSONData<WebSession>>(
   {
     secret: COOKIE_SECRET,
     rolling: true,
@@ -13,17 +13,17 @@ export const handle = handleSession<{ session: JSONData<WebSession> }>(
   async ({ request, resolve }) => {
     const session = request.locals.session;
 
-    const webSession = session.data.session
-      ? ServerWebSession.fromJSON(session.data.session)
-      : ServerWebSession.destroyedSession;
+    const webSession = session.data
+      ? ServerWebSession.fromJSON(session.data)
+      : ServerWebSession.empty;
 
     (request.locals as any).session = webSession;
     const response = await resolve(request);
 
-    if (session.data.session && webSession.destroyed) {
+    if (session.data && webSession.destroyed) {
       session.destroy();
     } else if (!webSession.destroyed) {
-      session.data.session = webSession.toJSON();
+      session.data = webSession.toJSON();
     }
 
     const sameOrigin = isSameOrigin(request.headers.origin);
