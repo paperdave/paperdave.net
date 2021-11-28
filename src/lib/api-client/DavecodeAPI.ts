@@ -1,4 +1,4 @@
-import { APIClient } from './ApiClient';
+import { APIClient } from './APIClient';
 import { DavecodeArtifactAPI } from './DavecodeArtifactAPI';
 import { DavecodeAuthenticationAPI } from './DavecodeAuthenticationAPI';
 
