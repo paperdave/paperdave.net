@@ -282,6 +282,11 @@ binary-search-bounds@^2.0.5:
   resolved "https://registry.yarnpkg.com/binary-search-bounds/-/binary-search-bounds-2.0.5.tgz#125e5bd399882f71e6660d4bf1186384e989fba7"
   integrity sha512-H0ea4Fd3lS1+sTEB2TgcLoK21lLhwEJzlQv3IN47pJS976Gx4zoWe0ak3q+uYh60ppQxg9F16Ri4tS1sfD4+jA==
 
+blurhash@^1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/blurhash/-/blurhash-1.1.4.tgz#a7010ceb3019cd2c9809b17c910ebf6175d29244"
+  integrity sha512-MXIPz6zwYUKayju+Uidf83KhH0vodZfeRl6Ich8Gu+KGl0JgKiFq9LsfqV7cVU5fKD/AotmduZqvOfrGKOfTaA==
+
 boolbase@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/boolbase/-/boolbase-1.0.0.tgz#68dff5fbe60c51eb37725ea9e3ed310dcc1e776e"
@@ -2077,6 +2082,11 @@ strip-indent@^3.0.0:
   integrity sha512-laJTa3Jb+VQpaC6DseHhF7dXVqHTfJPCRDaEbid/drOhgitgYku/letMUqOXFoWV0zIIUbjpdH2t+tYj4bQMRQ==
   dependencies:
     min-indent "^1.0.0"
+
+svelte-blurhash@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/svelte-blurhash/-/svelte-blurhash-1.2.1.tgz#1ff403da77aaa895de04fdc3f7ff7d61d4beb02a"
+  integrity sha512-OgI/u+3K1pIjODaYdIagqQJEEkaPky31ska+K+WGBMWFMG2vBdSXkt8i13mc/+HvVQ+go2K9GEHUCAgMPkszGA==
 
 svelte-hmr@^0.14.5:
   version "0.14.6"
