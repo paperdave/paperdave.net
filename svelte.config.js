@@ -1,7 +1,7 @@
 import content from '@originjs/vite-plugin-content';
 import vercel from '@sveltejs/adapter-vercel';
 import 'dotenv/config';
-import fs from 'fs';
+import fs from 'fs-extra';
 import preprocess from 'svelte-preprocess';
 import svgSvelte from 'vite-plugin-svelte-svg';
 
@@ -18,6 +18,8 @@ const gtag = process.env.GTAG
   </script>
 `
   : '';
+
+fs.ensureDirSync('./.svelte-kit');
 
 fs.writeFileSync(
   '.svelte-kit/app.html',
