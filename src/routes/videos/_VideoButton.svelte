@@ -1,4 +1,5 @@
 <script lang="ts">
+  import BlurHash from '$lib/components/BlurHash.svelte';
   import { VideoArtifact } from '$lib/structures';
   import { formatDate } from '$lib/utils/date';
 
@@ -6,7 +7,13 @@
 </script>
 
 <a href="/{video.id}">
-  <figure style="--bg:url({video.thumbnail})" />
+  <figure>
+    {#if video.blurhash && video.thumbnail}
+      <BlurHash hash={video.blurhash} src={video.thumbnail} alt={video.title} />
+    {:else if video.thumbnail}
+      <img src={video.thumbnail} alt={video.title} />
+    {/if}
+  </figure>
   <div>
     <strong>{video.title}</strong>
     <date>{formatDate(video.date, 'date')}</date>
@@ -55,9 +62,10 @@
     max-width: 100%;
     aspect-ratio: 16/9;
     border: 2px solid #ade6dc;
-    background-image: var(--bg);
-    background-size: cover;
     margin-bottom: 0.25rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
   }
 
   div {

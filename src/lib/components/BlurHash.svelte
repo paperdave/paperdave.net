@@ -14,7 +14,7 @@
   export let src: string;
   export let alt: string;
   export let fade = 400;
-  export let threshold = 100;
+  export let threshold = 50;
 
   let img: HTMLImageElement;
 

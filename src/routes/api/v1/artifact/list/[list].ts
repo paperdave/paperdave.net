@@ -17,6 +17,7 @@ export const artifactListMap: Record<string, ListFn> = {
       type: 1,
       title: 1,
       thumbnail: 1,
+      blurhash: 1,
       visibility: 1,
       date: 1,
     }),
