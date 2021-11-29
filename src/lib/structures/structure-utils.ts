@@ -1,9 +1,15 @@
 /** Takes a class and removes all methods. */
 export type Data<T> = {
-  [P in keyof T as T[P] extends (...args: never[]) => unknown ? never : P]: T[P];
+  [K in keyof T as T[K] extends (...args: never[]) => unknown ? never : K]: T[K];
 };
 
-export type JSONData<T> = T extends { toJSON(): infer U } ? U : T;
+export type JSONData<T> = T extends { toJSON(): infer U }
+  ? U
+  : T extends Record<string, unknown>
+  ? { [K in keyof T]: JSONData<T[K]> }
+  : T extends Array<infer V>
+  ? JSONData<V>[]
+  : T;
 
 /** Converts an record to a map */
 export function recordToMap<T>(obj: Record<string, T>): Map<string, T> {
@@ -30,5 +36,3 @@ export function schema(name: string) {
     target.structureName = name;
   };
 }
-
-export const REDACTED = '[REDACTED]';
