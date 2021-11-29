@@ -29,13 +29,8 @@
   {#if description} <meta property="og:description" content={description} /> {/if}
   {#if video}
     <meta property="og:video" content={video} />
-    <meta property="og:video:type" content="video/mp4" />
-    <meta property="og:video:width" content="1280" />
-    <meta property="og:video:height" content="720" />
     <meta property="twitter:card" content="player" />
     <meta property="twitter:player" content={video} />
-    <meta property="twitter:player:width" content="1280" />
-    <meta property="twitter:player:height" content="720" />
   {:else if image}
     <meta property="og:image" content={image} />
     <meta property="twitter:card" content="summary_large_image" />

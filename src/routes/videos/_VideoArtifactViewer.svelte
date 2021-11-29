@@ -16,7 +16,7 @@
 <Meta
   title={artifact.title}
   description="video by dave caruso released on {formatDate(artifact.date, 'date')}"
-  image={artifact.thumbnail ?? null} />
+  video={artifact.file} />
 
 <Layout>
   <BackButton inverted position="off-center" href="/videos" text="all videos" />
