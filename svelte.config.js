@@ -58,7 +58,7 @@ const conf = {
         exclude: ['mongodb', 'bson'],
       },
       ssr: {
-        noExternal: Object.keys(pkg.dependencies || {}),
+        exclude: Object.keys(pkg.dependencies).concat(Object.keys(pkg.devDependencies)),
       },
       resolve: {
         alias: {
