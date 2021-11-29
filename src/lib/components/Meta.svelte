@@ -11,6 +11,7 @@
   export let description: string | null = null;
   export let color = '#51D064';
   export let image: string | null = null;
+  export let video: string | null = null;
 </script>
 
 <svelte:head>
@@ -26,7 +27,16 @@
   <meta property="og:type" content={type} />
   <meta property="og:title" content={title} />
   {#if description} <meta property="og:description" content={description} /> {/if}
-  {#if image}
+  {#if video}
+    <meta property="og:video" content={video} />
+    <meta property="og:video:type" content="video/mp4" />
+    <meta property="og:video:width" content="1280" />
+    <meta property="og:video:height" content="720" />
+    <meta property="twitter:card" content="player" />
+    <meta property="twitter:player" content={video} />
+    <meta property="twitter:player:width" content="1280" />
+    <meta property="twitter:player:height" content="720" />
+  {:else if image}
     <meta property="og:image" content={image} />
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:image" content={image} />
