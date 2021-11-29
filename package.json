@@ -32,6 +32,7 @@
     "@types/html-minifier": "^4.0.1",
     "@types/marked": "^3.0.1",
     "bson-ext": "^4.0.2",
+    "kerberos": "^1.1.7",
     "prettier": "^2.3.2",
     "prettier-plugin-jsdoc": "^0.3.24",
     "prettier-plugin-organize-imports": "^2.3.4",
