@@ -53,7 +53,7 @@ const conf = {
       esbuild: (opts) => ({
         ...opts,
         external: externals,
-        minify: true,
+        target: 'es2019',
       }),
     }),
     target: 'body',
