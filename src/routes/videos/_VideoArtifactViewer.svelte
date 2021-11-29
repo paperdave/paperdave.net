@@ -15,7 +15,7 @@
 
 <Meta
   title={artifact.title}
-  description="Published {formatDate(artifact.date, 'date')}"
+  description="video by dave caruso released on {formatDate(artifact.date, 'date')}"
   image={artifact.thumbnail ?? null} />
 
 <Layout>
