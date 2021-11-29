@@ -4,6 +4,7 @@ import 'dotenv/config';
 import fs from 'fs-extra';
 import preprocess from 'svelte-preprocess';
 import svgSvelte from 'vite-plugin-svelte-svg';
+import pkg from './package.json';
 
 const gtag = process.env.GTAG
   ? `
@@ -54,6 +55,9 @@ const conf = {
       plugins: [svgSvelte(), content.default()],
       optimizeDeps: {
         exclude: ['mongodb', 'bson'],
+      },
+      ssr: {
+        noExternal: Object.keys(pkg.dependencies || {}),
       },
       resolve: {
         alias: {
