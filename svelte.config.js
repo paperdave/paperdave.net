@@ -1,9 +1,11 @@
 import content from '@originjs/vite-plugin-content';
-import vercel from '@sveltejs/adapter-vercel';
+import netlify from '@sveltejs/adapter-netlify';
 import 'dotenv/config';
 import fs from 'fs-extra';
 import preprocess from 'svelte-preprocess';
 import svgSvelte from 'vite-plugin-svelte-svg';
+
+const pkg = fs.readJsonSync('./package.json');
 
 const gtag = process.env.GTAG
   ? `
@@ -45,7 +47,7 @@ const conf = {
     files: {
       template: '.svelte-kit/app.html',
     },
-    adapter: vercel(),
+    adapter: netlify(),
     target: 'body',
     vite: {
       define: {
@@ -53,7 +55,10 @@ const conf = {
       },
       plugins: [svgSvelte(), content.default()],
       optimizeDeps: {
-        exclude: ['svelte-kit-cookie-session', 'mongodb', 'bson'],
+        exclude: ['mongodb', 'bson'],
+      },
+      ssr: {
+        exclude: Object.keys(pkg.dependencies).concat(Object.keys(pkg.devDependencies)),
       },
       resolve: {
         alias: {
