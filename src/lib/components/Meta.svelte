@@ -26,7 +26,11 @@
   <meta property="og:type" content={type} />
   <meta property="og:title" content={title} />
   {#if description} <meta property="og:description" content={description} /> {/if}
-  {#if image} <meta property="og:image" content={image} /> {/if}
+  {#if image}
+    <meta property="og:image" content={image} />
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:image" content={image} />
+  {/if}
   <meta property="og:url" content="https://davecode.me{$page.path}" />
   <link rel="canonical" href="https://davecode.me{$page.path}" />
   <link rel="icon" sizes="192x192" href="/assets/brand/icon@192.png" />
