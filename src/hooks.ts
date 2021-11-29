@@ -1,7 +1,7 @@
 import { getDatabase } from '$lib/db';
 import { User } from '$lib/structures';
 import { Handle } from '@sveltejs/kit';
-// import { minify } from 'html-minifier';
+import { minify } from 'html-minifier';
 
 export const EXPIRE_TIME = 1000 * 60 * 60 * 24 * 7;
 
@@ -9,13 +9,18 @@ const htmlMinificationOptions = {
   caseSensitive: true,
   collapseBooleanAttributes: true,
   collapseWhitespace: true,
-  conservativeCollapse: true,
+  conservativeCollapse: false,
   decodeEntities: true,
+  removeComments: true,
   removeOptionalTags: true,
   removeAttributeQuotes: true,
   removeRedundantAttributes: true,
+  minifyCSS: true,
+  minifyJS: false,
   // Yes, i understand this minification trick. I don't care about incompatibility.
   removeTagWhitespace: true,
+  // Yes, i know this can break spacing.
+  collapseInlineTagWhitespace: true,
 };
 
 const overrideHeaders = {
@@ -95,9 +100,9 @@ export const handle: Handle = async ({ request, resolve }) => {
 
   const response = await resolve(request);
 
-  // if (response.headers['content-type'] === 'text/html' && response.body) {
-  //   response.body = minify(response.body.toString(), htmlMinificationOptions);
-  // }
+  if (response.headers['content-type'] === 'text/html' && response.body) {
+    response.body = minify(response.body.toString(), htmlMinificationOptions);
+  }
 
   return {
     ...response,
