@@ -25,11 +25,13 @@
     "svelte": "^3.38.3"
   },
   "devDependencies": {
+    "@netlify/zip-it-and-ship-it": "^5.0.0",
     "@originjs/vite-plugin-content": "^1.0.1",
     "@sveltejs/adapter-netlify": "^1.0.0-next.35",
     "@types/fs-extra": "^9.0.13",
     "@types/html-minifier": "^4.0.1",
     "@types/marked": "^3.0.1",
+    "bson-ext": "^4.0.2",
     "prettier": "^2.3.2",
     "prettier-plugin-jsdoc": "^0.3.24",
     "prettier-plugin-organize-imports": "^2.3.4",
