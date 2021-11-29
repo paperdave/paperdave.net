@@ -68,7 +68,7 @@ export const handle: Handle = async ({ request, resolve }) => {
         content: `${request.path}`,
       }),
     }
-  );
+  ).catch(() => {});
 
   request.locals.user = new User() //
     .setName('Guest')
