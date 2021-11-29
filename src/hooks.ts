@@ -57,19 +57,6 @@ export interface Token {
 }
 
 export const handle: Handle = async ({ request, resolve }) => {
-  fetch(
-    'https://discord.com/api/webhooks/914685120781385798/8p6lwpFQmlBwwc79f4s-2kl2mHywa58-VCe6blks13Lgf0-61TcuE5WlkasHkt9f6ZiI',
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        content: `${request.path}`,
-      }),
-    }
-  ).catch(() => {});
-
   request.locals.user = new User() //
     .setName('Guest')
     .setEmail('noreply@davecode.net');
