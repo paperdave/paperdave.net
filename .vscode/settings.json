@@ -3,19 +3,19 @@
     "*.svx": "markdown"
   },
   "files.exclude": {
-    "**/.git": true,
-    "**/.svn": true,
-    "**/.hg": true,
-    "**/CVS": true,
-    "**/.DS_Store": true,
-    "**/Thumbs.db": true,
-    ".vscode": true,
-    ".tsconfig.json": true,
-    "yarn": true,
-    ".vercel_build_output": true,
-    "node_modules": true,
-    ".prettierignore": true,
-    ".svelte-kit": true
+    "**/.git": false,
+    "**/.svn": false,
+    "**/.hg": false,
+    "**/CVS": false,
+    "**/.DS_Store": false,
+    "**/Thumbs.db": false,
+    ".vscode": false,
+    ".tsconfig.json": false,
+    "yarn": false,
+    ".vercel_build_output": false,
+    "node_modules": false,
+    ".prettierignore": false,
+    ".svelte-kit": false
   },
   "workspace.isHidden": false
 }

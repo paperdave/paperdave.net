@@ -15,7 +15,6 @@
     "fluent-svelte": "^1.0.91",
     "focus-trap": "^6.7.1",
     "highlight.js": "^11.3.1",
-    "html-minifier": "^4.0.0",
     "marked": "^3.0.7",
     "monaco-editor": "^0.28.1",
     "mongodb": "^4.1.3",
