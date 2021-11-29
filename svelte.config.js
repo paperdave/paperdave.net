@@ -53,7 +53,7 @@ const conf = {
       },
       plugins: [svgSvelte(), content.default()],
       optimizeDeps: {
-        exclude: ['svelte-kit-cookie-session', 'mongodb', 'bson'],
+        exclude: ['mongodb', 'bson'],
       },
       resolve: {
         alias: {
