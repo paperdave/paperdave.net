@@ -6,9 +6,17 @@
   import type { Load } from '@sveltejs/kit';
 
   export const load: Load = restrictedPage([Permission.RESPOND_TO_QUESTIONS], async ({ fetch }) => {
+    if (!browser)
+      return {
+        props: {},
+      };
     return {
       props: {
-        questions: await fetch('/q+a/get-requests')
+        questions: await fetch('/q+a/get-requests', {
+          headers: {
+            Authorization: `Bearer ${getToken()}`,
+          },
+        })
           .then((x) => x.json())
           .then((x) => x.map((y: JSONData<QuestionRequest>) => QuestionRequest.fromJSON(y))),
       },
@@ -17,10 +25,12 @@
 </script>
 
 <script lang="ts">
+  import { browser } from '$app/env';
   import QaHeader from './_QAHeader.svelte';
   import QuestionRespondApp from './_QuestionRespondApp.svelte';
+  import { getToken } from '$lib/api-client/session';
 
-  export let questions: QuestionRequest[];
+  export let questions: QuestionRequest[] = [];
 
   $: latestQuestion = questions[0];
 
@@ -29,6 +39,7 @@
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${getToken()}`,
       },
       body: JSON.stringify({
         date: request.date.getTime(),
@@ -44,6 +55,7 @@
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${getToken()}`,
       },
       body: JSON.stringify({
         date: request.date.getTime(),
@@ -54,24 +66,26 @@
   }
 </script>
 
-<main>
-  <div style="pointer-events:none">
-    <QaHeader />
-  </div>
-  <div class="stats">
-    <p>#q: {questions.length}</p>
-  </div>
-  {#if latestQuestion}
-    {#key latestQuestion.date.getTime()}
-      <QuestionRespondApp
-        request={latestQuestion}
-        on:send={(ev) => sendQuestion(ev.detail, latestQuestion)}
-        on:deny={(ev) => denyQuestion(ev.detail, latestQuestion)} />
-    {/key}
-  {:else}
-    <p>caught up :D</p>
-  {/if}
-</main>
+{#if browser}
+  <main>
+    <div style="pointer-events:none">
+      <QaHeader />
+    </div>
+    <div class="stats">
+      <p>#q: {questions.length}</p>
+    </div>
+    {#if latestQuestion}
+      {#key latestQuestion.date.getTime()}
+        <QuestionRespondApp
+          request={latestQuestion}
+          on:send={(ev) => sendQuestion(ev.detail, latestQuestion)}
+          on:deny={(ev) => denyQuestion(ev.detail, latestQuestion)} />
+      {/key}
+    {:else}
+      <p>caught up :D</p>
+    {/if}
+  </main>
+{/if}
 
 <style lang="scss">
   .stats {

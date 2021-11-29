@@ -13,7 +13,7 @@ const htmlMinificationOptions = {
   decodeEntities: true,
   removeComments: true,
   removeOptionalTags: true,
-  removeAttributeQuotes: true,
+  // removeAttributeQuotes: true,
   removeRedundantAttributes: true,
   minifyCSS: true,
   minifyJS: false,
