@@ -86,7 +86,7 @@
     font-size: 3em;
     font-weight: bold;
     color: #d71a25;
-    text-shadow: shadow(2, 0.5, #520505);
+    text-shadow: shadow(2px, 0.5, #520505);
   }
   h2 {
     font-family: 'Roboto Slab';

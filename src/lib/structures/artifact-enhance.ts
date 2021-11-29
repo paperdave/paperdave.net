@@ -31,5 +31,7 @@ export function enhanceArtifact(artifact: Artifact | JSONData<Artifact>) {
   if (!(artifact instanceof Artifact)) artifact = Artifact.fromJSON(artifact);
   if (artifact.type in artifactTypeMap) {
     return new artifactTypeMap[artifact.type](artifact);
+  } else {
+    throw new Error('Unknown artifact type: ' + artifact.type);
   }
 }

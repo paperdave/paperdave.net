@@ -8,7 +8,9 @@
     "strict": true,
     "paths": {
       "$lib": ["src/lib"],
-      "$lib/*": ["src/lib/*"]
+      "$lib/*": ["src/lib/*"],
+      "$vendor": ["src/vendor"],
+      "$vendor/*": ["src/vendor/*"]
     }
   },
   "include": ["src/**/*.d.ts", "src/**/*.ts", "src/**/*.svelte"]

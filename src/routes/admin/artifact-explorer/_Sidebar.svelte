@@ -5,6 +5,9 @@
   const artifacts = writable<Artifact[]>([]);
 
   async function getArtifactListing() {
+    if (!browser) {
+      return [];
+    }
     if (artifactsLoaded) {
       return artifacts;
     } else if (artifactPromise) {
@@ -13,7 +16,11 @@
       const [p, resolve] = deferred<typeof artifacts>();
       artifactPromise = p;
       const artifactListing: Artifact[] = browser
-        ? await fetch('/admin/artifact-explorer/get-all-artifacts')
+        ? await fetch('/admin/artifact-explorer/get-all-artifacts', {
+            headers: {
+              Authorization: `Bearer ${getToken()}`,
+            },
+          })
             .then((res) => res.json())
             .then((json) => {
               if (json.error) {
@@ -56,15 +63,18 @@
 
 <script lang="ts">
   import ArtifactListItem from './_ArtifactListItem.svelte';
-  import { Button, ProgressRing } from 'fluent-svelte';
-
+  import { Button, IconButton, ProgressRing } from 'fluent-svelte';
   import { browser } from '$app/env';
   import type { JSONData } from '$lib/structures';
+  import { Permission } from '$lib/structures';
   import { Artifact } from '$lib/structures';
   import { writable } from 'svelte/store';
   import { deferred } from '$lib/utils/promise';
-
   import { persist, localStorage as local } from '@macfja/svelte-persistent-store';
+  import AddSVG from '$lib/svg/Add.svg?component';
+  import { getToken, user } from '$lib/api-client/session';
+
+  $: canEdit = $user?.queryPermission(Permission.EDIT_ARTIFACTS);
 
   const sortMethods: Record<string, (a: Artifact, b: Artifact) => number> = {
     ID: (a, b) => (a.id.toLowerCase() > b.id.toLowerCase() ? 1 : -1),
@@ -93,6 +103,9 @@
 {:then}
   <div class="artifact-list">
     <div class="sort-methods">
+      <IconButton href="/admin/artifact-explorer/new" disabled={!canEdit}>
+        <AddSVG />
+      </IconButton>
       {#each Object.keys(sortMethods) as method}
         <Button
           class="sort-method"
@@ -109,17 +122,27 @@
         </Button>
       {/each}
     </div>
-    <ArtifactListItem artifact="new" />
 
-    {#each sort($artifacts) as artifact}
-      <ArtifactListItem {artifact} />
-    {/each}
+    <div class="list">
+      {#each sort($artifacts) as artifact}
+        <ArtifactListItem {artifact} />
+      {/each}
+    </div>
   </div>
 {:catch error}
   Error: {error.error}
 {/await}
 
 <style lang="scss">
+  .artifact-list {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  .list {
+    flex: 1;
+    overflow-y: scroll;
+  }
   .loading-container {
     display: flex;
     justify-content: center;

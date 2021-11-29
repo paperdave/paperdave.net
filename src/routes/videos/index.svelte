@@ -1,47 +1,50 @@
 <script lang="ts" context="module">
-  import { VideoArtifact } from '$lib/structures/VideoArtifact';
-
+  import { VideoArtifact } from '$lib/structures';
   import BackButton from '$lib/components/BackButton.svelte';
   import type { Load } from '@sveltejs/kit';
+  import VideoButton from './_VideoButton.svelte';
 
   export const load: Load = async ({ fetch }) => {
-    const res = await fetch('/videos/get-videos.json').then((res) => res.json());
+    const API = wrapAPI(fetch);
     return {
       props: {
-        videos: res.map((x) => new VideoArtifact(x)),
+        videos: await API.artifacts.getArtifactList('videos'),
       },
     };
   };
 </script>
 
 <script lang="ts">
+  import VideoHeader from './_VideoHeader.svelte';
+  import { wrapAPI } from '$lib/api-client/singleton';
+
   export let videos: VideoArtifact[];
 </script>
 
-<main>
-  <BackButton position="corner" inverted />
-  <div class="content">
-    <h1>videos</h1>
-    <p>you wish, lol. ill get to this soon!!!</p>
-  </div>
-  <div>
-    <pre>
-      <code>
-        {JSON.stringify(videos, null, 2)}
-      </code>
-    </pre>
-  </div>
-</main>
+<BackButton position="off-center" inverted />
+<VideoHeader />
+<grid>
+  {#each videos as video}
+    <article>
+      <VideoButton {video} />
+    </article>
+  {/each}
+</grid>
+<p>welcome to the end of the video list</p>
 
 <style lang="scss">
-  main {
-    background-color: #005d40;
-    color: white;
+  grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+    padding: 0 2rem;
   }
-  h1 {
-    color: #22c6ad;
+  article {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
-  .content {
-    padding-top: 2rem;
+  p {
+    margin: 2rem 0;
+    text-align: center;
   }
 </style>

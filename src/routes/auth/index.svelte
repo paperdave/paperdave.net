@@ -1,10 +1,10 @@
 <script lang="ts">
   import { session, page } from '$app/stores';
   import { goto } from '$app/navigation';
+  import { API } from '$lib/api-client/singleton';
+  import { decodeRedirect } from '$lib/utils/encodeRedirect';
 
   $: returnPage = $page.query.get('r') ?? '/profile';
-
-  let form: HTMLFormElement;
 
   let email = 'dave@davecode.me';
   let password = '';
@@ -16,34 +16,19 @@
     isFailedLogin = false;
     ev.preventDefault();
 
-    let formData = new FormData(form);
-
-    formData.set('email', email);
-
-    let result = await fetch('/auth/submit', {
-      method: 'POST',
-      body: formData,
-    }).then((x) => x.json());
+    const response = await API.auth.login(email, password);
 
     isLoading = false;
 
-    if (result.success) {
-      // do a thing with token
-      session.set({
-        ...$session,
-        user: result.userData,
-      });
-
-      goto(decodeURIComponent(returnPage));
+    if (response) {
+      goto(decodeRedirect(returnPage));
     } else {
       isFailedLogin = true;
     }
   }
 </script>
 
-<form bind:this={form} on:submit={submit} class:isLoading>
-  <noscript>Currently, this form requires JavaScript to submit it.</noscript>
-  <input type="hidden" name="type" value="login" />
+<form on:submit={submit} class:isLoading>
   <h1>authorize</h1>
   {#if isFailedLogin}
     <p>Login failed, email or password is incorrect.</p>

@@ -1,25 +1,109 @@
-import { COOKIE_SECRET } from '$lib/env';
-import { GetSession } from '@sveltejs/kit';
-import { handleSession } from 'svelte-kit-cookie-session';
+import { getDatabase } from '$lib/db';
+import { User } from '$lib/structures';
+import { Handle } from '@sveltejs/kit';
+import { minify } from 'html-minifier';
 
-export const handle = handleSession(
-  {
-    secret: COOKIE_SECRET,
-    rolling: true,
-  },
-  async ({ request, resolve }) => {
-    const response = await resolve(request);
+export const EXPIRE_TIME = 1000 * 60 * 60 * 24 * 7;
 
-    return {
-      ...response,
-      headers: {
-        ...response.headers,
-        'X-Powered-By': 'chocolate; see https://davecode.net/donate',
-      },
-    };
+const htmlMinificationOptions = {
+  caseSensitive: true,
+  collapseBooleanAttributes: true,
+  collapseWhitespace: true,
+  conservativeCollapse: true,
+  decodeEntities: true,
+  removeOptionalTags: true,
+  removeAttributeQuotes: true,
+  removeRedundantAttributes: true,
+  // Yes, i understand this minification trick. I don't care about incompatibility.
+  removeTagWhitespace: true,
+};
+
+const overrideHeaders = {
+  // Powered by easter egg :3
+  'X-Powered-By': 'chocolate; see https://davecode.net/donate',
+
+  // CORS headers for potential cross origin requests
+  // Read more: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'GET, PUT, PATCH, DELETE, POST',
+  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+  'Access-Control-Max-Age': '86400',
+
+  // Vercel Cache headers, by default, theres no cache for some reason
+  // so we have to manually set it here.
+  // Read more: https://vercel.com/docs/concepts/edge-network/caching#
+  'Cache-Control': 's-maxage=30, stale-while-revalidate=500',
+};
+
+function createErrorResponse(statusCode: number, message: string) {
+  return {
+    status: statusCode,
+    headers: {
+      ...overrideHeaders,
+      'Content-Type': 'application/json',
+    },
+    body: Buffer.from(
+      JSON.stringify({
+        error: 'Token Expired',
+      })
+    ),
+  };
+}
+
+export interface Token {
+  token: string;
+  email: string;
+  expires: number;
+}
+
+export const handle: Handle = async ({ request, resolve }) => {
+  request.locals.user = new User() //
+    .setName('Guest')
+    .setEmail('noreply@davecode.net');
+
+  if (request.headers.authorization) {
+    const match = request.headers.authorization.match(/^Bearer (.*)$/);
+    if (match) {
+      const token = match[1];
+
+      const tokenDb = await getDatabase<Token>({ structureName: 'tokens' });
+      const tokenData = await tokenDb.findOne({ token });
+      if (!tokenData) {
+        return createErrorResponse(401, 'Invalid Token');
+      }
+
+      if (tokenData.expires < Date.now()) {
+        return createErrorResponse(401, 'Token Expired');
+      }
+
+      const userDb = await getDatabase(User);
+      const userData = await userDb.findOne({ email: tokenData.email });
+      if (!userData) {
+        return createErrorResponse(401, 'Invalid Token');
+      }
+
+      request.locals.user = User.fromJSON(userData);
+
+      await tokenDb.updateOne(
+        { _id: tokenData._id },
+        { $set: { expires: Date.now() + EXPIRE_TIME } }
+      );
+    } else {
+      return createErrorResponse(400, 'Unsupported Authorization Format');
+    }
   }
-);
 
-export const getSession: GetSession = ({ locals }) => {
-  return locals.session.data;
+  const response = await resolve(request);
+
+  if (response.headers['content-type'] === 'text/html' && response.body) {
+    response.body = minify(response.body.toString(), htmlMinificationOptions);
+  }
+
+  return {
+    ...response,
+    headers: {
+      ...response.headers,
+      ...overrideHeaders,
+    },
+  };
 };

@@ -1,23 +1,14 @@
 <script context="module" lang="ts">
   import type { Load } from '@sveltejs/kit';
 
-  export const load: Load = async ({ session, page }) => {
-    if (!session.user) {
-      return {
-        status: 302,
-        redirect: '/auth?r=' + encodeURIComponent(page.path),
-      };
-    }
-
-    return {
-      props: {},
-    };
-  };
+  export const load: Load = restrictedPage([Permission.VIEW_ARTIFACTS]);
 </script>
 
 <script lang="ts">
   import DismissSVG from '$lib/svg/Dismiss.svg?component';
   import Sidebar from './_Sidebar.svelte';
+  import { Permission } from '$lib/structures';
+  import { restrictedPage } from '$lib/utils/client';
 </script>
 
 <main class="fds-dark">
@@ -44,6 +35,8 @@
 
 <style lang="scss">
   main {
+    user-select: none;
+
     display: grid;
     height: 100vh;
     background-color: #101010;

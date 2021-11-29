@@ -10,10 +10,12 @@
     "**/.DS_Store": true,
     "**/Thumbs.db": true,
     ".vscode": true,
+    ".tsconfig.json": true,
+    "yarn": true,
     ".vercel_build_output": true,
-    ".svelte-kit": true,
     "node_modules": true,
     ".prettierignore": true,
+    ".svelte-kit": true
   },
   "workspace.isHidden": false
 }

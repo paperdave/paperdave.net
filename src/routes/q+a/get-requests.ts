@@ -1,11 +1,9 @@
 import { getDatabase, stripDatabaseInternals } from '$lib/db';
-import { QuestionRequest, UserPermission } from '$lib/structures';
-import { RequestHandler } from '@sveltejs/kit';
+import { Permission, QuestionRequest } from '$lib/structures';
+import { APIHandler } from '$lib/utils/api';
 
-export const get: RequestHandler = async ({ locals }) => {
-  const user = locals.session.data?.user;
-
-  if (!user || !user.permissions.includes(UserPermission.RESPOND_TO_QUESTIONS)) {
+export const get: APIHandler<void, any> = async ({ locals }) => {
+  if (!locals.user.queryPermission(Permission.RESPOND_TO_QUESTIONS)) {
     return {
       status: 403,
       body: {

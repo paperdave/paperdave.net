@@ -1,8 +1,12 @@
 import { getDatabase } from '$lib/db';
 import { JSONData, Question, QuestionRequest } from '$lib/structures';
-import { RequestHandler } from '@sveltejs/kit';
+import { APIHandler } from '$lib/utils/api';
 
-export const post: RequestHandler = async ({ body }) => {
+export interface SubmitQuestionSuccess {
+  dateId: string;
+}
+
+export const post: APIHandler<QuestionRequest, SubmitQuestionSuccess> = async ({ body }) => {
   const q = QuestionRequest.fromJSON(body as unknown as JSONData<QuestionRequest>);
 
   q.setDate(new Date());
@@ -15,7 +19,6 @@ export const post: RequestHandler = async ({ body }) => {
   return {
     body: {
       dateId,
-      success: true,
     },
   };
 };

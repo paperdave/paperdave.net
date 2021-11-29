@@ -1,8 +1,10 @@
-type PromiseWrapper<T> = Promise<
+import { APIError } from '$lib/api-client/APIClient';
+
+type PromiseWrapper<T, E> = Promise<
   | {
       ok: false;
       data: null;
-      err: any;
+      err: E;
     }
   | {
       ok: true;
@@ -11,10 +13,29 @@ type PromiseWrapper<T> = Promise<
     }
 >;
 
-export function resolveError<T>(x: Promise<T>): PromiseWrapper<T> {
+type APIPromiseWrapper<T, E> = Promise<
+  | {
+      ok: false;
+      response: null;
+      err: E;
+    }
+  | {
+      ok: true;
+      response: T;
+      err: null;
+    }
+>;
+
+export function resolveError<T, E = Error>(x: Promise<T>): PromiseWrapper<T, E> {
   return x
     .then((data) => ({ ok: true as const, data, err: null }))
     .catch((err) => ({ ok: false as const, data: null, err }));
+}
+
+export function resolveAPIError<T>(x: Promise<T>): APIPromiseWrapper<T, APIError> {
+  return x
+    .then((response) => ({ ok: true as const, response, err: null }))
+    .catch((err) => ({ ok: false as const, response: null, err }));
 }
 
 export function delay(ms: number) {

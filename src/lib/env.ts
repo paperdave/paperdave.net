@@ -1,6 +1,4 @@
-import { config } from 'dotenv';
-
-config();
+import 'dotenv/config';
 
 function envNonEmpty(name: string) {
   const value = process.env[name];
@@ -12,4 +10,3 @@ function envNonEmpty(name: string) {
 
 export const MONGODB_URI = envNonEmpty('MONGODB_URI');
 export const MONGODB_DB = envNonEmpty('MONGODB_DB');
-export const COOKIE_SECRET = envNonEmpty('COOKIE_SECRET');

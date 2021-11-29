@@ -12,7 +12,6 @@ export * from './MusicArtifact';
 export * from './NerdGearArtifact';
 export * from './Question';
 export * from './QuestionRequest';
-export * from './Session';
 export * from './SoftwareArtifact';
 export * from './SquareArtifact';
 export * from './StoryArtifact';
