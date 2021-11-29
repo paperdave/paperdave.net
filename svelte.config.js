@@ -1,5 +1,5 @@
 import content from '@originjs/vite-plugin-content';
-import vercel from '@sveltejs/adapter-vercel';
+import netlify from '@sveltejs/adapter-netlify';
 import 'dotenv/config';
 import fs from 'fs-extra';
 import preprocess from 'svelte-preprocess';
@@ -45,7 +45,7 @@ const conf = {
     files: {
       template: '.svelte-kit/app.html',
     },
-    adapter: vercel(),
+    adapter: netlify(),
     target: 'body',
     vite: {
       define: {
