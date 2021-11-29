@@ -4,7 +4,8 @@ import 'dotenv/config';
 import fs from 'fs-extra';
 import preprocess from 'svelte-preprocess';
 import svgSvelte from 'vite-plugin-svelte-svg';
-import pkg from './package.json';
+
+const pkg = fs.readJsonSync('./package.json');
 
 const gtag = process.env.GTAG
   ? `
