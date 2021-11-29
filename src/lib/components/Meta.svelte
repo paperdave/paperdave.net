@@ -1,14 +1,21 @@
+<script context="module" lang="ts">
+  export type MetaType = 'website' | 'video.other' | 'music.song' | 'music.album';
+</script>
+
 <script lang="ts">
   import { page } from '$app/stores';
 
+  export let type: MetaType = 'website';
+
   export let title: string;
-  export let description: string;
+  export let description: string | null = null;
   export let color = '#51D064';
+  export let image: string | null = null;
 </script>
 
 <svelte:head>
   <title>{title}</title>
-  <meta name="description" content={description} />
+  {#if description} <meta name="description" content={description} /> {/if}
   <meta name="author" content="dave caruso" />
   <meta name="copyright" content="&copy; dave caruso 2021" />
   <meta name="distribution" content="web" />
@@ -16,12 +23,12 @@
   <meta name="keywords" content="art" />
   <meta name="powered by" content="chocolate" />
   <meta property="og:site_name" content="davecode - computer art to the limit" />
-  <meta property="og:type" content="website" />
+  <meta property="og:type" content={type} />
   <meta property="og:title" content={title} />
-  <meta property="og:description" content={description} />
+  {#if description} <meta property="og:description" content={description} /> {/if}
+  {#if image} <meta property="og:image" content={image} /> {/if}
   <meta property="og:url" content="https://davecode.me{$page.path}" />
   <link rel="canonical" href="https://davecode.me{$page.path}" />
-  <link rel="icon" type="image/png" href="/assets/brand/favicon@32.png" />
   <link rel="icon" sizes="192x192" href="/assets/brand/icon@192.png" />
   <link rel="apple-touch-icon" href="/assets/brand/icon@152.png" />
   <meta name="msapplication-square310x310logo" content="/assets/brand/icon@310.png" />

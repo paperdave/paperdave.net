@@ -13,7 +13,10 @@
   export let artifact: VideoArtifact;
 </script>
 
-<Meta title={artifact.title} description="video by dave caruso" />
+<Meta
+  title={artifact.title}
+  description="Published {formatDate(artifact.date, 'date')}"
+  image={artifact.thumbnail ?? null} />
 
 <Layout>
   <BackButton inverted position="off-center" href="/videos" text="all videos" />

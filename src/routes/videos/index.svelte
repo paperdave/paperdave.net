@@ -17,9 +17,12 @@
 <script lang="ts">
   import VideoHeader from './_VideoHeader.svelte';
   import { wrapAPI } from '$lib/api-client/singleton';
+  import Meta from '$lib/components/Meta.svelte';
 
   export let videos: VideoArtifact[];
 </script>
+
+<Meta title="videos" description="various animated videos all made with love." />
 
 <BackButton position="off-center" inverted />
 <VideoHeader />

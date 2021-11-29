@@ -2,6 +2,7 @@
   import BackButton from '$lib/components/BackButton.svelte';
 
   import Canvas from '$lib/components/Canvas.svelte';
+  import Meta from '$lib/components/Meta.svelte';
   import { resolveError } from '$lib/utils/promise';
   import { VaultBackground } from './_VaultBackground';
 
@@ -35,6 +36,11 @@
     alert(JSON.stringify(json.result));
   }
 </script>
+
+<Meta
+  title="Vault"
+  description="There are many keys to this door, but they have all been lost... Maybe you can find clues
+around the website." />
 
 <main>
   <BackButton position="off-center" inverted />
