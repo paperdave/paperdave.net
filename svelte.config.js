@@ -32,6 +32,8 @@ fs.writeFileSync(
     .replace(/%gtag%/, () => gtag)
 );
 
+const externals = Object.keys(pkg.dependencies).concat(Object.keys(pkg.devDependencies));
+
 /** @type {import('@sveltejs/kit').Config} */
 const conf = {
   extensions: ['.svelte', '.svx'],
@@ -47,7 +49,13 @@ const conf = {
     files: {
       template: '.svelte-kit/app.html',
     },
-    adapter: netlify(),
+    adapter: netlify({
+      esbuild: (opts) => ({
+        ...opts,
+        external: externals,
+        minify: true,
+      }),
+    }),
     target: 'body',
     vite: {
       define: {
@@ -58,7 +66,7 @@ const conf = {
         exclude: ['mongodb', 'bson'],
       },
       ssr: {
-        exclude: Object.keys(pkg.dependencies).concat(Object.keys(pkg.devDependencies)),
+        exclude: externals,
       },
       resolve: {
         alias: {
