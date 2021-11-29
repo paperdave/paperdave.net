@@ -32,7 +32,7 @@ fs.writeFileSync(
     .replace(/%gtag%/, () => gtag)
 );
 
-const externals = Object.keys(pkg.dependencies).concat(Object.keys(pkg.devDependencies));
+const externals = Object.keys(pkg.dependencies);
 
 /** @type {import('@sveltejs/kit').Config} */
 const conf = {
