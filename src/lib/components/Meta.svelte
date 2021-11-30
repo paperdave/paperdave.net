@@ -1,11 +1,5 @@
-<script context="module" lang="ts">
-  export type MetaType = 'website' | 'video.other' | 'music.song' | 'music.album';
-</script>
-
 <script lang="ts">
   import { page } from '$app/stores';
-
-  export let type: MetaType = 'website';
 
   export let title: string;
   export let description: string | null = null;
@@ -24,7 +18,7 @@
   <meta name="keywords" content="art" />
   <meta name="powered by" content="chocolate" />
   <meta property="og:site_name" content="davecode - computer art to the limit" />
-  <meta property="og:type" content={type} />
+  <meta property="og:type" content={video ? 'video.other' : 'website'} />
   <meta property="og:title" content={title} />
   {#if description} <meta property="og:description" content={description} /> {/if}
   {#if video}
