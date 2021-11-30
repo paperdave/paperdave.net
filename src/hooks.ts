@@ -34,10 +34,12 @@ const overrideHeaders = {
   'Access-Control-Allow-Headers': 'Content-Type, Authorization',
   'Access-Control-Max-Age': '86400',
 
+  // The following header is disabled for now, since we are not using Vercel.
+
   // Vercel Cache headers, by default, theres no cache for some reason
   // so we have to manually set it here.
   // Read more: https://vercel.com/docs/concepts/edge-network/caching#
-  'Cache-Control': 's-maxage=30, stale-while-revalidate=500',
+  // 'Cache-Control': 's-maxage=30, stale-while-revalidate=500',
 };
 
 function createErrorResponse(statusCode: number, message: string) {
