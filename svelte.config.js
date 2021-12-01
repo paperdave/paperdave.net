@@ -1,5 +1,5 @@
 import content from '@originjs/vite-plugin-content';
-import netlify from '@sveltejs/adapter-netlify';
+import adapter from '@sveltejs/adapter-cloudflare';
 import 'dotenv/config';
 import fs from 'fs-extra';
 import preprocess from 'svelte-preprocess';
@@ -49,12 +49,10 @@ const conf = {
     files: {
       template: '.svelte-kit/app.html',
     },
-    adapter: netlify({
-      esbuild: (opts) => ({
-        ...opts,
-        external: externals,
-        target: 'es2019',
-      }),
+    adapter: adapter({
+      external: externals,
+      target: 'es2019',
+      platform: 'node',
     }),
     target: 'body',
     vite: {
