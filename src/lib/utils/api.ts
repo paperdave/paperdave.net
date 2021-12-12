@@ -1,6 +1,6 @@
 import { JSONData, User } from '$lib/structures';
-import { Headers, Location, MaybePromise } from '@sveltejs/kit/types/helper';
-import { StrictBody } from '@sveltejs/kit/types/hooks';
+import { IncomingRequest } from '@sveltejs/kit';
+import { MaybePromise, ResponseHeaders } from '@sveltejs/kit/types/helper';
 
 export interface APILocals {
   user: User;
@@ -24,14 +24,12 @@ export type AsJson<T> = T extends string | number | boolean | null | undefined
 
 export type APIResponse<Body extends unknown> = {
   status?: number;
-  headers?: Partial<Headers>;
+  headers?: ResponseHeaders;
   body?: Body & AsJson<Body>;
 };
 
-export type APIRequest<Locals = Record<string, any>, Body = unknown> = Location & {
-  method: string;
-  headers: Headers;
-  rawBody: StrictBody;
+export type APIRequest<Locals = Record<string, any>, Body = unknown> = IncomingRequest & {
+  params: Record<string, string>;
   body: Body;
   locals: Locals;
 };
