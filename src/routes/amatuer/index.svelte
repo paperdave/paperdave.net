@@ -11,15 +11,10 @@
 
     <h2>all things from dave caruso</h2>
 
-    <!-- <div class="search">
+    <div class="search">
       <input type="text" placeholder="search everything..." />
-    </div> -->
+    </div>
 
-    <p>
-      unfortunatly, this page is still under construction. i'm working on it. mainly because i have
-      to add all my content to this site, and then after that i can make the "everything list" a
-      thing.
-    </p>
     <!-- <ul>
       <li>
         <code class="year">2020-</code>

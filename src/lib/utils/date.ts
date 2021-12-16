@@ -2,7 +2,7 @@ const dateFormats = {
   date: 'YYYY-MM-DD',
   time: 'HH:mm:ss',
   'date-time': 'YYYY-MM-DD HH:mm:ss',
-  'question-id': 'YYYYMMDDHHmmss',
+  'question-id': 'YYMMDDHHmmss',
 };
 
 const formatRules: Record<string, (date: Date) => string | number> = {

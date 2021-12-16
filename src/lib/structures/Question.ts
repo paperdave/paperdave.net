@@ -133,6 +133,6 @@ export class Question {
       return null;
     }
     const [, year, month, day, hour, minute, second] = match;
-    return new Date(`${month} ${day} ${year} ${hour}:${minute}:${second} EST`);
+    return new Date(`${month} ${day} 20${year} ${hour}:${minute}:${second} EST`);
   }
 }
