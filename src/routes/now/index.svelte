@@ -1,4 +1,7 @@
 <script>
+  import BackButton from '$lib/components/BackButton.svelte';
+  import Meta from '$lib/components/Meta.svelte';
+
   const things = [
     //
     'doing high school',
@@ -8,7 +11,10 @@
   ];
 </script>
 
+<Meta title="what's now" description="short page explaining the current situation" />
+
 <main>
+  <BackButton position="off-center" />
   <h1>what's now</h1>
 
   <section>

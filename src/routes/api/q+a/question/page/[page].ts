@@ -36,6 +36,7 @@ export const get: GetAPIHandler<QuestionPage> = async ({ params }) => {
   const page = QuestionPage.fromJSON({
     id: pageNumber,
     questions,
+    latest: latest === pageNumber,
   });
 
   return {
