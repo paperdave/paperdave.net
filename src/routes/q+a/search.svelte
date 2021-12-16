@@ -6,11 +6,11 @@
   import QaInput from './_QAInput.svelte';
 
   export const load: Load = async ({ fetch, page }) => {
+    const API = wrapAPI(fetch);
     const q = page.query.get('q');
 
     if (q) {
-      const data = await fetch(`/q+a/get-search?q=${encodeURIComponent(q)}`).then((x) => x.json());
-      const questions = data.questions.map((x: JSONData<Question>) => Question.fromJSON(x));
+      const questions = await API.questions.search(q);
       return {
         props: {
           lastSearch: q,
@@ -38,8 +38,10 @@
   import { flip } from 'svelte/animate';
   import { cubicIn, cubicInOut, cubicOut } from 'svelte/easing';
   import BackButton from '$lib/components/BackButton.svelte';
+  import { API, wrapAPI } from '$lib/api-client/singleton';
+  import { QuestionPage } from '$lib/structures/QuestionPage';
 
-  export let questions: Question[];
+  export let questions: QuestionPage | null;
   export let lastSearch: string = '';
   let search = $page.query.get('q') ?? '';
 
@@ -47,14 +49,10 @@
     if (!browser) return;
 
     if (search) {
-      const data = await fetch(`/q+a/get-search?q=${encodeURIComponent(search)}`).then((x) =>
-        x.json()
-      );
-
-      questions = data.questions.map((x: JSONData<Question>) => Question.fromJSON(x));
+      questions = await API.questions.search(search);
       history.pushState(null, document.title, `/q+a/search?q=${encodeURIComponent(search)}`);
     } else {
-      questions = [];
+      questions = null;
       history.pushState(null, document.title, `/q+a/search`);
     }
     lastSearch = search;
@@ -89,6 +87,7 @@
 
   const debouncedSearch = debounce(runSearch, 200);
 
+  $: qlist = questions?.questions ?? [];
   $: browser && search !== lastSearch && search ? debouncedSearch() : runSearch();
   $: loading = search !== lastSearch;
 </script>
@@ -114,7 +113,7 @@
   </section>
 
   <section class:loading>
-    {#each questions as question (question.date.getTime())}
+    {#each qlist as question (question.date.getTime())}
       <div
         animate:flip={{ duration: 200, delay: -60, easing: cubicInOut }}
         in:fly={{ duration: 200, opacity: 0, easing: cubicOut, y: 10 }}
@@ -122,7 +121,7 @@
         <QuestionRender {question} {search} />
       </div>
     {/each}
-    {#if lastSearch && !questions.length}
+    {#if lastSearch && !qlist.length}
       <p class="noresult">no results for <strong>{lastSearch}</strong></p>
     {/if}
   </section>

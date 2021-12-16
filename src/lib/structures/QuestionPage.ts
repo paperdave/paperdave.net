@@ -20,7 +20,7 @@ export class QuestionPage {
     return new QuestionPage({
       id: json.id,
       questions: json.questions.map((q) => Question.fromJSON(q)),
-      latest: json.latest,
+      latest: json.latest ?? false,
     });
   }
 
@@ -28,7 +28,7 @@ export class QuestionPage {
     return {
       id: this.id,
       questions: this.questions.map((x) => x.toJSON()),
-      latest: this.latest,
+      latest: this.latest as boolean | undefined,
     };
   }
 }

@@ -1,15 +1,16 @@
 import { getDatabase } from '$lib/db';
 import { JSONData, Question } from '$lib/structures';
+import { QuestionPage } from '$lib/structures/QuestionPage';
 import { GetAPIHandler } from '$lib/utils/api';
 
-const SEARCH_LIMIT = 10;
+const SEARCH_LIMIT = 20;
 
 /**
  * Searches the question database.
  *
  * - A query parameter of "q" must be provided, with the search query.
  */
-export const get: GetAPIHandler<JSONData<Question>[]> = async ({ query }) => {
+export const get: GetAPIHandler<QuestionPage> = async ({ query }) => {
   const db = await getDatabase(Question);
 
   const search = query.get('q') ?? '';
@@ -36,6 +37,10 @@ export const get: GetAPIHandler<JSONData<Question>[]> = async ({ query }) => {
 
   return {
     status: 200,
-    body: questions.map((x) => Question.fromJSON(x as JSONData<Question>).toJSON()),
+    body: QuestionPage.fromJSON({
+      id: -1,
+      questions: questions as JSONData<Question>[],
+      latest: false,
+    }).toJSON(),
   };
 };

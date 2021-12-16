@@ -21,4 +21,14 @@ export class DavecodeQuestionAPI {
     }
     return null;
   }
+
+  async search(query: string) {
+    const r = await this.client.get<QuestionPage>(
+      `/q+a/question/search?q=${encodeURIComponent(query)}`
+    );
+    if (r.data) {
+      return QuestionPage.fromJSON(r.data);
+    }
+    return null;
+  }
 }
