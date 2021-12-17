@@ -5,7 +5,7 @@
 
   import type { Load } from '@sveltejs/kit';
 
-  export const load: Load = restrictedPage([Permission.RESPOND_TO_QUESTIONS], async ({ fetch }) => {
+  export const load: Load = restrictedPage([Permission.RESPOND_TO_QUESTIONS], async ({}) => {
     if (!browser)
       return {
         props: {},
