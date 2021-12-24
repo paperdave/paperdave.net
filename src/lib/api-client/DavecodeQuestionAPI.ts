@@ -48,19 +48,6 @@ export class DavecodeQuestionAPI {
     }
   }
 
-  async deleteRequest(dateOrRequest: QuestionRequest | Date | number) {
-    const date =
-      dateOrRequest instanceof Date
-        ? dateOrRequest.getTime()
-        : typeof dateOrRequest === 'number'
-        ? dateOrRequest
-        : dateOrRequest.date.getTime();
-
-    const r = await this.client.del<GenericSuccess>(
-      `/q+a/question/request/${formatDate(new Date(date), 'question-id')}`
-    );
-  }
-
   async createQuestion(question: Question) {
     const r = await this.client.post<Question, QuestionPostSuccess>(
       `/q+a/question/${question.getDateId()}`,
@@ -75,11 +62,46 @@ export class DavecodeQuestionAPI {
   }
 
   async getAllRequests() {
-    const r = await this.client.get<string[]>(`/q+a/question/request`);
+    const r = await this.client.get<QuestionRequest[]>(`/q+a/request`);
     if (r.data) {
-      return r.data;
+      return r.data.map((x) => QuestionRequest.fromJSON(x));
     } else {
       throw new Error('Failed to get all requests');
+    }
+  }
+
+  async getRequest(idOrDate: string | Date) {
+    const id = typeof idOrDate === 'string' ? idOrDate : formatDate(idOrDate, 'question-id');
+
+    const r = await this.client.get<QuestionRequest>(`/q+a/request/${id}`);
+    if (r.data) {
+      return QuestionRequest.fromJSON(r.data);
+    } else {
+      throw new Error('Failed to get request');
+    }
+  }
+
+  async deleteRequest(req: string | Date | QuestionRequest) {
+    const id =
+      typeof req === 'string'
+        ? req
+        : formatDate(req instanceof Date ? req : req.date, 'question-id');
+
+    const r = await this.client.del<GenericSuccess>(`/q+a/request/${id}`);
+
+    if (r.data && r.data.success) {
+      return;
+    } else {
+      throw new Error('Failed to delete request');
+    }
+  }
+
+  async random() {
+    const r = await this.client.get<{ url: string }>(`/q+a/question/random`);
+    if (r.data) {
+      return r.data.url;
+    } else {
+      throw new Error('Failed to get random question');
     }
   }
 }

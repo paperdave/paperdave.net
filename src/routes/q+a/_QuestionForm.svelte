@@ -1,10 +1,10 @@
 <script lang="ts">
   import QaInput from './_QAInput.svelte';
-  import InfoSVG from '$lib/svg/Info.svg?component';
   import AlertSVG from '$lib/svg/Alert.svg?component';
   import QuestionCompose from './_QuestionCompose.svelte';
-  import { Question, QuestionRequest } from '$lib/structures';
+  import { QuestionRequest } from '$lib/structures';
   import { fade } from 'svelte/transition';
+  import { API } from '$lib/api-client/singleton';
 
   let sending = false;
   let questionText = '';
@@ -19,18 +19,12 @@
 
     const request = new QuestionRequest().setContent(questionText);
 
-    const response = await fetch('/q+a/submit-question', {
-      method: 'POST',
-      body: JSON.stringify(request.toJSON()),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }).then((res) => res.json());
-
-    if (response.success) {
-      sentQuestionId = response.dateId;
+    const response = await API.questions.createRequest(request);
+    if (!!response) {
+      sentQuestionId = 'unknown';
     } else {
       sentFailed = true;
+      console.log(response);
     }
   }
 </script>
@@ -55,8 +49,7 @@
   {#if sentQuestionId}
     <div class="sent" transition:fade={{ duration: 200 }}>
       <h2>your question was sent!</h2>
-      <p>when it is answered it will be viewable <a href="/q+a/{sentQuestionId}">here</a>.</p>
-      <p>(check back in a day or two)</p>
+      <p>(check back in a day or two, or five)</p>
     </div>
   {/if}
   {#if sentFailed}

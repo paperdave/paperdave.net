@@ -19,7 +19,7 @@ const gtag = process.env.GTAG
     gtag('config', '${process.env.GTAG}');
   </script>
 `
-  : '';
+  : '';   
 
 fs.ensureDirSync('./.svelte-kit');
 

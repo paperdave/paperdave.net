@@ -17,7 +17,7 @@ export const get: GetAPIHandler<QuestionPage> = async ({ params }) => {
   const latest = Math.floor(count / QuestionPage.SIZE) - 1;
   const pageNumber = params.page === 'latest' ? latest : parseInt(params.page ?? '-1');
 
-  if (pageNumber > latest || pageNumber < 0) {
+  if (pageNumber > latest || pageNumber < 0 || isNaN(pageNumber)) {
     return {
       status: 404,
       body: {
@@ -29,13 +29,13 @@ export const get: GetAPIHandler<QuestionPage> = async ({ params }) => {
   const questions = await questionDB
     .find({})
     .sort({ date: 1 })
+    .limit(latest === pageNumber ? QuestionPage.SIZE * 2 : QuestionPage.SIZE)
     .skip(pageNumber * QuestionPage.SIZE)
-    .limit(QuestionPage.SIZE)
     .toArray();
 
   const page = QuestionPage.fromJSON({
     id: pageNumber,
-    questions,
+    questions: questions.reverse().map((x) => Question.fromJSON(x).toJSON()),
     latest: latest === pageNumber,
   });
 
