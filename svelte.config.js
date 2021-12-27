@@ -50,7 +50,7 @@ const conf = {
       template: '.svelte-kit/app.html',
     },
     adapter: adapter({
-      external: externals,
+      // external: externals,
       target: 'es2019',
       platform: 'node',
     }),
