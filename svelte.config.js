@@ -1,5 +1,5 @@
 import content from '@originjs/vite-plugin-content';
-import adapter from '@sveltejs/adapter-cloudflare';
+import adapter from '@sveltejs/adapter-netlify';
 import 'dotenv/config';
 import fs from 'fs-extra';
 import preprocess from 'svelte-preprocess';
@@ -19,7 +19,7 @@ const gtag = process.env.GTAG
     gtag('config', '${process.env.GTAG}');
   </script>
 `
-  : '';   
+  : '';
 
 fs.ensureDirSync('./.svelte-kit');
 
