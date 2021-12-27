@@ -1,8 +1,8 @@
-import { Question, QuestionRequest } from '$lib/structures';
-import { QuestionPage } from '$lib/structures/QuestionPage';
+import { Question, QuestionPage, QuestionRequest } from '$lib/structures';
 import { GenericSuccess } from '$lib/utils/api';
 import { formatDate } from '$lib/utils/date';
-import { QuestionPostSuccess } from 'src/routes/api/q+a/question/[qid]';
+import { QuestionSubmitSuccess } from 'src/routes/api/q+a/request';
+import { QuestionPostSuccess } from 'src/routes/api/q+a/[qid]';
 import { APIClient } from './ApiClient';
 
 /** Client API class that parallels the /q+a endpoints */
@@ -10,7 +10,7 @@ export class DavecodeQuestionAPI {
   constructor(private readonly client: APIClient) {}
 
   async getPage(n: 'latest' | number) {
-    const r = await this.client.get<QuestionPage>(`/q+a/question/page/${n}`);
+    const r = await this.client.get<QuestionPage>(`/q+a/page/${n}`);
     if (r.data) {
       return QuestionPage.fromJSON(r.data);
     }
@@ -18,7 +18,7 @@ export class DavecodeQuestionAPI {
   }
 
   async getQuestion(id: string) {
-    const r = await this.client.get<Question>(`/q+a/question/${id}`);
+    const r = await this.client.get<Question>(`/q+a/${id}`);
     if (r.data) {
       return Question.fromJSON(r.data);
     }
@@ -26,9 +26,7 @@ export class DavecodeQuestionAPI {
   }
 
   async search(query: string) {
-    const r = await this.client.get<QuestionPage>(
-      `/q+a/question/search?q=${encodeURIComponent(query)}`
-    );
+    const r = await this.client.get<QuestionPage>(`/q+a/search?q=${encodeURIComponent(query)}`);
     if (r.data) {
       return QuestionPage.fromJSON(r.data);
     }
@@ -36,13 +34,16 @@ export class DavecodeQuestionAPI {
   }
 
   async createRequest(request: QuestionRequest) {
-    const r = await this.client.post<QuestionRequest, GenericSuccess>(
-      `/q+a/question/request/${formatDate(request.date, 'question-id')}`,
+    const r = await this.client.post<QuestionRequest, QuestionSubmitSuccess>(
+      `/q+a/request`,
       request.toJSON()
     );
 
+    const cloned = new QuestionRequest(request);
+    cloned.setDate(Question.parseDateId(r.data.id) ?? new Date());
+
     if (r.data && r.data.success) {
-      return {};
+      return cloned;
     } else {
       throw new Error('Question request failed');
     }
@@ -50,7 +51,7 @@ export class DavecodeQuestionAPI {
 
   async createQuestion(question: Question) {
     const r = await this.client.post<Question, QuestionPostSuccess>(
-      `/q+a/question/${question.getDateId()}`,
+      `/q+a/${question.getDateId()}`,
       question.toJSON()
     );
 
@@ -97,7 +98,7 @@ export class DavecodeQuestionAPI {
   }
 
   async random() {
-    const r = await this.client.get<{ url: string }>(`/q+a/question/random`);
+    const r = await this.client.get<{ url: string }>(`/q+a/random`);
     if (r.data) {
       return r.data.url;
     } else {

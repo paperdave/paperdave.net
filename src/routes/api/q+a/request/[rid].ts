@@ -17,10 +17,15 @@ export const get: GetAPIHandler<QuestionRequest> = async ({ params, locals }) =>
     };
   }
 
-  const id = params.id;
+  const id = params.rid;
   const db = await getDatabase(QuestionRequest);
   const parsed = Question.parseDateId(id);
-  const request = await db.findOne({ date: parsed?.getDate() });
+  const request = await db.findOne({
+    date: {
+      $gte: parsed?.getTime(),
+      $lt: (parsed?.getTime() ?? 0) + 1000,
+    },
+  });
 
   if (!request) {
     return {
@@ -52,10 +57,15 @@ export const del: GetAPIHandler<GenericSuccess> = async ({ params, locals }) => 
     };
   }
 
-  const id = params.id;
+  const id = params.rid;
   const db = await getDatabase(QuestionRequest);
   const parsed = Question.parseDateId(id);
-  const request = await db.findOne({ date: parsed?.getDate() });
+  const request = await db.findOne({
+    date: {
+      $gte: parsed?.getTime(),
+      $lt: (parsed?.getTime() ?? 0) + 1000,
+    },
+  });
 
   if (!request) {
     return {

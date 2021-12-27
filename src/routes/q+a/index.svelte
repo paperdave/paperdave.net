@@ -1,6 +1,4 @@
 <script lang="ts" context="module">
-  import { Question } from '$lib/structures';
-  import type { JSONData } from '$lib/structures';
   import type { Load } from '@sveltejs/kit';
   import QAHeader from './_QAHeader.svelte';
 
@@ -31,6 +29,8 @@
   import BackButton from '$lib/components/BackButton.svelte';
   import { wrapAPI } from '$lib/api-client/singleton';
   import { QuestionPage } from '$lib/structures/QuestionPage';
+  import { user } from '$lib/api-client/session';
+  import { Permission } from '$lib/structures';
 
   export let qpage: QuestionPage;
 
@@ -61,6 +61,10 @@
         <strong>start</strong>
       {:else}
         <a href="/q+a?page=0">start</a>
+      {/if}
+      {#if $user !== null && $user.queryPermission(Permission.RESPOND_TO_QUESTIONS)}
+        |
+        <a href="/q+a/respond" class="special">respond</a>
       {/if}
     </p>
   </section>
@@ -107,5 +111,8 @@
   }
   .opacity-transition {
     transition: 100ms opacity ease-in-out;
+  }
+  .special {
+    color: #faa719;
   }
 </style>

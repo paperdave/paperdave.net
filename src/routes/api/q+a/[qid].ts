@@ -53,7 +53,7 @@ export interface QuestionPostSuccess extends GenericSuccess {
  * - The response contains the ACTUAL id of the question.
  */
 export const post: APIHandler<Question, QuestionPostSuccess> = async ({ locals, params, body }) => {
-  if (!locals.user.hasPermission(Permission.RESPOND_TO_QUESTIONS)) {
+  if (!locals.user.queryPermission(Permission.RESPOND_TO_QUESTIONS)) {
     return {
       status: 403,
       body: { error: 'You do not have permission to create questions' },

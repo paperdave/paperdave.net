@@ -20,7 +20,7 @@
     <ul>
       <li><a href="/now">what's now</a></li>
       <br />
-      <li><a href="/videos">videos</a> (new)</li>
+      <li><a href="/videos">videos</a></li>
       <li><a href="/music">music</a></li>
       <li class="wip"><del>video games</del> - not ready</li>
       <li class="wip"><del>applications</del> - not ready</li>
@@ -39,14 +39,15 @@
 
     <p>external links</p>
     <ul>
-      <li><a href="/discord">chat on discord</a></li>
-      <li><a href="mailto:dave@davecode.me">send email</a></li>
-      <li><a href="https://youtube.com/davecode">youtube</a></li>
-      <li><a href="https://www.tiktok.com/@dave_caruso">tiktok</a></li>
-      <li><a href="https://davecode.itch.io">play games on itch.io</a></li>
-      <li><a href="https://twitch.tv/davecaruso">twitch</a> (not touched much)</li>
-      <li><a href="https://twitter.com/davecode_me">twitter</a> (not touched much)</li>
-      <li><a href="https://instagram.com/davecode.me">instagram</a> (not touched much)</li>
+      <li><a href="/discord">discord</a> - community and chat zone</li>
+      <li><a href="https://youtube.com/davecode">youtube</a> - video mirror</li>
+      <li><a href="https://www.tiktok.com/@dave_caruso">tiktok</a> - random + behind the scenes</li>
+      <li><a href="https://davecode.itch.io">itch.io</a> - play my games</li>
+      <li><a href="https://twitch.tv/davecaruso">twitch</a> - not used much yet</li>
+      <li><a href="https://twitter.com/davecode_me">twitter</a> - not used much yet</li>
+      <li><a href="https://instagram.com/davecode.me">instagram</a> - sneak peeks</li>
+      <li><a href="mailto:dave@davecode.me">send email</a> - if you're into that</li>
+      <br />
       <li><a href="/donate">give me chocolate</a></li>
     </ul>
   </header>
