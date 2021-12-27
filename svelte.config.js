@@ -55,6 +55,7 @@ const conf = {
         external: externals,
         target: 'es2019',
         platform: 'node',
+        sourcemap: 'external',
       }),
     }),
     target: 'body',
