@@ -1,6 +1,7 @@
 <script lang="ts">
   import { Question } from '$lib/structures';
   import LinkSVG from '$lib/svg/Link.svg?component';
+  import { formatDate } from '$lib/utils/date';
 
   export let question: Question;
 
@@ -23,21 +24,7 @@
     }, 1500);
   }
 
-  const dateEst = question.getDisplayDate();
-
-  const dateString = [
-    dateEst.getFullYear().toString(),
-    '-',
-    (dateEst.getMonth() + 1).toString(),
-    '-',
-    dateEst.getDate().toString(),
-    ' ',
-    dateEst.getHours().toString(),
-    ':',
-    dateEst.getMinutes().toString(),
-  ]
-    .map((x) => (x.match(/[0-9]/) ? x.padStart(2, '0') : x))
-    .join('');
+  const dateString = formatDate(question.date, 'date-time');
 </script>
 
 <main on:click={copy} class:success={copyState}>

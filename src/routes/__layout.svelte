@@ -17,12 +17,4 @@
   }
 </script>
 
-<svelte:head>
-  {#if process.env.INDEX !== 'true'}
-    <meta name="robots" content="noindex, nofollow" />
-  {:else}
-    <meta name="robots" content="index, follow" />
-  {/if}
-</svelte:head>
-
 <slot />

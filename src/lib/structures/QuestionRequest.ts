@@ -1,3 +1,4 @@
+import { formatDate } from '$lib/utils/date';
 import { Data, JSONData, schema } from './structure-utils';
 
 @schema('question-requests')
@@ -8,7 +9,7 @@ export class QuestionRequest {
 
   constructor(data?: Data<QuestionRequest>) {
     if (data) {
-      this.date = data.date;
+      this.date = new Date(data.date.getTime() - data.date.getMilliseconds());
       this.content = data.content;
       this.notificationEmail = data.notificationEmail;
     } else {
@@ -47,5 +48,9 @@ export class QuestionRequest {
   setNotificationEmail(notificationEmail: string | undefined) {
     this.notificationEmail = notificationEmail;
     return this;
+  }
+
+  getDateId() {
+    return formatDate(this.date, 'question-id');
   }
 }

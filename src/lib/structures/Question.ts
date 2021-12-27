@@ -95,10 +95,6 @@ export class Question {
     });
   }
 
-  getDisplayDate() {
-    return new Date(this.date.toLocaleString('en-US', { timeZone: 'America/Detroit' }));
-  }
-
   setDate(date: Date = new Date()) {
     this.date = new Date(date.getTime() - date.getMilliseconds());
     return this;
@@ -123,8 +119,7 @@ export class Question {
   }
 
   getDateId() {
-    const date = this.getDisplayDate();
-    return formatDate(date, 'question-id');
+    return formatDate(this.date, 'question-id');
   }
 
   static parseDateId(id: string) {
@@ -133,6 +128,6 @@ export class Question {
       return null;
     }
     const [, year, month, day, hour, minute, second] = match;
-    return new Date(`${month} ${day} ${year} ${hour}:${minute}:${second} EST`);
+    return new Date(`${month} ${day} 20${year} ${hour}:${minute}:${second} EST`);
   }
 }

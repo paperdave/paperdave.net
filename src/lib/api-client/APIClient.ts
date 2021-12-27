@@ -62,7 +62,7 @@ export class APIClient {
     const json = await response.json();
 
     if (json.error) {
-      throw new APIError(response, json);
+      throw new APIError(response, json.error);
     }
 
     return {

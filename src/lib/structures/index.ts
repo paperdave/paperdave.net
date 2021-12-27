@@ -11,6 +11,7 @@ export * from './LegacyRedirect';
 export * from './MusicArtifact';
 export * from './NerdGearArtifact';
 export * from './Question';
+export * from './QuestionPage';
 export * from './QuestionRequest';
 export * from './SoftwareArtifact';
 export * from './SquareArtifact';

@@ -8,7 +8,9 @@ export const expires = persist(writable<number | null>(null), local(true), 'Sess
 
 const initialUser = browser ? localStorage.getItem('Session.user') : null;
 
-export const user = writable(initialUser ? User.fromJSON(JSON.parse(initialUser)) : null);
+export const user = writable<User | null>(
+  initialUser ? User.fromJSON(JSON.parse(initialUser)) : null
+);
 
 if (browser) {
   let updating = true;

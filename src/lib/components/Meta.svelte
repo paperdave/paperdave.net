@@ -6,6 +6,7 @@
   export let color = '#51D064';
   export let image: string | null = null;
   export let video: string | null = null;
+  export let noIndex = false;
 </script>
 
 <svelte:head>
@@ -35,4 +36,9 @@
   <link rel="icon" sizes="192x192" href="/assets/brand/icon@192.png" />
   <link rel="apple-touch-icon" href="/assets/brand/icon@152.png" />
   <meta name="msapplication-square310x310logo" content="/assets/brand/icon@310.png" />
+  {#if process.env.INDEX !== 'true' && !noIndex}
+    <meta name="robots" content="noindex, nofollow" />
+  {:else}
+    <meta name="robots" content="index, follow" />
+  {/if}
 </svelte:head>

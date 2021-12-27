@@ -7,20 +7,13 @@
     const qid = page.params.id;
     if (!qid.match(/^[0-9]{12}$/)) return;
 
-    const q = await fetch(`/q+a/get-q?id=${qid}`).then((r) => r.json());
-    if (q.question) {
-      return {
-        props: {
-          question: Question.fromJSON(q.question),
-        },
-      };
-    } else {
-      return {
-        props: {
-          question: null,
-        },
-      };
-    }
+    const API = wrapAPI(fetch);
+
+    return {
+      props: {
+        question: await API.questions.getQuestion(qid),
+      },
+    };
   };
 </script>
 
@@ -29,6 +22,7 @@
 
   import QaHeader from './_QAHeader.svelte';
   import QuestionRender from './_QuestionRender.svelte';
+  import { wrapAPI } from '$lib/api-client/singleton';
 
   export let question: Question;
 </script>

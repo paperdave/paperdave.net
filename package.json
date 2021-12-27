@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@macfja/svelte-persistent-store": "^1.2.0",
+    "@sveltejs/adapter-cloudflare": "^1.0.0-next.2",
     "blurhash": "^1.1.4",
     "change-case": "^4.1.2",
     "dotenv": "^10.0.0",

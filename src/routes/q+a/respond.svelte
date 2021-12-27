@@ -6,86 +6,76 @@
   import type { Load } from '@sveltejs/kit';
 
   export const load: Load = restrictedPage([Permission.RESPOND_TO_QUESTIONS], async ({ fetch }) => {
-    if (!browser)
-      return {
-        props: {},
-      };
+    const API = wrapAPI(fetch);
+
     return {
       props: {
-        questions: await fetch('/q+a/get-requests', {
-          headers: {
-            Authorization: `Bearer ${getToken()}`,
-          },
-        })
-          .then((x) => x.json())
-          .then((x) => x.map((y: JSONData<QuestionRequest>) => QuestionRequest.fromJSON(y))),
+        requests: await API.questions.getAllRequests(),
       },
     };
   });
 </script>
 
 <script lang="ts">
-  import { browser } from '$app/env';
   import QaHeader from './_QAHeader.svelte';
   import QuestionRespondApp from './_QuestionRespondApp.svelte';
   import { getToken } from '$lib/api-client/session';
+  import { API, wrapAPI } from '$lib/api-client/singleton';
+  import RestrictedPageRoot from '$lib/components/RestrictedPageRoot.svelte';
 
-  export let questions: QuestionRequest[] = [];
+  export let requests: QuestionRequest[] = [];
 
-  $: latestQuestion = questions[0];
+  $: latestRequest = requests[0];
 
-  function sendQuestion(q: Question, request: QuestionRequest) {
-    fetch('/q+a/submit-answer', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${getToken()}`,
-      },
-      body: JSON.stringify({
-        date: request.date.getTime(),
-        result: q.toJSON(),
-      }),
-    });
+  let sending = false;
 
-    questions = questions.slice(1);
+  async function publishNewQuestion(q: Question, request: QuestionRequest) {
+    try {
+      sending = true;
+
+      await Promise.all([
+        //
+        API.questions.createQuestion(q),
+        API.questions.deleteRequest(request),
+      ]);
+
+      // update ui
+      requests = requests.slice(1);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      sending = false;
+    }
   }
 
-  function denyQuestion(q: Question, request: QuestionRequest) {
-    fetch('/q+a/submit-answer', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${getToken()}`,
-      },
-      body: JSON.stringify({
-        date: request.date.getTime(),
-        result: null,
-      }),
-    });
-    questions = questions.slice(1);
+  function denyQuestion(request: QuestionRequest) {
+    API.questions.deleteRequest(request);
+
+    // update ui
+    requests = requests.slice(1);
   }
 </script>
 
-{#if browser}
+<RestrictedPageRoot>
   <main>
     <div style="pointer-events:none">
       <QaHeader />
     </div>
     <div class="stats">
-      <p>#q: {questions.length}</p>
+      <p>#q: {requests.length}</p>
     </div>
-    {#if latestQuestion}
-      {#key latestQuestion.date.getTime()}
+    {#if latestRequest}
+      {#key latestRequest.date.getTime()}
         <QuestionRespondApp
-          request={latestQuestion}
-          on:send={(ev) => sendQuestion(ev.detail, latestQuestion)}
-          on:deny={(ev) => denyQuestion(ev.detail, latestQuestion)} />
+          request={latestRequest}
+          on:send={(ev) => publishNewQuestion(ev.detail, latestRequest)}
+          on:deny={(ev) => denyQuestion(ev.detail)} />
       {/key}
     {:else}
       <p>caught up :D</p>
     {/if}
   </main>
-{/if}
+</RestrictedPageRoot>
 
 <style lang="scss">
   .stats {

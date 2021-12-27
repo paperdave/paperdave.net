@@ -22,6 +22,7 @@
 
     const json = await fetch(`/get-redirect?page=${encodeURIComponent(page.path)}`) //
       .then((res) => res.json());
+
     if (json.redirect) {
       return { redirect: json.redirect, status: 301 };
     }

@@ -1,37 +1,24 @@
 <script lang="ts" context="module">
-  import { Question } from '$lib/structures';
-  import type { JSONData } from '$lib/structures';
   import type { Load } from '@sveltejs/kit';
   import QAHeader from './_QAHeader.svelte';
 
   export const load: Load = async ({ page, fetch }) => {
-    const pageNumber = page.query.get('page') || '';
+    const API = wrapAPI(fetch);
+    const pageNumber = parseInt(page.query.get('page') || '');
+    const qpage = await API.questions.getPage(isNaN(pageNumber) ? 'latest' : pageNumber);
 
-    if (pageNumber !== '') {
-      const data = await fetch('/q+a/get-page?page=' + pageNumber).then((res) => res.json());
-      if (data.tooNew) {
-        return {
-          status: 302,
-          redirect: `/q+a`,
-        };
-      }
+    if (!qpage) {
       return {
-        props: {
-          isLatestPage: false,
-          pageNumber: data.page,
-          questions: data.questions.map((x: JSONData<Question>) => Question.fromJSON(x)),
-        },
-      };
-    } else {
-      const data = await fetch('/q+a/get-latest').then((res) => res.json());
-      return {
-        props: {
-          isLatestPage: true,
-          pageNumber: data.page,
-          questions: data.questions.map((x: JSONData<Question>) => Question.fromJSON(x)),
-        },
+        status: 302,
+        redirect: '/q+a',
       };
     }
+
+    return {
+      props: {
+        qpage: qpage,
+      },
+    };
   };
 </script>
 
@@ -40,10 +27,16 @@
   import QuestionForm from './_QuestionForm.svelte';
   import QuestionRender from './_QuestionRender.svelte';
   import BackButton from '$lib/components/BackButton.svelte';
+  import { wrapAPI } from '$lib/api-client/singleton';
+  import { QuestionPage } from '$lib/structures/QuestionPage';
+  import { user } from '$lib/api-client/session';
+  import { Permission } from '$lib/structures';
 
-  export let isLatestPage: boolean;
-  export let pageNumber: number;
-  export let questions: Question[];
+  export let qpage: QuestionPage;
+
+  $: if (qpage.latest && $page.query.has('page')) {
+    history.replaceState(null, '', '/q+a');
+  }
 
   let formExpanded = false;
 </script>
@@ -54,7 +47,7 @@
   <section>
     <p>i answer anonymous questions you ask, because it's fun.</p>
     <p>
-      {#if !isLatestPage}
+      {#if !qpage.latest}
         <a href="/q+a">latest</a>
       {:else}
         <strong>latest</strong>
@@ -69,9 +62,13 @@
       {:else}
         <a href="/q+a?page=0">start</a>
       {/if}
+      {#if $user !== null && $user.queryPermission(Permission.RESPOND_TO_QUESTIONS)}
+        |
+        <a href="/q+a/respond" class="special">respond</a>
+      {/if}
     </p>
   </section>
-  {#if isLatestPage}
+  {#if qpage.latest}
     <section>
       <QuestionForm bind:expanded={formExpanded} />
     </section>
@@ -81,25 +78,25 @@
   {:else}
     <section>
       <p>
-        page #{pageNumber}
-        {#if pageNumber === 0}
+        page #{qpage.id}
+        {#if qpage.id === 0}
           (we are programmers, start at 0!!!)
         {/if} <br />
-        <a href="/q+a?page={pageNumber + 1}">newer</a>
+        <a href="/q+a?page={qpage.id + 1}">newer</a>
       </p>
     </section>
   {/if}
   <section class="questions">
-    {#each questions as question}
+    {#each qpage.questions as question}
       {#key question.date.getTime()}
         <QuestionRender {question} />
       {/key}
     {/each}
   </section>
-  {#if pageNumber !== 0}
+  {#if qpage.id !== 0}
     <section>
       <p>
-        <a href="/q+a?page={pageNumber - 1}">older</a>
+        <a href="/q+a?page={qpage.id - 1}">older</a>
       </p>
     </section>
   {/if}
@@ -114,5 +111,8 @@
   }
   .opacity-transition {
     transition: 100ms opacity ease-in-out;
+  }
+  .special {
+    color: #faa719;
   }
 </style>

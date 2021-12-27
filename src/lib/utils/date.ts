@@ -1,8 +1,10 @@
 const dateFormats = {
   date: 'YYYY-MM-DD',
-  time: 'HH:mm:ss',
-  'date-time': 'YYYY-MM-DD HH:mm:ss',
-  'question-id': 'YYYYMMDDHHmmss',
+  time: 'HH:mm',
+  'date-time': 'YYYY-MM-DD HH:mm',
+  'time-sec': 'HH:mm:ss',
+  'date-time-sec': 'YYYY-MM-DD HH:mm:ss',
+  'question-id': 'YYMMDDHHmmss',
 };
 
 const formatRules: Record<string, (date: Date) => string | number> = {
@@ -24,5 +26,6 @@ export type DateFormat = keyof typeof dateFormats;
 
 export function formatDate(date: Date, format: DateFormat) {
   const dateFormat = dateFormats[format];
-  return dateFormat.replace(regex, (match) => String(formatRules[match](date)));
+  const convertedDate = new Date(date.toLocaleString('en-US', { timeZone: 'EST' }));
+  return dateFormat.replace(regex, (match) => String(formatRules[match](convertedDate)));
 }
