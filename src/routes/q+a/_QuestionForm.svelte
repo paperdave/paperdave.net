@@ -20,8 +20,8 @@
     const request = new QuestionRequest().setContent(questionText);
 
     const response = await API.questions.createRequest(request);
-    if (!!response) {
-      sentQuestionId = 'unknown';
+    if (response) {
+      sentQuestionId = `${location.origin}/q+a/${response.getDateId()}`;
     } else {
       sentFailed = true;
       console.log(response);
@@ -49,6 +49,9 @@
   {#if sentQuestionId}
     <div class="sent" transition:fade={{ duration: 200 }}>
       <h2>your question was sent!</h2>
+      <p>
+        it's permalink is at <a href={sentQuestionId}>{sentQuestionId}</a>
+      </p>
       <p>(check back in a day or two, or five)</p>
     </div>
   {/if}
@@ -97,7 +100,7 @@
       font-size: 0.8rem;
       font-weight: normal;
       margin: 0;
-      margin-top: 0.5rem;
+      margin-top: 0.25rem;
     }
   }
 </style>
