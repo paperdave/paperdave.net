@@ -1,21 +1,112 @@
 <script context="module" lang="ts">
-  export type ErrorPageVariant = 'server' | 'client' | 'not-found' | 'unknown';
+  import { SourceMapConsumer } from 'source-map-js';
+  import { parse as parseStackTrace, StackFrame } from 'stacktrace-parser';
+
+  export enum ErrorPageVariant {
+    Error,
+    NotImplemented,
+    NotFound,
+    Unknown,
+  }
+
+  const sources = new Map<string, SourceMapConsumer>();
+
+  /** Creates a mapped source object */
+  async function createMappedSource(error: Error) {
+    if (!error.stack) {
+      return null;
+    }
+
+    const stack = parseStackTrace(error.stack);
+
+    const mappedStack = await Promise.all(
+      stack.map(async (frame) => {
+        if (frame.file) {
+          const source = await getSource(frame.file);
+          const original = source.originalPositionFor({
+            line: frame.lineNumber ?? 0,
+            column: frame.column ?? 0,
+          });
+
+          return {
+            arguments: frame.arguments,
+            file: original.source.replace(/(\.\.\/)+/g, ''),
+            lineNumber: original.line,
+            column: original.column,
+            methodName: original.name,
+          } as StackFrame;
+        }
+        frame.file = frame.file?.replace(/(\.\.\/)+/g, '') ?? '';
+        return frame;
+      })
+    );
+
+    return mappedStack;
+  }
+
+  async function getSource(file: string) {
+    if (sources.has(file)) {
+      return sources.get(file)!;
+    }
+
+    const source = await fetch(file + '.map');
+    const sourceMap = await source.json();
+    const consumer = await new SourceMapConsumer(sourceMap);
+    sources.set(file, consumer);
+
+    return consumer;
+  }
 </script>
 
 <script lang="ts">
-  export let variant: ErrorPageVariant = 'client';
+  import { browser } from '$app/env';
+
+  export let variant: ErrorPageVariant = ErrorPageVariant.Unknown;
   export let error: Error | null = null;
 </script>
 
 <main
-  class:notFound={variant === 'not-found'}
-  class:server={variant === 'server'}
-  class:client={variant === 'client'}>
+  class:notFound={variant === ErrorPageVariant.NotFound}
+  class:error={variant === ErrorPageVariant.Error}
+  class:notImpl={variant === ErrorPageVariant.NotImplemented}>
   <section>
     <slot>
       <h1>{error?.name}</h1>
       <p>{error?.message}</p>
     </slot>
+
+    {#if variant !== ErrorPageVariant.NotImplemented && error}
+      {#if browser}
+        {#await createMappedSource(error)}
+          <p>generating stack trace...</p>
+        {:then stackFrames}
+          <div>
+            <strong>{error.name}</strong>: {error.message}
+          </div>
+          {#if stackFrames}
+            {#each stackFrames as frame}
+              <div>
+                {#if frame.file?.startsWith('build/runtime')}
+                  {#if frame.methodName}
+                    at {frame.methodName} (@sveltejs/kit)
+                  {:else}
+                    at @sveltejs/kit
+                  {/if}
+                {:else if frame.methodName}
+                  at {frame.methodName} ({frame.file}:{frame.lineNumber}:{frame.column})
+                {:else}
+                  at {frame.file}:{frame.lineNumber}:{frame.column}
+                {/if}
+              </div>
+            {/each}
+          {:else}
+            <p>no stack trace available</p>
+          {/if}
+        {/await}
+      {:else}
+        <strong>TODO: SSR stack trace source mapping</strong>
+      {/if}
+    {/if}
 
     <hr />
     <p class="now-what">now what?</p>
@@ -23,7 +114,7 @@
       <li><a href="/">home page</a></li>
       <li><a href="https://google.com">google</a></li>
       <li><a href="mailto:dave@davecode.me">tell me about it</a></li>
-      {#if variant === 'not-found'}
+      {#if variant === ErrorPageVariant.NotFound}
         <li><a href="https://reddit.com/r/all">browse memes</a></li>
         <!-- <li><a href="#game">play a game</a></li> -->
       {:else}
@@ -100,12 +191,12 @@
     --drop: #005d40;
   }
 
-  .server {
+  .error {
     --color: #ff4f4f;
     --drop: #c80518;
   }
 
-  .client {
+  .notImpl {
     --color: #c622a2;
     --drop: #6d007a;
   }

@@ -6,25 +6,36 @@
       props: {
         status: status,
         message: String(error?.message).toLowerCase(),
-        stack: browser && error.stack,
+        stack: error?.stack,
       },
     };
   };
 </script>
 
 <script lang="ts">
-  import ErrorPage from '$lib/components/ErrorPage.svelte';
-  import { browser } from '$app/env';
+  import ErrorPage, { ErrorPageVariant } from '$lib/components/ErrorPage.svelte';
 
   export let status: number;
   export let message: string;
   export let stack: string;
 
   const variant =
-    status === 404 ? 'not-found' : status >= 500 ? 'server' : status >= 400 ? 'client' : 'unknown';
+    status === 404
+      ? ErrorPageVariant.NotFound
+      : status >= 500
+      ? ErrorPageVariant.Error
+      : status >= 400
+      ? ErrorPageVariant.Error
+      : ErrorPageVariant.Unknown;
+
+  const error: Error = {
+    name: 'Error',
+    message,
+    stack,
+  };
 </script>
 
-<ErrorPage {variant}>
+<ErrorPage {variant} {error}>
   {#if status === 404}
     <h1>wrong url / broken link</h1>
     <p>
@@ -32,11 +43,8 @@
       disappeared...
     </p>
   {:else if status >= 500}
-    <h1>server bad / my fault</h1>
+    <h1>code bad / my fault</h1>
     <p>there was an error processing your request, please try again later.</p>
-    <p>
-      <strong>server says</strong>: {message}
-    </p>
   {:else if status >= 400}
     <h1>client error / you did bad</h1>
     <p>there was an error processing your request, please try again later.</p>
@@ -61,11 +69,5 @@
     <p>
       <strong>server says</strong>: {message}
     </p>
-  {/if}
-  {#if stack && variant !== 'not-found'}
-    <p>
-      <strong>stack trace</strong>:
-    </p>
-    <pre>{stack}</pre>
   {/if}
 </ErrorPage>

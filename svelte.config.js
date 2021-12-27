@@ -41,7 +41,9 @@ const conf = {
     preprocess({
       scss: {
         prependData: "@import 'src/lib/util';",
+        sourceMap: true,
       },
+      sourceMap: true,
     }),
   ],
   onwarn: () => {},
@@ -55,11 +57,14 @@ const conf = {
         external: externals,
         target: 'es2019',
         platform: 'node',
-        sourcemap: 'external',
+        sourcemap: 'inline',
       }),
     }),
     target: 'body',
     vite: {
+      build: {
+        sourcemap: true,
+      },
       define: {
         'process.env.INDEX': JSON.stringify(process.env.INDEX),
       },
@@ -69,11 +74,6 @@ const conf = {
       },
       ssr: {
         exclude: externals,
-      },
-      resolve: {
-        alias: {
-          $vendor: process.cwd() + '/src/vendor',
-        },
       },
     },
   },
