@@ -35,4 +35,17 @@ export class VideoArtifact extends FileArtifact {
     this.ttms = ttms;
     return this;
   }
+
+  get source(): string {
+    return this.getProperty('source');
+  }
+
+  set source(value: string) {
+    this.setProperty('source', value);
+  }
+
+  setSource(source: string) {
+    this.source = source;
+    return this;
+  }
 }

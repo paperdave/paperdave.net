@@ -3,7 +3,7 @@
   let isLoading = false;
   let isSubmit = false;
 
-  let email = 'dave@davecode.me';
+  let email = 'dave@davecode.net';
 
   async function submit(ev: Event) {
     ev.preventDefault();

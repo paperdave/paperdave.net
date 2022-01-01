@@ -49,7 +49,7 @@
 
     <p>Entries were released weekly, the series is complete.</p>
     <p class="footer">
-      Written and Programmed by <a href="https://davecode.me/">dave caruso</a>.
+      Written and Programmed by <a href="https://davecode.net/">dave caruso</a>.
     </p>
     <p class="footer">
       <a href={sourceUrl}>view source</a>

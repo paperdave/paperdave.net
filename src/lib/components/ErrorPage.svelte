@@ -113,7 +113,7 @@
     <ul>
       <li><a href="/">home page</a></li>
       <li><a href="https://google.com">google</a></li>
-      <li><a href="mailto:dave@davecode.me">tell me about it</a></li>
+      <li><a href="mailto:dave@davecode.net">tell me about it</a></li>
       {#if variant === ErrorPageVariant.NotFound}
         <li><a href="https://reddit.com/r/all">browse memes</a></li>
         <!-- <li><a href="#game">play a game</a></li> -->

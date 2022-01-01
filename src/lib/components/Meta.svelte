@@ -31,8 +31,8 @@
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:image" content={image} />
   {/if}
-  <meta property="og:url" content="https://davecode.me{$page.path}" />
-  <link rel="canonical" href="https://davecode.me{$page.path}" />
+  <meta property="og:url" content="https://davecode.net{$page.path}" />
+  <link rel="canonical" href="https://davecode.net{$page.path}" />
   <link rel="icon" sizes="192x192" href="/assets/brand/icon@192.png" />
   <link rel="apple-touch-icon" href="/assets/brand/icon@152.png" />
   <meta name="msapplication-square310x310logo" content="/assets/brand/icon@310.png" />

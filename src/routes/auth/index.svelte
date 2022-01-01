@@ -6,7 +6,7 @@
 
   $: returnPage = $page.query.get('r') ?? '/profile';
 
-  let email = 'dave@davecode.me';
+  let email = 'dave@davecode.net';
   let password = '';
 
   let isLoading = false;

@@ -16,5 +16,9 @@
   <NumberBox bind:value={$artifact.ttms} />
 </EditorField>
 
+<EditorField label="Source">
+  <TextBox bind:value={$artifact.source} />
+</EditorField>
+
 <style lang="scss">
 </style>

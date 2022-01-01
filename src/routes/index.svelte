@@ -44,9 +44,9 @@
       <li><a href="https://www.tiktok.com/@dave_caruso">tiktok</a> - random + behind the scenes</li>
       <li><a href="https://davecode.itch.io">itch.io</a> - play my games</li>
       <li><a href="https://twitch.tv/davecaruso">twitch</a> - not used much yet</li>
-      <li><a href="https://twitter.com/davecode_me">twitter</a> - not used much yet</li>
-      <li><a href="https://instagram.com/davecode.me">instagram</a> - sneak peeks</li>
-      <li><a href="mailto:dave@davecode.me">send email</a> - if you're into that</li>
+      <li><a href="https://twitter.com/isdavecaruso">twitter</a> - not used much yet</li>
+      <li><a href="https://instagram.com/isdavecaruso">instagram</a> - sneak peeks</li>
+      <li><a href="mailto:dave@davecode.net">send email</a> - if you're into that</li>
       <br />
       <li><a href="/donate">give me chocolate</a></li>
     </ul>
