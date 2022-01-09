@@ -20,6 +20,8 @@
   import EditSVG from '$lib/svg/Edit.svg?component';
   import { page } from '$app/stores';
   import { formatDate } from '$lib/utils/date';
+  import { ListItem } from 'fluent-svelte';
+  import { goto } from '$app/navigation';
 
   const typeToIcon: Record<string, typeof SvelteComponentDev> = {
     video: VideoClipSVG,
@@ -41,18 +43,13 @@
     [ArtifactVisibility.DRAFT]: DocumentEditSVG,
   };
 
-  export let artifact: Artifact | 'new';
+  export let artifact: Artifact;
 
-  $: selected = artifact !== 'new' && $page.path === `/admin/artifact-explorer/${artifact.id}`;
+  $: selected = $page.path === `/admin/artifact-explorer/${artifact.id}`;
 </script>
 
-{#if artifact === 'new'}
-  <a href="/admin/artifact-explorer/new">
-    <span class="icon"><AddSVG /></span>
-    <span class="title">New Artifact</span>
-  </a>
-{:else}
-  <a href="/admin/artifact-explorer/{artifact.id}" class:selected>
+<ListItem {selected} href="/admin/artifact-explorer/{artifact.id}">
+  <main>
     <span class="icon">
       <svelte:component this={artifactVisibilityToIcon[artifact.visibility]} />
     </span>
@@ -67,26 +64,16 @@
       {formatDate(artifact.date, 'date')}
     </span>
     <span class="title">{artifact.id}</span>
-  </a>
-{/if}
+  </main>
+</ListItem>
 
 <style lang="scss">
-  a {
+  main {
     display: flex;
     align-items: center;
     width: 100%;
     height: 1.5rem;
-    cursor: pointer;
-    &:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-    &:active {
-      background-color: rgba(255, 255, 255, 0.2);
-    }
-    gap: 0.5rem;
-  }
-  .selected {
-    background-color: rgba(255, 255, 255, 0.1);
+    gap: 0.25rem;
   }
   .icon {
     display: flex;

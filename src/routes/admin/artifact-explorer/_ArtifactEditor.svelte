@@ -44,7 +44,9 @@
   ] as unknown[] as MiniEditorDefinition[];
 
   const emit = createEventDispatcher();
+
   export let rawArtifact: Artifact;
+  export let skeleton: boolean = false;
 
   $: artifactStore = writable(enhanceArtifact(rawArtifact));
 
@@ -61,11 +63,12 @@
 <main>
   <EditorField label="Type">
     <ComboBox
+      disabled={skeleton}
       items={Object.keys(artifactTypeMap).map((x) => ({
-        name: capitalCase(x),
-        value: x,
+        // name: capitalCase(x),
+        name: x,
       }))}
-      value={$artifactStore.type}
+      value={skeleton ? '...' : $artifactStore.type}
       on:select={(ev) => (rawArtifact.type = ev.detail.value)} />
   </EditorField>
   {#each editors as editor}

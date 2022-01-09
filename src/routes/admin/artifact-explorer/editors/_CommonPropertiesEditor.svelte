@@ -86,31 +86,41 @@
       blurHashLoading = false;
     }
   }
+
+  $: disabled = $artifact.id === '\0';
 </script>
 
 <EditorField label="Title">
-  <TextBox bind:value={$artifact.title} />
+  <TextBox {disabled} bind:value={$artifact.title} />
 </EditorField>
 <EditorField label="Direct URL">
-  <TextBox bind:value={$artifact.id}>
+  <TextBox {disabled} bind:value={$artifact.id}>
     <span class="url-prefix">https://davecode.net/</span>
   </TextBox>
 </EditorField>
 <EditorField label="Date">
   <div class="date-picker">
-    <TextBox type="text" value={formatDate($artifact.date, 'date')} on:change={updateDate} />
-    <TextBox type="text" value={formatDate($artifact.date, 'time')} on:change={updateTime} />
+    <TextBox
+      {disabled}
+      type="text"
+      value={formatDate($artifact.date, 'date')}
+      on:change={updateDate} />
+    <TextBox
+      {disabled}
+      type="text"
+      value={formatDate($artifact.date, 'time')}
+      on:change={updateTime} />
   </div>
 </EditorField>
 <EditorField label="Tags">
-  <TextBox bind:value={tagBuffer} on:input={updateTags} />
+  <TextBox {disabled} bind:value={tagBuffer} on:input={updateTags} />
 </EditorField>
 <EditorField label="Thumbnail URL">
-  <TextBox bind:value={$artifact.thumbnail} />
+  <TextBox {disabled} bind:value={$artifact.thumbnail} />
 </EditorField>
 <EditorField label="BlurHash">
-  <Button on:click={recalculateBlurHash} disabled={blurHashLoading}>Recalculate</Button>
-  <TextBox bind:value={$artifact.blurhash} disabled={blurHashLoading} />
+  <Button on:click={recalculateBlurHash} disabled={disabled || blurHashLoading}>Recalculate</Button>
+  <TextBox bind:value={$artifact.blurhash} disabled={disabled || blurHashLoading} />
 </EditorField>
 <EditorField label="">
   <div class="thumnail-preview">
@@ -122,10 +132,10 @@
 </EditorField>
 <EditorField label="Visibility">
   <ComboBox
+    {disabled}
     bind:value={$artifact.visibility}
     items={Object.keys(ArtifactVisibility).map((key) => ({
-      name: sentenceCase(key),
-      value: key,
+      name: key,
     }))} />
 </EditorField>
 
