@@ -12,11 +12,6 @@
 
     formData.set('email', email);
 
-    let result = await fetch('/auth/submit', {
-      method: 'POST',
-      body: formData,
-    }).then((x) => x.json());
-
     isLoading = false;
     isSubmit = true;
   }
