@@ -14,7 +14,7 @@
 
   async function submit(ev: Event) {
     if (isLoading) return;
-    
+
     isLoading = true;
     isFailedLogin = false;
     ev.preventDefault();
@@ -26,7 +26,7 @@
     if (response) {
       goto(decodeRedirect(returnPage));
     } else {
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      await new Promise((resolve) => setTimeout(resolve, 1500));
       isFailedLogin = true;
       password = '';
     }
@@ -39,9 +39,15 @@
     <p>Login failed, email or password is incorrect.</p>
   {/if}
   <label for="email">email</label>
-  <input disabled={isLoading} id="email" name="email" type="text" bind:value={email} disabled readonly />
+  <input disabled id="email" name="email" type="text" bind:value={email} readonly />
   <label for="password">password</label>
-  <input disabled={isLoading} id="password" name="password" type="password" bind:value={password} required />
+  <input
+    disabled={isLoading}
+    id="password"
+    name="password"
+    type="password"
+    bind:value={password}
+    required />
   <div class="link-container">
     <a href="/auth/forgot-password">forgot password</a>
   </div>
