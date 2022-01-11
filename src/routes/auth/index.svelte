@@ -26,6 +26,7 @@
     if (response) {
       goto(decodeRedirect(returnPage));
     } else {
+      await new Promise(resolve => setTimeout(resolve, 1500));
       isFailedLogin = true;
       password = '';
     }
