@@ -13,6 +13,9 @@
   let isFailedLogin = false;
 
   async function submit(ev: Event) {
+    if (isLoading) return;
+    
+    isLoading = true;
     isFailedLogin = false;
     ev.preventDefault();
 
@@ -35,13 +38,13 @@
     <p>Login failed, email or password is incorrect.</p>
   {/if}
   <label for="email">email</label>
-  <input id="email" name="email" type="text" bind:value={email} disabled readonly />
+  <input disabled={isLoading} id="email" name="email" type="text" bind:value={email} disabled readonly />
   <label for="password">password</label>
-  <input id="password" name="password" type="password" bind:value={password} required />
+  <input disabled={isLoading} id="password" name="password" type="password" bind:value={password} required />
   <div class="link-container">
     <a href="/auth/forgot-password">forgot password</a>
   </div>
   <div class="button-container">
-    <button type="submit">go</button>
+    <button disabled={isLoading} type="submit">go</button>
   </div>
 </form>
