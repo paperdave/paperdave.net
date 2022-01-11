@@ -24,6 +24,7 @@
       goto(decodeRedirect(returnPage));
     } else {
       isFailedLogin = true;
+      password = '';
     }
   }
 </script>
