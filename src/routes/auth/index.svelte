@@ -21,12 +21,12 @@
 
     const response = await API.auth.login(email, password);
 
-    isLoading = false;
-
     if (response) {
       goto(decodeRedirect(returnPage));
+      isLoading = false;
     } else {
       await new Promise((resolve) => setTimeout(resolve, 1500));
+      isLoading = false;
       isFailedLogin = true;
       password = '';
     }
