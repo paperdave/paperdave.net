@@ -65,8 +65,8 @@
     <ComboBox
       disabled={skeleton}
       items={Object.keys(artifactTypeMap).map((x) => ({
-        // name: capitalCase(x),
         name: x,
+        value: x,
       }))}
       value={skeleton ? '...' : $artifactStore.type}
       on:select={(ev) => (rawArtifact.type = ev.detail.value)} />
