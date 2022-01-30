@@ -8,6 +8,13 @@
 
 <main>
   <header>
+    <svg class="icon" viewBox="0 0 93 70">
+      <path opacity="0.3" d="M53 25L43.0117 6.52539L6 63L53 25Z" fill="#000000" />
+      <path
+        d="M92.4908 20.0408L0 70L20.5708 0L43.0117 6.52542L6 63L66.8551 13.0508L92.4908 20.0408Z"
+        fill="#000000" />
+    </svg>
+
     <h1>dave caruso</h1>
     <p>web+game developer; digital abstract artist; paper plane folder</p>
     <h2>featured</h2>
@@ -91,8 +98,16 @@
     max-width: 500px;
   }
 
+  .icon {
+    display: inline;
+    height: 3rem;
+    margin-bottom: 0.1rem;
+    margin-left: 1rem;
+  }
   h1 {
-    margin-bottom: -0.5rem;
+    margin-top: 0;
+    margin-bottom: 0rem;
+    line-height: 100%;
   }
   h1 + p {
     margin-top: 0;
