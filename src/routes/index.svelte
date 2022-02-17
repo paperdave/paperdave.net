@@ -20,19 +20,12 @@
     <h2>featured</h2>
     <ul>
       <li>
-        interactive story: <a href="https://deempathize.pages.dev/">deempathize</a>
-      </li>
-      <li>
-        video: <a href="/2022-update">2022 update</a>
+        music video: <a href="/mayday">mayday</a>
       </li>
       <li>
         game: <a href="https://davecode.itch.io/phoenix-write">Phoenix, WRITE!</a> (<a
           href="https://www.youtube.com/watch?v=-f-uLJ1Hgvk">trailer</a
         >)
-      </li>
-      <li>
-        software library: <a href="https://github.com/davecaruso/structures"
-          >@davecode/structures</a>
       </li>
     </ul>
     <h2>categories</h2>

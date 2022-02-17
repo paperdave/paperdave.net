@@ -5,9 +5,9 @@
   const things = [
     //
     'doing high school',
-    'is learning autohotkey',
-    'is making a music video',
-    'is slowly rewriting this website in svelte',
+    'writing a timestamp marking software',
+    'is learning how to sing',
+    'is making two video games',
   ];
 </script>
 
