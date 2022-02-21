@@ -110,6 +110,25 @@
     "@types/node" "*"
     source-map "^0.6.0"
 
+"@types/color-convert@*":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@types/color-convert/-/color-convert-2.0.0.tgz#8f5ee6b9e863dcbee5703f5a517ffb13d3ea4e22"
+  integrity sha512-m7GG7IKKGuJUXvkZ1qqG3ChccdIM/qBBo913z+Xft0nKCX4hAU/IxKwZBU4cpRZ7GS5kV4vOblUkILtSShCPXQ==
+  dependencies:
+    "@types/color-name" "*"
+
+"@types/color-name@*":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@types/color-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
+  integrity sha512-rr+OQyAjxze7GgWrSaJwydHStIhHq2lvY3BOC2Mj7KnzI7XK0Uw1TOOdI9lDoajEbSWLiYgoo4f1R51erQfhPQ==
+
+"@types/color@^3.0.3":
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/@types/color/-/color-3.0.3.tgz#e6d8d72b7aaef4bb9fe80847c26c7c786191016d"
+  integrity sha512-X//qzJ3d3Zj82J9sC/C18ZY5f43utPbAJ6PhYt/M7uG6etcF6MRpKdN880KBy43B0BMzSfeT96MzrsNjFI3GbA==
+  dependencies:
+    "@types/color-convert" "*"
+
 "@types/fs-extra@^9.0.13":
   version "9.0.13"
   resolved "https://registry.yarnpkg.com/@types/fs-extra/-/fs-extra-9.0.13.tgz#7594fbae04fe7f1918ce8b3d213f74ff44ac1f45"
@@ -399,6 +418,34 @@ codepage@~1.15.0:
   version "1.15.0"
   resolved "https://registry.yarnpkg.com/codepage/-/codepage-1.15.0.tgz#2e00519024b39424ec66eeb3ec07227e692618ab"
   integrity sha512-3g6NUTPd/YtuuGrhMnOMRjFc+LJw/bnMp3+0r/Wcz3IXUuCosKRJvMphm5+Q+bvTVGcJJuRvVLuYba+WojaFaA==
+
+color-convert@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/color-convert/-/color-convert-2.0.1.tgz#72d3a68d598c9bdb3af2ad1e84f21d896abd4de3"
+  integrity sha512-RRECPsj7iu/xb5oKYcsFHSppFNnsj/52OVTRKb4zP5onXwVF3zVmmToNcOfGC+CRDpfK/U584fMg38ZHCaElKQ==
+  dependencies:
+    color-name "~1.1.4"
+
+color-name@^1.0.0, color-name@~1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/color-name/-/color-name-1.1.4.tgz#c2a09a87acbde69543de6f63fa3995c826c536a2"
+  integrity sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==
+
+color-string@^1.9.0:
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/color-string/-/color-string-1.9.0.tgz#63b6ebd1bec11999d1df3a79a7569451ac2be8aa"
+  integrity sha512-9Mrz2AQLefkH1UvASKj6v6hj/7eWgjnT/cVsR8CumieLoT+g900exWeNogqtweI8dxloXN9BDQTYro1oWu/5CQ==
+  dependencies:
+    color-name "^1.0.0"
+    simple-swizzle "^0.2.2"
+
+color@^4.2.1:
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/color/-/color-4.2.1.tgz#498aee5fce7fc982606c8875cab080ac0547c884"
+  integrity sha512-MFJr0uY4RvTQUKvPq7dh9grVOTYSFeXja2mBXioCGjnjJoXrAp9jJ1NQTDR73c9nwBSAQiNKloKl5zq9WB9UPw==
+  dependencies:
+    color-convert "^2.0.1"
+    color-string "^1.9.0"
 
 commander@^2.19.0:
   version "2.20.3"
@@ -885,6 +932,11 @@ is-alphanumerical@^1.0.0:
   dependencies:
     is-alphabetical "^1.0.0"
     is-decimal "^1.0.0"
+
+is-arrayish@^0.3.1:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/is-arrayish/-/is-arrayish-0.3.2.tgz#4574a2ae56f7ab206896fb431eaeed066fdf8f03"
+  integrity sha512-eVRqCvVlZbuw3GrM63ovNSNAeA1K16kaR/LRY/92w0zxQ5/1YzwblUX652i4Xs9RwAGjW9d9y6X88t8OaAJfWQ==
 
 is-binary-path@~2.1.0:
   version "2.1.0"
@@ -1373,6 +1425,13 @@ sentence-case@^3.0.4:
     no-case "^3.0.4"
     tslib "^2.0.3"
     upper-case-first "^2.0.2"
+
+simple-swizzle@^0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/simple-swizzle/-/simple-swizzle-0.2.2.tgz#a4da6b635ffcccca33f70d17cb92592de95e557a"
+  integrity sha1-pNprY1/8zMoz9w0Xy5JZLeleVXo=
+  dependencies:
+    is-arrayish "^0.3.1"
 
 slash@^3.0.0:
   version "3.0.0"

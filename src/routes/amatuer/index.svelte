@@ -3,19 +3,21 @@
     <h1>amateur mode enabled!!!</h1>
     <p>
       in a distant universe, someone calls this page an "expert mode." however, this is probably the
-      easiest and <em>laziest</em> way to use the website— i just threw everything on one page. either
+      easiest and <em>laziest</em> way to use the website— dave just threw everything on one page. either
       way, have fun.
     </p>
 
     <a href="/">go back to "adventure" mode</a>
 
-    <h2>all things from dave caruso</h2>
+    <h2>all things from davecode</h2>
 
-    <div class="search">
+    <p>(dave is still adding everything to the database, so it will not be complete)</p>
+
+    <!-- <div class="search">
       <input type="text" placeholder="search everything..." />
-    </div>
+    </div> -->
 
-    <!-- <ul>
+    <ul>
       <li>
         <code class="year">2020-</code>
         <code> 08-10 </code>
@@ -53,7 +55,7 @@
           <a href="">sdfafdsafd</a>
         </span>
       </li>
-    </ul> -->
+    </ul>
   </div>
 </main>
 
