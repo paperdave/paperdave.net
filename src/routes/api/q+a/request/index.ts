@@ -32,9 +32,10 @@ export interface QuestionSubmitSuccess extends GenericSuccess {
  * - Does not require any permissions.
  * - The date is automatically set to the current date, and will be overwritten.
  */
-export const post: APIHandler<QuestionRequest, QuestionSubmitSuccess> = async ({ body }) => {
+export const post: APIHandler<QuestionRequest, QuestionSubmitSuccess> = async ({ body, headers }) => {
   const request = QuestionRequest.fromJSON(body);
   request.date = new Date();
+  request.ipAddress = headers['CF-Connecting-IP'];
 
   const db = await getDatabase(QuestionRequest);
 

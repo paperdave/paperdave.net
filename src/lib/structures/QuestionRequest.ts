@@ -6,6 +6,11 @@ export class QuestionRequest {
   date: Date;
   content: string;
   notificationEmail: string | undefined;
+  // I do not like the fact im tracking this, as of 2022-02-22, but
+  // one user in particular is messing with me too much and I want to
+  // ban them from my page. I promise I won't mess with the data in
+  // any other way.
+  ipAddress: string | undefined;
 
   constructor(data?: Data<QuestionRequest>) {
     if (data) {
@@ -24,6 +29,7 @@ export class QuestionRequest {
       date: this.date.getTime(),
       content: this.content,
       notificationEmail: this.notificationEmail,
+      ipAddress: this.ipAddress
     };
   }
 
@@ -32,6 +38,7 @@ export class QuestionRequest {
       date: new Date(data.date),
       content: data.content,
       notificationEmail: data.notificationEmail,
+      ipAddress: data.ipAddress
     });
   }
 

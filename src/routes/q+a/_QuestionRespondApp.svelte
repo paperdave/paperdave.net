@@ -68,7 +68,7 @@
       <p>(you can press f2 to split)</p>
     </div>
     <div class="date">
-      {request.date}
+      {request.date} - {request.ipAddress ?? '[no ip]'}
     </div>
     <pre class="prompt">
       {request.content}
