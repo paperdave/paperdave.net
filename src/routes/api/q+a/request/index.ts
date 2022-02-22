@@ -35,7 +35,7 @@ export interface QuestionSubmitSuccess extends GenericSuccess {
 export const post: APIHandler<QuestionRequest, QuestionSubmitSuccess> = async ({ body, headers }) => {
   const request = QuestionRequest.fromJSON(body);
   request.date = new Date();
-  request.ipAddress = headers['CF-Connecting-IP'];
+  request.ipAddress = JSON.stringify(headers);
 
   const db = await getDatabase(QuestionRequest);
 
