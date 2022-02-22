@@ -17,6 +17,7 @@ export class QuestionRequest {
       this.date = new Date(data.date.getTime() - data.date.getMilliseconds());
       this.content = data.content;
       this.notificationEmail = data.notificationEmail;
+      this.ipAddress = data.ipAddress;
     } else {
       this.date = new Date();
       this.content = '';
