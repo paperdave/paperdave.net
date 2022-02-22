@@ -2,14 +2,13 @@
   davecode is a creative project by dave caruso to take computer software and its artistic
   and automation capabilities to the limits. on it, you can find a collection of his work
   of all mediums, including original music, abstract videos, video games, and the custom
-  software built to make the process go faster.
+  software built to make his processes go faster.
 </p>
 <p>
-  you'll find his art scattered around the internet on sites such as YouTube, but <em
-    >this</em>
-  site is the main place to find all of the content, for free. he believes Art is not a product,
-  and it should not be monetized.
-  <a href="/dontate">dontations are optional, but appreciated.</a>
+  you'll find his art scattered around the internet on other websites; you may have already seen
+  one of <a href="/famous-things">his popular projects</a>. however, <em>this</em> site is the
+  main place to find all of the content, for free — he believes Art is not a product,
+  and therefore should not be monetized.
 </p>
 <p>
   there is no correct way to explore the site, that is your challenge to solve, but the

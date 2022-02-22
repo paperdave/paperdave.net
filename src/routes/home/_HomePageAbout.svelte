@@ -15,7 +15,6 @@
       </div>
     </h2>
     <article>
-      
       <ArticleAboutDaveCaruso />
     </article>
   </section>
@@ -24,13 +23,13 @@
 
 <style>
   .root {
-    flex: 1 0;
+    flex: 2.5 1 80rem;
   }
   section {
-    padding: 4rem 4rem 4rem 4rem;
+    padding: 3rem;
   }
   article {
-    max-width: 40rem;
+    max-width: 38rem;
   }
 
   h2 {

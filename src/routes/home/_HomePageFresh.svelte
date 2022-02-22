@@ -75,7 +75,7 @@ import HomePageFreshCard from "./_HomePageFreshCard.svelte";
     font-size: 2.75rem;
   }
   .outer {
-    flex: 0.2 0 35rem;
+    flex: 1 0 35rem;
     display: flex;
   }
   .inner {
@@ -104,6 +104,7 @@ import HomePageFreshCard from "./_HomePageFreshCard.svelte";
     align-items: center;
     flex: 1;
     padding-left: 10rem;
+    padding-top: 3rem;
   }
   article {
     margin: 2rem auto;

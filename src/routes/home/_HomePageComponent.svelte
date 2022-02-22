@@ -22,7 +22,7 @@ import HomePageExternals from './_HomePageExternals.svelte';
     } else if (phrase.endsWith('afe')) {
       goto('/admin/artifact-editor');
     } else if (phrase.endsWith('admin')) {
-      goto('/q+a/respond');
+      goto('/admine');
     } else if (phrase.endsWith('qa')) {
       goto('/q+a');
     } else if (phrase.endsWith('video')) {
