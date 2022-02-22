@@ -7,6 +7,10 @@ export enum ArtifactVisibility {
   UNLISTED = 'UNLISTED',
 }
 
+function getBaseOrigin() {
+  return typeof location === 'undefined' ? 'https://davecode.net' : location.origin
+}
+
 @schema('artifacts')
 export class Artifact {
   static type = 'unknown';
@@ -145,4 +149,10 @@ export class Artifact {
     this.visibility = visibility;
     return this;
   }
+
+  getUrl(domain = getBaseOrigin()) {
+    if (!domain.includes('://')) domain = 'https://' + domain;
+    return new URL(this.id, domain);
+  }
+    
 }

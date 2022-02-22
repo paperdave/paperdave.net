@@ -9,16 +9,38 @@ body {
 }
 
 #root {
+  position: relative;
   background-color: white;
   display: flex;
   min-height: 100vh;
   flex-direction: column;
   width: 100%;
-  max-width: 2800px; // you should not be browsing above this lol
-  overflow: hidden;
+  max-width: 3860px; // you should not be browsing above this lol
   margin: 0 auto;
 }
 
+.oob-text {
+  display: none;
+  z-index: 10000;
+  position: absolute;
+  right: 0px;
+  top: 0;
+  transform: rotate(-90deg);
+  transform-origin: top right;
+
+  a {
+    color: white;
+    &:hover {
+      color: red;
+    }
+  }
+}
+
+@media (min-width: 3880px) {
+  .oob-text {
+    display: block;
+  }
+}
 #root > :first-child {
   flex-grow: 1;
   min-width: 100%;
@@ -33,6 +55,10 @@ body {
 // Docs: https://tailwindcss.com/docs/preflight
 //
 @import 'modern-normalize';
+
+*:not(:defined) {
+  display: block;
+}
 
 /**
 * Removes the default spacing and border for appropriate elements.
@@ -160,12 +186,12 @@ table {
   border-collapse: collapse;
 }
 
-h1,
+:where(h1,
 h2,
 h3,
 h4,
 h5,
-h6 {
+h6):not(.custom) {
   font-family: 'Roboto Slab', sans-serif;
 }
 

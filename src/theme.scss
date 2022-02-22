@@ -57,6 +57,10 @@ flex {
   }
 }
 
+grid {
+  display: grid;
+}
+
 a:not(.custom) {
   color: var(--link-color);
   text-decoration: underline;

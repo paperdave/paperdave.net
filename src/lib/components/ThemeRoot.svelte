@@ -11,7 +11,6 @@
   let accentColor = new Color(accent);
 
   export let padding = false;
-  export let grow = false;
 </script>
 
 <theme-root style="
@@ -25,6 +24,6 @@
   --accent-saturation: {Math.round(accentColor.saturationl())}%;
   --accent-lightness: {Math.round(accentColor.lightness())}%;
   {linkColor ? `--link-color:${linkColor};` : ''}
-" class:padding {grow}>
+" class:padding grow>
   <slot />
 </theme-root>

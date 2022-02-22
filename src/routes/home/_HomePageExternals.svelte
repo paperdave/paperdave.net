@@ -18,20 +18,20 @@
   import YoutubeSVG from '$lib/svg/thirdparty-icons/Youtube.svg?component';
 
   const otherWebsites = [
-    { name: 'Youtube', icon: YoutubeSVG, url: '' },
-    { name: 'Github', icon: GithubSVG, url: '' },
+    { name: 'Youtube', icon: YoutubeSVG, url: 'https://youtube.com/davecode' },
+    { name: 'Github', icon: GithubSVG, url: 'https://github.com/davecaruso' },
     { name: 'Discord', icon: DiscordSVG, url: '' },
-    { name: 'Itch', icon: ItchSVG, url: '' },
-    { name: 'Twitch', icon: TwitchSVG, url: '' },
+    { name: 'Itch', icon: ItchSVG, url: 'https://davecode.itch.io' },
+    { name: 'Twitch', icon: TwitchSVG, url: 'https://twitch.tv/davecaruso' },
     { name: 'Apple Music', icon: AppleMusicSVG, url: '' },
     { name: 'Spotify', icon: SpotifySVG, url: '' },
-    { name: 'Bandcamp', icon: BandcampSVG, url: '' },
+    { name: 'Bandcamp', icon: BandcampSVG, url: 'https://davecode.bandcamp.com' },
     { name: 'Newgrounds', icon: NewgroundsSVG, url: '' },
     { name: 'Soundcloud', icon: SoundcloudSVG, url: '' },
-    { name: 'TikTok', icon: TikTokSVG, url: '' },
-    { name: 'Instagram', icon: InstagramSVG, url: '' },
-    { name: 'Patreon', icon: PatreonSVG, url: '' },
-    { name: 'Twitter', icon: TwitterSVG, url: '' },
+    { name: 'TikTok', icon: TikTokSVG, url: 'https://tiktok.com/@dave_caruso' },
+    { name: 'Instagram', icon: InstagramSVG, url: 'https://instagram.com/isdavecaruso' },
+    { name: 'Twitter', icon: TwitterSVG, url: 'https://twitter.com/isdavecaruso' },
+    { name: 'Patreon', icon: PatreonSVG, url: 'https://patreon.com/davecaruso' },
     { name: 'Medium', icon: MediumSVG, url: '' },
   ];
 

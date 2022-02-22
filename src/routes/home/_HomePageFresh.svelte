@@ -1,5 +1,7 @@
 <script>
 import ThemeRoot from "$lib/components/ThemeRoot.svelte";
+import { VideoArtifact } from "$lib/structures";
+import HomePageFreshCard from "./_HomePageFreshCard.svelte";
 
 </script>
 
@@ -10,27 +12,117 @@ import ThemeRoot from "$lib/components/ThemeRoot.svelte";
       accent='#20b8ff'
       foreground='white'
     >
-      <h2>fresh new stuff</h2>
-      <p></p>
+      <!-- this is the outline -->
+      <svg
+        viewBox="0 0 100 100"
+        preserveAspectRatio='none'
+        style='position:absolute; width: 10rem; height: 100%; left: 0.5rem'
+      >
+        <path d="M100 0L50 33L60 66L0 100L0 0Z" fill='#0079c6' />
+      </svg>
+
+      <!-- this is a square right at the bottom left -->
+      <div style='
+        position:absolute;
+        left: 0;
+        bottom: 0;
+        height: 10rem;
+        width: 0.5rem;
+        background: #0079c6;
+      ' />
+
+      <div class="inner-content">
+        <article>
+          <h2>fresh new stuff</h2>
+          <p>last updated <code>2022-02-22</code></p>
+          <ul>
+            <HomePageFreshCard
+              artifact={new VideoArtifact({
+                id: 'mayday',
+                title: 'Mayday',
+                type: 'video',
+                date: new Date(),
+                thumbnail: 'ok'
+              })}
+            />
+            <HomePageFreshCard
+              artifact={new VideoArtifact({
+                id: 'mayday',
+                title: 'Mayday',
+                type: 'video',
+                date: new Date(),
+                thumbnail: 'ok'
+              })}
+            />
+            <HomePageFreshCard
+              artifact={new VideoArtifact({
+                id: 'mayday',
+                title: 'Mayday',
+                type: 'video',
+                date: new Date(),
+                thumbnail: 'ok'
+              })}
+            />
+          </ul>
+        </article>
+      </div>
     </ThemeRoot>
   </div>
 </div>
 
 <style lang='scss'>
+  h2 {
+    font-size: 2.75rem;
+  }
   .outer {
     flex: 0.2 0 35rem;
     display: flex;
-    flex-direction: column;
   }
   .inner {
+    position: relative;
     display: flex;
-    flex-direction: column;
     flex: 1;
-    opacity: 0.5;
     margin-left: -10rem;
+    clip-path: polygon(
+      10rem 0,
+      100% 0,
+      100% 100%,
+      0 100%,
+      6rem 66%,
+      5rem 33%,
+    );
+    z-index: 3;
 
     & > :global(theme-root) {
       flex: 1;
+      background: linear-gradient(#80d6ff, #4cc5ff)
     }
+  }
+  .inner-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    padding-left: 10rem;
+  }
+  article {
+    margin: 2rem auto;
+    flex: 1;
+    width: 100%;
+    max-width: 30rem;
+    align-items: center;
+
+    & > :where(h2, p) {
+      text-shadow: shadow(3px, 1, #009def)
+    }
+    p {
+      font-weight: bold;
+    }
+  }
+  ul {
+    margin: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
   }
 </style>

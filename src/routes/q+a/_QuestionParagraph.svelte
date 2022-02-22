@@ -24,6 +24,6 @@
   .a {
     color: #51d064;
 
-    --text-casual: 1;
+    --text-casual: 0.5;
   }
 </style>

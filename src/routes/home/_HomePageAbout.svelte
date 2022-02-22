@@ -1,9 +1,10 @@
 <script>
   import ThemeRoot from "$lib/components/ThemeRoot.svelte";
-import ArticleAboutDaveCaruso from "./_ArticleAboutDaveCaruso.svelte";
+  import ArticleAboutDaveCaruso from "./_ArticleAboutDaveCaruso.svelte";
 </script>
 
-<ThemeRoot background='#e089c8' accent='#ac0090'>
+<flex class='root'>
+  <ThemeRoot background='#e089c8' accent='#ac0090'>
   <section>
     <h2>
       <span>
@@ -19,8 +20,12 @@ import ArticleAboutDaveCaruso from "./_ArticleAboutDaveCaruso.svelte";
     </article>
   </section>
 </ThemeRoot>
+</flex> 
 
 <style>
+  .root {
+    flex: 1 0;
+  }
   section {
     padding: 4rem 4rem 4rem 4rem;
   }

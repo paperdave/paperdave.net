@@ -40,16 +40,16 @@
 
 <style lang="scss">
   main {
-    font-family: 'Roboto Slab';
     color: #999;
-    margin-bottom: 0.1rem;
+    font-size: 0.9rem;
+    margin-bottom: 0.28rem;
     cursor: pointer;
     display: flex;
     gap: 0.25rem;
     width: max-content;
 
     :global(svg) {
-      width: 1.5rem;
+      height: 1rem;
       display: none;
     }
 

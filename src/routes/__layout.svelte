@@ -1,6 +1,7 @@
 <script lang="ts">
   import '../global.scss';
   import '../theme.scss';
+  import PlaneSVG from '$lib/svg/brand/Plane.svg?component';
 
   import { API } from '$lib/api-client/singleton';
 
@@ -19,12 +20,21 @@
 
 <slot />
 
+<span class='oob-text'>
+  <a class='custom' href="https://github.com/davecaruso/davecode.net/tree/main/src/global.scss#L17">
+    why do you have such a high-res screen???
+  </a>
+</span>
+
 <footer>
-  <div>
+  <flex center class='plane'>
+    <PlaneSVG />
+  </flex>
+  <div class="grow">
     <p>&copy; 2018-2022 All Rights Reserved</p>
     <p>made with <code class='love'>&lt;3</code> by dave caruso</p>
   </div>
-  <div style='text-align:right'>
+  <div class="grow" style='text-align:right'>
     <!-- <a href="/center-footer" class='custom'>learn how to align a footer</a> -->
   </div>
 </footer>
@@ -33,10 +43,17 @@
   footer {
     background-color: #101010;
     color: white;
-    padding: 2rem 4rem calc(env(safe-area-inset-bottom, 50px) + 2rem) 4rem;
+    padding: 2rem 2rem calc(env(safe-area-inset-bottom, 50px) + 2rem) 2rem;
     display: flex;
 
-    & > * {
+    .plane {
+      margin-right: 1rem;
+      & :global(svg) {
+        fill: white;
+        width: 2.5rem;
+      }
+    }
+    .grow {
       flex: 1;
     }
 

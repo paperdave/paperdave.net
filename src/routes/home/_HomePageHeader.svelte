@@ -8,7 +8,7 @@
 <ThemeRoot background="#a0e3a7">
   <flex grow class='root'>
     <HomePageHeaderBackground />
-    <flex grow row center>
+    <flex grow row center class='border'>
       <header>
         <HomePageH1 />
         <article>
@@ -20,11 +20,12 @@
 </ThemeRoot>
 
 <style>
-  .root {
-    z-index: 1;
-  }
   header {
     padding: 4rem 2rem;
+  }
+  .border {
+    z-index: 2;
+    border-bottom: 0.5rem solid hsla(0, 0%, 100%, 0.8);
   }
   container {
     width: 100vw;

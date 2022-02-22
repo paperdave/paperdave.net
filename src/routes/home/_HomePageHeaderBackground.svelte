@@ -26,10 +26,6 @@
     bottom: -256px;
   }
 
-  .root {
-    z-index: -1;
-  }
-
   .layer1 {
     background-image: url("/assets/home/CheckerLayer1.svg");
     mix-blend-mode: lighten;
