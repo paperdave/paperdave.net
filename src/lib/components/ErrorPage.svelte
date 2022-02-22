@@ -2,13 +2,7 @@
   import { SourceMapConsumer } from 'source-map-js';
   import { parse as parseStackTrace, StackFrame } from 'stacktrace-parser';
 
-  export enum ErrorPageVariant {
-    Error,
-    NotImplemented,
-    NotFound,
-    Unknown,
-  }
-
+  export type ErrorPageVariant = 'ERROR' | 'NOT_IMPLEMENTED' | 'NOT_FOUND' | 'UNKNOWN';
   const sources = new Map<string, SourceMapConsumer>();
 
   /** Creates a mapped source object */
@@ -60,22 +54,30 @@
 
 <script lang="ts">
   import { browser } from '$app/env';
+import ThemeRoot from './ThemeRoot.svelte';
 
-  export let variant: ErrorPageVariant = ErrorPageVariant.Unknown;
+  export let variant: ErrorPageVariant = 'ERROR';
   export let error: Error | null = null;
+
+  const colors = {
+    ERROR: '#00a98a',
+    NOT_IMPLEMENTED: '#ff4f4f',
+    NOT_FOUND: '#c622a2',
+    UNKNOWN: '#303030'
+  };
+
+  const accent = colors[variant];
 </script>
 
-<main
-  class:notFound={variant === ErrorPageVariant.NotFound}
-  class:error={variant === ErrorPageVariant.Error}
-  class:notImpl={variant === ErrorPageVariant.NotImplemented}>
+<ThemeRoot {accent} background='#e1e1e1'>
+<main>
   <section>
     <slot>
       <h1>{error?.name}</h1>
       <p>{error?.message}</p>
     </slot>
 
-    {#if variant !== ErrorPageVariant.NotImplemented && error}
+    {#if variant !== 'NOT_IMPLEMENTED' && error}
       {#if browser}
         {#await createMappedSource(error)}
           <p>generating stack trace...</p>
@@ -114,7 +116,7 @@
       <li><a href="/">home page</a></li>
       <li><a href="https://google.com">google</a></li>
       <li><a href="mailto:dave@davecode.net">tell me about it</a></li>
-      {#if variant === ErrorPageVariant.NotFound}
+      {#if variant === 'NOT_FOUND'}
         <li><a href="https://reddit.com/r/all">browse memes</a></li>
         <!-- <li><a href="#game">play a game</a></li> -->
       {:else}
@@ -125,15 +127,10 @@
     </ul>
   </section>
 </main>
-
+</ThemeRoot>
 <style lang="scss">
   main {
-    background-color: #e1e1e1;
-    color: black;
-    font-size: 1rem;
-
-    --color: #888888;
-    --drop: #303030;
+    margin: 0 auto;
 
     :global {
       p,
@@ -142,21 +139,11 @@
       }
 
       h1 {
-        text-shadow: shadow(3px, 1, var(--drop));
-        color: var(--color);
+        text-shadow: shadow(3px, 1, hsl(var(--accent-dark-3)));
+        color: hsl(var(--accent-base));
         line-height: 1.15em;
         @media (max-width: 519px) {
           font-size: 8.5vw;
-        }
-      }
-
-      a {
-        color: var(--color);
-        &:hover {
-          text-decoration: underline;
-        }
-        &:active {
-          color: #ff3a32;
         }
       }
 
@@ -184,21 +171,6 @@
     padding-top: 3rem;
     max-width: 38rem;
     margin: auto;
-  }
-
-  .notFound {
-    --color: #00a98a;
-    --drop: #005d40;
-  }
-
-  .error {
-    --color: #ff4f4f;
-    --drop: #c80518;
-  }
-
-  .notImpl {
-    --color: #c622a2;
-    --drop: #6d007a;
   }
 
   hr {

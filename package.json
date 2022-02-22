@@ -30,6 +30,7 @@
     "zlib": "^1.0.5"
   },
   "devDependencies": {
+    "@fluentui/svg-icons": "^1.1.161",
     "@originjs/vite-plugin-content": "^1.0.1",
     "@sveltejs/adapter-netlify": "^1.0.0-next.35",
     "@sveltejs/kit": "^1.0.0-next.131",

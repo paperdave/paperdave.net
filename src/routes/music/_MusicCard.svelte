@@ -2,10 +2,10 @@
 <script lang="ts">
   import { slide } from 'svelte/transition';
   import { ProgressRing } from 'fluent-svelte';
-  import PlaySVG from '$lib/svg/Play.svg?component';
-  import PauseSVG from '$lib/svg/Pause.svg?component';
-  import LinkSVG from '$lib/svg/Link.svg?component';
-  import DownloadSVG from '$lib/svg/Download.svg?component';
+  import PlaySVG from '$lib/svg/fluent/Play.svg?component';
+  import PauseSVG from '$lib/svg/fluent/Pause.svg?component';
+  import LinkSVG from '$lib/svg/fluent/Link.svg?component';
+  import DownloadSVG from '$lib/svg/fluent/Download.svg?component';
   import { useEffect } from '$lib/hooks/useEffect';
   import { MusicArtifact } from '$lib/structures';
   import { formatDate } from '$lib/utils/date';

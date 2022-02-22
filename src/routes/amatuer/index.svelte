@@ -106,6 +106,7 @@
       color: #160101;
       text-decoration-color: #160101;
     }
+    
     &:active {
       color: #ff22ed;
       text-decoration-color: #ff22ed;

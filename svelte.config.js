@@ -60,7 +60,7 @@ const conf = {
         sourcemap: 'inline',
       }),
     }),
-    target: 'body',
+    target: '#root',
     vite: {
       build: {
         sourcemap: true,

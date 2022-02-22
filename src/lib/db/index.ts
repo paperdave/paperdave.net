@@ -15,6 +15,8 @@ if (global._mongoDbClient) {
     });
 }
 
+// connectionPromise = new Promise(() => {});
+
 export async function getDatabase<T>(
   type:
     | {

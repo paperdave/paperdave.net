@@ -71,7 +71,7 @@
   import { writable } from 'svelte/store';
   import { deferred } from '$lib/utils/promise';
   import { persist, localStorage as local } from '@macfja/svelte-persistent-store';
-  import AddSVG from '$lib/svg/Add.svg?component';
+  import AddSVG from '$lib/svg/fluent/Add.svg?component';
   import { getToken, user } from '$lib/api-client/session';
 
   $: canEdit = $user?.queryPermission(Permission.EDIT_ARTIFACTS);

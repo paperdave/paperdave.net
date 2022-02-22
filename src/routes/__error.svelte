@@ -19,14 +19,14 @@
   export let message: string;
   export let stack: string;
 
-  const variant =
+  const variant: ErrorPageVariant =
     status === 404
-      ? ErrorPageVariant.NotFound
+      ? 'NOT_FOUND'
       : status >= 500
-      ? ErrorPageVariant.Error
+      ? 'ERROR'
       : status >= 400
-      ? ErrorPageVariant.Error
-      : ErrorPageVariant.Unknown;
+      ? 'ERROR'
+      : 'UNKNOWN';
 
   const error: Error = {
     name: 'Error',

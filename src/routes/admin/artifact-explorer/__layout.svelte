@@ -5,7 +5,7 @@
 </script>
 
 <script lang="ts">
-  import DismissSVG from '$lib/svg/Dismiss.svg?component';
+  import DismissSVG from '$lib/svg/fluent/Dismiss.svg?component';
   import Sidebar from './_Sidebar.svelte';
   import { Permission } from '$lib/structures';
   import { restrictedPage } from '$lib/utils/client';

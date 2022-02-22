@@ -1,6 +1,6 @@
 <script lang="ts">
   import QaInput from './_QAInput.svelte';
-  import AlertSVG from '$lib/svg/Alert.svg?component';
+  import AlertSVG from '$lib/svg/fluent/Alert.svg?component';
   import QuestionCompose from './_QuestionCompose.svelte';
   import { QuestionRequest } from '$lib/structures';
   import { fade } from 'svelte/transition';

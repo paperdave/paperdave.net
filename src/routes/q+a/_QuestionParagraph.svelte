@@ -23,5 +23,7 @@
 
   .a {
     color: #51d064;
+
+    --text-casual: 1;
   }
 </style>

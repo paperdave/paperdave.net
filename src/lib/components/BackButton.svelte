@@ -7,7 +7,7 @@
 </script>
 
 <main class:inverted>
-  <a class="position-{position}" {href}>
+  <a class="position-{position} custom" {href}>
     {text}
   </a>
 </main>
