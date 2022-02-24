@@ -5,13 +5,13 @@
 </script>
 
 {#if href}
-  <a {...$$restProps} href={href.toString()} class='custom button-{variant}'>
+  <a {...$$restProps} href={href.toString()} class="custom button-{variant}" on:click>
     <div class="content">
       <slot />
     </div>
   </a>
 {:else}
-  <button {...$$restProps} class='custom button-{variant}'>
+  <button {...$$restProps} class="custom button-{variant}" on:click>
     <div class="content">
       <slot />
     </div>
@@ -53,7 +53,8 @@
       outline: none;
     }
 
-    &.button-subtle, &.button-link {
+    &.button-subtle,
+    &.button-link {
       &::after {
         background-color: hsla(var(--foreground), 0);
         border: 1px solid hsla(var(--foreground), 0);

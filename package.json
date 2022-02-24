@@ -9,9 +9,11 @@
   "dependencies": {
     "@macfja/svelte-persistent-store": "^1.2.0",
     "@sveltejs/adapter-cloudflare": "^1.0.0-next.2",
+    "@types/d3-ease": "^3.0.0",
     "blurhash": "^1.1.4",
     "change-case": "^4.1.2",
     "color": "^4.2.1",
+    "d3-ease": "^3.0.1",
     "dotenv": "^10.0.0",
     "expr-eval": "^2.0.2",
     "fast-deep-equal": "^3.1.3",

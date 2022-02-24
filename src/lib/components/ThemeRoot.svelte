@@ -1,8 +1,10 @@
-<script lang='ts'>
+<script lang="ts">
   import Color from 'color';
 
-  export let foreground = 'black';
-  export let background = 'white';
+  export let dark = false;
+
+  export let foreground = dark ? 'white' : 'black';
+  export let background = dark ? 'black' : 'white';
   export let accent = '#22c646';
   export let linkColor: string | null = null;
 
@@ -13,7 +15,8 @@
   export let padding = false;
 </script>
 
-<theme-root style="
+<theme-root
+  style="
   --foreground: {Math.round(foregroundColor.hue())},
     {Math.round(foregroundColor.saturationl())}%,
     {Math.round(foregroundColor.lightness())}%;
@@ -24,6 +27,9 @@
   --accent-saturation: {Math.round(accentColor.saturationl())}%;
   --accent-lightness: {Math.round(accentColor.lightness())}%;
   {linkColor ? `--link-color:${linkColor};` : ''}
-" class:padding grow>
+"
+  class:padding
+  class:dark
+  grow>
   <slot />
 </theme-root>

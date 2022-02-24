@@ -1,35 +1,30 @@
 <script>
-import ThemeRoot from "$lib/components/ThemeRoot.svelte";
-import { VideoArtifact } from "$lib/structures";
-import HomePageFreshCard from "./_HomePageFreshCard.svelte";
-
+  import ThemeRoot from '$lib/components/ThemeRoot.svelte';
+  import { GameArtifact, VideoArtifact } from '$lib/structures';
+  import HomePageFreshCard from './_HomePageFreshCard.svelte';
 </script>
 
-<div class='outer'>
-  <div class='inner'>
-    <ThemeRoot
-      background='#4cc5ff'
-      accent='#20b8ff'
-      foreground='white'
-    >
+<div class="outer">
+  <div class="inner">
+    <ThemeRoot background="#4cc5ff" accent="#20b8ff" dark>
       <!-- this is the outline -->
       <svg
         viewBox="0 0 100 100"
-        preserveAspectRatio='none'
-        style='position:absolute; width: 10rem; height: 100%; left: 0.5rem'
-      >
-        <path d="M100 0L50 33L60 66L0 100L0 0Z" fill='#0079c6' />
+        preserveAspectRatio="none"
+        style="position:absolute; width: 10rem; height: 100%; left: 0.5rem">
+        <path d="M100 0L50 33L60 66L0 100L0 0Z" fill="#0079c6" />
       </svg>
 
       <!-- this is a square right at the bottom left -->
-      <div style='
+      <div
+        style="
         position:absolute;
         left: 0;
         bottom: 0;
         height: 10rem;
         width: 0.5rem;
         background: #0079c6;
-      ' />
+      " />
 
       <div class="inner-content">
         <article>
@@ -37,32 +32,27 @@ import HomePageFreshCard from "./_HomePageFreshCard.svelte";
           <p>last updated <code>2022-02-22</code></p>
           <ul>
             <HomePageFreshCard
-              artifact={new VideoArtifact({
+              artifact={VideoArtifact.fromJSON({
+                _v: 0,
                 id: 'mayday',
                 title: 'Mayday',
+                date: 1645128900367,
+                thumbnail: 'https://media.davecode.net/content/2022/mayday-album.jpeg',
                 type: 'video',
-                date: new Date(),
-                thumbnail: 'ok'
-              })}
-            />
+                tags: ['music video'],
+                visibility: 'PUBLIC',
+              })} />
             <HomePageFreshCard
-              artifact={new VideoArtifact({
-                id: 'mayday',
-                title: 'Mayday',
-                type: 'video',
-                date: new Date(),
-                thumbnail: 'ok'
-              })}
-            />
-            <HomePageFreshCard
-              artifact={new VideoArtifact({
-                id: 'mayday',
-                title: 'Mayday',
-                type: 'video',
-                date: new Date(),
-                thumbnail: 'ok'
-              })}
-            />
+              artifact={GameArtifact.fromJSON({
+                _v: 0,
+                id: 'phoenix-write',
+                title: 'Phoenix, WRITE!',
+                date: 1645128900367,
+                thumbnail: 'https://via.placeholder.com/500x500',
+                // blurhash: 'LIK[ib00GX}u00^+IqrXF]xG$%Ee',
+                type: 'game',
+                visibility: 'PUBLIC',
+              })} />
           </ul>
         </article>
       </div>
@@ -70,7 +60,7 @@ import HomePageFreshCard from "./_HomePageFreshCard.svelte";
   </div>
 </div>
 
-<style lang='scss'>
+<style lang="scss">
   h2 {
     font-size: 2.75rem;
   }
@@ -83,19 +73,12 @@ import HomePageFreshCard from "./_HomePageFreshCard.svelte";
     display: flex;
     flex: 1;
     margin-left: -10rem;
-    clip-path: polygon(
-      10rem 0,
-      100% 0,
-      100% 100%,
-      0 100%,
-      6rem 66%,
-      5rem 33%,
-    );
+    clip-path: polygon(10rem 0, 100% 0, 100% 100%, 0 100%, 6rem 66%, 5rem 33%);
     z-index: 3;
 
     & > :global(theme-root) {
       flex: 1;
-      background: linear-gradient(#80d6ff, #4cc5ff)
+      background: linear-gradient(#80d6ff, #4cc5ff);
     }
   }
   .inner-content {
@@ -114,7 +97,7 @@ import HomePageFreshCard from "./_HomePageFreshCard.svelte";
     align-items: center;
 
     & > :where(h2, p) {
-      text-shadow: shadow(3px, 1, #009def)
+      text-shadow: shadow(3px, 1, #009def);
     }
     p {
       font-weight: bold;

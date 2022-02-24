@@ -36,7 +36,8 @@
   }
   li {
     font-size: 1.5rem;
-    margin: -0.5rem auto;
+    line-height: 0.9;
+    margin: 0 auto;
     text-align: center;
     width: fit-content;
     color: #9a008a;

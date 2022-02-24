@@ -5,17 +5,17 @@ import { Collection, MongoClient, ObjectId } from 'mongodb';
 let connectionPromise: null | Promise<MongoClient> = null;
 let client: MongoClient | null = null;
 
-// if (global._mongoDbClient) {
-//   client = global._mongoDbClient;
-// } else {
-//   connectionPromise = global._mongoDbConnectionPromise =
-//     global._mongoDbConnectionPromise ??
-//     new MongoClient(MONGODB_URI).connect().catch(() => {
-//       connectionPromise = global._mongoDbConnectionPromise = new MongoClient(MONGODB_URI).connect();
-//     });
-// }
+if (global._mongoDbClient) {
+  client = global._mongoDbClient;
+} else {
+  connectionPromise = global._mongoDbConnectionPromise =
+    global._mongoDbConnectionPromise ??
+    new MongoClient(MONGODB_URI).connect().catch(() => {
+      connectionPromise = global._mongoDbConnectionPromise = new MongoClient(MONGODB_URI).connect();
+    });
+}
 
-connectionPromise = new Promise(() => {});
+// connectionPromise = new Promise(() => {});
 
 export async function getDatabase<T>(
   type:

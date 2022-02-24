@@ -7,17 +7,27 @@
   --accent-lightness: 45%;
 }
 
-:root, theme-root {
+:root,
+theme-root {
   --neutral: 0, 0%, 50%;
   --accent-light-3: calc(var(--accent-hue) - 15), 98%, 80%;
   --accent-light-2: calc(var(--accent-hue) - 7), 99%, 69%;
   --accent-light-1: calc(var(--accent-hue) - 1), 100%, 49%;
-  --accent-base: var(--accent-hue), var(--accent-saturation), var(--accent-lightness)/*42%*/;
+  --accent-base: var(--accent-hue), var(--accent-saturation), var(--accent-lightness) /*42%*/;
   --accent-dark-1: calc(var(--accent-hue) + 4), 100%, 36%;
   --accent-dark-2: calc(var(--accent-hue) + 10), 100%, 29%;
   --accent-dark-3: calc(var(--accent-hue) + 21), 100%, 20%;
-  
   --link-color: hsl(calc(var(--accent-hue) + 21), 100%, 8%);
+}
+theme-root.dark {
+  // do a swap around
+  --accent-dark-3: calc(var(--accent-hue) - 15), 98%, 80%;
+  --accent-dark-2: calc(var(--accent-hue) - 7), 99%, 69%;
+  --accent-dark-1: calc(var(--accent-hue) - 1), 100%, 49%;
+  --accent-light-1: calc(var(--accent-hue) + 4), 100%, 36%;
+  --accent-light-2: calc(var(--accent-hue) + 10), 100%, 29%;
+  --accent-light-3: calc(var(--accent-hue) + 21), 100%, 20%;
+  --link-color: hsl(calc(var(--accent-hue) + 21), 100%, 90%);
 }
 
 theme-root {
@@ -42,13 +52,15 @@ flex {
   &[row] {
     flex-direction: row;
   }
-  &, &[column] {
+  &,
+  &[column] {
     flex-direction: column;
   }
   &[row][reverse] {
     flex-direction: row-reverse;
   }
-  &[reverse], &[column][reverse] {
+  &[reverse],
+  &[column][reverse] {
     flex-direction: column-reverse;
   }
   &[center] {

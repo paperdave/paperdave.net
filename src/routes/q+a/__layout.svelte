@@ -1,11 +1,11 @@
 <script lang="ts">
   import { page } from '$app/stores';
-import ThemeRoot from '$lib/components/ThemeRoot.svelte';
+  import ThemeRoot from '$lib/components/ThemeRoot.svelte';
 
   $: fullWidth = $page.path === '/q+a/respond';
 </script>
 
-<ThemeRoot background='#101010' foreground='#ffffff' accent='#22c6ad' linkColor='#22c6ad'>
+<ThemeRoot background="#101010" accent="#22c6ad" linkColor="#22c6ad" dark>
   <section class:fullWidth>
     <slot />
   </section>
