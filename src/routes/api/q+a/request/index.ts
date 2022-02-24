@@ -1,4 +1,5 @@
 import { getDatabase } from '$lib/db';
+import { QA_BLOCKED_IPS } from '$lib/env';
 import { Permission, QuestionRequest } from '$lib/structures';
 import { APIHandler, GenericSuccess, GetAPIHandler } from '$lib/utils/api';
 
@@ -32,9 +33,23 @@ export interface QuestionSubmitSuccess extends GenericSuccess {
  * - Does not require any permissions.
  * - The date is automatically set to the current date, and will be overwritten.
  */
-export const post: APIHandler<QuestionRequest, QuestionSubmitSuccess> = async ({ body, headers }) => {
+export const post: APIHandler<QuestionRequest, QuestionSubmitSuccess> = async ({
+  body,
+  headers,
+}) => {
   const request = QuestionRequest.fromJSON(body);
   request.date = new Date();
+
+  if (QA_BLOCKED_IPS.includes(headers['cf-connecting-ip'])) {
+    return {
+      status: 403,
+      body: {
+        error: 'Unknown Error',
+      },
+    };
+  }
+
+  // just in case, for now. i'll remove this on maybe 2022-03-03 (one week from now)
   request.ipAddress = headers['cf-connecting-ip'];
 
   const db = await getDatabase(QuestionRequest);
@@ -44,8 +59,6 @@ export const post: APIHandler<QuestionRequest, QuestionSubmitSuccess> = async ({
   }
 
   await db.insertOne(request.toJSON());
-
-  console.log(request.toJSON())
 
   return {
     status: 200,

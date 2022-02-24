@@ -1,6 +1,6 @@
 import 'dotenv/config';
 
-function envNonEmpty(name: string) {
+function envNonEmptyString(name: string) {
   const value = process.env[name];
   if (!value) {
     throw new Error(`${name} environment variable is required`);
@@ -8,5 +8,15 @@ function envNonEmpty(name: string) {
   return value;
 }
 
-export const MONGODB_URI = envNonEmpty('MONGODB_URI');
-export const MONGODB_DB = envNonEmpty('MONGODB_DB');
+function envStringArray(name: string) {
+  const value = process.env[name];
+  if (!value) {
+    return [];
+  } else {
+    return value.split(',').map((s) => s.trim());
+  }
+}
+
+export const MONGODB_URI = envNonEmptyString('MONGODB_URI');
+export const MONGODB_DB = envNonEmptyString('MONGODB_DB');
+export const QA_BLOCKED_IPS = envStringArray('QA_BLOCKED_IPS');
