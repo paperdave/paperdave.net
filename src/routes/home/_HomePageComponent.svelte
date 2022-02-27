@@ -4,7 +4,7 @@
   import Meta from '$lib/components/Meta.svelte';
   import HomePageAbout from './_HomePageAbout.svelte';
   import HomePageCategories from './_HomePageCategories.svelte';
-import HomePageExternals from './_HomePageExternals.svelte';
+  import HomePageExternals from './_HomePageExternals.svelte';
   import HomePageFresh from './_HomePageFresh.svelte';
   import HomePageHeader from './_HomePageHeader.svelte';
 
@@ -42,7 +42,7 @@ import HomePageExternals from './_HomePageExternals.svelte';
   description="davecode is a creative project by dave caruso to take computer software and its artistic and automation capabilities to the limits." />
 
 <flex>
-  <flex row class='first-row'>
+  <flex row class="first-row">
     <HomePageHeader />
     <HomePageFresh />
   </flex>
@@ -54,4 +54,9 @@ import HomePageExternals from './_HomePageExternals.svelte';
 </flex>
 
 <style lang="scss">
+  @media (max-width: 1950px) {
+    .second-row {
+      flex-direction: column;
+    }
+  }
 </style>

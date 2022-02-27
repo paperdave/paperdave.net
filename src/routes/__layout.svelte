@@ -20,26 +20,26 @@
 
 <slot />
 
-<span class='oob-text'>
+<!-- <span class='oob-text'>
   <a class='custom' href="https://github.com/davecaruso/davecode.net/tree/main/src/global.scss#L17">
     why do you have such a high-res screen???
   </a>
-</span>
+</span> -->
 
 <footer>
-  <flex center class='plane'>
+  <flex center class="plane">
     <PlaneSVG />
   </flex>
   <div class="grow">
     <p>&copy; 2018-2022 All Rights Reserved</p>
-    <p>made with <code class='love'>&lt;3</code> by dave caruso</p>
+    <p>made with <code class="love">&lt;3</code> by dave caruso</p>
   </div>
-  <div class="grow" style='text-align:right'>
+  <div class="grow" style="text-align:right">
     <!-- <a href="/center-footer" class='custom'>learn how to align a footer</a> -->
   </div>
 </footer>
 
-<style lang='scss'>
+<style lang="scss">
   footer {
     background-color: #101010;
     color: white;

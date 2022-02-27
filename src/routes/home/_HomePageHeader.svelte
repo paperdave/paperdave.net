@@ -5,10 +5,10 @@
   import ThemeRoot from '$lib/components/ThemeRoot.svelte';
 </script>
 
-<flex class='root'>
+<flex class="root">
   <ThemeRoot background="#a0e3a7">
     <HomePageHeaderBackground />
-    <flex grow row center class='border'>
+    <flex grow row center class="border">
       <header>
         <HomePageH1 />
         <article>
@@ -19,7 +19,7 @@
   </ThemeRoot>
 </flex>
 
-<style lang='scss'>
+<style lang="scss">
   .root {
     flex: 2.5 1 80rem;
   }
@@ -29,7 +29,7 @@
   .border {
     position: relative;
     z-index: 2;
-    border-bottom: 0.5rem solid hsla(0, 0%, 100%, 0.8);
+    border-bottom: 0.5rem solid #fafafa;
   }
   article {
     max-width: 40rem;

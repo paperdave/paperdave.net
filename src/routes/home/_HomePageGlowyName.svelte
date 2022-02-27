@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { throttle } from '$lib/utils/debounce';
+
   import { GLFX } from '$lib/vendor/glfx';
   import { onMount } from 'svelte';
 
@@ -50,7 +52,7 @@
     lastScrollPos = window.scrollY;
   });
 
-  function repaintCanvas() {
+  function repaintCanvasRaw() {
     tc.clearRect(0, 0, textureCanvas.width, textureCanvas.height);
     tc.fillStyle = '#fff';
     tc.textAlign = 'center';
@@ -78,6 +80,8 @@
     glfx.draw(texture).zoomBlur(blurPos.x, blurPos.y, blurAmount).brightnessContrast(3, 0).update();
     texture.destroy();
   }
+
+  const repaintCanvas = throttle(repaintCanvasRaw, (1000 / 60) * 3);
 
   function resizeHandler() {
     debouncedAnimationFrame('resize', () => {

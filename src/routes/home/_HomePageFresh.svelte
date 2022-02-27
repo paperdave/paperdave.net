@@ -12,7 +12,7 @@
         viewBox="0 0 100 100"
         preserveAspectRatio="none"
         style="position:absolute; width: 10rem; height: 100%; left: 0.5rem">
-        <path d="M100 0L50 33L60 66L0 100L0 0Z" fill="#0079c6" />
+        <path d="M100 0L50 33L60 66L0 100L0 0Z" fill="#fafafa" />
       </svg>
 
       <!-- this is a square right at the bottom left -->
@@ -23,7 +23,7 @@
         bottom: 0;
         height: 10rem;
         width: 0.5rem;
-        background: #0079c6;
+        background: #fafafa;
       " />
 
       <div class="inner-content">

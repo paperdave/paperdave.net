@@ -3,33 +3,46 @@
   import Button from '$lib/components/Button.svelte';
   import ThemeRoot from '$lib/components/ThemeRoot.svelte';
   import ChevonDownSVG from '$lib/svg/fluent/ChevronDown.svg?component';
+  import { gearRotations } from './homepage-stores';
+  import HomePageCategoriesBackground from './_HomePageCategoriesBackground.svelte';
+  import HomePageGearDivider from './_HomePageGearDivider.svelte';
 
   let currentPage: 'home' | 'blocks' | 'bts' = 'home';
+
+  function moveGears() {
+    $gearRotations += 1;
+  }
 
   function focusBTS(ev: MouseEvent) {
     ev.preventDefault();
     currentPage = 'bts';
+    moveGears();
   }
 
   function focusBlocks(ev: MouseEvent) {
     ev.preventDefault();
     currentPage = 'blocks';
+    moveGears();
   }
 
   function focusHome() {
     currentPage = 'home';
+    moveGears();
   }
 </script>
 
 <flex class="outer">
+  <HomePageGearDivider />
   <flex class="inner">
     <ThemeRoot background="#fff599" accent="#f77d0a">
+      <HomePageCategoriesBackground />
+
       <!-- this is the outline -->
       <svg
         viewBox="0 0 100 100"
         preserveAspectRatio="none"
         style="position:absolute; width: 10rem; height: 100%; left: 0.5rem">
-        <path d="M100 0L30 42L70 100L0 100L0 0Z" fill="#fffde6" />
+        <path d="M100 0L30 42L70 100L0 100L0 0Z" fill="#fafafa" />
       </svg>
 
       <flex class="content" grow center>
@@ -64,22 +77,10 @@
                   behind the scenes
                   <ChevonDownSVG />
                 </a>
-                <!-- <ul>
-                  bits & fragments
-                  journal
-                  thoughts
-                  fake admin
-                </ul> -->
                 <a class="link" href="/#blocks" on:click={focusBlocks}>
                   building blocks
                   <ChevonDownSVG />
                 </a>
-                <!-- <ul>
-                  creative toolkit
-                  plugins
-                  nerd gear
-                  documentation
-                </ul> -->
                 <a class="link" href="/donate">give chocolate</a>
                 <a class="link" href="/credits">credits</a>
               </flex>
@@ -113,6 +114,7 @@
     z-index: 1;
   }
   .outer {
+    position: relative;
     flex: 1 0 35rem;
   }
   .inner {
@@ -124,10 +126,11 @@
     clip-path: polygon(10rem 0, 100% 0, 100% 100%, 7rem 100%, 3rem 42%);
   }
   h2 {
+    --text-mono: 1;
+
     font-size: 4rem;
     color: hsl(var(--accent-base));
     text-shadow: shadow(3px, 1, hsl(var(--accent-dark-3)));
-    --text-mono: 1;
   }
   article {
     position: relative;

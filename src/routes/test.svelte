@@ -1,13 +1,14 @@
 <script>
-import Button from "$lib/components/Button.svelte";
+  import Button from '$lib/components/Button.svelte';
+  import ThemeRoot from '$lib/components/ThemeRoot.svelte';
 </script>
 
-<article>
-  <Button>Default</Button>
-  <Button variant='accent'>Accent</Button>
-  <Button variant='link'>Link</Button>
-  <Button variant='subtle'>Subtle</Button>
-</article>
+<ThemeRoot dark foreground="#0000ff">
+  <article>
+    <Button>Default</Button>
+    <a href="/">help</a>
+  </article>
+</ThemeRoot>
 
 <style>
   article {

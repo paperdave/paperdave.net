@@ -17,6 +17,7 @@ body {
   width: 100%;
   max-width: 3860px; // you should not be browsing above this lol
   margin: 0 auto;
+  overflow: hidden;
 }
 
 .oob-text {
@@ -107,12 +108,12 @@ ul {
 }
 
 html {
-  font-family: 'Recursive', sans-serif,
-    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; /* 1 */
+  font-family: 'Recursive', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+    'Noto Color Emoji'; /* 1 */
   line-height: 1.15;
 
   --text-mono: 0;
-  --text-casual: 0;  
+  --text-casual: 0;
   --text-slant: 0;
   --text-cursive: 0.5;
 
@@ -120,7 +121,8 @@ html {
 }
 
 * {
-  font-variation-settings: "MONO" var(--text-mono), "CASL" var(--text-casual), "slnt" var(--text-slant), "CRSV" var(--text-cursive);
+  font-variation-settings: 'MONO' var(--text-mono), 'CASL' var(--text-casual),
+    'slnt' var(--text-slant), 'CRSV' var(--text-cursive);
 }
 
 body {
@@ -164,10 +166,6 @@ hr {
 * https://github.com/tailwindcss/tailwindcss/issues/362
 */
 
-img {
-  border-style: solid;
-}
-
 textarea {
   resize: vertical;
 }
@@ -186,12 +184,7 @@ table {
   border-collapse: collapse;
 }
 
-:where(h1,
-h2,
-h3,
-h4,
-h5,
-h6):not(.custom) {
+:where(h1, h2, h3, h4, h5, h6):not(.custom) {
   font-family: 'Roboto Slab', sans-serif;
 }
 

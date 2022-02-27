@@ -5,9 +5,9 @@
 
   import BlurHashCanvas from './BlurHashCanvas.svelte';
 
-  export let resolutionX = 8;
-  export let resolutionY = 8;
-  export let punch = 1;
+  // export let resolutionX = 8;
+  // export let resolutionY = 8;
+  // export let punch = 1;
 
   export let hash: string;
   export let src: string;
@@ -39,7 +39,7 @@
 
 <main>
   {#if showCanvas}
-    <BlurHashCanvas {hash} {resolutionX} {resolutionY} {punch} />
+    <BlurHashCanvas {hash} />
   {/if}
   {#if browser}
     <img

@@ -47,7 +47,7 @@ theme-root {
   flex-grow: 1;
 }
 
-flex {
+:where(flex) {
   display: flex;
   &[row] {
     flex-direction: row;
@@ -87,6 +87,7 @@ a:not(.custom) {
     background-color: hsl(calc(var(--accent-hue) + 20), 100%, 50%);
     text-decoration: none;
   }
+  border-radius: 4px;
 }
 
 article {

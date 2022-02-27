@@ -21,13 +21,11 @@
             <ArticleAboutDaveCaruso />
           </article>
           <aside>
-            <div class="image1-container">
-              <div class="image1">
-                <BlurHash
-                  hash="TfJICXxuyD?^WAtRADoMVsI]axR5"
-                  src="/assets/photos/2022_SeniorGrad_1.jpg"
-                  alt="dave caruso face" />
-              </div>
+            <div class="img1">
+              <BlurHash
+                hash="TfJICXxuyD?^WAtRADoMVsI]axR5"
+                src="/assets/photos/2022_SeniorGrad_1.jpg"
+                alt="dave caruso face" />
             </div>
           </aside>
         </flex>
@@ -54,7 +52,7 @@
 
   .inner {
     width: 90%;
-    max-width: 70rem;
+    max-width: 80rem;
   }
 
   article {
@@ -64,7 +62,6 @@
   aside {
     margin-left: 1.5rem;
     flex: 1;
-    // background-color: rgba(100, 100, 100, 0.1);
   }
 
   h2 {
@@ -72,7 +69,9 @@
     align-items: baseline;
   }
 
-  .image1 {
+  .img1 {
     aspect-ratio: 0.76;
+    width: 13rem;
+    border: 4px solid #6d007a;
   }
 </style>
