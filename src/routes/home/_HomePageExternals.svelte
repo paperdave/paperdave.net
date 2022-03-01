@@ -1,21 +1,22 @@
 <script>
   import ThemeRoot from '$lib/components/ThemeRoot.svelte';
 
-  import AppleMusicSVG from '$lib/svg/thirdparty-icons/AppleMusic.svg?component';
-  import BandcampSVG from '$lib/svg/thirdparty-icons/Bandcamp.svg?component';
-  import DiscordSVG from '$lib/svg/thirdparty-icons/Discord.svg?component';
-  import GithubSVG from '$lib/svg/thirdparty-icons/Github.svg?component';
-  import InstagramSVG from '$lib/svg/thirdparty-icons/Instagram.svg?component';
-  import ItchSVG from '$lib/svg/thirdparty-icons/Itch.svg?component';
-  import TidalSVG from '$lib/svg/thirdparty-icons/Tidal.svg?component';
-  import NewgroundsSVG from '$lib/svg/thirdparty-icons/Newgrounds.svg?component';
-  import PatreonSVG from '$lib/svg/thirdparty-icons/Patreon.svg?component';
-  import SoundcloudSVG from '$lib/svg/thirdparty-icons/Soundcloud.svg?component';
-  import SpotifySVG from '$lib/svg/thirdparty-icons/Spotify.svg?component';
-  import TikTokSVG from '$lib/svg/thirdparty-icons/TikTok.svg?component';
-  import TwitchSVG from '$lib/svg/thirdparty-icons/Twitch.svg?component';
-  import TwitterSVG from '$lib/svg/thirdparty-icons/Twitter.svg?component';
-  import YoutubeSVG from '$lib/svg/thirdparty-icons/Youtube.svg?component';
+  import AppleMusicSVG from '$lib/svg/thirdparty-icons/AppleMusic.svg';
+  import BandcampSVG from '$lib/svg/thirdparty-icons/Bandcamp.svg';
+  import DiscordSVG from '$lib/svg/thirdparty-icons/Discord.svg';
+  import GithubSVG from '$lib/svg/thirdparty-icons/Github.svg';
+  import InstagramSVG from '$lib/svg/thirdparty-icons/Instagram.svg';
+  import ItchSVG from '$lib/svg/thirdparty-icons/Itch.svg';
+  import TidalSVG from '$lib/svg/thirdparty-icons/Tidal.svg';
+  import NewgroundsSVG from '$lib/svg/thirdparty-icons/Newgrounds.svg';
+  import PatreonSVG from '$lib/svg/thirdparty-icons/Patreon.svg';
+  import SoundcloudSVG from '$lib/svg/thirdparty-icons/Soundcloud.svg';
+  import SpotifySVG from '$lib/svg/thirdparty-icons/Spotify.svg';
+  import TikTokSVG from '$lib/svg/thirdparty-icons/TikTok.svg';
+  import TwitchSVG from '$lib/svg/thirdparty-icons/Twitch.svg';
+  import TwitterSVG from '$lib/svg/thirdparty-icons/Twitter.svg';
+  import YoutubeSVG from '$lib/svg/thirdparty-icons/Youtube.svg';
+  import HomePageGlobe3D from './_HomePageGlobe3D.svelte';
 
   const otherWebsites = [
     { name: 'Youtube', icon: YoutubeSVG, url: 'https://youtube.com/davecode' },
@@ -38,20 +39,24 @@
 
 <ThemeRoot background="#74d7c5">
   <div class="content">
-    <article>
-      <h2>other websites</h2>
-      <p>
-        dave most definetly have signed up to other websites, but here's his main public profiles.
-      </p>
-
-      <grid class="website-grid">
-        {#each otherWebsites as link}
-          <a class="custom icon-btn" href={link.url} title={link.name} target="_blank">
-            <svelte:component this={link.icon} />
-          </a>
-        {/each}
-      </grid>
-    </article>
+    <flex row center class="two-col">
+      <article>
+        <h2>other websites</h2>
+        <p>
+          dave most definetly have signed up to other websites, but here's his main public profiles.
+        </p>
+        <grid class="website-grid">
+          {#each otherWebsites as link}
+            <a class="custom icon-btn" href={link.url} title={link.name} target="_blank">
+              <svelte:component this={link.icon} />
+            </a>
+          {/each}
+        </grid>
+      </article>
+      <div class="globe">
+        <HomePageGlobe3D />
+      </div>
+    </flex>
   </div>
 </ThemeRoot>
 
@@ -60,6 +65,7 @@
     max-width: 25rem;
     margin: 0 auto;
   }
+
   .content {
     padding: 3rem 2rem;
     text-align: center;
@@ -67,17 +73,29 @@
   }
 
   grid {
+    margin: 2rem auto;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     display: grid;
-    width: 100%;
-    max-width: 30rem;
-    margin: 2rem auto;
+    width: 30rem;
+    margin: 2rem;
     gap: 2rem;
 
     a {
       display: flex;
       aspect-ratio: 1;
     }
+  }
+
+  .two-col {
+    gap: 2rem;
+  }
+
+  .globe {
+    width: 22rem;
+    height: 22rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .icon-btn {

@@ -2,10 +2,11 @@
   import { QuestionParagraph } from '$lib/structures';
 
   export let paragraph: QuestionParagraph;
+  export let search: string;
 </script>
 
-<main class:q={paragraph.isQuestion()} class:a={paragraph.isAnswer()}>
-  {@html paragraph.message}
+<main class:q={paragraph.who === 'QUESTION'} class:a={paragraph.who === 'ANSWER'}>
+  {@html paragraph.message.replace(search, '<span class="highlight">$&</span>')}
 </main>
 
 <style lang="scss">

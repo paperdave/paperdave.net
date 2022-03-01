@@ -2,7 +2,7 @@
   import BackButton from '$lib/components/BackButton.svelte';
   import Button from '$lib/components/Button.svelte';
   import ThemeRoot from '$lib/components/ThemeRoot.svelte';
-  import ChevonDownSVG from '$lib/svg/fluent/ChevronDown.svg?component';
+  import ChevonDownSVG from '$lib/svg/fluent/ChevronDown.svg';
   import { gearRotations } from './homepage-stores';
   import HomePageCategoriesBackground from './_HomePageCategoriesBackground.svelte';
   import HomePageGearDivider from './_HomePageGearDivider.svelte';

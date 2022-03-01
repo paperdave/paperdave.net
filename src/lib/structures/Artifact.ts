@@ -1,158 +1,144 @@
-import { Data, JSONData, recordToMap, schema } from './structure-utils';
+import { Instance, Structure, types } from '@davecode/structures';
+import { ArtifactVisibility } from './enums';
+import { DavecodeImage } from './Image';
+import { getBaseOrigin } from './url-helpers';
 
-export enum ArtifactVisibility {
-  PUBLIC = 'PUBLIC',
-  PRIVATE = 'PRIVATE',
-  DRAFT = 'DRAFT',
-  UNLISTED = 'UNLISTED',
+export enum ArtifactType {
+  Unknown,
+  Video,
+  Music,
+  App,
+  Journal,
+  Fragment,
+  WordMagnet,
+  Game,
+  NerdGear,
+  Story,
+  Square,
+  MusicVideo,
 }
 
-function getBaseOrigin() {
-  return typeof location === 'undefined' ? 'https://davecode.net' : location.origin
-}
+/**
+ * Represents some published media on my website. "Artifact" as in "you're exploring a website of
+ * old artifacts and you have to search and explore the vast sea of content."
+ */
+export const Artifact = new Structure('Artifact')
+  .prop('id', types.String.mustMatch(/[a-z0-9-]/g))
+  .prop('type', types.Integer, { default: ArtifactType.Unknown })
+  .prop('title', types.String, { default: 'Untitled' })
+  .prop('date', types.Date, { default: () => new Date() })
+  .prop('visibility', ArtifactVisibility, {
+    default: ArtifactVisibility.PRIVATE,
+  })
+  .prop('thumb', DavecodeImage.nullable)
+  .prop('tags', types.SetOf(types.String).nullable, { default: () => new Set() })
+  .method('getURL', function (origin = getBaseOrigin()) {
+    return new URL('/' + this.id, origin);
+  })
+  .create({ abstract: true });
 
-@schema('artifacts')
-export class Artifact {
-  static type = 'unknown';
+export const MediaFile = new Structure('MediaFile')
+  .prop('url', types.String)
+  .prop('type', types.String)
+  .prop('duration', types.Number.nullable)
+  .prop('width', types.Number.nullable)
+  .prop('height', types.Number.nullable)
+  .create();
 
-  id: string;
-  title: string;
-  date: Date;
-  thumbnail: string | undefined;
-  blurhash: string | undefined;
-  type: string;
-  tags: Set<string>;
-  data: Map<string, any>;
-  visibility: ArtifactVisibility;
+export const MixinFile = new Structure().prop('file', types.String.nullable);
 
-  constructor(data?: Data<Artifact>) {
-    if (data) {
-      this.id = data.id;
-      this.title = data.title;
-      this.date = new Date(data.date);
-      this.thumbnail = data.thumbnail;
-      this.blurhash = data.blurhash;
-      this.type = data.type;
-      this.tags = data.tags;
-      this.data = data.data;
-      this.visibility = data.visibility || ArtifactVisibility.PUBLIC;
-    } else {
-      this.id = '';
-      this.title = '';
-      this.date = new Date();
-      this.date.setSeconds(0);
-      this.date.setMinutes(0);
-      this.date.setHours(12);
-      this.thumbnail = undefined;
-      this.blurhash = undefined;
-      // @ts-ignore
-      this.type = this.constructor.type ?? 'unknown';
-      this.tags = new Set();
-      this.data = new Map();
-      this.visibility = ArtifactVisibility.DRAFT;
-    }
-  }
+export const VideoArtifact = Artifact.extend('VideoArtifact')
+  .prop('type', types.Integer.mustEqual(ArtifactType.Video))
+  .prop('video', MediaFile)
+  .prop('duration', types.Number.nullable)
+  .prop('ttms', types.Number.nullable)
+  .prop('source', types.String.nullable)
+  .create();
 
-  toJSON() {
-    const dataEntries = [...this.data.entries()] //
-      .filter(([key, value]) => value !== undefined && value !== null && value !== '');
-    const dataProperties = dataEntries.length > 0 ? Object.fromEntries(dataEntries) : undefined;
+export const MusicArtifact = Artifact.extend('MusicArtifact')
+  .prop('type', types.Integer.mustEqual(ArtifactType.Music))
+  .prop('music', MediaFile)
+  .prop('duration', types.Number.nullable)
+  .prop('sheetMusicUrl', types.String.nullable)
+  .create();
 
-    const data = {
-      _v: 0,
-      id: this.id,
-      title: this.title,
-      date: this.date.getTime(),
-      thumbnail: this.thumbnail ?? undefined,
-      blurhash: this.blurhash ?? undefined,
-      type: this.type,
-      tags: this.tags.size > 0 ? Array.from(this.tags) : undefined,
-      data: dataProperties,
-      visibility: this.visibility ?? ArtifactVisibility.DRAFT,
-    };
-    return data;
-  }
+/**
+ * Square artifacts are square photos (instagram clone). These do not use the File mixin but rather
+ * rely on the *thumbnail* property.
+ */
+export const SquareArtifact = Artifact.extend('SquareArtifact')
+  .prop('type', types.Integer.mustEqual(ArtifactType.Square))
+  .create();
 
-  static fromJSON(data: JSONData<Artifact>) {
-    return new Artifact({
-      id: data.id,
-      title: data.title,
-      date: new Date(data.date),
-      thumbnail: data.thumbnail,
-      blurhash: data.blurhash,
-      type: data.type,
-      tags: new Set(data.tags),
-      data: recordToMap(data.data ?? {}),
-      visibility: data.visibility,
+export const JournalArtifact = Artifact.extend('JournalArtifact')
+  .prop('type', types.Integer.mustEqual(ArtifactType.Journal))
+  .prop('file', MediaFile)
+  .prop('duration', types.Number.nullable)
+  .prop('editDate', types.Date.nullable)
+  .create();
+
+export const FragmentArtifact = Artifact.extend('FragmentArtifact')
+  .prop('type', types.Integer.mustEqual(ArtifactType.Fragment))
+  .prop('file', MediaFile)
+  .prop('for', types.String.nullable)
+  .create();
+
+export const StoryArtifact = Artifact.extend('StoryArtifact')
+  .prop('type', types.Integer.mustEqual(ArtifactType.Story))
+  .create();
+
+export const WordMagnetArtifact = Artifact.extend('WordMagnetArtifact')
+  .prop('type', types.Integer.mustEqual(ArtifactType.WordMagnet))
+  .create();
+
+const MixinSoftware = new Structure()
+  .prop('description', types.String.nullable)
+  .prop('version', types.String.nullable);
+
+export const AppArtifact = Artifact.extend('AppArtifact')
+  .prop('type', types.Integer.mustEqual(ArtifactType.App))
+  .mixin(MixinSoftware)
+  .create();
+
+export const NerdGearArtifact = Artifact.extend('NerdGearArtifact')
+  .prop('type', types.Integer.mustEqual(ArtifactType.NerdGear))
+  .mixin(MixinSoftware)
+  .create();
+
+export const GameArtifact = Artifact.extend('GameArtifact')
+  .prop('type', types.Integer.mustEqual(ArtifactType.Game))
+  .mixin(MixinSoftware)
+  .create();
+
+export const MusicVideoArtifact = Artifact.extend('MusicVideoArtifact')
+  .prop('type', types.Integer.mustEqual(ArtifactType.MusicVideo))
+  .mixin(MusicArtifact)
+  .mixin(VideoArtifact)
+  .method('toVideoArtifact', function () {
+    return new VideoArtifact({
+      ...this,
+      // this is a bug with structure
+      type: ArtifactType.Video as never,
     });
-  }
+  })
+  .method('toMusicArtifact', function () {
+    return new MusicArtifact({
+      ...this,
+      // this is a bug with structure
+      type: ArtifactType.Video as never,
+    });
+  })
+  .create();
 
-  setId(id: string) {
-    this.id = id;
-    return this;
-  }
-
-  setTitle(title: string) {
-    this.title = title;
-    return this;
-  }
-
-  setDate(date: Date) {
-    this.date = date;
-    return this;
-  }
-
-  setThumbnail(thumbnail: string) {
-    this.thumbnail = thumbnail;
-    return this;
-  }
-
-  setBlurHash(blurhash: string) {
-    this.blurhash = blurhash;
-    return this;
-  }
-
-  setType(type: string) {
-    this.type = type;
-    return this;
-  }
-
-  setTags(tags: string[] | Set<string>) {
-    this.tags = Array.isArray(tags) ? new Set(tags) : tags;
-    return this;
-  }
-
-  addTag(tag: string) {
-    this.tags.add(tag);
-    return this;
-  }
-
-  removeTag(tag: string) {
-    this.tags.delete(tag);
-    return this;
-  }
-
-  hasTag(tag: string) {
-    return this.tags.has(tag);
-  }
-
-  setProperty(key: string, value: any) {
-    this.data.set(key, value);
-    return this;
-  }
-
-  getProperty(key: string) {
-    return this.data.get(key);
-  }
-
-  setVisibility(visibility: ArtifactVisibility) {
-    this.visibility = visibility;
-    return this;
-  }
-
-  getUrl(domain = getBaseOrigin()) {
-    if (!domain.includes('://')) domain = 'https://' + domain;
-    return new URL(this.id, domain);
-  }
-    
-}
+export type Artifact = Instance<typeof Artifact>;
+export type VideoArtifact = Instance<typeof VideoArtifact>;
+export type MusicArtifact = Instance<typeof MusicArtifact>;
+export type SquareArtifact = Instance<typeof SquareArtifact>;
+export type JournalArtifact = Instance<typeof JournalArtifact>;
+export type FragmentArtifact = Instance<typeof FragmentArtifact>;
+export type StoryArtifact = Instance<typeof StoryArtifact>;
+export type WordMagnetArtifact = Instance<typeof WordMagnetArtifact>;
+export type AppArtifact = Instance<typeof AppArtifact>;
+export type NerdGearArtifact = Instance<typeof NerdGearArtifact>;
+export type GameArtifact = Instance<typeof GameArtifact>;
+export type MusicVideoArtifact = Instance<typeof MusicVideoArtifact>;

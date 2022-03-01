@@ -1,59 +1,44 @@
-import { MONGODB_DB, MONGODB_URI } from '$lib/env';
-import { JSONData } from '$lib/structures';
-import { Collection, MongoClient, ObjectId } from 'mongodb';
+import { MONGO_DB, REALM_APPID, REALM_TOKEN } from '$lib/env';
+import { Artifact, Question, QuestionRequest, Token, User } from '$lib/structures';
+import { DataType, Instance } from '@davecode/structures';
+import * as realm from 'realm-web';
+import { migrateArtifact } from './legacy-migrators';
+import { Database } from './realm-types';
+import { WrappedCollection } from './WrappedCollection';
 
-let connectionPromise: null | Promise<MongoClient> = null;
-let client: MongoClient | null = null;
+const collections = [
+  [Token, 'tokens', null],
+  [User, 'users', null],
+  [Artifact, 'artifacts', migrateArtifact],
+  [Question, 'questions', null],
+  [QuestionRequest, 'question-requests', null],
+] as const;
 
-if (global._mongoDbClient) {
-  client = global._mongoDbClient;
-} else {
-  connectionPromise = global._mongoDbConnectionPromise =
-    global._mongoDbConnectionPromise ??
-    new MongoClient(MONGODB_URI).connect().catch(() => {
-      connectionPromise = global._mongoDbConnectionPromise = new MongoClient(MONGODB_URI).connect();
-    });
+type CollectionType = Instance<typeof collections[number][0]>;
+
+declare global {
+  var realmDB: Database | undefined;
 }
 
-// connectionPromise = new Promise(() => {});
-
-export async function getDatabase<T>(
-  type:
-    | {
-        new (): T;
-      }
-    | { structureName: string }
-): Promise<Collection<JSONData<T> & { _id: ObjectId }>> {
-  if (connectionPromise) {
-    client = global._mongoDbClient = await connectionPromise;
+async function createRealmConnection() {
+  if (global.realmDB) {
+    return global.realmDB;
   }
-  connectionPromise = null;
-  const structureName = (type as any).structureName;
-  if (!structureName) {
-    throw new Error('Type is not tagged with @schema');
-  }
-  return client.db(MONGODB_DB).collection(structureName);
+  const App = new realm.App(REALM_APPID);
+  const credentials = realm.Credentials.apiKey(REALM_TOKEN);
+  const user = await App.logIn(credentials);
+  const client = user.mongoClient('mongodb-atlas');
+  global.realmDB = client.db(MONGO_DB);
+  return global.realmDB;
 }
 
-export type WithoutDatabaseInternals<X> = X extends Record<string, any>
-  ? Omit<X, '_id' | '_v'>
-  : X extends Array<infer Y>
-  ? WithoutDatabaseInternals<Y>[]
-  : X;
-
-export function stripDatabaseInternals<X>(x: X): any {
-  console.warn('stripDatabaseInternals is deprecated');
-  if (Array.isArray(x)) {
-    return x.map(stripDatabaseInternals) as any;
-  } else if (typeof x === 'object' && x) {
-    return Object.entries(x).reduce((acc, [key, value]) => {
-      if (key === '_id' || key === '_v') {
-        return acc;
-      } else {
-        return { ...acc, [key]: stripDatabaseInternals(value) };
-      }
-    }, {} as any);
-  } else {
-    return x as any;
+export async function getDatabase<T extends CollectionType>(
+  schema: DataType<T>
+): Promise<WrappedCollection<T>> {
+  const db = await createRealmConnection();
+  const [, name, migrator] = collections.find(([type]) => (type as any) === schema) ?? [];
+  if (!name) {
+    throw new Error(`No collection found for ${(schema as any).name}`);
   }
+  return new WrappedCollection(db.collection(name), schema, migrator);
 }

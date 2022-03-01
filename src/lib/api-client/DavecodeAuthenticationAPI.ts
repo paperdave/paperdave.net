@@ -1,7 +1,6 @@
-import { User } from '$lib/structures';
+import { ClientUser } from '$lib/structures';
 import { resolveAPIError } from '$lib/utils/promise';
-import type { LoginRequest, LoginSuccess } from 'src/routes/api/auth/login';
-import { APIClient } from './ApiClient';
+import { APIClient } from './APIClient';
 import { expires, token, user } from './session';
 
 /** Client API class that parallels the /artifact endpoints */
@@ -11,7 +10,7 @@ export class DavecodeAuthenticationAPI {
   /** Attempts to login your current session. Returns a boolean if your credientials were accepted. */
   async login(email: string, password: string): Promise<boolean> {
     const { response, err } = await resolveAPIError(
-      this.client.post<LoginRequest, LoginSuccess>('/auth/login', {
+      this.client.post('/auth/login', {
         email,
         password,
       })
@@ -24,7 +23,7 @@ export class DavecodeAuthenticationAPI {
     if (response && response.data.success) {
       token.set(response.data.token);
       expires.set(response.data.expires);
-      user.set(User.fromJSON(response.data.user));
+      user.set(ClientUser.fromJSON(response.data.user));
       return true;
     } else {
       throw err ?? new Error('Unknown error');

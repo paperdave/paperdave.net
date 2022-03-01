@@ -1,6 +1,7 @@
 <script>
   import ThemeRoot from '$lib/components/ThemeRoot.svelte';
-  import { GameArtifact, VideoArtifact } from '$lib/structures';
+  import { Artifact, ArtifactType, VideoArtifact } from '$lib/structures';
+  import { DavecodeImage } from '$lib/structures/Image';
   import HomePageFreshCard from './_HomePageFreshCard.svelte';
 </script>
 
@@ -32,27 +33,30 @@
           <p>last updated <code>2022-02-22</code></p>
           <ul>
             <HomePageFreshCard
-              artifact={VideoArtifact.fromJSON({
-                _v: 0,
+              artifact={new Artifact({
                 id: 'mayday',
-                title: 'Mayday',
-                date: 1645128900367,
-                thumbnail: 'https://media.davecode.net/content/2022/mayday-album.jpeg',
-                type: 'video',
-                tags: ['music video'],
-                visibility: 'PUBLIC',
+                // type: ArtifactType.Video,
+                // title: 'Mayday',
+                // date: new Date(1645128900367),
+                // thumb: new DavecodeImage({
+                //   url: 'https://media.davecode.net/content/2022/mayday.jpeg',
+                //   width: 1920,
+                //   height: 1080,
+                // }),
+                // tags: new Set(['music video']),
+                // visibility: 'PUBLIC',
               })} />
-            <HomePageFreshCard
+            <!-- <HomePageFreshCard
               artifact={GameArtifact.fromJSON({
                 _v: 0,
                 id: 'phoenix-write',
                 title: 'Phoenix, WRITE!',
-                date: 1645128900367,
-                thumbnail: 'https://via.placeholder.com/500x500',
+                date: 1635264000000,
+                thumbnail: 'https://media.davecode.net/content/2021/phoenix-write.png',
                 // blurhash: 'LIK[ib00GX}u00^+IqrXF]xG$%Ee',
                 type: 'game',
                 visibility: 'PUBLIC',
-              })} />
+              })} /> -->
           </ul>
         </article>
       </div>
@@ -78,7 +82,7 @@
 
     & > :global(theme-root) {
       flex: 1;
-      background: linear-gradient(#80d6ff, #4cc5ff);
+      background: linear-gradient(#4cc5ff, #20b8ff);
     }
   }
   .inner-content {
@@ -87,7 +91,7 @@
     align-items: center;
     flex: 1;
     padding-left: 10rem;
-    padding-top: 3rem;
+    padding-top: 1rem;
   }
   article {
     margin: 2rem auto;

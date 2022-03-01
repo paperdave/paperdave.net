@@ -2,7 +2,7 @@
   import { page } from '$app/stores';
   import ThemeRoot from '$lib/components/ThemeRoot.svelte';
 
-  $: fullWidth = $page.path === '/q+a/respond';
+  $: fullWidth = $page.url.pathname === '/q+a/respond';
 </script>
 
 <ThemeRoot background="#101010" accent="#22c6ad" linkColor="#22c6ad" dark>

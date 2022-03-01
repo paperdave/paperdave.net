@@ -18,8 +18,8 @@ function getDest(page: string) {
   return null;
 }
 
-export const get: RequestHandler = async ({ query }) => {
-  const page = query.get('page') ?? '';
+export const get: RequestHandler = async ({ url }) => {
+  const page = url.searchParams.get('page') ?? '';
 
   const dest = getDest(page);
 

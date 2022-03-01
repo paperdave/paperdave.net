@@ -1,13 +1,17 @@
 import { getDatabase } from '$lib/db';
-import { Permission, Question, QuestionRequest } from '$lib/structures';
-import { GenericSuccess, GetAPIHandler } from '$lib/utils/api';
+import { parseQuestionDateId, Permission, QuestionRequest } from '$lib/structures';
+import { RequestHandler, RequestHandlerOutput } from '@sveltejs/kit';
+
+interface Params {
+  rid: string;
+}
 
 /**
  * Gets a question request by it's date id.
  *
  * - Requires the `RESPOND_TO_QUESTIONS` permission.
  */
-export const get: GetAPIHandler<QuestionRequest> = async ({ params, locals }) => {
+export const get: RequestHandler<Params> = async ({ params, locals }) => {
   if (!locals.user.queryPermission(Permission.RESPOND_TO_QUESTIONS)) {
     return {
       status: 403,
@@ -19,7 +23,7 @@ export const get: GetAPIHandler<QuestionRequest> = async ({ params, locals }) =>
 
   const id = params.rid;
   const db = await getDatabase(QuestionRequest);
-  const parsed = Question.parseDateId(id);
+  const parsed = parseQuestionDateId(id);
   const request = await db.findOne({
     date: {
       $gte: parsed?.getTime(),
@@ -39,7 +43,7 @@ export const get: GetAPIHandler<QuestionRequest> = async ({ params, locals }) =>
   return {
     status: 200,
     body: QuestionRequest.fromJSON(request).toJSON(),
-  };
+  } as RequestHandlerOutput;
 };
 
 /**
@@ -47,7 +51,7 @@ export const get: GetAPIHandler<QuestionRequest> = async ({ params, locals }) =>
  *
  * - Requires the `RESPOND_TO_QUESTIONS` permission.
  */
-export const del: GetAPIHandler<GenericSuccess> = async ({ params, locals }) => {
+export const del: RequestHandler<Params> = async ({ params, locals }) => {
   if (!locals.user.queryPermission(Permission.RESPOND_TO_QUESTIONS)) {
     return {
       status: 403,
@@ -59,7 +63,7 @@ export const del: GetAPIHandler<GenericSuccess> = async ({ params, locals }) => 
 
   const id = params.rid;
   const db = await getDatabase(QuestionRequest);
-  const parsed = Question.parseDateId(id);
+  const parsed = parseQuestionDateId(id);
   const request = await db.findOne({
     date: {
       $gte: parsed?.getTime(),

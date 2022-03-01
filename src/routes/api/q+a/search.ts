@@ -1,7 +1,7 @@
+import { StructureJSON } from '$lib/api-client/api-shared';
 import { getDatabase } from '$lib/db';
-import { JSONData, Question } from '$lib/structures';
-import { QuestionPage } from '$lib/structures/QuestionPage';
-import { GetAPIHandler } from '$lib/utils/api';
+import { Question, QuestionPage } from '$lib/structures';
+import { RequestHandler, RequestHandlerOutput } from '@sveltejs/kit';
 
 const SEARCH_LIMIT = 20;
 
@@ -10,37 +10,34 @@ const SEARCH_LIMIT = 20;
  *
  * - A query parameter of "q" must be provided, with the search query.
  */
-export const get: GetAPIHandler<QuestionPage> = async ({ query }) => {
+export const get: RequestHandler = async ({ url }) => {
   const db = await getDatabase(Question);
 
-  const search = query.get('q') ?? '';
+  const search = url.searchParams.get('q') ?? '';
 
-  const questions = await db
-    .aggregate([
-      {
-        $search: {
-          index: 'default',
-          text: {
-            query: search,
-            path: {
-              wildcard: '*',
-            },
+  const questions = await db.raw.aggregate([
+    {
+      $search: {
+        index: 'default',
+        text: {
+          query: search,
+          path: {
+            wildcard: '*',
           },
         },
       },
-      {
-        $limit: 20,
-      },
-    ])
-    .limit(SEARCH_LIMIT)
-    .toArray();
+    },
+    {
+      $limit: SEARCH_LIMIT,
+    },
+  ]);
 
   return {
     status: 200,
-    body: QuestionPage.fromJSON({
+    body: new QuestionPage({
       id: -1,
-      questions: questions as JSONData<Question>[],
+      questions: questions.map((q: StructureJSON) => Question.fromJSON(q)),
       latest: false,
     }).toJSON(),
-  };
+  } as RequestHandlerOutput;
 };

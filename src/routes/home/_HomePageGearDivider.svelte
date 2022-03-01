@@ -93,7 +93,7 @@
   }
 
   .background {
-    background: linear-gradient(#4cc5ff 0%, #f5f5f5 50%, #fff599 100%);
+    background: linear-gradient(#20b8ff 0%, #f5f5f5 50%, #fff599 100%);
     position: absolute;
     top: 50%;
     left: 0;

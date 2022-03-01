@@ -5,7 +5,7 @@
     return {
       props: {
         status: status,
-        message: String(error?.message).toLowerCase(),
+        message: String(error?.message),
         stack: error?.stack,
       },
     };
@@ -20,13 +20,7 @@
   export let stack: string;
 
   const variant: ErrorPageVariant =
-    status === 404
-      ? 'NOT_FOUND'
-      : status >= 500
-      ? 'ERROR'
-      : status >= 400
-      ? 'ERROR'
-      : 'UNKNOWN';
+    status === 404 ? 'NOT_FOUND' : status >= 500 ? 'ERROR' : status >= 400 ? 'ERROR' : 'UNKNOWN';
 
   const error: Error = {
     name: 'Error',

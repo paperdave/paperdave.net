@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Question } from '$lib/structures';
-  import LinkSVG from '$lib/svg/fluent/Link.svg?component';
+  import LinkSVG from '$lib/svg/fluent/Link.svg';
   import { formatDate } from '$lib/utils/date';
 
   export let question: Question;

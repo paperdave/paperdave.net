@@ -1,6 +1,6 @@
 <script>
   import HomePageTitleChar from './_HomePageTitleChar.svelte';
-  import PlaneSVG from '$lib/svg/brand/Plane.svg?component';
+  import PlaneSVG from '$lib/svg/brand/Plane.svg';
 
   let titleOrder = 'Davecode';
   const titleColors = {
@@ -25,7 +25,7 @@
   </div>
 </h1>
 
-<style lang='scss'>
+<style lang="scss">
   h1 {
     position: relative;
   }
@@ -40,5 +40,4 @@
     align-items: center;
     margin-left: 1rem;
   }
-
 </style>

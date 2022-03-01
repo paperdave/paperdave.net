@@ -1,6 +1,6 @@
 <script lang="ts">
   import QaInput from './_QAInput.svelte';
-  import AlertSVG from '$lib/svg/fluent/Alert.svg?component';
+  import AlertSVG from '$lib/svg/fluent/Alert.svg';
   import QuestionCompose from './_QuestionCompose.svelte';
   import { QuestionRequest } from '$lib/structures';
   import { fade } from 'svelte/transition';
@@ -17,7 +17,9 @@
     ev.preventDefault();
     sending = true;
 
-    const request = new QuestionRequest().setContent(questionText);
+    const request = new QuestionRequest({
+      content: questionText,
+    });
 
     const response = await API.questions.createRequest(request);
     if (response) {

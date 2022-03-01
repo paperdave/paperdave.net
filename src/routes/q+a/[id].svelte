@@ -1,10 +1,10 @@
 <script context="module" lang="ts">
   import { Question } from '$lib/structures';
-
   import type { Load } from '@sveltejs/kit';
 
-  export const load: Load = async ({ page, fetch }) => {
-    const qid = page.params.id;
+  export const load: Load = async ({ fetch, params }) => {
+    const qid = params.id;
+
     if (!qid.match(/^[0-9]{12}$/)) return;
 
     const API = wrapAPI(fetch);

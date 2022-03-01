@@ -1,9 +1,8 @@
-import { Question, QuestionPage, QuestionRequest } from '$lib/structures';
+import { parseQuestionDateId, Question, QuestionPage, QuestionRequest } from '$lib/structures';
 import { GenericSuccess } from '$lib/utils/api';
 import { formatDate } from '$lib/utils/date';
-import { QuestionSubmitSuccess } from 'src/routes/api/q+a/request';
-import { QuestionPostSuccess } from 'src/routes/api/q+a/[qid]';
-import { APIClient } from './ApiClient';
+import { StructureJSON } from './api-shared';
+import { APIClient } from './APIClient';
 
 /** Client API class that parallels the /q+a endpoints */
 export class DavecodeQuestionAPI {
@@ -34,13 +33,13 @@ export class DavecodeQuestionAPI {
   }
 
   async createRequest(request: QuestionRequest) {
-    const r = await this.client.post<QuestionRequest, QuestionSubmitSuccess>(
+    const r = await this.client.post<StructureJSON, StructureJSON>(
       `/q+a/request`,
       request.toJSON()
     );
 
     const cloned = new QuestionRequest(request);
-    cloned.setDate(Question.parseDateId(r.data.id) ?? new Date());
+    cloned.date = parseQuestionDateId(r.data.id) ?? new Date();
 
     if (r.data && r.data.success) {
       return cloned;
@@ -50,7 +49,7 @@ export class DavecodeQuestionAPI {
   }
 
   async createQuestion(question: Question) {
-    const r = await this.client.post<Question, QuestionPostSuccess>(
+    const r = await this.client.post<StructureJSON, StructureJSON>(
       `/q+a/${question.getDateId()}`,
       question.toJSON()
     );

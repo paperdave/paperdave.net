@@ -2,9 +2,9 @@
   import type { Load } from '@sveltejs/kit';
   import QAHeader from './_QAHeader.svelte';
 
-  export const load: Load = async ({ page, fetch }) => {
+  export const load: Load = async ({ url, fetch }) => {
     const API = wrapAPI(fetch);
-    const pageNumber = parseInt(page.query.get('page') || '');
+    const pageNumber = parseInt(url.searchParams.get('page') || '');
     const qpage = await API.questions.getPage(isNaN(pageNumber) ? 'latest' : pageNumber);
 
     if (!qpage) {
@@ -28,13 +28,13 @@
   import QuestionRender from './_QuestionRender.svelte';
   import BackButton from '$lib/components/BackButton.svelte';
   import { wrapAPI } from '$lib/api-client/singleton';
-  import { QuestionPage } from '$lib/structures/QuestionPage';
+  import { QuestionPage } from '$lib/structures';
   import { user } from '$lib/api-client/session';
   import { Permission } from '$lib/structures';
 
   export let qpage: QuestionPage;
 
-  $: if (qpage.latest && $page.query.has('page')) {
+  $: if (qpage.latest && $page.url.searchParams.has('page')) {
     history.replaceState(null, '', '/q+a');
   }
 
@@ -57,7 +57,7 @@
       |
       <a href="/q+a/random">random</a>
       |
-      {#if $page.path === '/q+a' && $page.query.get('page') === '0'}
+      {#if $page.url.pathname === '/q+a' && $page.url.searchParams.get('page') === '0'}
         <strong>start</strong>
       {:else}
         <a href="/q+a?page=0">start</a>

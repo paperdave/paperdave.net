@@ -1,23 +1,27 @@
+import { StructureJSON } from '$lib/api-client/api-shared';
 import { getDatabase } from '$lib/db';
-import { JSONData, User } from '$lib/structures';
-import { APIErrorResponse, APIHandler, APIResponse, GenericSuccess } from '$lib/utils/api';
+import { Token, User } from '$lib/structures';
+import { GenericSuccess } from '$lib/utils/api';
+import { Instance, Structure, types } from '@davecode/structures';
+import { RequestHandler, RequestHandlerOutput } from '@sveltejs/kit';
 import { createHash, randomBytes } from 'crypto';
-import { EXPIRE_TIME, Token } from '../../../hooks';
 
 // note: move to bcrypt for passwords. but i dont care since it's literally one user account LOL.
 
-export interface LoginRequest {
-  email: string;
-  password: string;
-}
+export const LoginRequest = new Structure('LoginRequest')
+  .prop('email', types.String)
+  .prop('password', types.String)
+  .create();
+
+export type LoginRequest = Instance<typeof LoginRequest>;
 
 export interface LoginSuccess extends GenericSuccess {
-  user: JSONData<User>;
+  user: StructureJSON;
   token: string;
   expires: number;
 }
 
-const IncorrectLogin: APIResponse<APIErrorResponse> = {
+const IncorrectLogin: RequestHandlerOutput = {
   status: 401,
   body: {
     error: 'Incorrect email or password.',
@@ -36,8 +40,8 @@ function generateTokenString() {
 }
 
 /** Creates a login token */
-export const post: APIHandler<LoginRequest, LoginSuccess> = async ({ body, locals }) => {
-  const { email, password } = body;
+export const post: RequestHandler = async ({ request }) => {
+  const { email, password } = LoginRequest.fromJSON(await request.json());
 
   const userDB = await getDatabase(User);
   const find = await userDB.findOne({ email });
@@ -54,21 +58,21 @@ export const post: APIHandler<LoginRequest, LoginSuccess> = async ({ body, local
   }
 
   const tokenText = await generateTokenString();
+  const tokenDB = await getDatabase(Token);
 
-  const tokenDB = await getDatabase<Token>({ structureName: 'tokens' });
-  await tokenDB.insertOne({
+  const token = new Token({
     email: user.email,
     token: tokenText,
-    expires: Date.now() + EXPIRE_TIME,
   });
+
+  await tokenDB.insertOne(token);
 
   return {
     status: 200,
     body: {
       success: true,
-      user: user.toClientJSON(),
-      token: tokenText,
-      expires: Date.now() + EXPIRE_TIME,
+      user: user.toClientUser().toJSON(),
+      token: token.toJSON(),
     },
-  };
+  } as RequestHandlerOutput;
 };

@@ -1,7 +1,7 @@
-import { APIHandler, GenericSuccess } from '$lib/utils/api';
+import { RequestHandler } from '@sveltejs/kit';
 
 /** Refreshes the users token. */
-export const post: APIHandler<{}, GenericSuccess> = async ({}) => {
+export const post: RequestHandler = async ({}) => {
   // Token regeneration is handled by the authorization hook.
   return {
     status: 200,

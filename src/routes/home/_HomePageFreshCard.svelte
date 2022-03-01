@@ -11,9 +11,9 @@
   }
 </script>
 
-<Button href={artifact.getUrl()} variant="normal">
+<Button href={artifact.getURL()} variant="normal">
   <flex row class="root">
-    {#if artifact.thumbnail}
+    <!-- {#if artifact.thumbnail}
       <div class="thumbnail">
         {#if artifact.blurhash}
           <BlurHash src={artifact.thumbnail} hash={artifact.blurhash} alt={artifact.title} />
@@ -21,12 +21,12 @@
           <img src={artifact.thumbnail} alt={artifact.title} />
         {/if}
       </div>
-    {/if}
+    {/if} -->
     <flex>
       <h3 class="custom">{artifact.title}</h3>
-      <p>
+      <!-- <p>
         {formatType(artifact.type)}
-      </p>
+      </p> -->
       <p>
         {formatDate(artifact.date, 'date')}
       </p>
@@ -41,8 +41,11 @@
   .thumbnail {
     display: flex;
     height: 6rem;
-    width: 6rem;
+    aspect-ratio: 16/9;
     margin-right: 10px;
+    border-radius: 3px;
+    overflow: hidden;
+    border: 1px solid white;
     & > * {
       flex: 1;
     }

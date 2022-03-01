@@ -10,7 +10,7 @@
 <main>
   <QuestionDate {question} />
   {#each question.content as paragraph}
-    <QuestionParagraph {paragraph} />
+    <QuestionParagraph {paragraph} {search} />
   {/each}
 </main>
 

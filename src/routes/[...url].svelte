@@ -5,10 +5,10 @@
   import { SvelteComponentTyped } from 'svelte/internal';
   import { wrapAPI } from '$lib/api-client/singleton';
 
-  export const load: Load = async ({ page, fetch }) => {
+  export const load: Load = async ({ url, fetch }) => {
     const API = wrapAPI(fetch);
 
-    const artifactId = page.path.slice(1);
+    const artifactId = url.pathname.slice(1);
     if (artifactId.match(/^[a-z0-9_-]+$/)) {
       const artifact = await API.artifacts.getArtifact(artifactId);
       if (artifact) {
@@ -20,7 +20,7 @@
       }
     }
 
-    const json = await fetch(`/get-redirect?page=${encodeURIComponent(page.path)}`) //
+    const json = await fetch(`/get-redirect?page=${encodeURIComponent(url.pathname)}`) //
       .then((res) => res.json());
 
     if (json.redirect) {

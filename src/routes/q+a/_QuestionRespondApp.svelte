@@ -3,10 +3,10 @@
   import { escapeHTML } from '$lib/utils/escapeHTML';
   import QaInput from './_QAInput.svelte';
   import QuestionRender from './_QuestionRender.svelte';
-  import DismissSVG from '$lib/svg/fluent/Dismiss.svg?component';
-  import AddSVG from '$lib/svg/fluent/Add.svg?component';
-  import ChevronUpSVG from '$lib/svg/fluent/ChevronUp.svg?component';
-  import ChevronDownSVG from '$lib/svg/fluent/ChevronDown.svg?component';
+  import DismissSVG from '$lib/svg/fluent/Dismiss.svg';
+  import AddSVG from '$lib/svg/fluent/Add.svg';
+  import ChevronUpSVG from '$lib/svg/fluent/ChevronUp.svg';
+  import ChevronDownSVG from '$lib/svg/fluent/ChevronDown.svg';
   import { createEventDispatcher } from 'svelte';
 
   const events = createEventDispatcher();

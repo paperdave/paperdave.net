@@ -1,5 +1,5 @@
 import { browser } from '$app/env';
-import { User } from '$lib/structures';
+import { ClientUser, User } from '$lib/structures';
 import { localStorage as local, persist } from '@macfja/svelte-persistent-store';
 import { get, writable } from 'svelte/store';
 
@@ -8,7 +8,7 @@ export const expires = persist(writable<number | null>(null), local(true), 'Sess
 
 const initialUser = browser ? localStorage.getItem('Session.user') : null;
 
-export const user = writable<User | null>(
+export const user = writable<ClientUser | null>(
   initialUser ? User.fromJSON(JSON.parse(initialUser)) : null
 );
 
@@ -22,7 +22,7 @@ if (browser) {
     }
   });
 
-  function saveUser(newUser: User | null) {
+  function saveUser(newUser: ClientUser | null) {
     if (!updating) {
       updating = true;
       localStorage.setItem('Session.user', JSON.stringify(newUser));
