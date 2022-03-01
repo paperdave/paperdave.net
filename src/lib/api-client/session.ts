@@ -4,7 +4,7 @@ import { get, writable } from 'svelte/store';
 
 const initialUser = browser ? localStorage.getItem('Session.user') : null;
 export const user = writable<ClientUser | null>(
-  initialUser ? User.fromJSON(JSON.parse(initialUser)) : null
+  initialUser ? ClientUser.fromJSON(JSON.parse(initialUser)) : null
 );
 
 const initialToken = browser ? localStorage.getItem('Session.token') : null;
@@ -26,8 +26,8 @@ if (browser) {
     }
 
     const newToken = localStorage.getItem('Session.token');
-    if (newUser) {
-      user.set(User.fromJSON(JSON.parse(newUser)));
+    if (newToken) {
+      token.set(Token.fromJSON(JSON.parse(newToken)));
     }
   });
 
