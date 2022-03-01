@@ -1,6 +1,6 @@
-import { Artifact, ArtifactType } from '$lib/structures';
+import { Artifact, ArtifactType, User } from '$lib/structures';
 
-const types = {
+const afTypes = {
   video: ArtifactType.Video,
   music: ArtifactType.Music,
   app: ArtifactType.App,
@@ -19,7 +19,7 @@ export const migrateArtifact = (data: any): Artifact => {
     id: data.id,
     title: data.title,
     tags: data.tags,
-    type: types[data.type as keyof typeof types],
+    type: afTypes[data.type as keyof typeof afTypes],
     visibility: data.visibility,
     date: data.date,
   };
@@ -46,4 +46,25 @@ export const migrateArtifact = (data: any): Artifact => {
   }
 
   return Artifact.fromJSON(payload);
+};
+
+export const mirgrateUser = (data: any): User => {
+  const payload: any = {
+    id: data.id,
+    name: data.name,
+    email: data.email,
+    permissions: data.permissions,
+    passwordHash: data.passwordHash,
+    salt: data.salt,
+  };
+
+  if (data.avatar) {
+    payload.avatar = {
+      url: data.avatar,
+      width: 256,
+      height: 256,
+    };
+  }
+
+  return User.fromJSON(payload);
 };

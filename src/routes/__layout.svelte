@@ -2,6 +2,7 @@
   import '../global.scss';
   import '../theme.scss';
   import PlaneSVG from '$lib/svg/brand/Plane.svg';
+  import { API } from '$lib/api-client/singleton';
 
   if (process.env.NODE_ENV === 'production' && typeof window !== 'undefined') {
     console.log('hey nerd.');
@@ -12,7 +13,7 @@
   if (process.env.NODE_ENV === 'development' && typeof window !== 'undefined') {
     console.log('hey developer');
 
-    // (window as any).API = API;
+    (window as any).API = API;
   }
 </script>
 

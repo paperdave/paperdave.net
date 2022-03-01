@@ -40,7 +40,7 @@ export class APIClient {
     const response = await this.fetchFunction(`${this.baseUrl}${url}`, {
       method,
       headers: {
-        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        ...(token ? { Authorization: `Bearer ${token.token}` } : {}),
         ...(body ? { 'Content-Type': 'application/json' } : {}),
       },
       body: body ? JSON.stringify(body) : undefined,

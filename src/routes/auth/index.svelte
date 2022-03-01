@@ -4,7 +4,7 @@
   import { API } from '$lib/api-client/singleton';
   import { decodeRedirect } from '$lib/utils/encodeRedirect';
 
-  $: returnPage = $page.query.get('r') ?? '/profile';
+  $: returnPage = $page.url.searchParams.get('r') ?? '/profile';
 
   let email = 'dave@davecode.net';
   let password = '';

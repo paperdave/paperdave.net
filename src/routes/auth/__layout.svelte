@@ -7,8 +7,8 @@
 <main>
   <BackButton
     position="off-center"
-    href={$page.path === '/auth' ? '/' : '/auth'}
-    text={$page.path === '/auth' ? 'go home' : 'nevermind'} />
+    href={$page.url.pathname === '/auth' ? '/' : '/auth'}
+    text={$page.url.pathname === '/auth' ? 'go home' : 'nevermind'} />
 
   <section>
     <slot />

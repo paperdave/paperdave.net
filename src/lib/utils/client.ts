@@ -15,19 +15,18 @@ export function restrictedPage(permissions: Permission[], load = defaultLoadFunc
         props: {},
       };
     }
-    const page = input.page;
     const user = getUser();
     if (!user) {
       return {
         status: 302,
-        redirect: '/auth?r=' + encodeRedirect(page.path.slice(1)),
+        redirect: '/auth?r=' + encodeRedirect(input.url.pathname.slice(1)),
       };
-    } else if (!user.queryPermissions(permissions)) {
+    } else if (!permissions.every((permission) => user.queryPermission(permission))) {
       return {
         status: 302,
         redirect:
           '/auth/missing-permissions?r=' +
-          encodeRedirect(page.path.slice(1)) +
+          encodeRedirect(input.url.pathname.slice(1)) +
           '&p=' +
           permissions.join(','),
       };

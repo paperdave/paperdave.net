@@ -1,11 +1,11 @@
 import { Instance, Structure, types } from '@davecode/structures';
 import { Permission } from './enums';
-import { DavecodeImage } from './Image';
+import { Media } from './Media';
 
 export const ClientUser = new Structure('ClientUser')
   .prop('name', types.String)
   .prop('email', types.String)
-  .prop('avatar', DavecodeImage.nullable)
+  .prop('avatar', Media.nullable)
   .prop('permissions', types.SetOf(Permission), { default: () => new Set() })
   .method('queryPermission', function (permission: Permission) {
     return this.permissions.has(Permission.DAVE) || this.permissions.has(permission);

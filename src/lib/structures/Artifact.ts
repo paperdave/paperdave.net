@@ -1,6 +1,6 @@
 import { Instance, Structure, types } from '@davecode/structures';
 import { ArtifactVisibility } from './enums';
-import { DavecodeImage } from './Image';
+import { Media } from './Media';
 import { getBaseOrigin } from './url-helpers';
 
 export enum ArtifactType {
@@ -30,7 +30,7 @@ export const Artifact = new Structure('Artifact')
   .prop('visibility', ArtifactVisibility, {
     default: ArtifactVisibility.PRIVATE,
   })
-  .prop('thumb', DavecodeImage.nullable)
+  .prop('thumb', Media.nullable)
   .prop('tags', types.SetOf(types.String).nullable, { default: () => new Set() })
   .method('getURL', function (origin = getBaseOrigin()) {
     return new URL('/' + this.id, origin);

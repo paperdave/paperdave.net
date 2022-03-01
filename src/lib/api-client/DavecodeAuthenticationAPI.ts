@@ -1,7 +1,7 @@
-import { ClientUser } from '$lib/structures';
+import { ClientUser, Token } from '$lib/structures';
 import { resolveAPIError } from '$lib/utils/promise';
 import { APIClient } from './APIClient';
-import { expires, token, user } from './session';
+import { token, user } from './session';
 
 /** Client API class that parallels the /artifact endpoints */
 export class DavecodeAuthenticationAPI {
@@ -21,12 +21,16 @@ export class DavecodeAuthenticationAPI {
     }
 
     if (response && response.data.success) {
-      token.set(response.data.token);
-      expires.set(response.data.expires);
       user.set(ClientUser.fromJSON(response.data.user));
+      token.set(Token.fromJSON(response.data.token));
       return true;
     } else {
       throw err ?? new Error('Unknown error');
     }
+  }
+
+  async logout() {
+    user.set(null);
+    token.set(null);
   }
 }

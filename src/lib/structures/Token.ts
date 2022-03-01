@@ -6,7 +6,7 @@ export const TOKEN_LENGTH = 32;
 /** Documentation etc */
 export const Token = new Structure('Token')
   .prop('email', types.String)
-  .prop('token', types.String.length(TOKEN_LENGTH))
+  .prop('token', types.String)
   .prop('expires', types.Date, {
     default: () => new Date(Date.now() + TOKEN_EXPIRE_TIME),
   })

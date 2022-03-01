@@ -2,13 +2,13 @@ import { MONGO_DB, REALM_APPID, REALM_TOKEN } from '$lib/env';
 import { Artifact, Question, QuestionRequest, Token, User } from '$lib/structures';
 import { DataType, Instance } from '@davecode/structures';
 import * as realm from 'realm-web';
-import { migrateArtifact } from './legacy-migrators';
+import { migrateArtifact, mirgrateUser } from './legacy-migrators';
 import { Database } from './realm-types';
 import { WrappedCollection } from './WrappedCollection';
 
 const collections = [
   [Token, 'tokens', null],
-  [User, 'users', null],
+  [User, 'users', mirgrateUser],
   [Artifact, 'artifacts', migrateArtifact],
   [Question, 'questions', null],
   [QuestionRequest, 'question-requests', null],

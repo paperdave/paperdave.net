@@ -18,4 +18,3 @@ export function getProperties<T>(data: T, props: string | null): T {
   });
   return obj;
 }
-"

@@ -1,7 +1,6 @@
 <script>
   import ThemeRoot from '$lib/components/ThemeRoot.svelte';
   import { Artifact, ArtifactType, VideoArtifact } from '$lib/structures';
-  import { DavecodeImage } from '$lib/structures/Image';
   import HomePageFreshCard from './_HomePageFreshCard.svelte';
 </script>
 

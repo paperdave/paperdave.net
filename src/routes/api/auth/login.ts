@@ -1,6 +1,6 @@
 import { StructureJSON } from '$lib/api-client/api-shared';
 import { getDatabase } from '$lib/db';
-import { Token, User } from '$lib/structures';
+import { Token, TOKEN_LENGTH, User } from '$lib/structures';
 import { GenericSuccess } from '$lib/utils/api';
 import { Instance, Structure, types } from '@davecode/structures';
 import { RequestHandler, RequestHandlerOutput } from '@sveltejs/kit';
@@ -30,7 +30,7 @@ const IncorrectLogin: RequestHandlerOutput = {
 
 function generateTokenString() {
   return new Promise<string>((resolve, reject) => {
-    randomBytes(32, function (err, buffer) {
+    randomBytes(TOKEN_LENGTH, function (err, buffer) {
       if (err) {
         reject(err);
       }
@@ -44,13 +44,14 @@ export const post: RequestHandler = async ({ request }) => {
   const { email, password } = LoginRequest.fromJSON(await request.json());
 
   const userDB = await getDatabase(User);
-  const find = await userDB.findOne({ email });
+  const user = await userDB.findOne({ email });
 
-  if (!find) {
+  console.log(user);
+
+  if (!user) {
     return IncorrectLogin;
   }
 
-  const user = User.fromJSON(find);
   const hashed = createHash('sha256').update(`${user.salt}_${email}_${password}`).digest('hex');
 
   if (user.passwordHash !== hashed) {
