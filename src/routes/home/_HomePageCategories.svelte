@@ -3,9 +3,11 @@
   import Button from '$lib/components/Button.svelte';
   import ThemeRoot from '$lib/components/ThemeRoot.svelte';
   import ChevonDownSVG from '$lib/svg/fluent/ChevronDown.svg';
+  import ArrowLeftSVG from '$lib/svg/fluent/ArrowLeft.svg';
   import { gearRotations } from './homepage-stores';
   import HomePageCategoriesBackground from './_HomePageCategoriesBackground.svelte';
   import HomePageGearDivider from './_HomePageGearDivider.svelte';
+  import { fade, scale } from 'svelte/transition';
 
   let currentPage: 'home' | 'blocks' | 'bts' = 'home';
 
@@ -48,8 +50,13 @@
       <flex class="content" grow center>
         <article>
           {#if currentPage !== 'home'}
-            <div class="back-button-container">
-              <Button variant="subtle" on:click={focusHome}>&lt;- all categories</Button>
+            <div
+              class="back-button-container"
+              in:scale={{ start: 0.6, opacity: 0, duration: 100 }}
+              out:fade={{ duration: 100 }}>
+              <Button variant="subtle" on:click={focusHome}>
+                <ArrowLeftSVG />
+              </Button>
             </div>
           {/if}
           <h2 class="custom">
@@ -67,39 +74,40 @@
               <flex class="col">
                 <a class="link" href="/music">music</a>
                 <a class="link" href="/videos">videos</a>
-                <a class="link" href="/stories">stories</a>
-                <a class="link" href="/games">games</a>
-                <a class="link" href="/applications">applications</a>
+                <a disabled class="link" href="/stories">stories</a>
+                <a disabled class="link" href="/games">games</a>
+                <a disabled class="link" href="/applications">applications</a>
               </flex>
               <flex class="col">
                 <a class="link" href="/q+a">ask a question</a>
-                <a class="link" href="/#bts" on:click={focusBTS}>
+                <!-- <a class="link" href="/#bts" on:click={focusBTS}>
                   behind the scenes
                   <ChevonDownSVG />
                 </a>
                 <a class="link" href="/#blocks" on:click={focusBlocks}>
                   building blocks
                   <ChevonDownSVG />
-                </a>
+                </a> -->
                 <a class="link" href="/donate">give chocolate</a>
                 <a class="link" href="/credits">credits</a>
               </flex>
             {:else if currentPage === 'blocks'}
               <flex class="col">
-                <a class="link" href="/toolkit">creative toolkit</a>
-                <a class="link" href="/plugins">plugins</a>
-                <a class="link" href="/nerd gear">nerd gear</a>
-                <a class="link" href="/docs">documentation</a>
+                <a disabled class="link" href="/toolkit">creative toolkit</a>
+                <a disabled class="link" href="/plugins">plugins</a>
+                <a disabled class="link" href="/nerd gear">nerd gear</a>
+                <a disabled class="link" href="/docs">documentation</a>
               </flex>
             {:else if currentPage === 'bts'}
               <flex class="col">
-                <a class="link" href="/fragments">bits & fragments</a>
-                <a class="link" href="/journal">journal</a>
-                <a class="link" href="/thoughts">thoughts</a>
-                <a class="link" href="/source">source code</a>
+                <a disabled class="link" href="/fragments">bits & fragments</a>
+                <a disabled class="link" href="/journal">journal</a>
+                <a disabled class="link" href="/thoughts">thoughts</a>
+                <a disabled class="link" href="/source">source code</a>
               </flex>
             {/if}
           </flex>
+          <span class="more"> ...more pages coming soon </span>
         </article>
       </flex>
     </ThemeRoot>
@@ -109,8 +117,8 @@
 <style lang="scss">
   .back-button-container {
     position: absolute;
-    bottom: 100%;
-    left: 0;
+    top: 1rem;
+    right: calc(100% + 0.5rem);
     z-index: 1;
   }
   .outer {
@@ -157,5 +165,16 @@
       display: inline-block;
       width: 1.5rem;
     }
+  }
+
+  a[disabled] {
+    pointer-events: none;
+    opacity: 0.5;
+    text-decoration: line-through;
+  }
+
+  .more {
+    font-size: 1.5rem;
+    font-weight: 600;
   }
 </style>

@@ -47,9 +47,11 @@
         </p>
         <grid class="website-grid">
           {#each otherWebsites as link}
-            <a class="custom icon-btn" href={link.url} title={link.name} target="_blank">
-              <svelte:component this={link.icon} />
-            </a>
+            <flex>
+              <a class="custom icon-btn" href={link.url} title={link.name} target="_blank">
+                <svelte:component this={link.icon} />
+              </a>
+            </flex>
           {/each}
         </grid>
       </article>
@@ -72,6 +74,7 @@
     border-top: 0.15rem solid black;
   }
 
+  // not particularly proud of this responsive grid lol
   grid {
     margin: 2rem auto;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
@@ -84,10 +87,29 @@
       display: flex;
       aspect-ratio: 1;
     }
+
+    @media (max-width: 1000px) {
+      margin: 2rem auto;
+    }
+
+    @media (max-width: 740px) {
+      grid-template-columns: 1fr 1fr 1fr;
+      width: 70vw;
+
+      .custom {
+        width: 100%;
+        max-width: 5rem;
+        margin: auto;
+      }
+    }
   }
 
   .two-col {
     gap: 2rem;
+
+    @media (max-width: 1000px) {
+      flex-direction: column;
+    }
   }
 
   .globe {
@@ -96,6 +118,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    max-width: calc(100vw - 2rem);
+    max-height: calc(100vw - 2rem);
   }
 
   .icon-btn {

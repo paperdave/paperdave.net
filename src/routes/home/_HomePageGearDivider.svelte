@@ -5,26 +5,26 @@
 
   const gearPositions = [
     {
-      x: 2.5,
+      x: 2.4,
       y: 0,
       angle: 13,
       size: 16,
     },
     {
-      x: 18,
+      x: 17.6,
       y: 1,
       angle: 11.5,
       size: 11,
       invert: true,
     },
     {
-      x: 28.2,
+      x: 27.8,
       y: -1,
       angle: -17,
       size: 11,
     },
     {
-      x: 38.5,
+      x: 38.2,
       y: -0.5,
       angle: 6,
       size: 11,
@@ -55,6 +55,25 @@
       angle: -10,
       size: 14,
       invert: true,
+    },
+    {
+      x: 92.3,
+      y: 1,
+      angle: -1,
+      size: 11,
+    },
+    {
+      x: 102.3,
+      y: -1.2,
+      angle: -7,
+      size: 11,
+      invert: true,
+    },
+    {
+      x: 112.5,
+      y: -1,
+      angle: -8,
+      size: 11,
     },
   ];
 </script>
@@ -90,10 +109,14 @@
     transform: translate(0, -50%);
     clip-path: polygon(calc(19rem - 1px) 0, 100% 0, 100% 100%, 2rem 100%);
     pointer-events: none;
+
+    @media (min-width: 1601px) and (max-width: 2400px) {
+      display: none;
+    }
   }
 
   .background {
-    background: linear-gradient(#20b8ff 0%, #f5f5f5 50%, #fff599 100%);
+    background: linear-gradient(#20b8ff 0%, #f5f5f5 50%, #f5f5f500 100%);
     position: absolute;
     top: 50%;
     left: 0;

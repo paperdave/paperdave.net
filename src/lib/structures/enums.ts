@@ -1,7 +1,22 @@
 import { Instance, types } from '@davecode/structures';
 
-export const ArtifactVisibility = types.Enum('PUBLIC', 'PRIVATE', 'DRAFT', 'UNLISTED');
+export const ArtifactType = types.Enum(
+  'UNKNOWN',
+  'VIDEO',
+  'MUSIC',
+  'APP',
+  'JOURNAL',
+  'FRAGMENT',
+  'WORD_MAGNET',
+  'GAME',
+  'NERD_GEAR',
+  'STORY',
+  'SQUARE',
+  'MUSIC_VIDEO'
+);
+export type ArtifactType = Instance<typeof ArtifactType>;
 
+export const ArtifactVisibility = types.Enum('PUBLIC', 'PRIVATE', 'DRAFT', 'UNLISTED');
 export type ArtifactVisibility = Instance<typeof ArtifactVisibility>;
 
 export const SoftarePlatform = types.Enum(
@@ -16,7 +31,6 @@ export const SoftarePlatform = types.Enum(
   'SOURCE_GAMEMAKER',
   'SOURCE_ZIP'
 );
-
 export type SoftarePlatform = Instance<typeof SoftarePlatform>;
 
 export const Permission = types.Enum(
@@ -28,5 +42,4 @@ export const Permission = types.Enum(
   'MANAGE_FEATURED',
   'MANAGE_VAULT'
 );
-
 export type Permission = Instance<typeof Permission>;

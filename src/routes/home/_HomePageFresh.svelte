@@ -1,7 +1,9 @@
-<script>
+<script lang="ts">
   import ThemeRoot from '$lib/components/ThemeRoot.svelte';
-  import { Artifact, ArtifactType, VideoArtifact } from '$lib/structures';
+  import { Artifact } from '$lib/structures';
   import HomePageFreshCard from './_HomePageFreshCard.svelte';
+
+  export let featuredList: Artifact[] = [];
 </script>
 
 <div class="outer">
@@ -9,6 +11,7 @@
     <ThemeRoot background="#4cc5ff" accent="#20b8ff" dark>
       <!-- this is the outline -->
       <svg
+        class="left-part"
         viewBox="0 0 100 100"
         preserveAspectRatio="none"
         style="position:absolute; width: 10rem; height: 100%; left: 0.5rem">
@@ -17,6 +20,7 @@
 
       <!-- this is a square right at the bottom left -->
       <div
+        class="left-part"
         style="
         position:absolute;
         left: 0;
@@ -26,34 +30,28 @@
         background: #fafafa;
       " />
 
+      <div class="bottom-border" />
+
       <div class="inner-content">
         <article>
           <h2>fresh new stuff</h2>
           <p>last updated <code>2022-02-22</code></p>
+          <p>next project estimated <code>2022-04-30</code></p>
           <ul>
-            <HomePageFreshCard
-              artifact={new Artifact({
-                id: 'mayday',
-                // type: ArtifactType.Video,
-                // title: 'Mayday',
-                // date: new Date(1645128900367),
-                // thumb: new DavecodeImage({
-                //   url: 'https://media.davecode.net/content/2022/mayday.jpeg',
-                //   width: 1920,
-                //   height: 1080,
-                // }),
-                // tags: new Set(['music video']),
-                // visibility: 'PUBLIC',
-              })} />
+            {#each featuredList as artifact}
+              <HomePageFreshCard {artifact} />
+            {/each}
             <!-- <HomePageFreshCard
-              artifact={GameArtifact.fromJSON({
-                _v: 0,
+              artifact={new Artifact({
                 id: 'phoenix-write',
+                type: 'GAME',
                 title: 'Phoenix, WRITE!',
-                date: 1635264000000,
-                thumbnail: 'https://media.davecode.net/content/2021/phoenix-write.png',
-                // blurhash: 'LIK[ib00GX}u00^+IqrXF]xG$%Ee',
-                type: 'game',
+                date: new Date(1635264000000),
+                thumb: new Media({
+                  url: 'https://media.davecode.net/content/2021/phoenix-write.png',
+                  width: 1920,
+                  height: 1080,
+                }),
                 visibility: 'PUBLIC',
               })} /> -->
           </ul>
@@ -107,9 +105,29 @@
     }
   }
   ul {
-    margin: 2rem;
+    margin: 0.5rem;
     display: flex;
     flex-direction: column;
     gap: 1rem;
+  }
+  @media (max-width: 1600px) {
+    .left-part {
+      display: none;
+    }
+
+    .inner-content {
+      margin-bottom: 4rem;
+    }
+  }
+
+  @media (min-width: 1601px) and (max-width: 2400px) {
+    .bottom-border {
+      position: absolute;
+      background: white;
+      height: 0.5rem;
+      width: 100%;
+      bottom: 0;
+      left: 0;
+    }
   }
 </style>

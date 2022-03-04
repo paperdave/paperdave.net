@@ -46,8 +46,6 @@ export const post: RequestHandler = async ({ request }) => {
   const userDB = await getDatabase(User);
   const user = await userDB.findOne({ email });
 
-  console.log(user);
-
   if (!user) {
     return IncorrectLogin;
   }

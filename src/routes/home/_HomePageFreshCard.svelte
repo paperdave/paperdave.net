@@ -13,15 +13,15 @@
 
 <Button href={artifact.getURL()} variant="normal">
   <flex row class="root">
-    <!-- {#if artifact.thumbnail}
+    {#if artifact.thumb}
       <div class="thumbnail">
-        {#if artifact.blurhash}
-          <BlurHash src={artifact.thumbnail} hash={artifact.blurhash} alt={artifact.title} />
+        {#if artifact.thumb.hash}
+          <BlurHash src={artifact.thumb.url} hash={artifact.thumb.hash} alt={artifact.title} />
         {:else}
-          <img src={artifact.thumbnail} alt={artifact.title} />
+          <img src={artifact.thumb.url} alt={artifact.title} />
         {/if}
       </div>
-    {/if} -->
+    {/if}
     <flex>
       <h3 class="custom">{artifact.title}</h3>
       <!-- <p>

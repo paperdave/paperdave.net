@@ -22,7 +22,7 @@
     floating.className = 'floating-word-magnet';
     floating.style.color = color;
     floating.style.setProperty('--drop', colorDarkened);
-    
+
     const shadow = document.createElement('div');
     shadow.innerText = node.innerText;
     shadow.classList.add('shadow');
@@ -34,7 +34,6 @@
     floating.appendChild(innerFloating);
 
     const bounds = node.getBoundingClientRect();
-    console.log(bounds.x, bounds.y);
     floatingX = bounds.x + document.scrollingElement!.scrollLeft;
     floatingY = bounds.y + document.scrollingElement!.scrollTop;
 
@@ -44,7 +43,7 @@
     document.body.appendChild(floating);
 
     setTimeout(() => {
-      floating?.classList.add('held')
+      floating?.classList.add('held');
     }, 10);
 
     window.addEventListener('mouseup', floatingMouseUp);
@@ -87,8 +86,7 @@
   style="color:{color};--drop:{colorDarkened}"
   on:mousedown={onMouseDown}
   class:active
-  class:noHint={$hasMovedLetter}
->
+  class:noHint={$hasMovedLetter}>
   <slot />
 </span>
 
@@ -101,6 +99,11 @@
     user-select: none;
     line-height: 1;
     text-shadow: shadow(6px, 1, var(--drop));
+
+    @media (max-width: 800px) {
+      font-size: 15vw;
+      text-shadow: shadow(3px, 1, var(--drop));
+    }
   }
 
   span {
@@ -125,9 +128,9 @@
       position: absolute;
       top: 0;
       left: 0;
-      
+
       transform: translate(-3px, -10px);
-  
+
       .transform-root {
         position: absolute;
         transition: transform 300ms cubic-bezier(0.2, 0, 0, 1);

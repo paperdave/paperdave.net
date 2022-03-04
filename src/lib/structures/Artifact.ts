@@ -1,22 +1,7 @@
 import { Instance, Structure, types } from '@davecode/structures';
-import { ArtifactVisibility } from './enums';
-import { Media } from './Media';
+import { ArtifactType, ArtifactVisibility } from './enums';
+import { AudioMedia, ImageMedia, Media, VideoMedia } from './Media';
 import { getBaseOrigin } from './url-helpers';
-
-export enum ArtifactType {
-  Unknown,
-  Video,
-  Music,
-  App,
-  Journal,
-  Fragment,
-  WordMagnet,
-  Game,
-  NerdGear,
-  Story,
-  Square,
-  MusicVideo,
-}
 
 /**
  * Represents some published media on my website. "Artifact" as in "you're exploring a website of
@@ -24,40 +9,30 @@ export enum ArtifactType {
  */
 export const Artifact = new Structure('Artifact')
   .prop('id', types.String.mustMatch(/[a-z0-9-]/g))
-  .prop('type', types.Integer, { default: ArtifactType.Unknown })
+  .prop('type', types.Integer, { default: ArtifactType.UNKNOWN })
   .prop('title', types.String, { default: 'Untitled' })
   .prop('date', types.Date, { default: () => new Date() })
   .prop('visibility', ArtifactVisibility, {
     default: ArtifactVisibility.PRIVATE,
   })
-  .prop('thumb', Media.nullable)
+  .prop('thumb', ImageMedia.nullable)
   .prop('tags', types.SetOf(types.String).nullable, { default: () => new Set() })
   .method('getURL', function (origin = getBaseOrigin()) {
     return new URL('/' + this.id, origin);
   })
   .create({ abstract: true });
 
-export const MediaFile = new Structure('MediaFile')
-  .prop('url', types.String)
-  .prop('type', types.String)
-  .prop('duration', types.Number.nullable)
-  .prop('width', types.Number.nullable)
-  .prop('height', types.Number.nullable)
-  .create();
-
-export const MixinFile = new Structure().prop('file', types.String.nullable);
-
 export const VideoArtifact = Artifact.extend('VideoArtifact')
-  .prop('type', types.Integer.mustEqual(ArtifactType.Video))
-  .prop('video', MediaFile)
+  .prop('type', types.String.mustEqual(ArtifactType.VIDEO), { default: ArtifactType.VIDEO })
+  .prop('video', VideoMedia)
   .prop('duration', types.Number.nullable)
   .prop('ttms', types.Number.nullable)
   .prop('source', types.String.nullable)
   .create();
 
 export const MusicArtifact = Artifact.extend('MusicArtifact')
-  .prop('type', types.Integer.mustEqual(ArtifactType.Music))
-  .prop('music', MediaFile)
+  .prop('type', types.String.mustEqual(ArtifactType.MUSIC), { default: ArtifactType.MUSIC })
+  .prop('music', AudioMedia)
   .prop('duration', types.Number.nullable)
   .prop('sheetMusicUrl', types.String.nullable)
   .create();
@@ -67,28 +42,30 @@ export const MusicArtifact = Artifact.extend('MusicArtifact')
  * rely on the *thumbnail* property.
  */
 export const SquareArtifact = Artifact.extend('SquareArtifact')
-  .prop('type', types.Integer.mustEqual(ArtifactType.Square))
+  .prop('type', types.String.mustEqual(ArtifactType.SQUARE), { default: ArtifactType.SQUARE })
   .create();
 
 export const JournalArtifact = Artifact.extend('JournalArtifact')
-  .prop('type', types.Integer.mustEqual(ArtifactType.Journal))
-  .prop('file', MediaFile)
+  .prop('type', types.String.mustEqual(ArtifactType.JOURNAL), { default: ArtifactType.JOURNAL })
+  .prop('file', VideoMedia)
   .prop('duration', types.Number.nullable)
   .prop('editDate', types.Date.nullable)
   .create();
 
 export const FragmentArtifact = Artifact.extend('FragmentArtifact')
-  .prop('type', types.Integer.mustEqual(ArtifactType.Fragment))
-  .prop('file', MediaFile)
+  .prop('type', types.String.mustEqual(ArtifactType.FRAGMENT), { default: ArtifactType.FRAGMENT })
+  .prop('file', Media)
   .prop('for', types.String.nullable)
   .create();
 
 export const StoryArtifact = Artifact.extend('StoryArtifact')
-  .prop('type', types.Integer.mustEqual(ArtifactType.Story))
+  .prop('type', types.String.mustEqual(ArtifactType.STORY), { default: ArtifactType.STORY })
   .create();
 
 export const WordMagnetArtifact = Artifact.extend('WordMagnetArtifact')
-  .prop('type', types.Integer.mustEqual(ArtifactType.WordMagnet))
+  .prop('type', types.String.mustEqual(ArtifactType.WORD_MAGNET), {
+    default: ArtifactType.WORD_MAGNET,
+  })
   .create();
 
 const MixinSoftware = new Structure()
@@ -96,36 +73,38 @@ const MixinSoftware = new Structure()
   .prop('version', types.String.nullable);
 
 export const AppArtifact = Artifact.extend('AppArtifact')
-  .prop('type', types.Integer.mustEqual(ArtifactType.App))
+  .prop('type', types.String.mustEqual(ArtifactType.APP), { default: ArtifactType.APP })
   .mixin(MixinSoftware)
   .create();
 
 export const NerdGearArtifact = Artifact.extend('NerdGearArtifact')
-  .prop('type', types.Integer.mustEqual(ArtifactType.NerdGear))
+  .prop('type', types.String.mustEqual(ArtifactType.NERD_GEAR), { default: ArtifactType.NERD_GEAR })
   .mixin(MixinSoftware)
   .create();
 
 export const GameArtifact = Artifact.extend('GameArtifact')
-  .prop('type', types.Integer.mustEqual(ArtifactType.Game))
+  .prop('type', types.String.mustEqual(ArtifactType.GAME), { default: ArtifactType.GAME })
   .mixin(MixinSoftware)
   .create();
 
 export const MusicVideoArtifact = Artifact.extend('MusicVideoArtifact')
-  .prop('type', types.Integer.mustEqual(ArtifactType.MusicVideo))
-  .mixin(MusicArtifact)
-  .mixin(VideoArtifact)
+  .prop('type', types.String.mustEqual(ArtifactType.MUSIC_VIDEO), {
+    default: ArtifactType.MUSIC_VIDEO,
+  })
+  .prop('music', AudioMedia)
+  .prop('video', VideoMedia)
   .method('toVideoArtifact', function () {
     return new VideoArtifact({
       ...this,
       // this is a bug with structure
-      type: ArtifactType.Video as never,
+      type: ArtifactType.VIDEO as never,
     });
   })
   .method('toMusicArtifact', function () {
     return new MusicArtifact({
       ...this,
       // this is a bug with structure
-      type: ArtifactType.Video as never,
+      type: ArtifactType.VIDEO as never,
     });
   })
   .create();

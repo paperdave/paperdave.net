@@ -1,20 +1,47 @@
-import { Artifact, ArtifactType, User } from '$lib/structures';
+import { Artifact, ArtifactType, MusicVideoArtifact, User } from '$lib/structures';
+import { AudioMedia, ImageMedia, VideoMedia } from '$lib/structures/Media';
 
 const afTypes = {
-  video: ArtifactType.Video,
-  music: ArtifactType.Music,
-  app: ArtifactType.App,
-  journal: ArtifactType.Journal,
-  fragment: ArtifactType.Fragment,
-  wordmagnet: ArtifactType.WordMagnet,
-  game: ArtifactType.Game,
-  nerdgear: ArtifactType.NerdGear,
-  story: ArtifactType.Story,
-  square: ArtifactType.Square,
-  musicvideo: ArtifactType.MusicVideo,
+  video: ArtifactType.VIDEO,
+  music: ArtifactType.MUSIC,
+  app: ArtifactType.APP,
+  journal: ArtifactType.JOURNAL,
+  fragment: ArtifactType.FRAGMENT,
+  wordmagnet: ArtifactType.WORD_MAGNET,
+  game: ArtifactType.GAME,
+  nerdgear: ArtifactType.NERD_GEAR,
+  story: ArtifactType.STORY,
+  square: ArtifactType.SQUARE,
+  musicvideo: ArtifactType.MUSIC_VIDEO,
 };
 
 export const migrateArtifact = (data: any): Artifact => {
+  if (data.id === 'mayday') {
+    return new MusicVideoArtifact({
+      id: 'mayday',
+      title: 'Mayday',
+      tags: new Set(['music video']),
+      visibility: 'PUBLIC',
+      date: new Date(1645128900367),
+      thumb: new ImageMedia({
+        url: 'https://media.davecode.net/content/2022/mayday.jpeg',
+        width: 1920,
+        height: 1080,
+        hash: 'LIK[ib00GX}u00^+IqrXF]xG$%Ee',
+      }),
+      video: new VideoMedia({
+        url: 'https://media.davecode.net/content/2022/mayday.mp4',
+        width: 1920,
+        height: 1080,
+        duration: 260,
+      }),
+      music: new AudioMedia({
+        url: 'https://media.davecode.net/content/2022/mayday.mp3',
+        duration: 227,
+      }),
+    });
+  }
+
   const payload: any = {
     id: data.id,
     title: data.title,
@@ -33,15 +60,17 @@ export const migrateArtifact = (data: any): Artifact => {
     };
   }
 
-  if (data.type === ArtifactType.Video) {
-    data.video = {
-      url: data.file,
-      type: 'video',
+  if (data.type === 'video') {
+    payload.video = {
+      url: data.data.file,
+      width: 1920,
+      height: 1080,
+      duration: 0,
     };
-  } else if (data.type === ArtifactType.Music) {
-    data.music = {
-      url: data.file,
-      type: 'audio',
+  } else if (data.type === 'music') {
+    payload.music = {
+      url: data.data.file,
+      duration: 0,
     };
   }
 

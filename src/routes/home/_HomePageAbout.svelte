@@ -27,6 +27,18 @@
                 src="/assets/photos/2022_SeniorGrad_1.jpg"
                 alt="dave caruso face" />
             </div>
+            <div class="img2">
+              <BlurHash
+                hash="TfJICXxuyD?^WAtRADoMVsI]axR5"
+                src="/assets/photos/2022_SeniorGrad_1.jpg"
+                alt="dave caruso face" />
+            </div>
+            <div class="img3">
+              <BlurHash
+                hash="TfJICXxuyD?^WAtRADoMVsI]axR5"
+                src="/assets/photos/2022_SeniorGrad_1.jpg"
+                alt="dave caruso face" />
+            </div>
           </aside>
         </flex>
       </div>
@@ -37,6 +49,10 @@
 <style lang="scss">
   .root {
     flex: 2.5 1 80rem;
+
+    @media (max-width: 2400px) {
+      flex: 1;
+    }
   }
 
   .outer {
@@ -48,6 +64,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+    @media (max-width: 2400px) {
+      margin-right: 0;
+    }
   }
 
   .inner {
@@ -60,6 +80,7 @@
   }
 
   aside {
+    position: relative;
     margin-left: 1.5rem;
     flex: 1;
   }
@@ -67,11 +88,34 @@
   h2 {
     display: flex;
     align-items: baseline;
+
+    @media (max-width: 1000px) {
+      flex-direction: column;
+    }
   }
 
   .img1 {
+    position: absolute;
     aspect-ratio: 0.76;
     width: 13rem;
     border: 4px solid #6d007a;
+  }
+
+  .img2 {
+    position: absolute;
+    aspect-ratio: 1;
+    width: 13rem;
+    border: 4px solid #6d007a;
+    left: 17rem;
+    top: -8rem;
+  }
+
+  .img3 {
+    position: absolute;
+    aspect-ratio: 1.5;
+    height: 13rem;
+    border: 4px solid #6d007a;
+    left: 15rem;
+    top: 8rem;
   }
 </style>

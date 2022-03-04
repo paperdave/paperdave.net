@@ -1,9 +1,9 @@
-<script>
+<script lang="ts">
   import HomePageTitleChar from './_HomePageTitleChar.svelte';
   import PlaneSVG from '$lib/svg/brand/Plane.svg';
 
   let titleOrder = 'Davecode';
-  const titleColors = {
+  const titleColors: Record<string, string> = {
     D: '#007205',
     a: '#006004',
     v: '#006004',
@@ -33,11 +33,19 @@
   h1 :global(svg) {
     fill: #004202;
     width: 6rem;
+
+    @media (max-width: 800px) {
+      width: 10vw;
+    }
   }
 
   .svg-container {
     display: inline-flex;
     align-items: center;
     margin-left: 1rem;
+
+    @media (max-width: 800px) {
+      margin-left: 0;
+    }
   }
 </style>

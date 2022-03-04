@@ -1,7 +1,8 @@
-<script>
+<script lang="ts">
   import { goto } from '$app/navigation';
 
   import Meta from '$lib/components/Meta.svelte';
+  import { Artifact } from '$lib/structures';
   import HomePageAbout from './_HomePageAbout.svelte';
   import HomePageCategories from './_HomePageCategories.svelte';
   import HomePageExternals from './_HomePageExternals.svelte';
@@ -9,7 +10,7 @@
   import HomePageHeader from './_HomePageHeader.svelte';
 
   let inputStack = new Array(20).fill('');
-  function handleKeypress(event) {
+  function handleKeypress(event: KeyboardEvent) {
     const key = event.key;
     if (key.length !== 1) return;
     inputStack.push(key);
@@ -33,6 +34,8 @@
       goto('/treehouse');
     }
   }
+
+  export let featuredList: Artifact[] = [];
 </script>
 
 <svelte:window on:keypress={handleKeypress} />
@@ -44,7 +47,7 @@
 <flex>
   <flex row class="first-row">
     <HomePageHeader />
-    <HomePageFresh />
+    <HomePageFresh {featuredList} />
   </flex>
   <flex row reverse class="second-row">
     <HomePageCategories />
@@ -54,8 +57,13 @@
 </flex>
 
 <style lang="scss">
-  @media (max-width: 1950px) {
+  @media (max-width: 2400px) {
     .second-row {
+      flex-direction: column;
+    }
+  }
+  @media (max-width: 1600px) {
+    .first-row {
       flex-direction: column;
     }
   }

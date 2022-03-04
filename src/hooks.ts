@@ -76,7 +76,7 @@ export const handle: Handle = async ({ event, resolve }) => {
         return createErrorResponse(401, 'Invalid Token');
       }
 
-      event.locals.user = User.fromJSON(userData);
+      event.locals.user = userData;
 
       await tokenDb.replace(tokenData);
     } else {

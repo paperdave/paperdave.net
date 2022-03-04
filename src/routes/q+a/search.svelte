@@ -1,13 +1,12 @@
 <script lang="ts" context="module">
-  import { Question } from '$lib/structures';
-  import type { JSONData } from '$lib/structures';
+  import { Question, QuestionPage } from '$lib/structures';
   import type { Load } from '@sveltejs/kit';
   import QaHeader from './_QAHeader.svelte';
   import QaInput from './_QAInput.svelte';
 
-  export const load: Load = async ({ fetch, page }) => {
+  export const load: Load = async ({ fetch, url }) => {
     const API = wrapAPI(fetch);
-    const q = page.query.get('q');
+    const q = url.searchParams.get('q');
 
     if (q) {
       const questions = await API.questions.search(q);
@@ -39,11 +38,10 @@
   import { cubicIn, cubicInOut, cubicOut } from 'svelte/easing';
   import BackButton from '$lib/components/BackButton.svelte';
   import { API, wrapAPI } from '$lib/api-client/singleton';
-  import { QuestionPage } from '$lib/structures/QuestionPage';
 
   export let questions: QuestionPage | null;
   export let lastSearch: string = '';
-  let search = $page.query.get('q') ?? '';
+  let search = $page.url.searchParams.get('q') ?? '';
 
   async function runSearch() {
     if (!browser) return;

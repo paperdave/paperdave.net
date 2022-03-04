@@ -1,8 +1,10 @@
 <script lang="ts">
+  import BackButton from '$lib/components/BackButton.svelte';
   import yaml from './credits.yaml';
 </script>
 
 <main>
+  <BackButton position="off-center" />
   <h1>special thanks &lt;3</h1>
   <p>these dear friends have made this creative dream possible:</p>
   <ul>

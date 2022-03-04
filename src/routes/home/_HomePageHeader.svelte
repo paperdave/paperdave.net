@@ -22,9 +22,17 @@
 <style lang="scss">
   .root {
     flex: 2.5 1 80rem;
+
+    @media (max-width: 1600px) {
+      flex: 0 0;
+    }
   }
   header {
     padding: 4rem 2rem;
+
+    @media (max-width: 800px) {
+      padding: 4rem 1rem;
+    }
   }
   .border {
     position: relative;
