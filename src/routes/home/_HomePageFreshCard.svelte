@@ -11,7 +11,7 @@
   }
 </script>
 
-<Button href={artifact.getURL()} variant="normal">
+<Button href={artifact.getURL().pathname} variant="normal">
   <flex row class="root">
     {#if artifact.thumb}
       <div class="thumbnail">

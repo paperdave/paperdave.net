@@ -1,3 +1,3 @@
 export function getBaseOrigin() {
-  return 'https://davecode.net';
+  return typeof location !== 'undefined' ? location.origin : 'https://davecode.net';
 }

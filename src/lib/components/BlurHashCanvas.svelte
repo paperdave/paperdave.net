@@ -20,8 +20,4 @@
   // }
 </script>
 
-<!-- {#if browser}
-  <canvas bind:this={canvas} width={resolutionX} height={resolutionY} />
-{:else} -->
 <blurhash-image blurhash={hash} />
-<!-- {/if} -->
