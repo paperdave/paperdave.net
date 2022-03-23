@@ -1,8 +1,9 @@
 import { getDatabase } from '$lib/db';
 import { parseQuestionDateId, Permission, QuestionRequest } from '$lib/structures';
+import { Dict } from '@davecode/structures/dist/helper-types';
 import { RequestHandler, RequestHandlerOutput } from '@sveltejs/kit';
 
-interface Params {
+interface Params extends Dict<string> {
   rid: string;
 }
 

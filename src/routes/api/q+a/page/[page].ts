@@ -1,9 +1,10 @@
 import { StructureJSON } from '$lib/api-client/api-shared';
 import { getDatabase } from '$lib/db';
 import { Question, QuestionPage } from '$lib/structures';
+import { Dict } from '@davecode/structures/dist/helper-types';
 import { RequestHandler, RequestHandlerOutput } from '@sveltejs/kit';
 
-interface Params {
+interface Params extends Dict<string> {
   page: string;
 }
 

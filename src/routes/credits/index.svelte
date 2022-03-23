@@ -38,7 +38,7 @@
   }
   li {
     font-size: 1.5rem;
-    line-height: 0.9;
+    line-height: 1;
     margin: 0 auto;
     text-align: center;
     width: fit-content;

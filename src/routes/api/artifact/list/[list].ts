@@ -1,36 +1,18 @@
 import { getDatabase } from '$lib/db';
-import { Artifact, ArtifactVisibility, JSONData } from '$lib/structures';
-import { APIHandler } from '$lib/utils/api';
-import { MaybeArrayOrPromise, maybeArrayOrPromise } from '$lib/utils/maybe';
-import { ObjectID } from 'bson';
-import { Collection, FindCursor } from 'mongodb';
+import { WrappedCollection } from '$lib/db/WrappedCollection';
+import { Artifact, ArtifactVisibility } from '$lib/structures';
+import { maybePromise, MaybePromise } from '$lib/utils/maybe';
+import { Dict } from '@davecode/structures/dist/helper-types';
+import { RequestHandler } from '@sveltejs/kit';
 
-type ArtifactDocument = JSONData<Artifact> & { _id: ObjectID };
-type ArtifactCursor = FindCursor<JSONData<Artifact>>;
-type ListFn = (collection: Collection<ArtifactDocument>) => MaybeArrayOrPromise<ArtifactCursor>;
+interface Params extends Dict<string> {
+  list: string;
+}
+
+type ListFn = (db: WrappedCollection<Artifact>) => MaybePromise<Artifact[]>;
 
 export const artifactListMap: Record<string, ListFn> = {
-  videos: (db) =>
-    db.find({ type: 'video' }).project({
-      _v: 1,
-      id: 1,
-      type: 1,
-      title: 1,
-      thumbnail: 1,
-      blurhash: 1,
-      visibility: 1,
-      date: 1,
-    }),
-  music: (db) =>
-    db.find({ type: 'music' }).project({
-      _v: 1,
-      id: 1,
-      type: 1,
-      title: 1,
-      visibility: 1,
-      date: 1,
-      data: 1,
-    }),
+  videos: (db) => db.find({ type: 'VIDEO' }),
 };
 
 /**
@@ -38,7 +20,7 @@ export const artifactListMap: Record<string, ListFn> = {
  * support modifying these presets. The presets are intended to be used by the frontend to display
  * list pages, so some properties are ommitted automatically.
  */
-export const get: APIHandler<void, JSONData<Artifact>[]> = async ({ params }) => {
+export const get: RequestHandler<Params> = async ({ params }) => {
   const { list } = params;
   const listFn = artifactListMap[list];
   if (!listFn) {
@@ -51,16 +33,16 @@ export const get: APIHandler<void, JSONData<Artifact>[]> = async ({ params }) =>
   }
 
   const db = await getDatabase(Artifact);
-  const cursors = await maybeArrayOrPromise(listFn(db));
-  const artifacts = (await Promise.all(cursors.map((cursor) => cursor.toArray()))).flat();
+  const artifacts = (await maybePromise(listFn(db))).flat();
 
   const sorted = artifacts
-    .map((a) => Artifact.fromJSON(a))
     .filter((x) => x.visibility === ArtifactVisibility.PUBLIC)
     .sort((a, b) => b.date.getTime() - a.date.getTime())
     .map((a) => a.toJSON())
     .map((a) => {
       delete (a as any).visibility;
+      delete (a as any).video;
+      delete (a as any).music;
       return a;
     });
 

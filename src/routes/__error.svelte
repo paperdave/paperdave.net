@@ -29,7 +29,7 @@
   };
 </script>
 
-<ErrorPage {variant} {error}>
+<ErrorPage {variant} error={status === 404 ? null : error}>
   {#if status === 404}
     <h1>wrong url / broken link</h1>
     <p>

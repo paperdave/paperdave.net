@@ -25,7 +25,7 @@ export const Media = new Structure('Media') //
   .method('getType', function () {
     return extensionMap[this.url.split('.').pop()!] || 'UNKNOWN';
   })
-  .create({ abstract: true });
+  .create({});
 export type Media = Instance<typeof Media>;
 
 export const ImageMedia = Media.extend('ImageMedia') //

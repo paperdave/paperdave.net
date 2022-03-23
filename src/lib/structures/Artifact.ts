@@ -8,8 +8,8 @@ import { getBaseOrigin } from './url-helpers';
  * old artifacts and you have to search and explore the vast sea of content."
  */
 export const Artifact = new Structure('Artifact')
-  .prop('id', types.String.mustMatch(/[a-z0-9-]/g))
-  .prop('type', types.Integer, { default: ArtifactType.UNKNOWN })
+  .prop('id', types.String)
+  .prop('type', types.String, { default: ArtifactType.UNKNOWN })
   .prop('title', types.String, { default: 'Untitled' })
   .prop('date', types.Date, { default: () => new Date() })
   .prop('visibility', ArtifactVisibility, {
@@ -39,7 +39,7 @@ export const MusicArtifact = Artifact.extend('MusicArtifact')
 
 /**
  * Square artifacts are square photos (instagram clone). These do not use the File mixin but rather
- * rely on the *thumbnail* property.
+ * rely on the _thumbnail_ property.
  */
 export const SquareArtifact = Artifact.extend('SquareArtifact')
   .prop('type', types.String.mustEqual(ArtifactType.SQUARE), { default: ArtifactType.SQUARE })

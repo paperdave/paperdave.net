@@ -7,7 +7,7 @@
     "preview": "svelte-kit preview"
   },
   "dependencies": {
-    "@davecode/structures": "^0.2.2",
+    "@davecode/structures": "^0.3.0",
     "@macfja/svelte-persistent-store": "^1.2.0",
     "blurhash": "^1.1.4",
     "change-case": "^4.1.2",

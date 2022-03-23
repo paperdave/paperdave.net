@@ -19,6 +19,7 @@ export const migrateArtifact = (data: any): Artifact => {
   if (data.id === 'mayday') {
     return new MusicVideoArtifact({
       id: 'mayday',
+      type: ArtifactType.MUSIC_VIDEO,
       title: 'Mayday',
       tags: new Set(['music video']),
       visibility: 'PUBLIC',

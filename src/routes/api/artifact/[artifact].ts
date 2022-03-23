@@ -2,9 +2,10 @@ import { StructureJSON } from '$lib/api-client/api-shared';
 import { getDatabase } from '$lib/db';
 import { Artifact, ArtifactVisibility, Permission } from '$lib/structures';
 import { getProperties } from '$lib/utils/api';
+import { Dict } from '@davecode/structures/dist/helper-types';
 import { RequestHandler } from '@sveltejs/kit';
 
-interface Params {
+interface Params extends Dict<string> {
   artifact: string;
 }
 
