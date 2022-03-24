@@ -1,6 +1,13 @@
 import { getDatabase } from '$lib/db';
-import { parseQuestionDateId, Permission, Question } from '$lib/structures';
+import {
+  parseQuestionDateId,
+  Permission,
+  Question,
+  QuestionParagraph,
+  QuestionRequest,
+} from '$lib/structures';
 import { GenericSuccess } from '$lib/utils/api';
+import { escapeHTML } from '$lib/utils/escapeHTML';
 import { Dict } from '@davecode/structures/dist/helper-types';
 import { RequestHandler, RequestHandlerOutput } from '@sveltejs/kit';
 
@@ -33,12 +40,30 @@ export const get: RequestHandler<Params> = async ({ params }) => {
   });
 
   if (!question) {
-    return {
-      status: 404,
-      body: {
-        error: 'Question not found',
-      },
-    };
+    const requestDb = await getDatabase(QuestionRequest);
+    const request = await requestDb.findOne({
+      date: { $gt: match.getTime() },
+    });
+
+    if (request) {
+      return {
+        body: new Question({
+          content: [
+            new QuestionParagraph({
+              who: 'QUESTION',
+              message: escapeHTML(request.content),
+            }),
+          ],
+        }).toJSON(),
+      };
+    } else {
+      return {
+        status: 404,
+        body: {
+          error: 'Question not found',
+        },
+      };
+    }
   }
 
   return {

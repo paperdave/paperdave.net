@@ -2,16 +2,16 @@ import { MONGO_DB, REALM_APPID, REALM_TOKEN } from '$lib/env';
 import { Artifact, Question, QuestionRequest, Token, User } from '$lib/structures';
 import { DataType, Instance } from '@davecode/structures';
 import * as realm from 'realm-web';
-import { migrateArtifact, mirgrateUser } from './legacy-migrators';
+import { migrateArtifact, migrateUser } from './legacy-migrators';
 import { Database } from './realm-types';
 import { WrappedCollection } from './WrappedCollection';
 
 const collections = [
-  [Token, 'tokens', null],
-  [User, 'users', mirgrateUser],
-  [Artifact, 'artifacts', migrateArtifact],
-  [Question, 'questions', null],
-  [QuestionRequest, 'question-requests', null],
+  [Token, 'tokens', { primaryKey: 'token' }],
+  [User, 'users', { primaryKey: 'email', migrator: migrateUser }],
+  [Artifact, 'artifacts', { primaryKey: 'id', migrator: migrateArtifact }],
+  [Question, 'questions', { primaryKey: 'date' }],
+  [QuestionRequest, 'question-requests', { primaryKey: 'date' }],
 ] as const;
 
 type CollectionType = Instance<typeof collections[number][0]>;
@@ -34,11 +34,11 @@ async function createRealmConnection() {
 
 export async function getDatabase<T extends CollectionType>(
   schema: DataType<T>
-): Promise<WrappedCollection<T>> {
+): Promise<WrappedCollection<T, any>> {
   const db = await createRealmConnection();
-  const [, name, migrator] = collections.find(([type]) => (type as any) === schema) ?? [];
+  const [, name, opts] = collections.find(([type]) => (type as any) === schema) ?? [];
   if (!name) {
     throw new Error(`No collection found for ${(schema as any).name}`);
   }
-  return new WrappedCollection(db.collection(name), schema, migrator);
+  return new WrappedCollection(db.collection(name), { type: schema, ...opts });
 }

@@ -30,7 +30,7 @@ export const get: RequestHandler = async ({ locals }) => {
  */
 export const post: RequestHandler = async ({ request }) => {
   const qr = QuestionRequest.fromJSON(await request.json());
-  qr.date = new Date();
+  qr.date = new Date(Math.floor(new Date().getTime() / 1000) * 1000);
 
   const db = await getDatabase(QuestionRequest);
 
@@ -39,6 +39,8 @@ export const post: RequestHandler = async ({ request }) => {
   }
 
   await db.insertOne(qr);
+
+  console.log(qr.toJSON());
 
   return {
     status: 200,

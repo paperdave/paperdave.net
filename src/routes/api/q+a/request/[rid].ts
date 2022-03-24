@@ -65,11 +65,18 @@ export const del: RequestHandler<Params> = async ({ params, locals }) => {
   const id = params.rid;
   const db = await getDatabase(QuestionRequest);
   const parsed = parseQuestionDateId(id);
+
+  if (!parsed) {
+    return {
+      status: 400,
+      body: {
+        error: 'Invalid question request id',
+      },
+    };
+  }
+
   const request = await db.findOne({
-    date: {
-      $gte: parsed?.getTime(),
-      $lt: (parsed?.getTime() ?? 0) + 1000,
-    },
+    date: parsed.getTime(),
   });
 
   if (!request) {
@@ -81,7 +88,7 @@ export const del: RequestHandler<Params> = async ({ params, locals }) => {
     };
   }
 
-  await db.deleteOne(request);
+  await db.delete(request);
 
   return {
     status: 200,

@@ -9,7 +9,7 @@
 
     <a href="/">go back to "adventure" mode</a>
 
-    <h2>all things from davecode</h2>
+    <h2>all things by dave caruso</h2>
 
     <p>(dave is still adding everything to the database, so it will not be complete)</p>
 
@@ -106,7 +106,7 @@
       color: #160101;
       text-decoration-color: #160101;
     }
-    
+
     &:active {
       color: #ff22ed;
       text-decoration-color: #ff22ed;

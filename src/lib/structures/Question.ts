@@ -8,8 +8,9 @@ export const QuestionParagraphType = types.Enum('QUESTION', 'ANSWER');
 export type QuestionParagraphType = Instance<typeof QuestionParagraphType>;
 
 export const QuestionParagraph = new Structure('QuestionParagraph')
+  .prop('_uid', types.Number, { default: Math.random() })
   .prop('who', QuestionParagraphType)
-  .prop('message', types.String)
+  .prop('message', types.String, { default: '' })
   .create({
     customSerializer: {
       fromJSON(data: [string, 'q' | 'a']) {
@@ -25,10 +26,18 @@ export const QuestionParagraph = new Structure('QuestionParagraph')
   });
 
 export const Question = new Structure('Question')
-  .prop('date', types.Date)
-  .prop('content', types.ArrayOf(QuestionParagraph))
-  .method('isRejected', function name() {
+  .prop('date', types.Date.discardMilliseconds(), { default: () => new Date() })
+  .prop('content', types.ArrayOf(QuestionParagraph), { default: () => [] })
+  // Rejected if theres NO contents
+  .method('isRejected', function () {
     return this.content.length === 0;
+  })
+  // Pending if theres no answer paragraphs
+  .method('isPending', function () {
+    return (
+      this.content.length >= 1 &&
+      this.content.every((paragraph) => paragraph.who === QuestionParagraphType.QUESTION)
+    );
   })
   .method('getDateId', function () {
     return formatDate(this.date, 'question-id');
@@ -64,7 +73,7 @@ export const QuestionPage = new Structure('QuestionPage')
   .create();
 
 export const QuestionRequest = new Structure('QuestionRequest')
-  .prop('date', types.Date, { default: () => new Date() })
+  .prop('date', types.Date.discardMilliseconds(), { default: () => new Date() })
   .prop('content', types.String)
   // I do not like the fact im tracking this, as of 2022-02-22, but
   // one user in particular is messing with me too much and I want to

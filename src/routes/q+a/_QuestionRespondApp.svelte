@@ -9,13 +9,16 @@
   import ChevronDownSVG from '$lib/svg/fluent/ChevronDown.svg';
   import { createEventDispatcher } from 'svelte';
 
-  const events = createEventDispatcher();
+  const dispatch = createEventDispatcher();
 
   export let request: QuestionRequest;
-  $: response = new Question()
-    .setDate(request.date)
-    .addQuestionParagraph(escapeHTML(request.content))
-    .addAnswerParagraph('');
+  $: response = new Question({
+    date: request.date,
+    content: [
+      new QuestionParagraph({ who: 'QUESTION', message: escapeHTML(request.content) }),
+      new QuestionParagraph({ who: 'ANSWER' }),
+    ],
+  });
 
   function reset() {
     // regenerate the response
@@ -25,37 +28,43 @@
   function changeParagraphText(ev: Event, index: number) {
     response.content[index].message = (ev.target as HTMLInputElement).value;
   }
+
   function changeParagraphWho(index: number) {
-    response.content[index].who = response.content[index].who === 'answer' ? 'question' : 'answer';
+    response.content[index].who = response.content[index].who === 'ANSWER' ? 'QUESTION' : 'ANSWER';
   }
+
   function removeParagraph(index: number) {
     response.content = response.content.filter((_, i) => i !== index);
   }
+
   function moveParagraphUp(index: number) {
     if (index === 0) return;
     const temp = response.content[index - 1];
     response.content[index - 1] = response.content[index];
     response.content[index] = temp;
   }
+
   function moveParagraphDown(index: number) {
     if (index === response.content.length - 1) return;
     const temp = response.content[index + 1];
     response.content[index + 1] = response.content[index];
     response.content[index] = temp;
   }
+
   function insertParagraph(before: number) {
     response.content = response.content
       .slice(0, before)
-      .concat(QuestionParagraph.answer(''))
+      .concat(new QuestionParagraph({ who: 'ANSWER' }))
       .concat(response.content.slice(before));
   }
 
   function send() {
-    events('send', response);
+    dispatch('send', response);
   }
 
   function deny() {
-    events('deny', response);
+    response.content = [];
+    dispatch('send', response);
   }
 </script>
 
@@ -70,12 +79,10 @@
     <div class="date">
       {request.date}
     </div>
-    <pre class="prompt">
-      {request.content}
-    </pre>
+    <pre class="prompt">{request.content}</pre>
     <hr />
     {#each response.content as paragraph, i}
-      {#key paragraph.getUiUid()}
+      {#key paragraph._uid}
         <div class="response-row">
           <QaInput type="button" on:click={() => insertParagraph(i)}>
             <AddSVG />
@@ -93,11 +100,11 @@
             <DismissSVG />
           </QaInput>
           <QaInput type="button" on:click={() => changeParagraphWho(i)}>
-            {paragraph.who === 'question' ? 'Q' : 'A'}
+            {paragraph.who === 'QUESTION' ? 'Q' : 'A'}
           </QaInput>
           <QaInput
             type="text"
-            value={paragraph.message}
+            bind:value={paragraph.message}
             fullWidth
             on:input={(ev) => changeParagraphText(ev, i)} />
         </div>

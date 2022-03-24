@@ -8,6 +8,7 @@
   let copyState: boolean | null = null;
 
   async function copy() {
+    if (question.isRejected()) return;
     if (copyState) return;
 
     const id = question.getDateId();
@@ -27,7 +28,7 @@
   const dateString = formatDate(question.date, 'date-time');
 </script>
 
-<main on:click={copy} class:success={copyState}>
+<main on:click={copy} class:success={copyState} class:clickable={!question.isRejected()}>
   {#if copyState === null}
     {dateString}
   {:else if copyState}
@@ -43,7 +44,6 @@
     color: #999;
     font-size: 0.9rem;
     margin-bottom: 0.28rem;
-    cursor: pointer;
     display: flex;
     gap: 0.25rem;
     width: max-content;
@@ -52,6 +52,10 @@
       height: 1rem;
       display: none;
     }
+  }
+
+  .clickable {
+    cursor: pointer;
 
     &:hover {
       color: #faa719;

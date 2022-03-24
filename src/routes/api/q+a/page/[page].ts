@@ -33,13 +33,10 @@ export const get: RequestHandler<Params> = async ({ params }) => {
     };
   }
 
-  // const questions = await questionDB.raw
-  //   .find({ date: { "$gt":  } })
-  //   .limit(latest === pageNumber ? PAGE_SIZE * 2 : PAGE_SIZE)
-  //   .skip(pageNumber * PAGE_SIZE)
-  //   .toArray();
-
   const questions = await questionDB.raw.aggregate([
+    {
+      $match: { content: { $exists: true, $ne: [] } },
+    },
     {
       $sort: {
         date: 1,

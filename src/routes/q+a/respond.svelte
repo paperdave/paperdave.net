@@ -1,5 +1,5 @@
 <script context="module" lang="ts">
-  import type { JSONData, Question } from '$lib/structures';
+  import type { Question } from '$lib/structures';
   import { QuestionRequest, Permission } from '$lib/structures';
   import { restrictedPage } from '$lib/utils/client';
 
@@ -19,7 +19,6 @@
 <script lang="ts">
   import QaHeader from './_QAHeader.svelte';
   import QuestionRespondApp from './_QuestionRespondApp.svelte';
-  import { getToken } from '$lib/api-client/session';
   import { API, wrapAPI } from '$lib/api-client/singleton';
   import RestrictedPageRoot from '$lib/components/RestrictedPageRoot.svelte';
 
@@ -47,13 +46,6 @@
       sending = false;
     }
   }
-
-  function denyQuestion(request: QuestionRequest) {
-    API.questions.deleteRequest(request);
-
-    // update ui
-    requests = requests.slice(1);
-  }
 </script>
 
 <RestrictedPageRoot>
@@ -68,8 +60,7 @@
       {#key latestRequest.date.getTime()}
         <QuestionRespondApp
           request={latestRequest}
-          on:send={(ev) => publishNewQuestion(ev.detail, latestRequest)}
-          on:deny={(ev) => denyQuestion(ev.detail)} />
+          on:send={(ev) => publishNewQuestion(ev.detail, latestRequest)} />
       {/key}
     {:else}
       <p>caught up :D</p>

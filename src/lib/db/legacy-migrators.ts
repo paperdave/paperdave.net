@@ -78,7 +78,7 @@ export const migrateArtifact = (data: any): Artifact => {
   return Artifact.fromJSON(payload);
 };
 
-export const mirgrateUser = (data: any): User => {
+export const migrateUser = (data: any): User => {
   const payload: any = {
     id: data.id,
     name: data.name,

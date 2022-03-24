@@ -16,18 +16,26 @@ type UpdateOptions = Realm.Services.MongoDB.UpdateOptions;
 type UpdateResult<ID> = Realm.Services.MongoDB.UpdateResult<ID>;
 type ChangeEvent<T> = Realm.Services.MongoDB.ChangeEvent<T & Document>;
 
-interface Migrator<T> {
-  migrate(oldData: T): T;
+export type Migrator<T> = (t: unknown) => T;
+
+export interface WrappedCollectionOptions<T, S> {
+  type: DataType<T, S>;
+  primaryKey?: string;
+  migrator?: Migrator<T>;
 }
 
-export class WrappedCollection<T> {
-  constructor(
-    readonly raw: Collection<Document>,
-    readonly type: DataType<T>,
-    readonly migrator?: null | ((t: unknown) => T)
-  ) {}
+export class WrappedCollection<T, S> {
+  type: DataType<T, S>;
+  idField?: any;
+  migrator?: Migrator<T>;
 
-  private fromJSON(data: unknown) {
+  constructor(readonly raw: Collection<Document>, options: WrappedCollectionOptions<T, S>) {
+    this.type = options.type;
+    this.idField = options.primaryKey;
+    this.migrator = options.migrator;
+  }
+
+  private fromJSON(data: any) {
     if (this.migrator) {
       return this.migrator(data);
     }
@@ -44,6 +52,12 @@ export class WrappedCollection<T> {
   async find(filter?: Filter, options?: FindOptions): Promise<T[]> {
     const result = await this.raw.find(filter, options);
     return result.map((doc) => this.fromJSON(doc));
+  }
+
+  /** Finds the document which has the given id. */
+  async findById(id: string): Promise<T | null> {
+    const result = await this.raw.findOne({ [this.idField]: id });
+    return result ? this.fromJSON(result) : null;
   }
 
   /**
@@ -71,11 +85,7 @@ export class WrappedCollection<T> {
     replacement: T,
     options?: FindOneAndModifyOptions
   ): Promise<T | null> {
-    const result = await this.raw.findOneAndReplace(
-      filter,
-      this.type.toJSON(replacement) as Document,
-      options
-    );
+    const result = await this.raw.findOneAndReplace(filter, this.type.toJSON(replacement), options);
     return result ? this.fromJSON(result) : null;
   }
 
@@ -104,7 +114,7 @@ export class WrappedCollection<T> {
    * @returns The result.
    */
   async insertOne(document: T): Promise<InsertOneResult<string>> {
-    const result = await this.raw.insertOne(this.type.toJSON(document) as Document);
+    const result = await this.raw.insertOne(this.type.toJSON(document));
     return result as InsertOneResult<string>;
   }
 
@@ -116,7 +126,7 @@ export class WrappedCollection<T> {
    * @returns The result.
    */
   async insertMany(documents: T[]): Promise<InsertManyResult<string>> {
-    const json = documents.map((document) => this.type.toJSON(document) as Document);
+    const json = documents.map((document) => this.type.toJSON(document));
     const result = await this.raw.insertMany(json);
     return result as InsertManyResult<string>;
   }
@@ -141,25 +151,14 @@ export class WrappedCollection<T> {
     return this.raw.deleteMany(filter);
   }
 
-  // todo: stuff that depends on @structures allowing database _id fields.
-
-  /**
-   * Inserts a single document into the collection. Note: If the document is missing an _id, one
-   * will be generated for it by the server.
-   *
-   * @param item The item to insert
-   */
-  async insert(item: T): Promise<T> {
-    throw new Error('Not implemented');
-  }
-
   /**
    * Replaces a single document in the collection.
    *
    * @param item The item to insert
    */
-  async replace(item: T): Promise<T> {
-    throw new Error('Not implemented');
+  async replace(item: T): Promise<void> {
+    const json = this.type.toJSON(item);
+    await this.raw.findOneAndReplace({ [this.idField]: (json as any)[this.idField] }, json);
   }
 
   /**
@@ -168,8 +167,9 @@ export class WrappedCollection<T> {
    * @param item The item to retrieve the latest version of.
    * @returns The latest version of the item.
    */
-  async getLatest(item: T): Promise<T> {
-    throw new Error('Not implemented');
+  async getLatest(item: T): Promise<T | null> {
+    const json = this.type.toJSON(item);
+    return this.findById((json as any)[this.idField]);
   }
 
   /**
@@ -179,6 +179,6 @@ export class WrappedCollection<T> {
    * @returns The result.
    */
   async delete(item: T): Promise<DeleteResult> {
-    throw new Error('Not implemented');
+    return this.raw.deleteOne({ [this.idField]: (this.type.toJSON(item) as any)[this.idField] });
   }
 }
