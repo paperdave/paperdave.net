@@ -1,28 +1,32 @@
 <script lang="ts">
-  import BlurHash from '$lib/components/BlurHash.svelte';
   import Button from '$lib/components/Button.svelte';
+  import Img from '$lib/components/Img.svelte';
   import { VideoArtifact } from '$lib/structures';
   import { formatDate } from '$lib/utils/date';
 
   export let video: VideoArtifact;
 </script>
 
-<Button variant="subtle" href="/{video.id}">
-  <figure>
-    {#if video.blurhash && video.thumbnail}
-      <BlurHash hash={video.blurhash} src={video.thumbnail} alt={video.title} />
-    {:else if video.thumbnail}
-      <img src={video.thumbnail} alt={video.title} />
-    {/if}
-  </figure>
-  <div>
-    <strong>{video.title}</strong>
-    <date>{formatDate(video.date, 'date')}</date>
-  </div>
-</Button>
+<main>
+  <Button variant="subtle" href="/{video.id}">
+    <thumbnail>
+      {#if video.thumb}
+        <Img src={video.thumb} alt={video.title} />
+      {/if}
+    </thumbnail>
+    <video-details>
+      <label>{video.title}</label>
+      <date>{formatDate(video.date, 'date')}</date>
+    </video-details>
+  </Button>
+</main>
 
 <style lang="scss">
-  figure {
+  main {
+    width: 100%;
+  }
+
+  thumbnail {
     max-width: 100%;
     aspect-ratio: 16/9;
     border: 2px solid #ade6dc;
@@ -32,14 +36,14 @@
     flex-direction: column;
   }
 
-  div {
+  video-details {
     margin: 0;
     display: flex;
     flex-direction: column;
     margin-bottom: -0.1rem;
   }
 
-  strong {
+  label {
     font-weight: 500;
   }
 

@@ -25,6 +25,21 @@
       size: 32,
     },
     {
+      align: 'bottom',
+      x: 80.7,
+      y: -10,
+      angle: 2,
+      size: 42,
+      invert: true,
+    },
+    {
+      align: 'bottom',
+      x: 114,
+      y: 11,
+      angle: 16,
+      size: 42,
+    },
+    {
       align: 'top',
       x: 30,
       y: -35,

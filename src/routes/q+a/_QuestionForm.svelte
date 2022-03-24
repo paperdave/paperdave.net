@@ -40,7 +40,7 @@
       sendingState={sentQuestionId ? 'success' : sentFailed ? 'failure' : null} />
   </div>
   {#if expanded && !sending}
-    <div class="buttons" transition:fade={{ duration: 200 }}>
+    <div class="buttons" transition:fade|local={{ duration: 200 }}>
       <!-- <QaInput type="button" disabled><InfoSVG /></QaInput> -->
       <QaInput type="button" disabled><AlertSVG /></QaInput>
       <p style="line-height:2.5rem;opacity:0.4">(email/push notification coming soon)</p>
@@ -49,7 +49,7 @@
     </div>
   {/if}
   {#if sentQuestionId}
-    <div class="sent" transition:fade={{ duration: 200 }}>
+    <div class="sent" transition:fade|local={{ duration: 200 }}>
       <h2>your question was sent!</h2>
       <p>
         it's permalink is at <a href={sentQuestionId}>{sentQuestionId}</a>
@@ -58,7 +58,7 @@
     </div>
   {/if}
   {#if sentFailed}
-    <div class="sent" transition:fade={{ duration: 200 }}>
+    <div class="sent" transition:fade|local={{ duration: 200 }}>
       <h2>your question was not sent!</h2>
       <p>please try again later.</p>
     </div>

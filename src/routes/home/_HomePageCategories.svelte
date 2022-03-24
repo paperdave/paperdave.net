@@ -1,8 +1,8 @@
 <script lang="ts">
-  import BackButton from '$lib/components/BackButton.svelte';
+  // import BackButton from '$lib/components/BackButton.svelte';
   import Button from '$lib/components/Button.svelte';
   import ThemeRoot from '$lib/components/ThemeRoot.svelte';
-  import ChevonDownSVG from '$lib/svg/fluent/ChevronDown.svg';
+  // import ChevonDownSVG from '$lib/svg/fluent/ChevronDown.svg';
   import ArrowLeftSVG from '$lib/svg/fluent/ArrowLeft.svg';
   import { gearRotations } from './homepage-stores';
   import HomePageCategoriesBackground from './_HomePageCategoriesBackground.svelte';

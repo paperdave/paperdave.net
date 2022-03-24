@@ -110,7 +110,7 @@
     clip-path: polygon(calc(19rem - 1px) 0, 100% 0, 100% 100%, 2rem 100%);
     pointer-events: none;
 
-    @media (min-width: 1601px) and (max-width: 2400px) {
+    @media (min-width: 1601px) and (max-width: 1860px) {
       display: none;
     }
   }

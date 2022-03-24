@@ -38,8 +38,10 @@
 <style lang="scss">
   grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(22rem, 1fr));
     padding: 0 2rem;
+    margin: auto;
+    max-width: 110rem;
   }
   article {
     display: flex;

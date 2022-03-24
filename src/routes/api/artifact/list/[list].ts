@@ -1,7 +1,8 @@
+import { StructureJSON } from '$lib/api-client/api-shared';
 import { getDatabase } from '$lib/db';
 import { WrappedCollection } from '$lib/db/WrappedCollection';
-import { Artifact, ArtifactVisibility } from '$lib/structures';
-import { maybePromise, MaybePromise } from '$lib/utils/maybe';
+import { Artifact, ArtifactType, ArtifactVisibility } from '$lib/structures';
+import { maybeArrayOrPromise, MaybeArrayOrPromise } from '$lib/utils/maybe';
 import { Dict } from '@davecode/structures/dist/helper-types';
 import { RequestHandler } from '@sveltejs/kit';
 
@@ -9,10 +10,42 @@ interface Params extends Dict<string> {
   list: string;
 }
 
-type ListFn = (db: WrappedCollection<Artifact>) => MaybePromise<Artifact[]>;
+interface ListFn {
+  fetch(db: WrappedCollection<Artifact>): MaybeArrayOrPromise<Artifact[]>;
+  removeProperties: string[];
+}
 
+// The supported lists.
 export const artifactListMap: Record<string, ListFn> = {
-  videos: (db) => db.find({ type: 'VIDEO' }),
+  new: {
+    fetch: (db) =>
+      db.find({
+        tags: { $all: ['new'] },
+      }),
+    removeProperties: ['visibility'],
+  },
+  videos: {
+    fetch: (db) =>
+      Promise.all([
+        db.find({ type: ArtifactType.VIDEO }),
+        db.find({ type: ArtifactType.MUSIC_VIDEO }),
+        db.find({ type: 'video' }),
+      ]),
+    removeProperties: ['visibility', 'music', 'video'],
+  },
+  music: {
+    fetch: (db) =>
+      Promise.all([
+        db.find({ type: ArtifactType.MUSIC }),
+        db.find({ type: ArtifactType.MUSIC_VIDEO }),
+        db.find({ type: 'music' }),
+        db.find({ id: 'mayday' }),
+      ]),
+    // TODO: in the future, i would love to create a class like ArtifactPreview, then fetch the
+    // detailed information when you click on a MusicCard. right now to avoid validation errors
+    // we have to send ALL metadata including the `video` prop on music videos.
+    removeProperties: ['visibility'],
+  },
 };
 
 /**
@@ -33,16 +66,16 @@ export const get: RequestHandler<Params> = async ({ params }) => {
   }
 
   const db = await getDatabase(Artifact);
-  const artifacts = (await maybePromise(listFn(db))).flat();
+  const artifacts = (await maybeArrayOrPromise(listFn.fetch(db))).flat();
 
   const sorted = artifacts
     .filter((x) => x.visibility === ArtifactVisibility.PUBLIC)
     .sort((a, b) => b.date.getTime() - a.date.getTime())
-    .map((a) => a.toJSON())
+    .map((a) => a.toJSON() as StructureJSON)
     .map((a) => {
-      delete (a as any).visibility;
-      delete (a as any).video;
-      delete (a as any).music;
+      for (const prop of listFn.removeProperties) {
+        delete (a as any)[prop];
+      }
       return a;
     });
 

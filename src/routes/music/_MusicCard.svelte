@@ -32,6 +32,7 @@
         return () => clearTimeout(timer);
       } else {
         showLoading = false;
+        return undefined;
       }
     },
     () => [playing, loading]
@@ -87,18 +88,26 @@
       isDragging = false;
     });
   }
+
+  const hiddenTags = ['music video'];
+
+  const displayTags = [...artifact.tags]
+    .filter((tag) => !hiddenTags.includes(tag))
+    .map((tag) => `#${tag}`);
+
+  console.log(artifact);
 </script>
 
 <main>
   <audio
-    src={artifact.file}
+    src={artifact.music.url}
     preload="none"
     bind:this={audioElement}
     on:playing={() => (playing = true)}
     on:pause={() => (playing = false)}
     on:durationchange={() => (loading = true)}
     on:canplay={() => (loading = false)}
-    loop={artifact.hasTag('loop')} />
+    loop={artifact.tags.has('loop')} />
 
   <header>
     <div
@@ -130,12 +139,12 @@
     <a href={`/${artifact.id}`} class="icon">
       <LinkSVG />
     </a>
-    <a href={artifact.file} target="_blank" class="icon">
+    <a href={artifact.music.url} target="_blank" class="icon">
       <DownloadSVG />
     </a>
   </header>
   {#if expanded}
-    <section transition:slide={{ duration: 300 }}>
+    <section transition:slide|local={{ duration: 300 }}>
       <div
         class="track"
         style="--progress:{progress * 100}"

@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 @function shadow($size, $prec, $color) {
   $str: '';
   $i: 0;

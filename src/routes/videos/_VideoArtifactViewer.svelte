@@ -16,8 +16,9 @@
 <Meta
   title={artifact.title}
   description="video by dave caruso released on {formatDate(artifact.date, 'date')}"
-  video={artifact.file} />
+  video={artifact.video.url} />
 
+<!-- Layout is here because this is not a page file, but a component. -->
 <Layout>
   <BackButton inverted position="off-center" href="/videos" text="all videos" />
 
@@ -28,7 +29,7 @@
       <date>{formatDate(artifact.date, 'date')}</date>
     </div>
 
-    <VideoPlayer url={artifact.file} />
+    <VideoPlayer video={artifact.video} />
 
     <div class="tags">
       {#each [...artifact.tags] as tag}

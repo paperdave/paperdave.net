@@ -33,7 +33,7 @@
           class="result"
           class:success={sendingState === 'success'}
           class:failure={sendingState === 'failure'}
-          transition:fade={{ duration: 200 }} />
+          transition:fade|local={{ duration: 200 }} />
       {/if}
     </div>
   {/if}

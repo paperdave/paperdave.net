@@ -120,7 +120,7 @@
     }
   }
 
-  @media (min-width: 1601px) and (max-width: 2400px) {
+  @media (min-width: 1601px) and (max-width: 1860px) {
     .bottom-border {
       position: absolute;
       background: white;

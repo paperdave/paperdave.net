@@ -16,7 +16,7 @@
           <span>about the artist</span>
           <HomePageNonGlowyName />
         </h2>
-        <flex row>
+        <flex row class="row1">
           <article>
             <ArticleAboutDaveCaruso />
           </article>
@@ -50,7 +50,7 @@
   .root {
     flex: 2.5 1 80rem;
 
-    @media (max-width: 2400px) {
+    @media (max-width: 1860px) {
       flex: 1;
     }
   }
@@ -65,14 +65,18 @@
     justify-content: center;
     align-items: center;
 
-    @media (max-width: 2400px) {
+    @media (max-width: 1860px) {
       margin-right: 0;
     }
   }
 
   .inner {
-    width: 90%;
+    width: 100%;
     max-width: 80rem;
+  }
+
+  .row1 {
+    justify-content: center;
   }
 
   article {
@@ -88,6 +92,7 @@
   h2 {
     display: flex;
     align-items: baseline;
+    white-space: nowrap;
 
     @media (max-width: 1000px) {
       flex-direction: column;
@@ -117,5 +122,20 @@
     border: 4px solid #6d007a;
     left: 15rem;
     top: 8rem;
+  }
+
+  @media (max-width: 2237px) {
+    .img2,
+    .img3 {
+      display: none;
+    }
+    aside {
+      flex: 0 0 10rem;
+      width: 10rem;
+    }
+    h2 {
+      justify-content: center;
+      margin-right: 0.7rem;
+    }
   }
 </style>

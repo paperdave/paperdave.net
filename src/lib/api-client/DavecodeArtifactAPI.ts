@@ -75,7 +75,7 @@ export class DavecodeArtifactAPI {
    */
   async getArtifactList(listName: string): Promise<Artifact[]> {
     const response = await this.client.get<StructureJSON[]>(`/artifact/list/${listName}`);
-    return response.data.map((x) => Artifact.fromJSON(x.data));
+    return response.data.map((x) => Artifact.fromJSON(x));
   }
 
   /**

@@ -57,7 +57,7 @@
 </flex>
 
 <style lang="scss">
-  @media (max-width: 2400px) {
+  @media (max-width: 1860px) {
     .second-row {
       flex-direction: column;
     }

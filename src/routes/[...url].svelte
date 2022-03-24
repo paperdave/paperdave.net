@@ -5,12 +5,59 @@
   import { SvelteComponentTyped } from 'svelte/internal';
   import { wrapAPI } from '$lib/api-client/singleton';
 
+  const artifactTypes: Record<string, string> = {
+    VIDEO: 'videos',
+    MUSIC: 'music',
+    APP: 'apps',
+    JOURNAL: 'journal',
+    FRAGMENT: 'fragments',
+    WORD_MAGNET: '?????',
+    GAME: 'games',
+    NERD_GEAR: 'nerd-gear',
+    STORY: 'stories',
+    SQUARE: '?????',
+    MUSIC_VIDEO: 'music-videos',
+  };
+
   export const load: Load = async ({ url, fetch }) => {
     const API = wrapAPI(fetch);
 
-    const artifactId = url.pathname.slice(1);
-    if (artifactId.match(/^[a-z0-9_-]+$/)) {
-      const artifact = await API.artifacts.getArtifact(artifactId);
+    // Artifact direct links
+    // TODO: rewrite this as a function because holy hell this indentation is ugly
+    const splits = url.pathname.split('/');
+    if (splits.length === 3) {
+      const type = splits[1];
+      const id = splits[2];
+
+      if (Object.values(artifactTypes).includes(type)) {
+        const artifact = await API.artifacts.getArtifact(id);
+
+        if (artifact) {
+          // the only case this /type/id format is allowed is for viewing song pages for music videos
+
+          if (type === 'music' && artifact) {
+            return {
+              props: {
+                artifact,
+                viewer: 'MUSIC',
+              },
+            };
+          }
+
+          return {
+            status: 301,
+            headers: {
+              Location: `/${artifact.id}`,
+            },
+          };
+        }
+      }
+    }
+    if (splits.length === 2) {
+      const id = splits[1];
+
+      const artifact = await API.artifacts.getArtifact(id);
+
       if (artifact) {
         return {
           props: {
@@ -20,12 +67,15 @@
       }
     }
 
+    // Redirects
     const json = await fetch(`/get-redirect?page=${encodeURIComponent(url.pathname)}`) //
       .then((res) => res.json());
 
     if (json.redirect) {
       return { redirect: json.redirect, status: 301 };
     }
+
+    // 404
     return {
       status: 404,
     };
@@ -40,17 +90,19 @@
   import VideoArtifactViewer from './videos/_VideoArtifactViewer.svelte';
 
   export let artifact: Artifact;
+  export let viewer: string | null = null;
 
   const viewers: Record<string, typeof ViewerClass> = {
-    music: MusicArtifactViewer,
-    video: VideoArtifactViewer,
+    MUSIC: MusicArtifactViewer,
+    VIDEO: VideoArtifactViewer,
+    MUSIC_VIDEO: VideoArtifactViewer,
   };
 
-  $: viewer = viewers[artifact.type];
+  $: comp = viewers[viewer ?? artifact.type];
 </script>
 
-{#if viewer}
-  <svelte:component this={viewer} {artifact} />
+{#if comp}
+  <svelte:component this={comp} {artifact} />
 {:else}
   <ErrorPage>
     <h1>not implemented</h1>

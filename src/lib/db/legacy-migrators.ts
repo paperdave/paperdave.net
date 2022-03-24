@@ -46,7 +46,7 @@ export const migrateArtifact = (data: any): Artifact => {
   const payload: any = {
     id: data.id,
     title: data.title,
-    tags: data.tags,
+    tags: data.tags ?? [],
     type: afTypes[data.type as keyof typeof afTypes],
     visibility: data.visibility,
     date: data.date,

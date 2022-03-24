@@ -16,7 +16,6 @@
   import TwitchSVG from '$lib/svg/thirdparty-icons/Twitch.svg';
   import TwitterSVG from '$lib/svg/thirdparty-icons/Twitter.svg';
   import YoutubeSVG from '$lib/svg/thirdparty-icons/Youtube.svg';
-  import HomePageGlobe3D from './_HomePageGlobe3D.svelte';
 
   const otherWebsites = [
     { name: 'Youtube', icon: YoutubeSVG, url: 'https://youtube.com/davecode' },
@@ -39,6 +38,7 @@
 
 <ThemeRoot background="#74d7c5">
   <div class="content">
+    <div class="top-border" />
     <flex row center class="two-col">
       <article>
         <h2>other websites</h2>
@@ -56,7 +56,7 @@
         </grid>
       </article>
       <div class="globe">
-        <HomePageGlobe3D />
+        <video aria-hidden src="/assets/home/globe.mp4" loop muted autoplay />
       </div>
     </flex>
   </div>
@@ -71,7 +71,29 @@
   .content {
     padding: 3rem 2rem;
     text-align: center;
-    border-top: 0.15rem solid black;
+  }
+
+  .top-border {
+    $size: 1.5rem;
+
+    position: absolute;
+    z-index: 100;
+    top: -$size + 0.02rem;
+    left: 0;
+    width: 100%;
+    height: $size;
+    background: url('/assets/home/Water.svg');
+    background-size: auto $size;
+    animation: slide 8s infinite linear;
+
+    @keyframes slide {
+      0% {
+        background-position: 0 0;
+      }
+      100% {
+        background-position: calc(100 / 39) * $size 0;
+      }
+    }
   }
 
   // not particularly proud of this responsive grid lol
@@ -105,21 +127,23 @@
   }
 
   .two-col {
-    gap: 2rem;
-
     @media (max-width: 1000px) {
       flex-direction: column;
     }
   }
 
   .globe {
-    width: 22rem;
-    height: 22rem;
+    width: 26rem;
     display: flex;
     justify-content: center;
     align-items: center;
     max-width: calc(100vw - 2rem);
     max-height: calc(100vw - 2rem);
+    position: relative;
+
+    video {
+      pointer-events: none;
+    }
   }
 
   .icon-btn {

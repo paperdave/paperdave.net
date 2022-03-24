@@ -16,7 +16,7 @@ export const Artifact = new Structure('Artifact')
     default: ArtifactVisibility.PRIVATE,
   })
   .prop('thumb', ImageMedia.nullable)
-  .prop('tags', types.SetOf(types.String).nullable, { default: () => new Set() })
+  .prop('tags', types.SetOf(types.String), { default: () => new Set() })
   .method('getURL', function (origin = getBaseOrigin()) {
     return new URL('/' + this.id, origin);
   })
