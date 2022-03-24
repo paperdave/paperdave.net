@@ -18,6 +18,13 @@
     </div> -->
 
     <ul>
+      <!-- <li>
+        <code class="year">????-</code>
+        <code>??-??</code>
+        {' '}
+        <span>left universe</span>
+      </li> -->
+
       <li>
         <code class="year">2020-</code>
         <code> 08-10 </code>
@@ -54,6 +61,12 @@
         <span>
           <a href="">sdfafdsafd</a>
         </span>
+      </li>
+      <li>
+        <code class="year">2004-</code>
+        <code>04-30</code>
+        {' '}
+        <span>born</span>
       </li>
     </ul>
   </div>
