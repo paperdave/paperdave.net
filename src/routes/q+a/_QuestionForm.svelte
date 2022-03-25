@@ -26,7 +26,6 @@
       sentQuestionId = `${location.origin}/q+a/${response.getDateId()}`;
     } else {
       sentFailed = true;
-      console.log(response);
     }
   }
 </script>

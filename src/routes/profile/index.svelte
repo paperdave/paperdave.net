@@ -3,12 +3,12 @@
 </script>
 
 <script lang="ts">
-  import { token, user } from '$lib/api-client/session';
+  import { user } from '$lib/api-client/session';
   import { API } from '$lib/api-client/singleton';
 
   import BackButton from '$lib/components/BackButton.svelte';
   import Button from '$lib/components/Button.svelte';
-  import { restrictedPage } from '$lib/utils/client';
+  import { restrictedPage } from '$lib/utils/restricted-page';
 
   function logout() {
     API.auth.logout();
@@ -23,10 +23,9 @@
       >{JSON.stringify($user?.toJSON(), null, 2)}
     </code>
   </pre>
-  <pre><code
-      >your token: {JSON.stringify($token?.toJSON(), null, 2)}
-    </code>
-  </pre>
+
+  <h2>things</h2>
+  <a href="/admin">admin stuff</a>
 </article>
 
 <style lang="scss">

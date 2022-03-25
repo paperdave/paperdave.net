@@ -35,7 +35,7 @@
     }
   }
 
-  export let featuredList: Artifact[] = [];
+  export let freshList: Artifact[] = [];
 </script>
 
 <svelte:window on:keypress={handleKeypress} />
@@ -47,7 +47,7 @@
 <flex>
   <flex row class="first-row">
     <HomePageHeader />
-    <HomePageFresh {featuredList} />
+    <HomePageFresh list={freshList} />
   </flex>
   <flex row reverse class="second-row">
     <HomePageCategories />

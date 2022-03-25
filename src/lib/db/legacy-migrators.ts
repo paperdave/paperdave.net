@@ -20,7 +20,7 @@ export const migrateArtifact = (data: any): Artifact => {
     return new MusicVideoArtifact({
       id: 'mayday',
       type: ArtifactType.MUSIC_VIDEO,
-      title: 'Mayday',
+      title: 'mayday',
       tags: new Set(['music video']),
       visibility: 'PUBLIC',
       date: new Date(1645128900367),
@@ -41,6 +41,56 @@ export const migrateArtifact = (data: any): Artifact => {
         duration: 227,
       }),
     });
+  } else if (data.id === 'im-18-now') {
+    return new MusicVideoArtifact({
+      id: 'im-18-now',
+      type: ArtifactType.MUSIC_VIDEO,
+      title: "i'm 18 now",
+      tags: new Set(['music video']),
+      visibility: 'PUBLIC',
+      date: new Date(1651334400000),
+      thumb: new ImageMedia({
+        url: 'https://media.davecode.net/content/2022/im-18-now.jpeg',
+        width: 1920,
+        height: 1080,
+        // hash: '',
+      }),
+      video: new VideoMedia({
+        url: 'https://media.davecode.net/content/2022/im-18-now.mp4',
+        width: 1920,
+        height: 1080,
+        duration: 0,
+      }),
+      music: new AudioMedia({
+        url: 'https://media.davecode.net/content/2022/im-18-now.mp3',
+        duration: 0,
+      }),
+    });
+  } else if (data.id === 'i-got-this-thing') {
+    return new MusicVideoArtifact({
+      id: 'i-got-this-thing',
+      type: ArtifactType.MUSIC_VIDEO,
+      title: 'i got this thing',
+      tags: new Set(['music video']),
+      visibility: 'PUBLIC',
+      date: new Date('2021-07-01 12:00'),
+      thumb: new ImageMedia({
+        url: 'https://media.davecode.net/content/2021/i-got-this-thing.jpeg',
+        width: 1920,
+        height: 1080,
+        // hash: '',
+      }),
+      video: new VideoMedia({
+        url: 'https://media.davecode.net/content/2021/i-got-this-thing.mp4',
+        width: 1920,
+        height: 1080,
+        duration: 0,
+      }),
+      music: new AudioMedia({
+        url: 'https://media.davecode.net/content/2021/i-got-this-thing.mp3',
+        duration: 0,
+      }),
+    });
   }
 
   const payload: any = {
@@ -48,7 +98,7 @@ export const migrateArtifact = (data: any): Artifact => {
     title: data.title,
     tags: data.tags ?? [],
     type: afTypes[data.type as keyof typeof afTypes],
-    visibility: data.visibility,
+    visibility: data.visibility ?? 'PUBLIC',
     date: data.date,
   };
 

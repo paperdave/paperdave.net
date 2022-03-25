@@ -1,7 +1,6 @@
 import { StructureJSON } from '$lib/api-client/api-shared';
 import { getDatabase } from '$lib/db';
 import { Artifact, ArtifactVisibility, Permission } from '$lib/structures';
-import { getProperties } from '$lib/utils/api';
 import { Dict } from '@davecode/structures/dist/helper-types';
 import { RequestHandler } from '@sveltejs/kit';
 
@@ -19,7 +18,7 @@ type GetArtifactOutput = StructureJSON | { error: string };
  * - If it does not exist, a 404 Error is returned.
  * - You can pass a `props` query parameter to return only the properties you want (separated by commas).
  */
-export const get: RequestHandler<Params, GetArtifactOutput> = async ({ params, locals, url }) => {
+export const get: RequestHandler<Params, GetArtifactOutput> = async ({ params, locals }) => {
   const id = params.artifact;
 
   const db = await getDatabase(Artifact);
@@ -41,7 +40,7 @@ export const get: RequestHandler<Params, GetArtifactOutput> = async ({ params, l
 
   return {
     status: 200,
-    body: getProperties(artifact.toJSON(), url.searchParams.get('props')),
+    body: artifact.toJSON(),
   };
 };
 

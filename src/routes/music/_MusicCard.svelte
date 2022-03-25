@@ -7,7 +7,7 @@
   import LinkSVG from '$lib/svg/fluent/Link.svg';
   import DownloadSVG from '$lib/svg/fluent/Download.svg';
   import { useEffect } from '$lib/hooks/useEffect';
-  import { MusicArtifact } from '$lib/structures';
+  import { MusicArtifact, MusicVideoArtifact } from '$lib/structures';
   import { formatDate } from '$lib/utils/date';
   export let artifact: MusicArtifact;
 
@@ -91,11 +91,7 @@
 
   const hiddenTags = ['music video'];
 
-  const displayTags = [...artifact.tags]
-    .filter((tag) => !hiddenTags.includes(tag))
-    .map((tag) => `#${tag}`);
-
-  console.log(artifact);
+  const displayTags = [...artifact.tags].filter((tag) => !hiddenTags.includes(tag));
 </script>
 
 <main>
@@ -131,12 +127,17 @@
       <h3>{artifact.title}</h3>
       <div class="tags">
         <span class="date">{formatDate(artifact.date, 'date')}</span>
-        {#each [...artifact.tags] as tag}
+        {#if artifact instanceof MusicVideoArtifact}
+          <a href="/{artifact.id}" class="custom tag">has video</a>
+        {/if}
+        {#each displayTags as tag}
           <span class="tag">{tag}</span>
         {/each}
       </div>
     </div>
-    <a href={`/${artifact.id}`} class="icon">
+    <a
+      href={artifact instanceof MusicArtifact ? `/${artifact.id}` : `/music/${artifact.id}`}
+      class="icon">
       <LinkSVG />
     </a>
     <a href={artifact.music.url} target="_blank" class="icon">

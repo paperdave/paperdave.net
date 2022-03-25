@@ -7,7 +7,7 @@ import {
   QuestionRequest,
 } from '$lib/structures';
 import { GenericSuccess } from '$lib/utils/api';
-import { escapeHTML } from '$lib/utils/escapeHTML';
+import { escapeHTML } from '$lib/utils/escape';
 import { Dict } from '@davecode/structures/dist/helper-types';
 import { RequestHandler, RequestHandlerOutput } from '@sveltejs/kit';
 

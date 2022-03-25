@@ -3,7 +3,7 @@
   import { Artifact } from '$lib/structures';
   import HomePageFreshCard from './_HomePageFreshCard.svelte';
 
-  export let featuredList: Artifact[] = [];
+  export let list: Artifact[] = [];
 </script>
 
 <div class="outer">
@@ -38,7 +38,7 @@
           <p>last updated <code>2022-02-22</code></p>
           <p>next project estimated <code>2022-04-30</code></p>
           <ul>
-            {#each featuredList as artifact}
+            {#each list as artifact}
               <HomePageFreshCard {artifact} />
             {/each}
             <!-- <HomePageFreshCard

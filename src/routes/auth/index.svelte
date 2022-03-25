@@ -2,7 +2,7 @@
   import { session, page } from '$app/stores';
   import { goto } from '$app/navigation';
   import { API } from '$lib/api-client/singleton';
-  import { decodeRedirect } from '$lib/utils/encodeRedirect';
+  import { decodeRedirect } from '$lib/utils/encode-redirect';
 
   $: returnPage = $page.url.searchParams.get('r') ?? '/profile';
 

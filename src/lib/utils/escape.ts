@@ -12,3 +12,7 @@ const replacements: Record<string, string> = {
 export function escapeHTML(str: string): string {
   return str.replace(/[&<>"'`=\/]/g, (s) => replacements[s]);
 }
+
+export function escapeMarkdown(str: string): string {
+  return str.replace(/[\\`*_{}[\]()#+\-.!]/g, '\\$&');
+}

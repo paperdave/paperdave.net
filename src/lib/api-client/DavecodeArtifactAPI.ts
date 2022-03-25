@@ -77,13 +77,4 @@ export class DavecodeArtifactAPI {
     const response = await this.client.get<StructureJSON[]>(`/artifact/list/${listName}`);
     return response.data.map((x) => Artifact.fromJSON(x));
   }
-
-  /**
-   * Get an artifact list by it's list id. Lists are hardcoded into the api code, so the api does
-   * not support modifying these presets.
-   */
-  async getFeaturedList(): Promise<Artifact[]> {
-    const response = await this.client.get<StructureJSON[]>(`/artifact/featured`);
-    return response.data.map((x) => Artifact.fromJSON(x));
-  }
 }

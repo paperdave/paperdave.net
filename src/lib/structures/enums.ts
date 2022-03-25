@@ -12,7 +12,8 @@ export const ArtifactType = types.Enum(
   'NERD_GEAR',
   'STORY',
   'SQUARE',
-  'MUSIC_VIDEO'
+  'MUSIC_VIDEO',
+  'DOODLE'
 );
 export type ArtifactType = Instance<typeof ArtifactType>;
 

@@ -40,8 +40,6 @@ export const post: RequestHandler = async ({ request }) => {
 
   await db.insertOne(qr);
 
-  console.log(qr.toJSON());
-
   return {
     status: 200,
     body: {

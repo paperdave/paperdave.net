@@ -6,7 +6,8 @@
 </script>
 
 <main class:q={paragraph.who === 'QUESTION'} class:a={paragraph.who === 'ANSWER'}>
-  {@html paragraph.message.replace(search, '<span class="highlight">$&</span>')}
+  {@html paragraph.message}
+  <!-- {@html paragraph.message.replace(search, '<span class="highlight">$&</span>')} -->
 </main>
 
 <style lang="scss">
@@ -26,5 +27,9 @@
     color: #51d064;
 
     --text-casual: 0.5;
+  }
+
+  main :global(.highlight) {
+    background-color: #ffff0044;
   }
 </style>

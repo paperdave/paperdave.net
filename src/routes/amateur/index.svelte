@@ -1,4 +1,84 @@
-<main>
+<script lang="ts" context="module">
+  import { wrapAPI } from '$lib/api-client/singleton';
+  import ThemeRoot from '$lib/components/ThemeRoot.svelte';
+  import { Artifact } from '$lib/structures';
+  import { formatDate } from '$lib/utils/date';
+  import type { Load } from '@sveltejs/kit';
+  import hardcoded from './amateur-extras.yaml';
+
+  export const load: Load = async ({ fetch }) => {
+    const API = wrapAPI(fetch);
+
+    const actualArtifacts = await API.artifacts.getArtifactList('all');
+
+    return {
+      props: {
+        actualArtifacts,
+      },
+    };
+  };
+
+  const typeDisplayName: Record<string, string> = {
+    UNKNOWN: 'unknown',
+    VIDEO: 'video',
+    MUSIC: 'song',
+    APP: 'app',
+    JOURNAL: 'journal entry',
+    FRAGMENT: 'fragment',
+    WORD_MAGNET: 'word magnets',
+    GAME: 'video game',
+    NERD_GEAR: 'nerd gear',
+    STORY: 'story',
+    SQUARE: 'square',
+    MUSIC_VIDEO: 'music video',
+    DOODLE: 'doodle',
+  };
+
+  function getType(item: Artifact) {
+    if (item.id === 'april-1st-2020') return '';
+
+    if (item.tags.has('thursday')) return 'thursday ' + typeDisplayName[item.type];
+    if (item.tags.has('how to')) return 'how to';
+    if (item.type === 'VIDEO' && item.tags.has('visual cover')) return 'visual cover';
+
+    return typeDisplayName[item.type] || 'thing';
+  }
+
+  function getTitle(item: Artifact) {
+    if (item.id === 'april-1st-2020') return 'thursday video';
+
+    let title = item.title.replace(/^music video:/, '');
+    if (item.tags.has('thursday')) title = title.replace(/^thursday /, '');
+    else if (item.tags.has('how to')) title = title.replace(/^how to /, '');
+
+    if (item.tags.has('visual cover')) title = title.replace(/^visual cover: /, '');
+
+    return title;
+  }
+
+  interface AmateurItem {
+    id: string;
+    date: Date;
+    title: string;
+    type?: string;
+    link?: string;
+  }
+</script>
+
+<script lang="ts">
+  export let actualArtifacts: Artifact[];
+
+  const artifacts: (Artifact | AmateurItem)[] = [
+    ...Object.keys(hardcoded).map((time, i) => ({
+      ...hardcoded[time],
+      id: 'hardcoded' + i,
+      date: new Date(Date.parse(time) + 86400000),
+    })),
+    ...actualArtifacts,
+  ].sort((a, b) => b.date.getTime() - a.date.getTime());
+</script>
+
+<ThemeRoot background="#dedede" accent="#d71a25">
   <div class="container">
     <h1>amateur mode enabled!!!</h1>
     <p>
@@ -25,63 +105,46 @@
         <span>left universe</span>
       </li> -->
 
-      <li>
-        <code class="year">2020-</code>
-        <code> 08-10 </code>
-        {' '}
-        <span>
-          <a href="">intermission</a>
-        </span>
-      </li>
-      <li>
-        <code> 08-02 </code>
-        {' '}
-        <span>
-          <a href="">idk man</a>
-        </span>
-      </li>
-      <li>
-        <code> 04-07 </code>
-        {' '}
-        <span>
-          <a href="">bread</a>
-        </span>
-      </li>
-      <li>
-        <code> 05-43 </code>
-        {' '}
-        <span>
-          <a href="">it is currently hardcoded</a>
-        </span>
-      </li>
-      <li>
-        <code class="year">2019-</code>
-        <code> 02-05 </code>
-        {' '}
-        <span>
-          <a href="">sdfafdsafd</a>
-        </span>
-      </li>
-      <li>
-        <code class="year">2004-</code>
-        <code>04-30</code>
-        {' '}
-        <span>born</span>
-      </li>
+      {#each artifacts as item, i (item.id)}
+        <li>
+          <!-- TODO: change this so it reuses format results. Note: the formatDate is required due to time-zone issues. -->
+          {#if i === 0 || formatDate(artifacts[i - 1].date, 'YYYY') !== formatDate(item.date, 'YYYY')}
+            <span class="year">
+              <span class="underlined">{formatDate(item.date, 'YYYY')}</span>-
+            </span>
+          {:else}
+            <div class="year-implied" />
+          {/if}
+
+          <span class="month-day">{formatDate(item.date, 'MM-DD')}</span>
+
+          &nbsp;
+
+          <span>
+            {#if item instanceof Artifact}
+              <a href={`/${item.id}`}>
+                <span class="type">{getType(item)}</span>{getType(item) ? ': ' : ''}{getTitle(item)}
+              </a>
+            {:else}
+              {#if item.type}
+                <span class="type">{item.type}</span>:
+              {/if}{item.title}
+            {/if}
+          </span>
+        </li>
+      {/each}
     </ul>
+
+    <p>again, the database isn't done and A LOT more exists.</p>
   </div>
-</main>
+</ThemeRoot>
 
 <style lang="scss">
-  main {
-    background-color: #dedede;
-
-    .container {
-      width: 750px;
-      margin: auto;
-      padding-top: 48px;
-      padding-bottom: 48px;
-    }
+  .container {
+    width: 750px;
+    margin: auto;
+    padding-top: 48px;
+    padding-bottom: 48px;
   }
 
   h1,
@@ -89,6 +152,10 @@
   p,
   ul {
     margin-bottom: 16px;
+  }
+
+  li {
+    margin-bottom: 5px;
   }
 
   h1 {
@@ -110,26 +177,32 @@
     position: relative;
   }
 
-  a {
-    color: #4b0101;
-    text-decoration: underline;
-    text-decoration-color: #888;
-
-    &:hover {
-      color: #160101;
-      text-decoration-color: #160101;
-    }
-
-    &:active {
-      color: #ff22ed;
-      text-decoration-color: #ff22ed;
-    }
+  .month-day,
+  .year {
+    --text-mono: 1;
+    color: #555;
   }
 
   .year {
     position: absolute;
     right: 100%;
-    transform: translateY(0.75px);
+  }
+
+  .underlined {
+    position: absolute;
+    right: 100%;
+    background-color: #dedede;
+    border-bottom: 0.2rem solid #aaa;
+    z-index: 100;
+  }
+
+  .year-implied {
+    position: absolute;
+    transform: translateY(-0.5rem);
+    right: calc(100% + 0.6rem);
+    width: 0.2rem;
+    height: 1.5rem;
+    background: #aaa;
   }
 
   .search {
@@ -139,7 +212,7 @@
       background: white;
       color: black;
       border: 1px solid transparent;
-      font-family: monospace;
+      --text-mono: 1;
       padding: 8px;
       width: 100%;
       &:focus {
@@ -150,5 +223,9 @@
         color: #666;
       }
     }
+  }
+
+  .type {
+    font-weight: 600;
   }
 </style>

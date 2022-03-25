@@ -46,6 +46,10 @@ export const artifactListMap: Record<string, ListFn> = {
     // we have to send ALL metadata including the `video` prop on music videos.
     removeProperties: ['visibility'],
   },
+  all: {
+    fetch: (db) => db.find({}),
+    removeProperties: ['visibility'],
+  },
 };
 
 /**

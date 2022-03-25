@@ -9,14 +9,14 @@
 
     return {
       props: {
-        featuredList: await API.artifacts.getFeaturedList(),
+        freshList: await API.artifacts.getArtifactList('new'),
       },
     };
   };
 </script>
 
 <script lang="ts">
-  export let featuredList: Artifact[];
+  export let freshList: Artifact[];
 </script>
 
-<HomePageComponent {featuredList} />
+<HomePageComponent {freshList} />
