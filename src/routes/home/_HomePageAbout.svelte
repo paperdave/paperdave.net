@@ -29,8 +29,8 @@
             </div>
             <div class="img2">
               <BlurHash
-                hash="TfJICXxuyD?^WAtRADoMVsI]axR5"
-                src="/assets/photos/2022_SeniorGrad_1.jpg"
+                hash={'L59G%OD43qH@~A9sM{R$4,Tz{_tk'}
+                src="/assets/photos/Desk_Photo.jpg"
                 alt="dave caruso face" />
             </div>
             <div class="img3">

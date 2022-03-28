@@ -1,6 +1,7 @@
 <script lang="ts">
   import { Question, QuestionParagraph, QuestionRequest } from '$lib/structures';
-  import { escapeHTML } from '$lib/util$lib/utils/escapeort QaInput from './_QAInput.svelte';
+  import { escapeHTML } from '$lib/utils/escape';
+  import QaInput from './_QAInput.svelte';
   import QuestionRender from './_QuestionRender.svelte';
   import DismissSVG from '$lib/svg/fluent/Dismiss.svg';
   import AddSVG from '$lib/svg/fluent/Add.svg';

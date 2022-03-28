@@ -1,7 +1,7 @@
 <script context="module" lang="ts">
   import type { Question } from '$lib/structures';
   import { QuestionRequest, Permission } from '$lib/structures';
-  import { restrictedPage } from '$lib/utils/restricted-pagent';
+  import { restrictedPage } from '$lib/utils/restricted-page';
 
   import type { Load } from '@sveltejs/kit';
 
