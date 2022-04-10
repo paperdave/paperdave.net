@@ -49,7 +49,6 @@
   }
   h2 {
     font-size: 2.5rem;
-    margin-bottom: -0.5rem;
   }
   date {
     display: block;

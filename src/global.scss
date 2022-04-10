@@ -57,7 +57,7 @@ body {
 //
 @import 'modern-normalize';
 
-*:not(:defined) {
+*:where(:not(:defined)) {
   display: block;
 }
 

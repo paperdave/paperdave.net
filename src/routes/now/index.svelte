@@ -1,24 +1,23 @@
 <script>
   import BackButton from '$lib/components/BackButton.svelte';
   import Meta from '$lib/components/Meta.svelte';
-import ThemeRoot from '$lib/components/ThemeRoot.svelte';
+  import ThemeRoot from '$lib/components/ThemeRoot.svelte';
 
   const things = [
     //
     'doing high school',
-    'writing a timestamp marking software',
-    'is learning how to sing',
-    'is making two video games',
+    'writing software for making videos',
+    'making a discord bot',
   ];
 </script>
 
 <Meta title="what's now" description="short page explaining the current situation" />
 
-<ThemeRoot background='#74d7c5' accent='#74d7c5'>
+<ThemeRoot background="#74d7c5" accent="#74d7c5">
   <main>
     <BackButton position="off-center" />
     <h1>what's now</h1>
-  
+
     <section>
       <ul>
         {#each things as thing}
@@ -26,7 +25,7 @@ import ThemeRoot from '$lib/components/ThemeRoot.svelte';
         {/each}
       </ul>
     </section>
-  
+
     <footer>
       <a href="https://nownownow.com/about">(learn more about "now" pages.)</a>
     </footer>
@@ -48,7 +47,7 @@ import ThemeRoot from '$lib/components/ThemeRoot.svelte';
     color: #003726;
     text-shadow: shadow(3px, 1, #008b6c);
   }
-  
+
   section {
     max-width: 400px;
     margin: 0 auto;

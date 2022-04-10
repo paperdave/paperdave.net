@@ -2,14 +2,22 @@ import { browser } from '$app/env';
 import { ClientUser, Token, User } from '$lib/structures';
 import { get, writable } from 'svelte/store';
 
+function tryOr<T>(fn: () => T, fallback: T) {
+  try {
+    return fn();
+  } catch (e) {
+    return fallback;
+  }
+}
+
 const initialUser = browser ? localStorage.getItem('Session.user') : null;
 export const user = writable<ClientUser | null>(
-  initialUser ? ClientUser.fromJSON(JSON.parse(initialUser)) : null
+  tryOr(() => (initialUser ? ClientUser.fromJSON(JSON.parse(initialUser)) : null), null)
 );
 
 const initialToken = browser ? localStorage.getItem('Session.token') : null;
 export const token = writable<Token | null>(
-  initialToken ? Token.fromJSON(JSON.parse(initialToken)) : null
+  tryOr(() => (initialToken ? Token.fromJSON(JSON.parse(initialToken)) : null), null)
 );
 
 if (browser) {

@@ -19,6 +19,7 @@ theme-root {
   --accent-dark-3: calc(var(--accent-hue) + 21), 100%, 20%;
   --link-color: hsl(calc(var(--accent-hue) + 21), 100%, 8%);
 }
+
 theme-root.dark {
   // do a swap around
   --accent-dark-3: calc(var(--accent-hue) - 15), 98%, 80%;
