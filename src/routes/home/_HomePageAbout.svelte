@@ -4,7 +4,6 @@
   import ThemeRoot from '$lib/components/ThemeRoot.svelte';
   import ArticleAboutDaveCaruso from './_ArticleAboutDaveCaruso.svelte';
   import HomePageAboutBackground from './_HomePageAboutBackground.svelte';
-  import HomePageNonGlowyName from './_HomePageNonGlowyName.svelte';
 </script>
 
 <flex class="root">
