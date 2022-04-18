@@ -41,6 +41,7 @@
 
       <!-- this is the outline -->
       <svg
+        class="side-part"
         viewBox="0 0 100 100"
         preserveAspectRatio="none"
         style="position:absolute; width: 10rem; height: 100%; left: 0.5rem">
@@ -107,7 +108,7 @@
               </flex>
             {/if}
           </flex>
-          <span class="more"> ...more pages coming soon </span>
+          <span class="more">...more pages coming soon</span>
         </article>
       </flex>
     </ThemeRoot>
@@ -176,5 +177,53 @@
   .more {
     font-size: 1.5rem;
     font-weight: 600;
+  }
+
+  @media (max-width: 1600px) {
+    h2 {
+      width: 100%;
+      text-align: center;
+    }
+    .side-part {
+      display: none;
+    }
+    .inner {
+      margin-left: 0;
+      clip-path: none;
+      overflow: hidden;
+    }
+    article {
+      width: 100%;
+    }
+    .two-col {
+      flex-direction: column;
+      gap: 1rem;
+      align-items: center;
+    }
+    .col {
+      flex-direction: row;
+      gap: 2rem;
+    }
+    .more {
+      text-align: center;
+    }
+  }
+
+  @media (max-width: 800px) {
+    .two-col {
+      align-items: center;
+    }
+    .col {
+      flex-direction: column;
+      gap: 1rem;
+      align-items: center;
+      text-align: center;
+    }
+  }
+
+  @media (max-width: 448px) {
+    h2 {
+      font-size: 12vw;
+    }
   }
 </style>

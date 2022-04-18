@@ -13,11 +13,17 @@
     <div class="outer">
       <div class="inner">
         <h2>
-          <span>about the artist</span>
-          <HomePageNonGlowyName />
+          <span class="a">about the artist</span>
+          <span class="b">dave caruso</span>
         </h2>
         <flex row class="row1">
           <article>
+            <div class="mobile-photo">
+              <BlurHash
+                hash="TfJICXxuyD?^WAtRADoMVsI]axR5"
+                src="/assets/photos/2022_SeniorGrad_1.jpg"
+                alt="dave caruso face" />
+            </div>
             <ArticleAboutDaveCaruso />
           </article>
           <aside>
@@ -27,7 +33,8 @@
                 src="/assets/photos/2022_SeniorGrad_1.jpg"
                 alt="dave caruso face" />
             </div>
-            <div class="img2">
+            <!--  I WILL ADD THESE AT SOME POINT I JUST DONT WANT TO RIGHT NOW  -->
+            <!-- <div class="img2">
               <BlurHash
                 hash={'L59G%OD43qH@~A9sM{R$4,Tz{_tk'}
                 src="/assets/photos/Desk_Photo.jpg"
@@ -38,7 +45,7 @@
                 hash="TfJICXxuyD?^WAtRADoMVsI]axR5"
                 src="/assets/photos/2022_SeniorGrad_1.jpg"
                 alt="dave caruso face" />
-            </div>
+            </div> -->
           </aside>
         </flex>
       </div>
@@ -67,6 +74,7 @@
 
     @media (max-width: 1860px) {
       margin-right: 0;
+      border-top: 0.5rem solid white;
     }
   }
 
@@ -87,6 +95,10 @@
     position: relative;
     margin-left: 1.5rem;
     flex: 1;
+
+    @media (max-width: 800px) {
+      display: none;
+    }
   }
 
   h2 {
@@ -124,18 +136,53 @@
     top: 8rem;
   }
 
-  @media (max-width: 2237px) {
-    .img2,
-    .img3 {
-      display: none;
+  // @media (max-width: 2237px) {
+  // .img2,
+  // .img3 {
+  //   display: none;
+  // }
+  aside {
+    flex: 0 0 10rem;
+    width: 10rem;
+  }
+  h2 {
+    justify-content: center;
+    margin-right: 0.7rem;
+  }
+  // }
+
+  .mobile-photo {
+    display: none;
+    width: 12rem;
+    margin: auto;
+    max-width: calc(100% - 2rem);
+    aspect-ratio: 0.76;
+    border: 4px solid #6d007a;
+
+    @media (max-width: 800px) {
+      display: block;
     }
-    aside {
-      flex: 0 0 10rem;
-      width: 10rem;
+  }
+
+  .b {
+    font-size: 5rem;
+    margin-left: 5rem;
+
+    @media (max-width: 638px) {
+      margin-left: 0;
+      align-self: flex-end;
     }
-    h2 {
-      justify-content: center;
-      margin-right: 0.7rem;
+
+    @media (max-width: 556px) {
+      // this calculation isnt done correctly lol
+      font-size: calc((100vw - 4rem) * 0.143);
+    }
+  }
+
+  .a {
+    @media (max-width: 556px) {
+      // this calculation isnt done correctly lol
+      font-size: max(calc((100vw - 4rem) * 0.07), 16px);
     }
   }
 </style>

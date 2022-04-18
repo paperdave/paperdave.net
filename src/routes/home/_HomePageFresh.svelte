@@ -41,19 +41,6 @@
             {#each list as artifact}
               <HomePageFreshCard {artifact} />
             {/each}
-            <!-- <HomePageFreshCard
-              artifact={new Artifact({
-                id: 'phoenix-write',
-                type: 'GAME',
-                title: 'Phoenix, WRITE!',
-                date: new Date(1635264000000),
-                thumb: new Media({
-                  url: 'https://media.davecode.net/content/2021/phoenix-write.png',
-                  width: 1920,
-                  height: 1080,
-                }),
-                visibility: 'PUBLIC',
-              })} /> -->
           </ul>
         </article>
       </div>
@@ -105,6 +92,7 @@
     }
   }
   ul {
+    width: calc(100% - 2rem);
     margin: 0.5rem;
     display: flex;
     flex-direction: column;

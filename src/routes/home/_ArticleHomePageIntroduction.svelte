@@ -18,7 +18,7 @@
 </p>
 <p class="have-fun">have fun on your adventure, visitor.</p>
 
-<style>
+<style lang="scss">
   p {
     text-shadow: 0 0 10px white, 0 0 10px white;
     font-weight: 425;
@@ -26,5 +26,12 @@
   .have-fun {
     font-size: 2rem;
     font-weight: 500;
+
+    @media (max-width: 608px) {
+      max-width: 340px;
+    }
+    @media (max-width: 344px) {
+      font-size: 1.5rem;
+    }
   }
 </style>

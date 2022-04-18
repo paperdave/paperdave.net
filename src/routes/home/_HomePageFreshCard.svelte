@@ -7,7 +7,7 @@
   export let artifact: Artifact;
 
   function formatType(type: string) {
-    return type.replace(/-/g, ' ');
+    return type.replace(/_/g, ' ').toLowerCase();
   }
 </script>
 
@@ -24,9 +24,9 @@
     {/if}
     <flex>
       <h3 class="custom">{artifact.title}</h3>
-      <!-- <p>
+      <p>
         {formatType(artifact.type)}
-      </p> -->
+      </p>
       <p>
         {formatDate(artifact.date, 'date')}
       </p>
@@ -36,7 +36,7 @@
 
 <style lang="scss">
   .root {
-    width: 30rem;
+    width: 100%;
   }
   .thumbnail {
     display: flex;
@@ -48,6 +48,11 @@
     border: 1px solid white;
     & > * {
       flex: 1;
+    }
+  }
+  @media (max-width: 400px) {
+    .thumbnail {
+      height: 3rem;
     }
   }
 </style>

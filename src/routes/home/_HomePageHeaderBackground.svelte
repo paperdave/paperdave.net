@@ -1,7 +1,3 @@
-<script lang="ts">
-  import { onMount } from 'svelte';
-</script>
-
 <div class="root">
   <div class="layer layer1" />
   <div class="layer layer3" />
