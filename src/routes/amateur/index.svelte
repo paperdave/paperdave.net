@@ -66,6 +66,8 @@
 </script>
 
 <script lang="ts">
+  import Meta from '$lib/components/Meta.svelte';
+
   export let actualArtifacts: Artifact[];
 
   const artifacts: (Artifact | AmateurItem)[] = [
@@ -77,6 +79,10 @@
     ...actualArtifacts,
   ].sort((a, b) => b.date.getTime() - a.date.getTime());
 </script>
+
+<Meta
+  title="amateur mode"
+  description={'in a distant universe, someone calls this page an "expert mode." however, this is probably the easiest and laziest way to use the website— dave just threw everything on one page. either way, have fun.'} />
 
 <ThemeRoot background="#dedede" accent="#d71a25">
   <div class="container">

@@ -1,4 +1,6 @@
 <script lang="ts">
+  import Meta from '$lib/components/Meta.svelte';
+
   let form: HTMLFormElement;
   let isLoading = false;
   let isSubmit = false;
@@ -16,6 +18,8 @@
     isSubmit = true;
   }
 </script>
+
+<Meta title="forgot password - davecode" />
 
 {#if !isSubmit}
   <form bind:this={form} on:submit={submit} class:isLoading>

@@ -16,8 +16,9 @@
   <meta name="copyright" content="&copy; dave caruso 2021" />
   <meta name="distribution" content="web" />
   <meta name="theme-color" content={color} />
-  <meta name="keywords" content="art" />
+  <meta name="keywords" content="art, entertainment, dave caruso, davecode" />
   <meta name="powered by" content="chocolate" />
+  <meta name="dark mode extensions" content="please do not use" />
   <meta property="og:site_name" content="davecode - computer art to the limit" />
   <meta property="og:type" content={video ? 'video.other' : 'website'} />
   <meta property="og:title" content={title} />

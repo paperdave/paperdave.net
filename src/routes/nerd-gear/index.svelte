@@ -1,1 +1,5 @@
-POV: the public doesn't even know what davecode "nerd gear" even is
+<script>
+  import ComingSoon from '$lib/components/ComingSoon.svelte';
+</script>
+
+<ComingSoon />

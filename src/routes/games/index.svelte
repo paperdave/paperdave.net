@@ -1,1 +1,5 @@
-i think theyre all down anyways LOL
+<script>
+  import ComingSoon from '$lib/components/ComingSoon.svelte';
+</script>
+
+<ComingSoon />

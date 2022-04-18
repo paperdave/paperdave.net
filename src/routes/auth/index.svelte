@@ -1,8 +1,9 @@
 <script lang="ts">
-  import { session, page } from '$app/stores';
+  import { page } from '$app/stores';
   import { goto } from '$app/navigation';
   import { API } from '$lib/api-client/singleton';
   import { decodeRedirect } from '$lib/utils/encode-redirect';
+  import Meta from '$lib/components/Meta.svelte';
 
   $: returnPage = $page.url.searchParams.get('r') ?? '/profile';
 
@@ -32,6 +33,8 @@
     }
   }
 </script>
+
+<Meta title="authorize - davecode" />
 
 <form on:submit={submit} class:isLoading>
   <h1>authorize</h1>

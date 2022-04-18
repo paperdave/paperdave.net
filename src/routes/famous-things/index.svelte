@@ -1,3 +1,10 @@
+<script>
+  import Meta from '$lib/components/Meta.svelte';
+</script>
+
+<Meta
+  title="things i'm known for"
+  description={`here is a brief list of the notible things i've done, as the rest of the internet defines "notable" and "popular."`} />
 <main>
   <article class="root">
     <h1>things i'm known for</h1>

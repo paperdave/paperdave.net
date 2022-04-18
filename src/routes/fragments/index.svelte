@@ -1,13 +1,15 @@
-<script lang="ts">
+<script>
+  import ComingSoon from '$lib/components/ComingSoon.svelte';
 </script>
 
-<main>
-  <h1>fragments</h1>
-</main>
+<!-- 
+<script lang="ts">
+  import Meta from '$lib/components/Meta.svelte';
+</script> 
 
-<style lang="scss">
-  main {
-    background-color: black;
-    color: orange;
-  }
-</style>
+<Meta
+  title="bits and fragments - davecode"
+  description="fragments are files saved during the video making process, scattered." /> 
+-->
+
+<ComingSoon />

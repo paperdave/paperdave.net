@@ -1,7 +1,10 @@
 <script lang="ts">
   import BackButton from '$lib/components/BackButton.svelte';
+  import Meta from '$lib/components/Meta.svelte';
   import yaml from './credits.yaml';
 </script>
+
+<Meta title="credits - davecode" />
 
 <main>
   <BackButton position="off-center" />

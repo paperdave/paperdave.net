@@ -1,5 +1,6 @@
 <script lang="ts">
   import BackButton from '$lib/components/BackButton.svelte';
+  import Meta from '$lib/components/Meta.svelte';
   import ThemeRoot from '$lib/components/ThemeRoot.svelte';
 
   const hardcodedData = [
@@ -17,6 +18,8 @@
     },
   ];
 </script>
+
+<Meta title="give me chocolate" description="donation page" />
 
 <ThemeRoot background="#9c8772" accent="#F77D0A">
   <main>
