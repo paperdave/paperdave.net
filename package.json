@@ -4,7 +4,7 @@
   "scripts": {
     "build": "svelte-kit build --verbose",
     "dev": "svelte-kit dev",
-    "preview": "svelte-kit preview"
+    "preview": "wrangler pages dev"
   },
   "dependencies": {
     "@davecode/structures": "^0.3.0",

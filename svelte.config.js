@@ -1,6 +1,6 @@
 import content from '@originjs/vite-plugin-content';
 import svgSvelte from '@poppanator/sveltekit-svg';
-import adapter from '@sveltejs/adapter-cloudflare';
+import adapterCloudflare from '@sveltejs/adapter-cloudflare';
 import 'dotenv/config';
 import fs from 'fs-extra';
 import preprocess from 'svelte-preprocess';
@@ -31,12 +31,17 @@ const conf = {
     files: {
       template: '.svelte-kit/app.html',
     },
-    adapter: adapter({
+    adapter: adapterCloudflare({
       define: Object.fromEntries(
         Object.entries(process.env)
           .filter(([key]) => !key.includes('('))
           .map(([key, value]) => [`process.env.${key}`, JSON.stringify(value)])
+          .concat([
+            ['process.env.NODE_ENV', JSON.stringify('production')],
+            ['process.env', JSON.stringify({})],
+          ])
       ),
+      minify: true,
     }),
     vite: {
       build: {
