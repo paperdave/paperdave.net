@@ -14,5 +14,8 @@ export const get: RequestHandler = async ({ url }) => {
     body: {
       url: question.getURL(url.origin).pathname,
     },
+    headers: {
+      'Cache-Control': 'no-cache',
+    },
   };
 };

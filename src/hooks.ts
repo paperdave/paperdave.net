@@ -14,13 +14,6 @@ const overrideHeaders = {
   'Access-Control-Allow-Methods': 'GET, PUT, PATCH, DELETE, POST',
   'Access-Control-Allow-Headers': 'Content-Type, Authorization',
   'Access-Control-Max-Age': '86400',
-
-  // The following header is disabled for now, since we are not using Vercel.
-
-  // Vercel Cache headers, by default, theres no cache for some reason
-  // so we have to manually set it here.
-  // Read more: https://vercel.com/docs/concepts/edge-network/caching#
-  'Cache-Control': 'public,maxage=3600,stale-while-revalidate=3600',
 };
 
 function createErrorResponse(statusCode: number, message: string) {
@@ -88,6 +81,10 @@ export const handle: Handle = async ({ event, resolve }) => {
 
   for (const [key, value] of Object.entries(overrideHeaders)) {
     response.headers.set(key, value);
+  }
+
+  if (response.headers.has('Cache-Control')) {
+    response.headers.set('Cache-Control', 'public,maxage=3600,stale-while-revalidate=3600');
   }
 
   return response;
