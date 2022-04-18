@@ -44,8 +44,6 @@
       loading="lazy"
       decoding="async"
       on:load={() => {
-        console.log('loaded');
-
         if (Date.now() - start < threshold) {
           transition = false;
         }
