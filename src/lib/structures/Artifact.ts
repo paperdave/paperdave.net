@@ -1,148 +1,143 @@
-import { Data, JSONData, recordToMap, schema } from './structure-utils';
+import { Instance, Structure, types } from '@davecode/structures';
+import { ArtifactType, ArtifactVisibility } from './enums';
+import { AudioMedia, ImageMedia, Media, VideoMedia } from './Media';
+import { getBaseOrigin } from './url-helpers';
 
-export enum ArtifactVisibility {
-  PUBLIC = 'PUBLIC',
-  PRIVATE = 'PRIVATE',
-  DRAFT = 'DRAFT',
-  UNLISTED = 'UNLISTED',
-}
+/**
+ * Represents some published media on my website. "Artifact" as in "you're exploring a website of
+ * old artifacts and you have to search and explore the vast sea of content."
+ */
+export const Artifact = new Structure('Artifact')
+  .prop('id', types.String)
+  .prop('type', types.String, { default: ArtifactType.UNKNOWN })
+  .prop('title', types.String, { default: 'Untitled' })
+  .prop('date', types.Date, { default: () => new Date() })
+  .prop('visibility', ArtifactVisibility, {
+    default: ArtifactVisibility.PRIVATE,
+  })
+  .prop('thumb', ImageMedia.nullable)
+  .prop('tags', types.SetOf(types.String), { default: () => new Set() })
+  .method('getURL', function (origin = getBaseOrigin()) {
+    return new URL('/' + this.id, origin);
+  })
+  .create({ abstract: true });
 
-@schema('artifacts')
-export class Artifact {
-  static type = 'unknown';
+/** Video artifacts are videos listed on the main videos page. Music videos are a separate type. */
+export const VideoArtifact = Artifact.extend('VideoArtifact')
+  .prop('type', types.String.mustEqual(ArtifactType.VIDEO), { default: ArtifactType.VIDEO })
+  .prop('video', VideoMedia)
+  .prop('duration', types.Number.nullable)
+  .prop('ttms', types.Number.nullable)
+  .prop('source', types.String.nullable)
+  .create();
 
-  id: string;
-  title: string;
-  date: Date;
-  thumbnail: string | undefined;
-  blurhash: string | undefined;
-  type: string;
-  tags: Set<string>;
-  data: Map<string, any>;
-  visibility: ArtifactVisibility;
+/** Music artifacts are all of my songs and instrumentals. Music videos are a separate type. */
+export const MusicArtifact = Artifact.extend('MusicArtifact')
+  .prop('type', types.String.mustEqual(ArtifactType.MUSIC), { default: ArtifactType.MUSIC })
+  .prop('music', AudioMedia)
+  .prop('duration', types.Number.nullable)
+  .prop('sheetMusicUrl', types.String.nullable)
+  .create();
 
-  constructor(data?: Data<Artifact>) {
-    if (data) {
-      this.id = data.id;
-      this.title = data.title;
-      this.date = new Date(data.date);
-      this.thumbnail = data.thumbnail;
-      this.blurhash = data.blurhash;
-      this.type = data.type;
-      this.tags = data.tags;
-      this.data = data.data;
-      this.visibility = data.visibility || ArtifactVisibility.PUBLIC;
-    } else {
-      this.id = '';
-      this.title = '';
-      this.date = new Date();
-      this.date.setSeconds(0);
-      this.date.setMinutes(0);
-      this.date.setHours(12);
-      this.thumbnail = undefined;
-      this.blurhash = undefined;
-      // @ts-ignore
-      this.type = this.constructor.type ?? 'unknown';
-      this.tags = new Set();
-      this.data = new Map();
-      this.visibility = ArtifactVisibility.DRAFT;
-    }
-  }
+/**
+ * Square artifacts are square photos (instagram clone). The image is stored in the
+ * Artifact.thumbnail property.
+ */
+export const SquareArtifact = Artifact.extend('SquareArtifact')
+  .prop('type', types.String.mustEqual(ArtifactType.SQUARE), { default: ArtifactType.SQUARE })
+  .create();
 
-  toJSON() {
-    const dataEntries = [...this.data.entries()] //
-      .filter(([key, value]) => value !== undefined && value !== null && value !== '');
-    const dataProperties = dataEntries.length > 0 ? Object.fromEntries(dataEntries) : undefined;
+/** Doodle artifacts are digitally drawn photos. The image is stored in the Artifact.thumbnail property. */
+export const DoodleArtifact = Artifact.extend('DoodleArtifact')
+  .prop('type', types.String.mustEqual(ArtifactType.DOODLE), { default: ArtifactType.SQUARE })
+  .create();
 
-    const data = {
-      _v: 0,
-      id: this.id,
-      title: this.title,
-      date: this.date.getTime(),
-      thumbnail: this.thumbnail ?? undefined,
-      blurhash: this.blurhash ?? undefined,
-      type: this.type,
-      tags: this.tags.size > 0 ? Array.from(this.tags) : undefined,
-      data: dataProperties,
-      visibility: this.visibility ?? ArtifactVisibility.DRAFT,
-    };
-    return data;
-  }
+/** Journal Artifacts are audio and video */
+export const JournalArtifact = Artifact.extend('JournalArtifact')
+  .prop('type', types.String.mustEqual(ArtifactType.JOURNAL), { default: ArtifactType.JOURNAL })
+  .prop('file', Media)
+  .prop('duration', types.Number.nullable)
+  .prop('editDate', types.Date.nullable)
+  .create();
 
-  static fromJSON(data: JSONData<Artifact>) {
-    return new Artifact({
-      id: data.id,
-      title: data.title,
-      date: new Date(data.date),
-      thumbnail: data.thumbnail,
-      blurhash: data.blurhash,
-      type: data.type,
-      tags: new Set(data.tags),
-      data: recordToMap(data.data ?? {}),
-      visibility: data.visibility,
+/**
+ * Fragment artifacts are uploaded bits of a project, and may be released before the associated
+ * project is done.
+ */
+export const FragmentArtifact = Artifact.extend('FragmentArtifact')
+  .prop('type', types.String.mustEqual(ArtifactType.FRAGMENT), { default: ArtifactType.FRAGMENT })
+  .prop('file', Media)
+  .prop('for', types.String.nullable)
+  .create();
+
+/** Story artifacts are written media that can be read. TODO: how this works. */
+export const StoryArtifact = Artifact.extend('StoryArtifact')
+  .prop('type', types.String.mustEqual(ArtifactType.STORY), { default: ArtifactType.STORY })
+  .create();
+
+/** Word Magnet artifacts are pictures of word magnets. The image is stored in the Artifact.thumbnail property. */
+export const WordMagnetArtifact = Artifact.extend('WordMagnetArtifact')
+  .prop('type', types.String.mustEqual(ArtifactType.WORD_MAGNET), {
+    default: ArtifactType.WORD_MAGNET,
+  })
+  .create();
+
+const MixinSoftware = new Structure()
+  .prop('description', types.String.nullable)
+  .prop('version', types.String.nullable);
+
+/** Apps are software that are not "games," aka non-entertainment software. */
+export const AppArtifact = Artifact.extend('AppArtifact')
+  .prop('type', types.String.mustEqual(ArtifactType.APP), { default: ArtifactType.APP })
+  .mixin(MixinSoftware)
+  .create();
+
+/** Nerd Gear artifacts are software meant for developers. */
+export const NerdGearArtifact = Artifact.extend('NerdGearArtifact')
+  .prop('type', types.String.mustEqual(ArtifactType.NERD_GEAR), { default: ArtifactType.NERD_GEAR })
+  .mixin(MixinSoftware)
+  .create();
+
+/** Game artifacts are software intended to be entertainment. */
+export const GameArtifact = Artifact.extend('GameArtifact')
+  .prop('type', types.String.mustEqual(ArtifactType.GAME), { default: ArtifactType.GAME })
+  .mixin(MixinSoftware)
+  .create();
+
+/** Music Video artifacts are a cross between music and video artifacts. */
+export const MusicVideoArtifact = Artifact.extend('MusicVideoArtifact')
+  .prop('type', types.String.mustEqual(ArtifactType.MUSIC_VIDEO), {
+    default: ArtifactType.MUSIC_VIDEO,
+  })
+  .prop('music', AudioMedia)
+  .prop('video', VideoMedia)
+  .method('toVideoArtifact', function () {
+    return new VideoArtifact({
+      ...this,
+      // this is a bug with structure
+      type: ArtifactType.VIDEO as never,
     });
-  }
+  })
+  .method('toMusicArtifact', function () {
+    return new MusicArtifact({
+      ...this,
+      // this is a bug with structure
+      type: ArtifactType.MUSIC as never,
+      id: 'music/' + this.id,
+    });
+  })
+  .create();
 
-  setId(id: string) {
-    this.id = id;
-    return this;
-  }
-
-  setTitle(title: string) {
-    this.title = title;
-    return this;
-  }
-
-  setDate(date: Date) {
-    this.date = date;
-    return this;
-  }
-
-  setThumbnail(thumbnail: string) {
-    this.thumbnail = thumbnail;
-    return this;
-  }
-
-  setBlurHash(blurhash: string) {
-    this.blurhash = blurhash;
-    return this;
-  }
-
-  setType(type: string) {
-    this.type = type;
-    return this;
-  }
-
-  setTags(tags: string[] | Set<string>) {
-    this.tags = Array.isArray(tags) ? new Set(tags) : tags;
-    return this;
-  }
-
-  addTag(tag: string) {
-    this.tags.add(tag);
-    return this;
-  }
-
-  removeTag(tag: string) {
-    this.tags.delete(tag);
-    return this;
-  }
-
-  hasTag(tag: string) {
-    return this.tags.has(tag);
-  }
-
-  setProperty(key: string, value: any) {
-    this.data.set(key, value);
-    return this;
-  }
-
-  getProperty(key: string) {
-    return this.data.get(key);
-  }
-
-  setVisibility(visibility: ArtifactVisibility) {
-    this.visibility = visibility;
-    return this;
-  }
-}
+export type Artifact = Instance<typeof Artifact>;
+export type VideoArtifact = Instance<typeof VideoArtifact>;
+export type MusicArtifact = Instance<typeof MusicArtifact>;
+export type SquareArtifact = Instance<typeof SquareArtifact>;
+export type JournalArtifact = Instance<typeof JournalArtifact>;
+export type FragmentArtifact = Instance<typeof FragmentArtifact>;
+export type StoryArtifact = Instance<typeof StoryArtifact>;
+export type WordMagnetArtifact = Instance<typeof WordMagnetArtifact>;
+export type AppArtifact = Instance<typeof AppArtifact>;
+export type NerdGearArtifact = Instance<typeof NerdGearArtifact>;
+export type GameArtifact = Instance<typeof GameArtifact>;
+export type MusicVideoArtifact = Instance<typeof MusicVideoArtifact>;
+export type DoodleArtifact = Instance<typeof DoodleArtifact>;

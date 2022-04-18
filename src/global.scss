@@ -1,16 +1,51 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300..700&family=Inter:wght@100..700&display=swap');
-@import url('https://cdn.jsdelivr.net/npm/hack-font@3/build/web/hack-subset.css');
+@import './fonts.scss';
 
 html {
-  overflow-y: auto;
+  overflow-y: scroll;
 }
 
-body,
-body > main {
+body {
+  background-color: black;
+}
+
+#root {
+  position: relative;
+  background-color: white;
+  display: flex;
   min-height: 100vh;
+  flex-direction: column;
+  width: 100%;
+  max-width: 3860px; // you should not be browsing above this lol
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.oob-text {
+  display: none;
+  z-index: 10000;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: rotate(-90deg);
+  transform-origin: top right;
+
+  a {
+    color: white;
+    &:hover {
+      color: red;
+    }
+  }
+}
+
+@media (min-width: 3880px) {
+  .oob-text {
+    display: block;
+  }
+}
+#root > :first-child {
+  flex-grow: 1;
   min-width: 100%;
   position: relative;
-  display: inline-block;
 }
 
 // This is a nearly identical copy of tailwindcss' "preflight" base set of
@@ -21,6 +56,11 @@ body > main {
 // Docs: https://tailwindcss.com/docs/preflight
 //
 @import 'modern-normalize';
+
+// note: this doesnt do what i thought it would
+*:where(:not(:defined)) {
+  display: block;
+}
 
 /**
 * Removes the default spacing and border for appropriate elements.
@@ -51,7 +91,6 @@ button {
 * Work around a Firefox/IE bug where the transparent `button` background
 * results in a loss of the default `button` focus styles.
 */
-
 button:focus {
   outline: 1px dotted;
   outline: 5px auto -webkit-focus-ring-color;
@@ -69,22 +108,23 @@ ul {
   padding: 0;
 }
 
-/**
-* 1. Use the user's configured `sans` font-family (with Tailwind's default
-*    sans-serif font stack as a fallback) as a sane default.
-* 2. Use Tailwind's default "normal" line-height so the user isn't forced
-*    to override it to ensure consistency even when using the default theme.
-*/
 html {
-  font-family: 'Inter', 'Roboto', 'Helvetica Neue', Arial, 'Noto Sans', 'Segoe UI', sans-serif,
-    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; /* 1 */
-  line-height: 1.5; /* 2 */
+  font-family: 'Recursive', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+    'Noto Color Emoji';
+  line-height: 1.15;
+
+  --text-mono: 0;
+  --text-casual: 0;
+  --text-slant: 0;
+  --text-cursive: 0.5;
+
+  letter-spacing: -0.005em;
 }
 
-/**
-* Inherit font-family and line-height from `html` so users can set them as
-* a class directly on the `html` element.
-*/
+* {
+  font-variation-settings: 'MONO' var(--text-mono), 'CASL' var(--text-casual),
+    'slnt' var(--text-slant), 'CRSV' var(--text-cursive);
+}
 
 body {
   font-family: inherit;
@@ -101,29 +141,12 @@ body {
 *
 *    https://github.com/mozdevs/cssremedy/issues/4
 *
-*
-* 2. Allow adding a border to an element by just adding a border-width.
-*
-*    By default, the way the browser specifies that an element should have no
-*    border is by setting its border-style to `none` in the user-agent
-*    stylesheet.
-*
-*    In order to easily add borders to elements by just setting the `border-width`
-*    property, we change the default border-style for all elements to `solid`, and
-*    use border-width to hide them instead. This way our `border` utilities only
-*    need to set the `border-width` property instead of the entire `border`
-*    shorthand, making our border utilities much more straightforward to compose.
-*
-*    https://github.com/tailwindcss/tailwindcss/pull/116
 */
 
 *,
 ::before,
 ::after {
   box-sizing: border-box; /* 1 */
-  border-width: 0; /* 2 */
-  border-style: solid; /* 2 */
-  border-color: #e5e7eb; /* 2 */
 }
 
 /*
@@ -144,10 +167,6 @@ hr {
 * https://github.com/tailwindcss/tailwindcss/issues/362
 */
 
-img {
-  border-style: solid;
-}
-
 textarea {
   resize: vertical;
 }
@@ -166,12 +185,7 @@ table {
   border-collapse: collapse;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+:where(h1, h2, h3, h4, h5, h6):not(.custom) {
   font-family: 'Roboto Slab', sans-serif;
 }
 
@@ -192,7 +206,6 @@ h4 {
 * Reset links to optimize for opt-in styling instead of
 * opt-out.
 */
-
 a {
   color: inherit;
   text-decoration: inherit;
@@ -205,7 +218,6 @@ a {
 * supplement a partial reset that is already applied by
 * normalize.css.
 */
-
 button,
 input,
 optgroup,
@@ -222,12 +234,11 @@ textarea {
 * back to the system monospace stack if there is no configured
 * 'mono' font family.
 */
-
 pre,
 code,
 kbd,
 samp {
-  font-family: Hack, monospace;
+  --text-mono: 1;
 }
 
 /**
@@ -237,7 +248,6 @@ samp {
 *
 * https://github.com/mozdevs/cssremedy/issues/14
 */
-
 img,
 svg,
 video,

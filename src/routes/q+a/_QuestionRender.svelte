@@ -9,13 +9,20 @@
 
 <main>
   <QuestionDate {question} />
-  {#each question.content as paragraph}
-    <QuestionParagraph {paragraph} />
-  {/each}
+  {#if question.isRejected()}
+    <p class="red">this question has been rejected</p>
+  {:else}
+    {#each question.content as paragraph}
+      <QuestionParagraph {paragraph} {search} />
+    {/each}
+  {/if}
 </main>
 
 <style lang="scss">
   main {
     margin-bottom: 2rem;
+  }
+  .red {
+    color: red;
   }
 </style>

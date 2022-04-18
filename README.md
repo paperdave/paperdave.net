@@ -1,3 +1,4 @@
 # [davecode.net](https://davecode.net)
 
-all the code for davecode.net's frontend, written in svelte, pulling data from mongodb.
+All the code for davecode.net's frontend, using SvelteKit, pulling data from MongoDB Realms, and
+hosted by Cloudflare Pages.

@@ -3,12 +3,6 @@
 
   import { useEffect } from '$lib/hooks/useEffect';
 
-  import BlurHashCanvas from './BlurHashCanvas.svelte';
-
-  export let resolutionX = 8;
-  export let resolutionY = 8;
-  export let punch = 1;
-
   export let hash: string;
   export let src: string;
   export let alt: string;
@@ -39,7 +33,7 @@
 
 <main>
   {#if showCanvas}
-    <BlurHashCanvas {hash} {resolutionX} {resolutionY} {punch} />
+    <blurhash-image blurhash={hash} />
   {/if}
   {#if browser}
     <img
@@ -50,6 +44,8 @@
       loading="lazy"
       decoding="async"
       on:load={() => {
+        console.log('loaded');
+
         if (Date.now() - start < threshold) {
           transition = false;
         }

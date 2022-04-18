@@ -5,7 +5,7 @@
     return {
       props: {
         status: status,
-        message: String(error?.message).toLowerCase(),
+        message: String(error?.message),
         stack: error?.stack,
       },
     };
@@ -19,14 +19,8 @@
   export let message: string;
   export let stack: string;
 
-  const variant =
-    status === 404
-      ? ErrorPageVariant.NotFound
-      : status >= 500
-      ? ErrorPageVariant.Error
-      : status >= 400
-      ? ErrorPageVariant.Error
-      : ErrorPageVariant.Unknown;
+  const variant: ErrorPageVariant =
+    status === 404 ? 'NOT_FOUND' : status >= 500 ? 'ERROR' : status >= 400 ? 'ERROR' : 'UNKNOWN';
 
   const error: Error = {
     name: 'Error',
@@ -35,7 +29,7 @@
   };
 </script>
 
-<ErrorPage {variant} {error}>
+<ErrorPage {variant} error={status === 404 ? null : error}>
   {#if status === 404}
     <h1>wrong url / broken link</h1>
     <p>

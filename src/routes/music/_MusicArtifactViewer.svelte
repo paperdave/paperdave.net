@@ -17,7 +17,7 @@
 <Meta
   title={artifact.title}
   description="music by dave caruso released on {formatDate(artifact.date, 'date')}"
-  image={artifact.thumbnail} />
+  image={artifact.thumb?.url} />
 
 <Layout>
   <BackButton position="off-center" />

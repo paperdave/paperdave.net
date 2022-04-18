@@ -4,21 +4,13 @@
     <meta charset="utf-8" />
     <link rel="icon" href="/assets/brand/icon@256.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <style>
-      blurhash-image {
-        background: no-repeat center;
-        background-size: 100% 100%;
-      }
-    </style>
+    <script>
+      %blurhash%
+    </script>
 
     %svelte.head%
   </head>
   <body>
-    %svelte.body%
-
-    <script>
-      %blurhash%
-    </script>
+    <div id="root">%svelte.body%</div>
   </body>
 </html>

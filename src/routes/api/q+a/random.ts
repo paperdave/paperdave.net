@@ -1,17 +1,18 @@
 import { getDatabase } from '$lib/db';
-import { JSONData, Question } from '$lib/structures';
+import { Question } from '$lib/structures';
 import { RequestHandler } from '@sveltejs/kit';
 
 /** Retrives a random question's URL. */
-export const get: RequestHandler = async () => {
+export const get: RequestHandler = async ({ url }) => {
   const db = await getDatabase(Question);
-  const q = await db.aggregate([{ $sample: { size: 1 } }]).toArray();
-  const question = Question.fromJSON(q[0] as JSONData<Question>);
+  // I did not implement WrappedCollection.aggregate() so we use the raw collection from mongo
+  const q = await db.raw.aggregate([{ $sample: { size: 1 } }]);
+  const question = Question.fromJSON(q[0]);
 
   return {
     status: 200,
     body: {
-      url: `/q+a/${question.getDateId()}`,
+      url: question.getURL(url.origin).pathname,
     },
   };
 };

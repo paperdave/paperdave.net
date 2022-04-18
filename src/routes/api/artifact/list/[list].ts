@@ -1,36 +1,55 @@
+import { StructureJSON } from '$lib/api-client/api-shared';
 import { getDatabase } from '$lib/db';
-import { Artifact, ArtifactVisibility, JSONData } from '$lib/structures';
-import { APIHandler } from '$lib/utils/api';
-import { MaybeArrayOrPromise, maybeArrayOrPromise } from '$lib/utils/maybe';
-import { ObjectID } from 'bson';
-import { Collection, FindCursor } from 'mongodb';
+import { WrappedCollection } from '$lib/db/WrappedCollection';
+import { Artifact, ArtifactType, ArtifactVisibility } from '$lib/structures';
+import { maybeArrayOrPromise, MaybeArrayOrPromise } from '$lib/utils/maybe';
+import { Dict } from '@davecode/structures/dist/helper-types';
+import { RequestHandler } from '@sveltejs/kit';
 
-type ArtifactDocument = JSONData<Artifact> & { _id: ObjectID };
-type ArtifactCursor = FindCursor<JSONData<Artifact>>;
-type ListFn = (collection: Collection<ArtifactDocument>) => MaybeArrayOrPromise<ArtifactCursor>;
+interface Params extends Dict<string> {
+  list: string;
+}
 
+interface ListFn {
+  fetch(db: WrappedCollection<Artifact>): MaybeArrayOrPromise<Artifact[]>;
+  removeProperties: string[];
+}
+
+// The supported lists.
 export const artifactListMap: Record<string, ListFn> = {
-  videos: (db) =>
-    db.find({ type: 'video' }).project({
-      _v: 1,
-      id: 1,
-      type: 1,
-      title: 1,
-      thumbnail: 1,
-      blurhash: 1,
-      visibility: 1,
-      date: 1,
-    }),
-  music: (db) =>
-    db.find({ type: 'music' }).project({
-      _v: 1,
-      id: 1,
-      type: 1,
-      title: 1,
-      visibility: 1,
-      date: 1,
-      data: 1,
-    }),
+  new: {
+    fetch: (db) =>
+      db.find({
+        tags: { $all: ['new'] },
+      }),
+    removeProperties: ['visibility'],
+  },
+  videos: {
+    fetch: (db) =>
+      Promise.all([
+        db.find({ type: ArtifactType.VIDEO }),
+        db.find({ type: ArtifactType.MUSIC_VIDEO }),
+        db.find({ type: 'video' }),
+      ]),
+    removeProperties: ['visibility', 'music', 'video'],
+  },
+  music: {
+    fetch: (db) =>
+      Promise.all([
+        db.find({ type: ArtifactType.MUSIC }),
+        db.find({ type: ArtifactType.MUSIC_VIDEO }),
+        db.find({ type: 'music' }),
+        db.find({ id: 'mayday' }),
+      ]),
+    // TODO: in the future, i would love to create a class like ArtifactPreview, then fetch the
+    // detailed information when you click on a MusicCard. right now to avoid validation errors
+    // we have to send ALL metadata including the `video` prop on music videos.
+    removeProperties: ['visibility'],
+  },
+  all: {
+    fetch: (db) => db.find({}),
+    removeProperties: ['visibility'],
+  },
 };
 
 /**
@@ -38,7 +57,7 @@ export const artifactListMap: Record<string, ListFn> = {
  * support modifying these presets. The presets are intended to be used by the frontend to display
  * list pages, so some properties are ommitted automatically.
  */
-export const get: APIHandler<void, JSONData<Artifact>[]> = async ({ params }) => {
+export const get: RequestHandler<Params> = async ({ params }) => {
   const { list } = params;
   const listFn = artifactListMap[list];
   if (!listFn) {
@@ -51,16 +70,16 @@ export const get: APIHandler<void, JSONData<Artifact>[]> = async ({ params }) =>
   }
 
   const db = await getDatabase(Artifact);
-  const cursors = await maybeArrayOrPromise(listFn(db));
-  const artifacts = (await Promise.all(cursors.map((cursor) => cursor.toArray()))).flat();
+  const artifacts = (await maybeArrayOrPromise(listFn.fetch(db))).flat();
 
   const sorted = artifacts
-    .map((a) => Artifact.fromJSON(a))
     .filter((x) => x.visibility === ArtifactVisibility.PUBLIC)
     .sort((a, b) => b.date.getTime() - a.date.getTime())
-    .map((a) => a.toJSON())
+    .map((a) => a.toJSON() as StructureJSON)
     .map((a) => {
-      delete (a as any).visibility;
+      for (const prop of listFn.removeProperties) {
+        delete (a as any)[prop];
+      }
       return a;
     });
 

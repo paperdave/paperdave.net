@@ -1,0 +1,98 @@
+:root {
+  --background: 0, 0%, 100%;
+  --foreground: 0, 0%, 0%;
+
+  --accent-hue: 133;
+  --accent-saturation: 71%;
+  --accent-lightness: 45%;
+}
+
+:root,
+theme-root {
+  --neutral: 0, 0%, 50%;
+  --accent-light-3: calc(var(--accent-hue) - 15), 98%, 80%;
+  --accent-light-2: calc(var(--accent-hue) - 7), 99%, 69%;
+  --accent-light-1: calc(var(--accent-hue) - 1), 100%, 49%;
+  --accent-base: var(--accent-hue), var(--accent-saturation), var(--accent-lightness) /*42%*/;
+  --accent-dark-1: calc(var(--accent-hue) + 4), 100%, 36%;
+  --accent-dark-2: calc(var(--accent-hue) + 10), 100%, 29%;
+  --accent-dark-3: calc(var(--accent-hue) + 21), 100%, 20%;
+  --link-color: hsl(calc(var(--accent-hue) + 21), 100%, 8%);
+}
+
+theme-root.dark {
+  // do a swap around
+  --accent-dark-3: calc(var(--accent-hue) - 15), 98%, 80%;
+  --accent-dark-2: calc(var(--accent-hue) - 7), 99%, 69%;
+  --accent-dark-1: calc(var(--accent-hue) - 1), 100%, 49%;
+  --accent-light-1: calc(var(--accent-hue) + 4), 100%, 36%;
+  --accent-light-2: calc(var(--accent-hue) + 10), 100%, 29%;
+  --accent-light-3: calc(var(--accent-hue) + 21), 100%, 20%;
+  --link-color: hsl(calc(var(--accent-hue) + 21), 100%, 90%);
+}
+
+theme-root {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+
+  &.padding {
+    padding: 1rem;
+  }
+}
+
+*[grow] {
+  flex-grow: 1;
+}
+
+:where(flex) {
+  display: flex;
+  &[row] {
+    flex-direction: row;
+  }
+  &,
+  &[column] {
+    flex-direction: column;
+  }
+  &[row][reverse] {
+    flex-direction: row-reverse;
+  }
+  &[reverse],
+  &[column][reverse] {
+    flex-direction: column-reverse;
+  }
+  &[center] {
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+grid {
+  display: grid;
+}
+
+a:not(.custom) {
+  color: var(--link-color);
+  text-decoration: underline;
+  text-decoration-color: hsla(var(--foreground), 0.3);
+
+  &:hover {
+    color: hsla(var(--foreground), 0.7);
+    text-decoration-color: hsla(var(--foreground), 0.7);
+  }
+  &:active {
+    color: black;
+    background-color: hsl(calc(var(--accent-hue) + 20), 100%, 50%);
+    text-decoration: none;
+  }
+  border-radius: 4px;
+}
+
+article {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}

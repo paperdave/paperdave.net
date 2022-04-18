@@ -1,10 +1,12 @@
 <script lang="ts">
-  export let url: string;
+  import { VideoMedia } from '$lib/structures/Media';
+
+  export let video: VideoMedia;
 </script>
 
 <container>
   <main>
-    <video src={url} controls />
+    <video src={video.url} controls />
   </main>
 </container>
 

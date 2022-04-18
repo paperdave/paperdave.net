@@ -1,11 +1,7 @@
-<main>
-  <slot />
-</main>
+<script>
+  import ThemeRoot from '$lib/components/ThemeRoot.svelte';
+</script>
 
-<style lang="scss">
-  main {
-    background-color: #005d40;
-    color: white;
-    padding: 0 1rem;
-  }
-</style>
+<ThemeRoot background="#005d40" dark>
+  <slot />
+</ThemeRoot>

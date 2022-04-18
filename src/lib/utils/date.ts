@@ -24,8 +24,8 @@ const regex = new RegExp(regexSrc, 'g');
 
 export type DateFormat = keyof typeof dateFormats;
 
-export function formatDate(date: Date, format: DateFormat) {
-  const dateFormat = dateFormats[format];
+export function formatDate(date: Date, format: DateFormat | string) {
+  const dateFormat = dateFormats[format as DateFormat] ?? format;
   const convertedDate = new Date(date.toLocaleString('en-US', { timeZone: 'EST' }));
   return dateFormat.replace(regex, (match) => String(formatRules[match](convertedDate)));
 }

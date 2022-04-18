@@ -17,6 +17,7 @@ function envStringArray(name: string) {
   }
 }
 
-export const MONGODB_URI = envNonEmptyString('MONGODB_URI');
-export const MONGODB_DB = envNonEmptyString('MONGODB_DB');
 export const QA_BLOCKED_IPS = envStringArray('QA_BLOCKED_IPS');
+export const REALM_APPID = envNonEmptyString('REALM_APPID');
+export const REALM_TOKEN = envNonEmptyString('REALM_TOKEN');
+export const MONGO_DB = envNonEmptyString('MONGO_DB');

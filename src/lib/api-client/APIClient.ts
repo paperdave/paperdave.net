@@ -1,9 +1,7 @@
-import { JSONData } from '$lib/structures';
-import { AsJson } from '$lib/utils/api';
 import { getToken, token as tokenStore } from './session';
 
 /** Result of an api query, it is organized this way to include http status codes and other metadata */
-export interface FetchResult<Output = unknown> {
+export interface FetchResult<Output = any> {
   status: number;
   headers: Headers;
   data: Output;
@@ -32,17 +30,17 @@ export class APIClient {
   }
 
   /** Send a request using a url relative of the base, and an optional JSON body. */
-  async fetch<Input = unknown, Output = unknown>(
+  async fetch<Input = any, Output = any>(
     url: string,
     method: string,
-    body?: JSONData<Input> & AsJson<JSONData<Input>>
-  ): Promise<FetchResult<JSONData<Output>>> {
+    body?: Input
+  ): Promise<FetchResult<Output>> {
     const token = getToken();
 
     const response = await this.fetchFunction(`${this.baseUrl}${url}`, {
       method,
       headers: {
-        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        ...(token ? { Authorization: `Bearer ${token.token}` } : {}),
         ...(body ? { 'Content-Type': 'application/json' } : {}),
       },
       body: body ? JSON.stringify(body) : undefined,
@@ -68,36 +66,27 @@ export class APIClient {
     return {
       status: response.status,
       headers: response.headers,
-      data: json as JSONData<Output>,
+      data: json as Output,
     };
   }
 
-  async get<Output = unknown>(url: string): Promise<FetchResult<JSONData<Output>>> {
+  async get<Output = any>(url: string): Promise<FetchResult<Output>> {
     return this.fetch<void, Output>(url, 'GET');
   }
 
-  async post<Input = unknown, Output = unknown>(
-    url: string,
-    body?: JSONData<Input> & AsJson<JSONData<Input>>
-  ): Promise<FetchResult<JSONData<Output>>> {
+  async post<Input = any, Output = any>(url: string, body?: Input): Promise<FetchResult<Output>> {
     return this.fetch<Input, Output>(url, 'POST', body);
   }
 
-  async put<Input = unknown, Output = unknown>(
-    url: string,
-    body?: JSONData<Input> & AsJson<JSONData<Input>>
-  ): Promise<FetchResult<JSONData<Output>>> {
+  async put<Input = any, Output = any>(url: string, body?: Input): Promise<FetchResult<Output>> {
     return this.fetch<Input, Output>(url, 'PUT', body);
   }
 
-  async del<Output = unknown>(url: string): Promise<FetchResult<JSONData<Output>>> {
+  async del<Output = any>(url: string): Promise<FetchResult<Output>> {
     return this.fetch<void, Output>(url, 'DELETE');
   }
 
-  async patch<Input = unknown, Output = unknown>(
-    url: string,
-    body?: JSONData<Input> & AsJson<JSONData<Input>>
-  ): Promise<FetchResult<JSONData<Output>>> {
+  async patch<Input = any, Output = any>(url: string, body?: Input): Promise<FetchResult<Output>> {
     return this.fetch<Input, Output>(url, 'PATCH', body);
   }
 }

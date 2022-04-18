@@ -1,16 +1,29 @@
 import { getDatabase } from '$lib/db';
-import { Permission, Question } from '$lib/structures';
-import { APIHandler, GenericSuccess, GetAPIHandler } from '$lib/utils/api';
+import {
+  parseQuestionDateId,
+  Permission,
+  Question,
+  QuestionParagraph,
+  QuestionRequest,
+} from '$lib/structures';
+import { GenericSuccess } from '$lib/utils/api';
+import { escapeHTML } from '$lib/utils/escape';
+import { Dict } from '@davecode/structures/dist/helper-types';
+import { RequestHandler, RequestHandlerOutput } from '@sveltejs/kit';
+
+interface Params extends Dict<string> {
+  qid: string;
+}
 
 /**
  * Retrives a Question by it's question date id.
  *
  * - If it does not exist, a 404 is returned
  */
-export const get: GetAPIHandler<Question> = async ({ params }) => {
+export const get: RequestHandler<Params> = async ({ params }) => {
   const id = params.qid;
 
-  const match = Question.parseDateId(id);
+  const match = parseQuestionDateId(id);
 
   if (!match) {
     return {
@@ -27,17 +40,35 @@ export const get: GetAPIHandler<Question> = async ({ params }) => {
   });
 
   if (!question) {
-    return {
-      status: 404,
-      body: {
-        error: 'Question not found',
-      },
-    };
+    const requestDb = await getDatabase(QuestionRequest);
+    const request = await requestDb.findOne({
+      date: { $gt: match.getTime() },
+    });
+
+    if (request) {
+      return {
+        body: new Question({
+          content: [
+            new QuestionParagraph({
+              who: 'QUESTION',
+              message: escapeHTML(request.content),
+            }),
+          ],
+        }).toJSON(),
+      };
+    } else {
+      return {
+        status: 404,
+        body: {
+          error: 'Question not found',
+        },
+      };
+    }
   }
 
   return {
-    body: question,
-  };
+    body: question.toJSON(),
+  } as RequestHandlerOutput;
 };
 
 export interface QuestionPostSuccess extends GenericSuccess {
@@ -52,7 +83,7 @@ export interface QuestionPostSuccess extends GenericSuccess {
  * - If the question id is already taken, the question's date will be shifted a second later.
  * - The response contains the ACTUAL id of the question.
  */
-export const post: APIHandler<Question, QuestionPostSuccess> = async ({ locals, params, body }) => {
+export const post: RequestHandler<Params> = async ({ locals, params, request }) => {
   if (!locals.user.queryPermission(Permission.RESPOND_TO_QUESTIONS)) {
     return {
       status: 403,
@@ -61,7 +92,7 @@ export const post: APIHandler<Question, QuestionPostSuccess> = async ({ locals, 
   }
 
   const dateId = params.qid;
-  const question = Question.fromJSON(body);
+  const question = Question.fromJSON(await request.json());
 
   if (question.getDateId() !== dateId) {
     return {
@@ -80,7 +111,7 @@ export const post: APIHandler<Question, QuestionPostSuccess> = async ({ locals, 
     question.date.setTime(question.date.getTime() + 1000);
   }
 
-  await db.insertOne(question.toJSON());
+  await db.insertOne(question);
 
   return {
     status: 200,

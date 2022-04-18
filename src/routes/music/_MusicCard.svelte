@@ -2,12 +2,12 @@
 <script lang="ts">
   import { slide } from 'svelte/transition';
   import { ProgressRing } from 'fluent-svelte';
-  import PlaySVG from '$lib/svg/Play.svg?component';
-  import PauseSVG from '$lib/svg/Pause.svg?component';
-  import LinkSVG from '$lib/svg/Link.svg?component';
-  import DownloadSVG from '$lib/svg/Download.svg?component';
+  import PlaySVG from '$lib/svg/fluent/Play.svg';
+  import PauseSVG from '$lib/svg/fluent/Pause.svg';
+  import LinkSVG from '$lib/svg/fluent/Link.svg';
+  import DownloadSVG from '$lib/svg/fluent/Download.svg';
   import { useEffect } from '$lib/hooks/useEffect';
-  import { MusicArtifact } from '$lib/structures';
+  import { MusicArtifact, MusicVideoArtifact } from '$lib/structures';
   import { formatDate } from '$lib/utils/date';
   export let artifact: MusicArtifact;
 
@@ -32,6 +32,7 @@
         return () => clearTimeout(timer);
       } else {
         showLoading = false;
+        return undefined;
       }
     },
     () => [playing, loading]
@@ -87,18 +88,22 @@
       isDragging = false;
     });
   }
+
+  const hiddenTags = ['music video'];
+
+  const displayTags = [...artifact.tags].filter((tag) => !hiddenTags.includes(tag));
 </script>
 
 <main>
   <audio
-    src={artifact.file}
+    src={artifact.music.url}
     preload="none"
     bind:this={audioElement}
     on:playing={() => (playing = true)}
     on:pause={() => (playing = false)}
     on:durationchange={() => (loading = true)}
     on:canplay={() => (loading = false)}
-    loop={artifact.hasTag('loop')} />
+    loop={artifact.tags.has('loop')} />
 
   <header>
     <div
@@ -122,20 +127,25 @@
       <h3>{artifact.title}</h3>
       <div class="tags">
         <span class="date">{formatDate(artifact.date, 'date')}</span>
-        {#each [...artifact.tags] as tag}
+        {#if artifact instanceof MusicVideoArtifact}
+          <a href="/{artifact.id}" class="custom tag">has video</a>
+        {/if}
+        {#each displayTags as tag}
           <span class="tag">{tag}</span>
         {/each}
       </div>
     </div>
-    <a href={`/${artifact.id}`} class="icon">
+    <a
+      href={artifact instanceof MusicArtifact ? `/${artifact.id}` : `/music/${artifact.id}`}
+      class="icon">
       <LinkSVG />
     </a>
-    <a href={artifact.file} target="_blank" class="icon">
+    <a href={artifact.music.url} target="_blank" class="icon">
       <DownloadSVG />
     </a>
   </header>
   {#if expanded}
-    <section transition:slide={{ duration: 300 }}>
+    <section transition:slide|local={{ duration: 300 }}>
       <div
         class="track"
         style="--progress:{progress * 100}"

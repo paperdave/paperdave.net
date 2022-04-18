@@ -7,7 +7,7 @@
 </script>
 
 <main class:inverted>
-  <a class="position-{position}" {href}>
+  <a class="position-{position} custom" {href}>
     {text}
   </a>
 </main>
@@ -19,6 +19,7 @@
     position: relative;
 
     a {
+      border-radius: 2px;
       color: rgba(0, 0, 0, 0.5);
       mix-blend-mode: multiply;
       padding: 0.25em;

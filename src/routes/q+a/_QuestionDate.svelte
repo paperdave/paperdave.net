@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Question } from '$lib/structures';
-  import LinkSVG from '$lib/svg/Link.svg?component';
+  import LinkSVG from '$lib/svg/fluent/Link.svg';
   import { formatDate } from '$lib/utils/date';
 
   export let question: Question;
@@ -8,6 +8,7 @@
   let copyState: boolean | null = null;
 
   async function copy() {
+    if (question.isRejected()) return;
     if (copyState) return;
 
     const id = question.getDateId();
@@ -27,7 +28,7 @@
   const dateString = formatDate(question.date, 'date-time');
 </script>
 
-<main on:click={copy} class:success={copyState}>
+<main on:click={copy} class:success={copyState} class:clickable={!question.isRejected()}>
   {#if copyState === null}
     {dateString}
   {:else if copyState}
@@ -40,18 +41,21 @@
 
 <style lang="scss">
   main {
-    font-family: 'Roboto Slab';
     color: #999;
-    margin-bottom: 0.1rem;
-    cursor: pointer;
+    font-size: 0.9rem;
+    margin-bottom: 0.28rem;
     display: flex;
     gap: 0.25rem;
     width: max-content;
 
     :global(svg) {
-      width: 1.5rem;
+      height: 1rem;
       display: none;
     }
+  }
+
+  .clickable {
+    cursor: pointer;
 
     &:hover {
       color: #faa719;

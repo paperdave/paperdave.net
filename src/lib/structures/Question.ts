@@ -1,133 +1,105 @@
+// Questions use custom serializers to compress the format down A LOT.
+
 import { formatDate } from '$lib/utils/date';
-import { Data, JSONData, schema } from './structure-utils';
+import { Instance, Structure, types } from '@davecode/structures';
+import { getBaseOrigin } from './url-helpers';
 
-export class QuestionParagraph {
-  private ui_uid = Math.floor(Math.random() * 999999).toString();
+export const QuestionParagraphType = types.Enum('QUESTION', 'ANSWER');
+export type QuestionParagraphType = Instance<typeof QuestionParagraphType>;
 
-  who: 'question' | 'answer';
-  message: string;
+export const QuestionParagraph = new Structure('QuestionParagraph')
+  .prop('_uid', types.Number, { default: Math.random() })
+  .prop('who', QuestionParagraphType)
+  .prop('message', types.String, { default: '' })
+  .create({
+    customSerializer: {
+      fromJSON(data: [string, 'q' | 'a']) {
+        return new QuestionParagraph({
+          message: data[1],
+          who: data[0] === 'q' ? QuestionParagraphType.QUESTION : QuestionParagraphType.ANSWER,
+        });
+      },
+      toJSON(paragraph: QuestionParagraph) {
+        return [paragraph.who === QuestionParagraphType.QUESTION ? 'q' : 'a', paragraph.message];
+      },
+    },
+  });
 
-  constructor(data?: Data<QuestionParagraph>) {
-    if (data) {
-      this.message = data.message;
-      this.who = data.who;
-    } else {
-      this.message = '';
-      this.who = 'question';
-    }
-  }
-
-  toJSON() {
-    return [this.who === 'question' ? 'q' : 'a', this.message];
-  }
-
-  static fromJSON(data: JSONData<QuestionParagraph>) {
-    return new QuestionParagraph({
-      message: data[1],
-      who: data[0] === 'q' ? 'question' : 'answer',
-    });
-  }
-
-  getUiUid() {
-    return this.ui_uid;
-  }
-
-  isQuestion() {
-    return this.who === 'question';
-  }
-
-  isAnswer() {
-    return this.who === 'answer';
-  }
-
-  setMessage(message: string) {
-    this.message = message;
-    return this;
-  }
-
-  setWho(who: 'question' | 'answer') {
-    this.who = who;
-    return this;
-  }
-
-  static question(message: string) {
-    return new QuestionParagraph({
-      message,
-      who: 'question',
-    });
-  }
-
-  static answer(message: string) {
-    return new QuestionParagraph({
-      message,
-      who: 'answer',
-    });
-  }
-}
-
-@schema('questions')
-export class Question {
-  date: Date;
-  content: QuestionParagraph[];
-
-  constructor(data?: Data<Question>) {
-    if (data) {
-      this.date = new Date(data.date.getTime() - data.date.getMilliseconds());
-      this.content = data.content;
-    } else {
-      this.date = new Date();
-      this.content = [];
-    }
-  }
-
-  toJSON() {
-    return {
-      _v: 0,
-      date: this.date.getTime() - this.date.getMilliseconds(),
-      content: this.content.map((paragraph) => paragraph.toJSON()),
-    };
-  }
-
-  static fromJSON(data: JSONData<Question>) {
-    return new Question({
-      date: new Date(data.date),
-      content: data.content.map((paragraph) => QuestionParagraph.fromJSON(paragraph)),
-    });
-  }
-
-  setDate(date: Date = new Date()) {
-    this.date = new Date(date.getTime() - date.getMilliseconds());
-    return this;
-  }
-
-  addParagraph(paragraph: QuestionParagraph) {
-    this.content.push(paragraph);
-    return this;
-  }
-
-  addQuestionParagraph(content: string) {
-    return this.addParagraph(new QuestionParagraph({ message: content, who: 'question' }));
-  }
-
-  addAnswerParagraph(content: string) {
-    return this.addParagraph(new QuestionParagraph({ message: content, who: 'answer' }));
-  }
-
-  setContent(content: QuestionParagraph[]) {
-    this.content = content;
-    return this;
-  }
-
-  getDateId() {
+export const Question = new Structure('Question')
+  .prop('date', types.Date.discardMilliseconds(), { default: () => new Date() })
+  .prop('content', types.ArrayOf(QuestionParagraph), { default: () => [] })
+  // Rejected if theres NO contents
+  .method('isRejected', function () {
+    return this.content.length === 0;
+  })
+  // Pending if theres no answer paragraphs
+  .method('isPending', function () {
+    return (
+      this.content.length >= 1 &&
+      this.content.every((paragraph) => paragraph.who === QuestionParagraphType.QUESTION)
+    );
+  })
+  .method('getDateId', function () {
     return formatDate(this.date, 'question-id');
-  }
+  })
+  .method('getURL', function (origin = getBaseOrigin()) {
+    return new URL('/q+a/' + this.getDateId(), origin);
+  })
+  .method('addParagraphs', function (...paragraphs: (QuestionParagraph | QuestionParagraph[])[]) {
+    this.content.push(...paragraphs.flat());
+    return this;
+  })
+  .create({
+    customSerializer: {
+      fromJSON(data: { date: number; content: unknown[] }) {
+        return new Question({
+          date: new Date(data.date),
+          content: Question.types.content.fromJSON(data.content),
+        });
+      },
+      toJSON(question: Question) {
+        return {
+          date: question.date.getTime(),
+          content: Question.types.content.toJSON(question.content),
+        };
+      },
+    },
+  });
 
-  static parseDateId(id: string) {
-    const match = id.match(/^(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})$/);
-    if (!match) {
-      return null;
-    }
-    const [, year, month, day, hour, minute, second] = match;
-    return new Date(`${month} ${day} 20${year} ${hour}:${minute}:${second} EST`);
+export const QuestionPage = new Structure('QuestionPage')
+  .prop('id', types.Number)
+  .prop('questions', types.ArrayOf(Question))
+  .prop('latest', types.Boolean, { default: () => false })
+  .create();
+
+export const QuestionRequest = new Structure('QuestionRequest')
+  .prop('date', types.Date.discardMilliseconds(), { default: () => new Date() })
+  .prop('content', types.String)
+  // I do not like the fact im tracking this, as of 2022-02-22, but
+  // one user in particular is messing with me too much and I want to
+  // ban them from my page. I promise I won't mess with the data in
+  // any other way.
+  .prop('ipAddress', types.String.nullable)
+  .prop('notifyEmail', types.String.nullable)
+  .prop('notifyPush', types.String.nullable)
+  .method('getDateId', function () {
+    return formatDate(this.date, 'question-id');
+  })
+  .method('getURL', function (origin = getBaseOrigin()) {
+    return new URL('/q+a/' + this.getDateId(), origin);
+  })
+  .create();
+
+export type QuestionParagraph = Instance<typeof QuestionParagraph>;
+export type Question = Instance<typeof Question>;
+export type QuestionRequest = Instance<typeof QuestionRequest>;
+export type QuestionPage = Instance<typeof QuestionPage>;
+
+export function parseQuestionDateId(id: string) {
+  const match = id.match(/^(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})$/);
+  if (!match) {
+    return null;
   }
+  const [, year, month, day, hour, minute, second] = match;
+  return new Date(`${month} ${day} 20${year} ${hour}:${minute}:${second} EST`);
 }
