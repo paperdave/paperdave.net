@@ -4,7 +4,7 @@
   import yaml from './credits.yaml';
 </script>
 
-<Meta title="credits - davecode" />
+<Meta title="credits" />
 
 <main>
   <BackButton position="off-center" />

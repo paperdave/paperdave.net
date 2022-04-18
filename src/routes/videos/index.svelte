@@ -22,7 +22,7 @@
   export let videos: VideoArtifact[];
 </script>
 
-<Meta title="videos - davecode" description="various animated videos all made with love." />
+<Meta title="videos" description="various animated videos all made with love." />
 
 <BackButton position="off-center" inverted />
 <VideoHeader />

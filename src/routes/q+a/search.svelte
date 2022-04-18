@@ -38,6 +38,7 @@
   import { cubicIn, cubicInOut, cubicOut } from 'svelte/easing';
   import BackButton from '$lib/components/BackButton.svelte';
   import { API, wrapAPI } from '$lib/api-client/singleton';
+  import Meta from '$lib/components/Meta.svelte';
 
   export let questions: QuestionPage | null;
   export let lastSearch: string = '';
@@ -89,6 +90,10 @@
   $: browser && search !== lastSearch && search ? debouncedSearch() : runSearch();
   $: loading = search !== lastSearch;
 </script>
+
+<Meta
+  title="question search"
+  description={`i answer anonymous questions you ask, because it's fun. this page is updated every few days after questions are sent.`} />
 
 <main>
   <BackButton position="off-center-right" inverted />

@@ -23,9 +23,20 @@
   import QaHeader from './_QAHeader.svelte';
   import QuestionRender from './_QuestionRender.svelte';
   import { wrapAPI } from '$lib/api-client/singleton';
+  import Meta from '$lib/components/Meta.svelte';
+  import { formatDate } from '$lib/utils/date';
 
   export let question: Question;
 </script>
+
+{#if question && question.isAccepted()}
+  <Meta
+    title="question permalink {formatDate(question.date, 'date-time')}"
+    description={question.content.find((x) => x.who === 'QUESTION')?.message ??
+      'unknown question'} />
+{:else}
+  <Meta title="question not found" noIndex />
+{/if}
 
 <main>
   <BackButton position="off-center-right" inverted />

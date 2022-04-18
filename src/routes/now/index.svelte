@@ -11,7 +11,7 @@
   ];
 </script>
 
-<Meta title="what's now - davecode" description="short page explaining the current situation" />
+<Meta title="what's now" description="short page explaining the current situation" />
 
 <ThemeRoot background="#74d7c5" accent="#74d7c5">
   <main>

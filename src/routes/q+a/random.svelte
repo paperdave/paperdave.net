@@ -1,5 +1,6 @@
 <script context="module" lang="ts">
   import { wrapAPI } from '$lib/api-client/singleton';
+  import Meta from '$lib/components/Meta.svelte';
 
   import type { Load } from '@sveltejs/kit';
 
@@ -12,3 +13,5 @@
     };
   };
 </script>
+
+<Meta title="random question" noIndex />

@@ -10,7 +10,7 @@
 </script>
 
 <svelte:head>
-  <title>{title}</title>
+  <title>{$page.url.pathname === '/' ? title : `${title} - davecode`}</title>
   {#if description} <meta name="description" content={description} /> {/if}
   <meta name="author" content="dave caruso" />
   <meta name="copyright" content="&copy; dave caruso 2021" />

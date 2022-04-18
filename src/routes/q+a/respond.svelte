@@ -21,6 +21,7 @@
   import QuestionRespondApp from './_QuestionRespondApp.svelte';
   import { API, wrapAPI } from '$lib/api-client/singleton';
   import RestrictedPageRoot from '$lib/components/RestrictedPageRoot.svelte';
+  import Meta from '$lib/components/Meta.svelte';
 
   export let requests: QuestionRequest[] = [];
 
@@ -47,6 +48,8 @@
     }
   }
 </script>
+
+<Meta title="question dashboard" noIndex />
 
 <RestrictedPageRoot>
   <main>

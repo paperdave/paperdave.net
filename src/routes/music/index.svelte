@@ -31,7 +31,7 @@
   }, {} as { [year: string]: MusicArtifact[] });
 </script>
 
-<Meta title="music - davecode" description="i like making music, here's some of it." />
+<Meta title="music" description="i like making music, here's some of it." />
 
 <BackButton position="off-center" />
 

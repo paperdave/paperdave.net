@@ -14,7 +14,7 @@
 </script>
 
 <Meta
-  title={artifact.title + ' - davecode'}
+  title={artifact.title + ''}
   description="video by dave caruso released on {formatDate(artifact.date, 'date')}"
   video={artifact.video.url} />
 

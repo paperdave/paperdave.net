@@ -8,7 +8,7 @@
 </script> 
 
 <Meta
-  title="bits and fragments - davecode"
+  title="bits and fragments"
   description="fragments are files saved during the video making process, scattered." /> 
 -->
 

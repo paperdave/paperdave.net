@@ -15,7 +15,7 @@
 </script>
 
 <Meta
-  title={artifact.title + ' - davecode'}
+  title={artifact.title + ''}
   description="music by dave caruso released on {formatDate(artifact.date, 'date')}"
   image={artifact.thumb?.url} />
 

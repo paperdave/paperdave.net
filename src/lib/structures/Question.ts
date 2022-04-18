@@ -32,6 +32,10 @@ export const Question = new Structure('Question')
   .method('isRejected', function () {
     return this.content.length === 0;
   })
+  // Accepted if there are answer paragraphs
+  .method('isAccepted', function () {
+    return !!this.content.find((p) => p.who === QuestionParagraphType.ANSWER);
+  })
   // Pending if theres no answer paragraphs
   .method('isPending', function () {
     return (

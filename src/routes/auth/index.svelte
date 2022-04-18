@@ -34,7 +34,7 @@
   }
 </script>
 
-<Meta title="authorize - davecode" />
+<Meta title="authorize" />
 
 <form on:submit={submit} class:isLoading>
   <h1>authorize</h1>

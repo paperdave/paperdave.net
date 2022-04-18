@@ -19,7 +19,7 @@
   }
 </script>
 
-<Meta title="forgot password - davecode" />
+<Meta title="forgot password" />
 
 {#if !isSubmit}
   <form bind:this={form} on:submit={submit} class:isLoading>

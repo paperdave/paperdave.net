@@ -8,12 +8,15 @@
 
   import BackButton from '$lib/components/BackButton.svelte';
   import Button from '$lib/components/Button.svelte';
+  import Meta from '$lib/components/Meta.svelte';
   import { restrictedPage } from '$lib/utils/restricted-page';
 
   function logout() {
     API.auth.logout();
   }
 </script>
+
+<Meta title="profile" noIndex />
 
 <article>
   <BackButton position="corner" />

@@ -31,6 +31,7 @@
   import { QuestionPage } from '$lib/structures';
   import { user } from '$lib/api-client/session';
   import { Permission } from '$lib/structures';
+  import Meta from '$lib/components/Meta.svelte';
 
   export let qpage: QuestionPage;
 
@@ -40,6 +41,10 @@
 
   let formExpanded = false;
 </script>
+
+<Meta
+  title="answers & questions"
+  description={`i answer anonymous questions you ask, because it's fun. this page is updated every few days after questions are sent.`} />
 
 <main>
   <BackButton position="off-center-right" inverted />
