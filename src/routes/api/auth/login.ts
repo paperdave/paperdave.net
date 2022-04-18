@@ -4,7 +4,6 @@ import { Token, TOKEN_LENGTH, User } from '$lib/structures';
 import { GenericSuccess } from '$lib/utils/api';
 import { Instance, Structure, types } from '@davecode/structures';
 import { RequestHandler, RequestHandlerOutput } from '@sveltejs/kit';
-import { createHash, randomBytes } from 'crypto';
 
 // note: move to bcrypt for passwords. but i dont care since it's literally one user account LOL.
 
@@ -29,14 +28,8 @@ const IncorrectLogin: RequestHandlerOutput = {
 };
 
 function generateTokenString() {
-  return new Promise<string>((resolve, reject) => {
-    randomBytes(TOKEN_LENGTH, function (err, buffer) {
-      if (err) {
-        reject(err);
-      }
-      resolve(buffer.toString('hex'));
-    });
-  });
+  const array = crypto.getRandomValues(new Uint8Array(TOKEN_LENGTH));
+  return array.reduce((str, byte) => str + byte.toString(16), '');
 }
 
 /** Creates a login token */
@@ -50,13 +43,19 @@ export const post: RequestHandler = async ({ request }) => {
     return IncorrectLogin;
   }
 
-  const hashed = createHash('sha256').update(`${user.salt}_${email}_${password}`).digest('hex');
+  const digest = await crypto.subtle.digest(
+    'SHA-256',
+    new TextEncoder().encode(`${user.salt}_${email}_${password}`)
+  );
+  const hashed = Array.from(new Uint8Array(digest))
+    .map((byte) => byte.toString(16).padStart(2, '0'))
+    .join('');
 
   if (user.passwordHash !== hashed) {
     return IncorrectLogin;
   }
 
-  const tokenText = await generateTokenString();
+  const tokenText = generateTokenString();
   const tokenDB = await getDatabase(Token);
 
   const token = new Token({
