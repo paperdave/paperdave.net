@@ -21,15 +21,15 @@ declare global {
 }
 
 async function createRealmConnection() {
-  if (global.realmDB) {
-    return global.realmDB;
+  if (globalThis.realmDB) {
+    return globalThis.realmDB;
   }
   const App = new realm.App(REALM_APPID);
   const credentials = realm.Credentials.apiKey(REALM_TOKEN);
   const user = await App.logIn(credentials);
   const client = user.mongoClient('mongodb-atlas');
-  global.realmDB = client.db(MONGO_DB);
-  return global.realmDB;
+  globalThis.realmDB = client.db(MONGO_DB);
+  return globalThis.realmDB;
 }
 
 export async function getDatabase<T extends CollectionType>(
