@@ -7,7 +7,8 @@
   }
 
   const sourceUrl =
-    'https://github.com/davecaruso/davecode.net/tree/main/src/routes/series/the-writer/index.html';
+    'https://github.com/davecaruso/davecode.net/tree/main/src/routes/stories/the-writer/_source.php';
+
   const rootUrl = 'https://media.davecode.net/content/2020';
   const pages = [
     ['I', 'loxu72p7', 'Canvas', -2, '2020-10-01'],
@@ -18,7 +19,7 @@
     ['VI', '8vxq1ugn', 'Viewers', -0.6, '2020-11-05'],
     ['VII', 'sjtbytyv', 'Outside', 0.9, '2020-11-12'],
     ['VIII', 't1jr8wls', 'Ideas', -0.2, '2020-11-19'],
-    ['IX', 'vnrfcwqa', 'The Word Minimum Requirements', -2.4, , '2020-11-26'],
+    ['IX', 'vnrfcwqa', 'The Word Minimum Requirements', -2.4, '2020-11-26'],
     ['X', 'dhrqcy8r', 'Final', 7, '2020-12-03'],
   ];
 </script>
@@ -58,11 +59,11 @@
 
   <div class="overlay overlay1" />
 
-  {#each pages as [, key, name, rotate, date], i}
+  {#each pages as [id, key, name, rotate, date], i}
     <div class="page e{i + 1}d" style="--r:{rotate}">
       <label for="e{i + 1}c" class="overlay" />
       <div class="page-content">
-        <div><span style="flex:1">Entry {i + 1} - {name}</span><span>{date}</span></div>
+        <div><span style="flex:1">Entry {id} - {name}</span><span>{date}</span></div>
         <img
           src="{rootUrl}/entry{i + 1}_{key}-1x.png"
           srcset={[
@@ -165,8 +166,8 @@
   .page-content {
     width: calc(min(90vw + 60px, 90vh - 50px) / 1.415);
     height: calc(min(90vw + 60px, 90vh - 50px));
-    font-size: calc(min(90vw + 60px, 90vh - 50px) * 0.035);
-    background: red;
+    font-size: calc(min(90vw + 60px, 90vh - 50px) * 0.025);
+    background: white;
     position: relative;
     transform: translate(calc(var(--r, 0) * 50px), 100vh) rotate(60deg);
     transition: transform 1s cubic-bezier(0.2, 0, 0, 1);
