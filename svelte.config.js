@@ -1,17 +1,22 @@
 import content from '@originjs/vite-plugin-content';
 import svgSvelte from '@poppanator/sveltekit-svg';
 import adapterCloudflare from '@sveltejs/adapter-cloudflare';
+import blurhashImage from 'blurhash-image';
 import 'dotenv/config';
-import fs from 'fs-extra';
+import fs from 'fs';
 import preprocess from 'svelte-preprocess';
 
-fs.ensureDirSync('./.svelte-kit');
+// Modified template with blurhash script
+if (!fs.existsSync('.svelte-kit')) {
+  fs.mkdirSync('.svelte-kit');
+}
+
 fs.writeFileSync(
   '.svelte-kit/app.html',
   fs
     .readFileSync('src/app.html', 'utf8')
     .toString()
-    .replace(/%blurhash%/, () => fs.readFileSync('src/lib/vendor/blurhash-image.js', 'utf8'))
+    .replace(/%blurhash%/, blurhashImage)
 );
 
 /** @type {import('@sveltejs/kit').Config} */

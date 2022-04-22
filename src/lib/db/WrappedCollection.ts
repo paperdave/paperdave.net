@@ -50,14 +50,16 @@ export class WrappedCollection<T, S> {
    * @returns The documents.
    */
   async find(filter?: Filter, options?: FindOptions): Promise<T[]> {
+    const _id = `find() ${Math.random().toFixed(4).slice(2)}`;
+    console.time(_id);
     const result = await this.raw.find(filter, options);
+    console.timeEnd(_id);
     return result.map((doc) => this.fromJSON(doc));
   }
 
   /** Finds the document which has the given id. */
   async findById(id: string): Promise<T | null> {
-    const result = await this.raw.findOne({ [this.idField]: id });
-    return result ? this.fromJSON(result) : null;
+    return this.findOne({ [this.idField]: id });
   }
 
   /**
@@ -68,7 +70,10 @@ export class WrappedCollection<T, S> {
    * @returns The document.
    */
   async findOne(filter?: Filter, options?: FindOneOptions): Promise<T | null> {
+    const _id = `findOne() ${Math.random().toFixed(4).slice(2)}`;
+    console.time(_id);
     const result = await this.raw.findOne(filter, options);
+    console.timeEnd(_id);
     return result ? this.fromJSON(result) : null;
   }
 
