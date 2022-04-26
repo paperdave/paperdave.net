@@ -1,5 +1,5 @@
 <script lang="ts" context="module">
-  import { Question, QuestionPage } from '$lib/structures';
+  import { QuestionPage } from '$lib/structures';
   import type { Load } from '@sveltejs/kit';
   import QaHeader from './_QAHeader.svelte';
   import QaInput from './_QAInput.svelte';

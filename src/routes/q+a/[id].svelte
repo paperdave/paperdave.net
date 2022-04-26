@@ -31,9 +31,9 @@
 
 {#if question && question.isAccepted()}
   <Meta
-    title="question permalink {formatDate(question.date, 'date-time')}"
-    description={question.content.find((x) => x.who === 'QUESTION')?.message ??
-      'unknown question'} />
+    title="question permalink: {formatDate(question.date, 'date-time')}"
+    description={question.content.find((x) => x.who === 'QUESTION')?.message ?? 'unknown question'}
+    noIndex />
 {:else}
   <Meta title="question not found" noIndex />
 {/if}

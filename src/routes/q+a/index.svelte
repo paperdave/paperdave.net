@@ -42,10 +42,15 @@
   let formExpanded = false;
 </script>
 
-<Meta
-  title="answers & questions"
-  description={`i answer anonymous questions you ask, because it's fun. this page is updated every few days after questions are sent.`} />
-
+{#if qpage.latest}
+  <Meta
+    title="answers & questions"
+    description={`i answer anonymous questions you ask, because it's fun. this page is updated every few days after questions are sent.`} />
+{:else}
+  <Meta
+    title="answers & questions - page {qpage.id}"
+    description={`i answer anonymous questions you ask, because it's fun. this page is updated every few days after questions are sent.`} />
+{/if}
 <main>
   <BackButton position="off-center-right" inverted />
   <QAHeader />

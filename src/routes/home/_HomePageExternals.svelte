@@ -43,7 +43,8 @@
       <article>
         <h2>other websites</h2>
         <p>
-          dave most definetly have signed up to other websites, but here's his main public profiles.
+          dave most definitely have signed up to other websites, but here's his main public
+          profiles.
         </p>
         <grid class="website-grid">
           {#each otherWebsites as link}
