@@ -50,10 +50,7 @@ export class WrappedCollection<T, S> {
    * @returns The documents.
    */
   async find(filter?: Filter, options?: FindOptions): Promise<T[]> {
-    const _id = `find() ${Math.random().toFixed(4).slice(2)}`;
-    console.time(_id);
     const result = await this.raw.find(filter, options);
-    console.timeEnd(_id);
     return result.map((doc) => this.fromJSON(doc));
   }
 
@@ -70,10 +67,7 @@ export class WrappedCollection<T, S> {
    * @returns The document.
    */
   async findOne(filter?: Filter, options?: FindOneOptions): Promise<T | null> {
-    const _id = `findOne() ${Math.random().toFixed(4).slice(2)}`;
-    console.time(_id);
     const result = await this.raw.findOne(filter, options);
-    console.timeEnd(_id);
     return result ? this.fromJSON(result) : null;
   }
 

@@ -5,6 +5,8 @@ import { RequestHandler, RequestHandlerOutput } from '@sveltejs/kit';
 
 /** Returns all question requests */
 export const get: RequestHandler = async ({ locals }) => {
+  console.log(locals.user);
+
   if (!locals.user.queryPermission(Permission.RESPOND_TO_QUESTIONS)) {
     return {
       status: 403,
