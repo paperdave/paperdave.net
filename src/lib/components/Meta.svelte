@@ -13,7 +13,7 @@
   <title>{$page.url.pathname === '/' ? title : `${title} - davecode`}</title>
   {#if description} <meta name="description" content={description} /> {/if}
   <meta name="author" content="dave caruso" />
-  <meta name="copyright" content="&copy; dave caruso 2021" />
+  <meta name="copyright" content="&copy; dave caruso 2022" />
   <meta name="distribution" content="web" />
   <meta name="theme-color" content={color} />
   <meta name="keywords" content="art, entertainment, dave caruso, davecode" />
@@ -42,6 +42,5 @@
     <meta name="robots" content="noindex, nofollow" />
   {:else}
     <meta name="robots" content="index, follow" />
-    <meta name="googlebot" content="index, follow, nosnippet" />
   {/if}
 </svelte:head>
