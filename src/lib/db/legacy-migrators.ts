@@ -53,7 +53,7 @@ export const migrateArtifact = (data: any): Artifact => {
         url: 'https://media.davecode.net/content/2022/im-18-now.jpeg',
         width: 1920,
         height: 1080,
-        // hash: '',
+        hash: data.blurhash,
       }),
       video: new VideoMedia({
         url: 'https://media.davecode.net/content/2022/im-18-now.mp4',
