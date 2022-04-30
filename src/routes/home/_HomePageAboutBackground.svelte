@@ -122,7 +122,6 @@
     left: -200px;
     width: calc(100% + 200px);
     height: 100%;
-    filter: blur(1.5px);
   }
 
   div {
