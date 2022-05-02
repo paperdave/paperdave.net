@@ -1,7 +1,7 @@
 <script lang="ts">
   import { browser } from '$app/env';
   import { onDestroy, onMount } from 'svelte';
-  import { easeExpInOut, easePolyInOut, easeQuadInOut } from 'd3-ease';
+  import { easePolyInOut } from 'd3-ease';
 
   let canvas: null | HTMLCanvasElement = null;
   let ctx: null | CanvasRenderingContext2D = null;
