@@ -35,8 +35,8 @@
       <div class="inner-content">
         <article>
           <h2>fresh new stuff</h2>
-          <p>last updated <code>2022-02-22</code></p>
-          <p>next project estimated <code>2022-04-30</code></p>
+          <p>last updated <code>2022-04-30</code></p>
+          <!-- <p>next project estimated <code>2022-04-30</code></p> -->
           <ul>
             {#each list as artifact}
               <HomePageFreshCard {artifact} />
