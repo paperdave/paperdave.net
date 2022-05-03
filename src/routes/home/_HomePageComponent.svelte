@@ -23,7 +23,7 @@
     } else if (phrase.endsWith('afe')) {
       goto('/admin/artifact-editor');
     } else if (phrase.endsWith('admin')) {
-      goto('/admine');
+      goto('/admin');
     } else if (phrase.endsWith('qa')) {
       goto('/q+a');
     } else if (phrase.endsWith('video')) {
