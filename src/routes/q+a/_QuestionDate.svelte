@@ -28,7 +28,7 @@
   const dateString = formatDate(question.date, 'date-time');
 </script>
 
-<main on:click={copy} class:success={copyState} class:clickable={!question.isRejected()}>
+<time datetime={question.date.toISOString()} on:click={copy} class:success={copyState} class:clickable={!question.isRejected()}>
   {#if copyState === null}
     {dateString}
   {:else if copyState}
@@ -37,10 +37,10 @@
     Failed
   {/if}
   <LinkSVG />
-</main>
+</time>
 
 <style lang="scss">
-  main {
+  time {
     color: #999;
     font-size: 0.9rem;
     margin-bottom: 0.28rem;
