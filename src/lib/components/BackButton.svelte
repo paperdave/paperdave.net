@@ -6,16 +6,16 @@
   export let inverted = false;
 </script>
 
-<main class:inverted>
+<div class:inverted>
   <a class="position-{position} custom" {href}>
     {text}
   </a>
-</main>
+</div>
 
 <div class="spacer-{position}" />
 
 <style lang="scss">
-  main {
+  div {
     position: relative;
 
     a {
