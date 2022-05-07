@@ -1,0 +1,30 @@
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["dataproxy", "extendedIndexes", "referentialIntegrity"]
+}
+
+datasource db {
+  provider = "mysql"
+  url = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
+}
+
+model User {
+  email String @id @unique
+  name String
+  bcrypt String
+  admin Boolean
+}
+
+// Because I am a lazy and cheap person, rolemenu.net runs off the same data store.
+model RoleMenuMessage {
+  id          String @id @unique // message id
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  channel     String
+  guild       String
+  message     Json
+  components  Json
+
+  @@index([guild])
+}

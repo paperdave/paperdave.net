@@ -1,19 +1,13 @@
-import { getDatabase } from '$lib/db';
-import { Token, User } from '$lib/structures';
+import { REALM_TOKEN } from '$lib/env';
 import { Handle } from '@sveltejs/kit';
+import { handleSession } from 'svelte-kit-cookie-session';
 
 export const EXPIRE_TIME = 1000 * 60 * 60 * 24 * 7;
 
 const overrideHeaders = {
   // Powered by easter egg :3
   'X-Powered-By': 'chocolate; see https://davecode.net/donate',
-
-  // CORS headers for potential cross origin requests
-  // Read more: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'GET, PUT, PATCH, DELETE, POST',
-  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-  'Access-Control-Max-Age': '86400',
+  'Cache-Control': 'public, maxage=3600, stale-while-revalidate=3600',
 };
 
 function createErrorResponse(statusCode: number, message: string) {
@@ -39,53 +33,19 @@ export interface Token {
   expires: number;
 }
 
-export const handle: Handle = async ({ event, resolve }) => {
-  event.locals.user = new User({
-    name: 'Guest',
-    email: 'noreply@davecode.net',
-    permissions: new Set(),
-  });
+export const handle: Handle = handleSession(
+  {
+    secret: REALM_TOKEN,
+  },
+  async ({ event, resolve }) => {
+    const response = await resolve(event);
 
-  const auth = event.request.headers.get('Authorization');
-  if (auth) {
-    const match = auth.match(/^Bearer (.*)$/);
-    if (match) {
-      const token = match[1];
-
-      const tokenDb = await getDatabase(Token);
-      const tokenData = await tokenDb.findOne({ token });
-      if (!tokenData) {
-        return createErrorResponse(401, 'Invalid Token');
+    for (const [key, value] of Object.entries(overrideHeaders)) {
+      if (!response.headers.has(key)) {
+        response.headers.set(key, value);
       }
-
-      if (!tokenData.isValid()) {
-        tokenDb.deleteOne({ token });
-        return createErrorResponse(401, 'Token Expired');
-      }
-
-      const userDb = await getDatabase(User);
-      const userData = await userDb.findOne({ email: tokenData.email });
-      if (!userData) {
-        return createErrorResponse(401, 'Invalid Token');
-      }
-
-      event.locals.user = userData;
-
-      await tokenDb.replace(tokenData);
-    } else {
-      return createErrorResponse(400, 'Unsupported Authorization Format');
     }
+
+    return response;
   }
-
-  const response = await resolve(event);
-
-  for (const [key, value] of Object.entries(overrideHeaders)) {
-    response.headers.set(key, value);
-  }
-
-  if (response.headers.has('Cache-Control')) {
-    response.headers.set('Cache-Control', 'public,maxage=3600,stale-while-revalidate=3600');
-  }
-
-  return response;
-};
+);

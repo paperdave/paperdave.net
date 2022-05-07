@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@davecode/structures": "^0.3.0",
+    "@prisma/client": "^3.13.0",
     "blurhash": "^1.1.4",
     "blurhash-image": "^1.0.0",
     "color": "^4.2.1",
@@ -21,7 +22,9 @@
     "prisma": "^3.13.0",
     "realm-web": "^1.7.0",
     "source-map-js": "^1.0.1",
-    "stacktrace-parser": "^0.1.10"
+    "stacktrace-parser": "^0.1.10",
+    "svelte-kit-cookie-session": "^2.1.4",
+    "web-vitals": "^2.1.4"
   },
   "devDependencies": {
     "@originjs/vite-plugin-content": "^1.0.1",
