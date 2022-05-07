@@ -1,7 +1,7 @@
 @import './fonts.scss';
 @import './reset.scss';
 
-html {
+body {
   // We use css variables for the variable font properties
   --text-mono: 0;
   --text-casual: 0;
@@ -11,7 +11,6 @@ html {
   background-color: black;
   overflow-y: scroll;
   line-height: 1.15;
-  line-height: inherit;
   font-family: 'Recursive', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
     'Noto Color Emoji';
   letter-spacing: -0.005em;
