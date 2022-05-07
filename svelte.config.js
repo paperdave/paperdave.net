@@ -18,7 +18,7 @@ fs.writeFileSync(
   fs
     .readFileSync('src/app.html', 'utf8')
     .toString()
-    .replace(/%blurhash%/, blurhashImage)
+    .replace(/<\/head>/, `<script>${blurhashImage}</script></head>`)
 );
 
 /** @type {import('@sveltejs/kit').Config} */
