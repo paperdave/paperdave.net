@@ -429,6 +429,11 @@ crc-32@~1.2.0:
   resolved "https://registry.yarnpkg.com/crc-32/-/crc-32-1.2.2.tgz#3cad35a934b8bf71f25ca524b6da51fb7eace2ff"
   integrity sha512-ROmzCKrTnOwybPcJApAA6WBWij23HVfGVNKqqrZpuyZOHqK2CwHSvpGuyt/UNNvaIjEd8X5IFGp4Mh+Ie1IHJQ==
 
+css-declaration-sorter@^6.2.2:
+  version "6.2.2"
+  resolved "https://registry.yarnpkg.com/css-declaration-sorter/-/css-declaration-sorter-6.2.2.tgz#bfd2f6f50002d6a3ae779a87d3a0c5d5b10e0f02"
+  integrity sha512-Ufadglr88ZLsrvS11gjeu/40Lw74D9Am/Jpr3LlYm5Q4ZP5KdlUhG+6u2EjyXeZcxmZ2h1ebCKngDjolpeLHpg==
+
 css-select@^4.1.3:
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/css-select/-/css-select-4.3.0.tgz#db7129b2846662fd8628cfc496abb2b59e41529b"
@@ -1333,6 +1338,11 @@ plist@^3.0.4:
     base64-js "^1.5.1"
     xmlbuilder "^9.0.7"
 
+postcss-scss@^4.0.3:
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/postcss-scss/-/postcss-scss-4.0.4.tgz#aa8f60e19ee18259bc193db9e4b96edfce3f3b1f"
+  integrity sha512-aBBbVyzA8b3hUL0MGrpydxxXKXFZc5Eqva0Q3V9qsBOLEMsjb6w49WfpsoWzpEgcqJGW4t7Rio8WXVU9Gd8vWg==
+
 postcss@^8.4.13:
   version "8.4.13"
   resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.4.13.tgz#7c87bc268e79f7f86524235821dfdf9f73e5d575"
@@ -1341,6 +1351,15 @@ postcss@^8.4.13:
     nanoid "^3.3.3"
     picocolors "^1.0.0"
     source-map-js "^1.0.2"
+
+prettier-plugin-css-order@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/prettier-plugin-css-order/-/prettier-plugin-css-order-1.2.0.tgz#b706627830adb336b71e6b840883739d25a45fb4"
+  integrity sha512-2cI5xf7kOZsJgHEmD47b/gz+v4GU9Gm7Fkg5pdC5fR1idWxzZ83yAOwTPhWVqZF3GIe889kikSxdsOvmOgoUUw==
+  dependencies:
+    css-declaration-sorter "^6.2.2"
+    postcss-scss "^4.0.3"
+    sync-threads "^1.0.1"
 
 prettier-plugin-jsdoc@^0.3.24:
   version "0.3.38"
@@ -1636,6 +1655,11 @@ svgo@^2.3.0:
     csso "^4.2.0"
     picocolors "^1.0.0"
     stable "^0.1.8"
+
+sync-threads@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/sync-threads/-/sync-threads-1.0.1.tgz#1e854ce579eaca0d0f1f0885a40bc2be6237b593"
+  integrity sha512-hIdwt/c/e1ONnr2RJmfBxEAj/J6KQQWKdToF3Qw8ZNRsTNNteGkOe63rQy9I7J5UNlr8Yl0wkzIr9wgLY94x0Q==
 
 tabbable@^5.2.1, tabbable@^5.3.1:
   version "5.3.1"

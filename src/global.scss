@@ -2,21 +2,18 @@
 @import './reset.scss';
 
 html {
-  overflow-y: scroll;
-  background-color: black;
-  font-family: inherit;
-  line-height: inherit;
-
-  font-family: 'Recursive', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
-    'Noto Color Emoji';
-  line-height: 1.15;
-
   // We use css variables for the variable font properties
   --text-mono: 0;
   --text-casual: 0;
   --text-slant: 0;
   --text-cursive: 0.5;
 
+  background-color: black;
+  overflow-y: scroll;
+  line-height: 1.15;
+  line-height: inherit;
+  font-family: 'Recursive', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+    'Noto Color Emoji';
   letter-spacing: -0.005em;
 }
 
@@ -28,13 +25,11 @@ html {
 
 #root {
   position: relative;
+  margin: 0 auto;
   background-color: white;
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
   width: 100%;
   max-width: 3860px; // you should not be browsing above this lol
-  margin: 0 auto;
+  min-height: 100vh;
 }
 
 :where(h1, h2, h3, h4, h5, h6):not(.custom) {
@@ -88,16 +83,12 @@ theme-root.dark {
 }
 
 theme-root {
-  position: relative;
   display: flex;
+  position: relative;
   flex-direction: column;
-  width: 100%;
   background-color: hsl(var(--background));
+  width: 100%;
   color: hsl(var(--foreground));
-}
-
-*[grow] {
-  flex-grow: 1;
 }
 
 // This is a non-standard element (html5 spec disallows this) but it's so goddamn nice to use
@@ -120,8 +111,8 @@ theme-root {
     flex-direction: column-reverse;
   }
   &[center] {
-    align-items: center;
     justify-content: center;
+    align-items: center;
   }
 }
 
@@ -134,6 +125,7 @@ grid {
 // Links are restyled using the theme, but .custom is a special class that can be used to disable
 // this behavior
 a:not(.custom) {
+  border-radius: 4px;
   color: var(--link-color);
   text-decoration: underline;
   text-decoration-color: hsla(var(--foreground), 0.3);
@@ -143,11 +135,10 @@ a:not(.custom) {
     text-decoration-color: hsla(var(--foreground), 0.7);
   }
   &:active {
-    color: black;
     background-color: hsl(calc(var(--accent-hue) + 20), 100%, 50%);
+    color: black;
     text-decoration: none;
   }
-  border-radius: 4px;
 }
 
 article {

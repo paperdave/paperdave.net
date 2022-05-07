@@ -2,12 +2,12 @@
   "plugins": [
     "./node_modules/prettier-plugin-svelte",
     "./node_modules/prettier-plugin-organize-imports",
-    "./node_modules/prettier-plugin-jsdoc"
+    "./node_modules/prettier-plugin-jsdoc",
+    "./node_modules/prettier-plugin-css-order"
   ],
   "arrowParens": "always",
   "singleQuote": true,
   "jsxSingleQuote": true,
-  "svelteBracketNewLine": false,
   "printWidth": 100,
   "tabWidth": 2,
   "trailingComma": "es5",
