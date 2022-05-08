@@ -69,21 +69,21 @@
     flex: 1;
   }
   .buttons {
-    width: 100%;
-    max-width: 30rem;
-    position: absolute;
     display: flex;
+    position: absolute;
     gap: 0.5rem;
     margin-top: 0.5rem;
+    width: 100%;
+    max-width: 30rem;
   }
 
   form :global(button) {
-    font-family: Hack, monospace;
+    --mono: 1;
     height: 2.6rem;
 
     & :global(svg) {
-      height: 1.5rem;
       width: 1.5rem;
+      height: 1.5rem;
     }
   }
 
@@ -92,16 +92,16 @@
     z-index: 100;
 
     h2 {
-      font-size: 1.2rem;
-      font-weight: normal;
       margin: 0;
       margin-top: 0.5rem;
+      font-weight: normal;
+      font-size: 1.2rem;
     }
     p {
-      font-size: 0.8rem;
-      font-weight: normal;
       margin: 0;
       margin-top: 0.25rem;
+      font-weight: normal;
+      font-size: 0.8rem;
     }
   }
 </style>

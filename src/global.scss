@@ -63,7 +63,8 @@ theme-root {
   --accent-light-3: calc(var(--accent-hue) - 15), 98%, 80%;
   --accent-light-2: calc(var(--accent-hue) - 7), 99%, 69%;
   --accent-light-1: calc(var(--accent-hue) - 1), 100%, 49%;
-  --accent-base: var(--accent-hue), var(--accent-saturation), var(--accent-lightness) /*42%*/;
+  --accent-base: var(--accent-hue), calc(var(--accent-saturation) * 1%),
+    calc(var(--accent-lightness) * 1%) /*42%*/;
   --accent-dark-1: calc(var(--accent-hue) + 4), 100%, 36%;
   --accent-dark-2: calc(var(--accent-hue) + 10), 100%, 29%;
   --accent-dark-3: calc(var(--accent-hue) + 21), 100%, 20%;
@@ -82,9 +83,9 @@ theme-root.dark {
 }
 
 theme-root {
-  display: flex;
+  display: grid;
   position: relative;
-  flex-direction: column;
+  flex: 1;
   background-color: hsl(var(--background));
   width: 100%;
   color: hsl(var(--foreground));
@@ -94,7 +95,9 @@ theme-root {
 // <flex> is like a div but its default to a flexbox, and has some nice attributes
 // i promise if i go work for a company, i'll do things the "real" way.
 :where(flex) {
+  --gap: 0;
   display: flex;
+  gap: calc(var(--gap, 0) * 1rem);
   &[row] {
     flex-direction: row;
   }
@@ -109,6 +112,9 @@ theme-root {
   &[column][reverse] {
     flex-direction: column-reverse;
   }
+  &[gap] {
+    --gap: 1;
+  }
   &[center] {
     justify-content: center;
     align-items: center;
@@ -117,8 +123,13 @@ theme-root {
 
 // This is another non-standard element.
 // <grid>, like <flex>, is like a div but its default to a grid
-grid {
+:where(grid) {
   display: grid;
+
+  &[center] {
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 // Links are restyled using the theme, but .custom is a special class that can be used to disable
@@ -138,10 +149,4 @@ a:not(.custom) {
     color: black;
     text-decoration: none;
   }
-}
-
-article {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
 }

@@ -66,24 +66,24 @@
 
   textarea,
   .wrap-calculator {
-    line-height: 1.25rem;
-    font-size: 1rem;
+    --mono: 1;
+    border: 1px solid white;
+    border-radius: 2px;
+    background: black;
+    padding: 0.5rem;
     width: 100%;
     max-width: 30rem;
-    padding: 0.5rem;
-    background: black;
-    color: rgba(255, 255, 255, 1);
-    border: 1px solid white;
-    resize: none;
-    border-radius: 2px;
     overflow: hidden;
-    font-family: Hack, monospace;
+    resize: none;
+    color: rgba(255, 255, 255, 1);
+    font-size: 1rem;
+    line-height: 1.25rem;
   }
   textarea {
     &::placeholder {
+      opacity: 1;
       transition: opacity 0.2s ease-in-out;
       color: #666;
-      opacity: 1;
     }
     &:focus {
       outline: none;
@@ -101,8 +101,8 @@
   .wrap-calculator {
     position: absolute;
     visibility: hidden;
-    white-space: pre-wrap;
     min-height: 6.25rem;
+    white-space: pre-wrap;
     word-break: break-all;
   }
 
@@ -110,19 +110,19 @@
     transition: height 500ms cubic-bezier(0.4, 0, 0.2, 1), color 100ms ease-in-out;
 
     height: 0.5rem;
-    color: rgba(255, 255, 255, 0);
     pointer-events: none;
+    color: rgba(255, 255, 255, 0);
   }
 
   h2 {
-    user-select: none;
-    color: #bbb;
-    z-index: -1;
-    font-size: 1rem;
-    font-weight: 300;
     position: absolute;
     transform: translate(0.5rem, 0);
+    z-index: -1;
     transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    color: #bbb;
+    font-weight: 300;
+    font-size: 1rem;
+    user-select: none;
   }
   h2.expanded {
     transform: translate(0.5rem, -1.75rem);
@@ -130,28 +130,28 @@
 
   .bar {
     position: absolute;
-    height: 1rem;
+    transform: translate(0, 1px);
     width: 100%;
     max-width: 30rem;
+    height: 1rem;
     overflow: hidden;
-    transform: translate(0, 1px);
   }
 
   .anim {
+    transform-origin: 0% 50%;
+    animation: indeterminateAnimation 1s 400ms both infinite linear;
+    background-color: rgba(255, 255, 255, 0.7);
     width: 100%;
     height: 100%;
-    background-color: rgba(255, 255, 255, 0.7);
-    animation: indeterminateAnimation 1s 400ms both infinite linear;
-    transform-origin: 0% 50%;
   }
 
   .result {
     position: absolute;
     top: 0;
     left: 1px;
+    animation: resultAnimation 1s ease-in-out both;
     width: calc(100% - 2px);
     height: 100%;
-    animation: resultAnimation 1s ease-in-out both;
     &.success {
       background-color: #51d064;
     }

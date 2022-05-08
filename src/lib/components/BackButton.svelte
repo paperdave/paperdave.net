@@ -3,48 +3,26 @@
 
   export let text = 'go home';
   export let href = '/';
-  export let inverted = false;
 </script>
 
-<div class:inverted>
-  <a class="position-{position} custom" {href}>
-    {text}
-  </a>
-</div>
-
-<div class="spacer-{position}" />
+<a sveltekit:prefetch class="position-{position} custom" {href}>
+  {text}
+</a>
 
 <style lang="scss">
-  div {
+  a {
     position: relative;
+    border-radius: 4px;
+    padding: 0.25em;
+    color: hsla(var(--foreground), 0.5);
 
-    a {
-      border-radius: 2px;
-      color: rgba(0, 0, 0, 0.5);
-      mix-blend-mode: multiply;
-      padding: 0.25em;
-
-      &:hover {
-        background-color: rgba(0, 0, 0, 0.5);
-        color: white;
-      }
-      &:active {
-        background-color: rgba(0, 0, 0, 0.75);
-        color: rgba(255, 255, 255, 0.7);
-      }
-    }
-  }
-
-  .inverted a {
-    color: rgba(255, 255, 255, 0.5);
-    mix-blend-mode: screen;
     &:hover {
-      background-color: rgba(255, 255, 255, 0.5);
-      color: black;
+      background-color: hsla(var(--foreground), 0.5);
+      color: hsl(var(--background));
     }
     &:active {
-      background-color: rgba(255, 255, 255, 0.75);
-      color: rgba(0, 0, 0, 0.7);
+      background-color: hsla(var(--foreground), 0.75);
+      color: hsla(var(--background), 0.7);
     }
   }
 
@@ -65,12 +43,6 @@
 
     @media (max-width: 45rem) {
       right: 1rem;
-    }
-  }
-
-  .spacer-off-center-right {
-    @media (max-width: 45rem) {
-      height: 2rem;
     }
   }
 
