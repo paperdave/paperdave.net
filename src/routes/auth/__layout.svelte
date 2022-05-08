@@ -7,11 +7,12 @@
   import { palette } from '$lib/theme';
 </script>
 
-<ThemeRoot background={palette.grey[100]} accent={palette.cyan[500]}>
-  <Paper>
+<ThemeRoot accent={palette.cyan[500]}>
+  <Paper marginTop>
     <BackButton position="off-center" href={$page.url.pathname === '/auth' ? '/' : '/auth'}>
       {$page.url.pathname === '/auth' ? 'go home' : 'nevermind'}
     </BackButton>
+
     <slot />
   </Paper>
 </ThemeRoot>

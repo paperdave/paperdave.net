@@ -24,6 +24,10 @@
       background-color: hsla(var(--foreground), 0.75);
       color: hsla(var(--background), 0.7);
     }
+    &:hover,
+    &:active {
+      text-decoration: none;
+    }
   }
 
   .position-off-center {
