@@ -6,7 +6,7 @@
 </script>
 
 <a sveltekit:prefetch class="position-{position} custom" {href}>
-  {text}
+  <slot>{text}</slot>
 </a>
 
 <style lang="scss">

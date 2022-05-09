@@ -5,12 +5,15 @@
   import ThemeRoot from '$lib/components/ThemeRoot.svelte';
   import Paper from '$lib/components/Paper.svelte';
   import { palette } from '$lib/theme';
-  let accent = palette.cyan[500];
-  let dark = false;
+  import { onDestroy } from 'svelte';
+  import { resetAuthStores } from './authorization-store';
+
+  onDestroy(() => {
+    resetAuthStores();
+  });
 </script>
 
-<ThemeRoot {dark} {accent}>
-  <!-- <ThemeRoot accent={palette.cyan[500]}> -->
+<ThemeRoot accent={palette.cyan[500]}>
   <Paper marginTop>
     <BackButton position="off-center" href={$page.url.pathname === '/auth' ? '/' : '/auth'}>
       {$page.url.pathname === '/auth' ? 'go home' : 'nevermind'}

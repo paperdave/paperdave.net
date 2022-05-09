@@ -17,7 +17,7 @@
  -->
 <script lang="ts">
   import { useId } from '$lib/hooks/useId';
-  import { onMount } from 'svelte';
+  import { onMount, tick } from 'svelte';
   import { scale } from 'svelte/transition';
   import Icon from './Icon.svelte';
 
@@ -43,9 +43,16 @@
   let root: HTMLElement | undefined;
 
   let labelX = 0;
+  let init = true;
 
-  onMount(() => {
+  onMount(async () => {
     labelX = labelElem?.offsetLeft ?? 0;
+    if (document.activeElement === inputElem) {
+      focused = true;
+    }
+    setTimeout(() => {
+      init = false;
+    }, 100);
   });
 
   function handleFocus() {
@@ -98,6 +105,7 @@
 <flex
   row
   class="textbox"
+  class:init
   class:focused
   class:expanded
   class:disabled
@@ -266,5 +274,10 @@
     height: 2.5rem;
     color: hsla(var(--fg), 0.7);
     font-size: 1.5rem;
+  }
+
+  .init,
+  .init * {
+    transition-duration: 0 !important;
   }
 </style>

@@ -39,7 +39,7 @@
 {/if}
 
 <main>
-  <BackButton position="off-center-right" inverted />
+  <BackButton position="off-center-right" />
   <QaHeader />
   <section>
     <p>i answer anonymous questions you ask, because it's fun.</p>
