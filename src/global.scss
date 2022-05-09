@@ -64,9 +64,15 @@ main {
 }
 
 // Headings are in Roboto Slab
-:where(h1, h2, h3, h4, h5, h6):not(.custom) {
+h1:not(.custom),
+h2:not(.custom),
+h3:not(.custom),
+h4:not(.custom),
+h5:not(.custom),
+h6:not(.custom) {
   font-family: 'Roboto Slab', sans-serif, var(--emoji);
 }
+
 h1 {
   font-size: 3em;
 }

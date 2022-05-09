@@ -6,7 +6,7 @@
   import HomePageAboutBackground from './_HomePageAboutBackground.svelte';
 </script>
 
-<flex class="root">
+<grid class="root">
   <ThemeRoot background="#e089c8" accent="#ac0090">
     <HomePageAboutBackground />
     <div class="outer">
@@ -16,7 +16,7 @@
           <span class="b">dave caruso</span>
         </h2>
         <flex row class="row1">
-          <article>
+          <flex gap class="passage">
             <div class="mobile-photo">
               <BlurHash
                 hash="TfJICXxuyD?^WAtRADoMVsI]axR5"
@@ -24,7 +24,7 @@
                 alt="dave caruso face" />
             </div>
             <ArticleAboutDaveCaruso />
-          </article>
+          </flex>
           <aside>
             <div class="img1">
               <BlurHash
@@ -50,7 +50,7 @@
       </div>
     </div>
   </ThemeRoot>
-</flex>
+</grid>
 
 <style lang="scss">
   .root {
@@ -86,7 +86,7 @@
     justify-content: center;
   }
 
-  article {
+  .passage {
     max-width: 38rem;
   }
 

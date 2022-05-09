@@ -23,6 +23,7 @@
     font-weight: 425;
     text-shadow: 0 0 10px white, 0 0 10px white;
   }
+
   .have-fun {
     font-weight: 500;
     font-size: 2rem;

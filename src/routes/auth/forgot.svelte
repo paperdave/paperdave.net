@@ -16,7 +16,7 @@
   </flex>
 </header>
 
-<Paper size="form">
+<Paper size="small">
   <form method="post">
     <flex gap>
       <TextBox type="text" name="email" label="email" bind:value={$authEmail} />

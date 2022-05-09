@@ -21,7 +21,6 @@
   .custom {
     display: flex;
     position: relative;
-    flex-direction: column;
     appearance: none;
     transition: background-color 0.2s ease-in-out;
     border: none;

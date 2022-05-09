@@ -30,7 +30,7 @@
   }
 
   header {
-    padding: 4rem 2rem;
+    padding: 2rem 2rem;
 
     @media (max-width: 800px) {
       padding: 4rem 1rem;

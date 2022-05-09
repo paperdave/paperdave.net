@@ -16,7 +16,7 @@
   </flex>
 </header>
 
-<Paper size="form">
+<Paper size="small">
   <form method="post">
     <flex gap>
       <TextBox type="text" name="name" label="name" autofocus />
