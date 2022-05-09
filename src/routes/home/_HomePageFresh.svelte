@@ -1,6 +1,7 @@
 <script lang="ts">
   import ThemeRoot from '$lib/components/ThemeRoot.svelte';
   import { Artifact } from '$lib/structures';
+  import { palette } from '$lib/theme';
   import HomePageFreshCard from './_HomePageFreshCard.svelte';
 
   export let list: Artifact[] = [];
@@ -8,7 +9,10 @@
 
 <div class="outer">
   <div class="inner">
-    <ThemeRoot background="#4cc5ff" accent="#20b8ff" dark>
+    <ThemeRoot
+      background={palette.blue[400]}
+      foreground={palette.grey[50]}
+      accent={palette.blue[400]}>
       <!-- this is the outline -->
       <svg
         class="left-part"
@@ -53,16 +57,16 @@
     font-size: 2.75rem;
   }
   .outer {
-    flex: 1 0 35rem;
     display: flex;
+    flex: 1 0 35rem;
   }
   .inner {
-    position: relative;
     display: flex;
+    position: relative;
     flex: 1;
-    margin-left: -10rem;
-    clip-path: polygon(10rem 0, 100% 0, 100% 100%, 0 100%, 6rem 66%, 5rem 33%);
     z-index: 3;
+    clip-path: polygon(10rem 0, 100% 0, 100% 100%, 0 100%, 6rem 66%, 5rem 33%);
+    margin-left: -10rem;
 
     & > :global(theme-root) {
       flex: 1;
@@ -71,18 +75,18 @@
   }
   .inner-content {
     display: flex;
+    flex: 1;
     flex-direction: column;
     align-items: center;
-    flex: 1;
-    padding-left: 10rem;
     padding-top: 1rem;
+    padding-left: 10rem;
   }
   article {
-    margin: 2rem auto;
     flex: 1;
+    align-items: center;
+    margin: 2rem auto;
     width: 100%;
     max-width: 30rem;
-    align-items: center;
 
     & > :where(h2, p) {
       text-shadow: shadow(3px, 1, #009def);
@@ -92,11 +96,11 @@
     }
   }
   ul {
-    width: calc(100% - 2rem);
-    margin: 0.5rem;
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    margin: 0.5rem;
+    width: calc(100% - 2rem);
   }
   @media (max-width: 1600px) {
     .left-part {
@@ -111,11 +115,11 @@
   @media (min-width: 1601px) and (max-width: 1860px) {
     .bottom-border {
       position: absolute;
-      background: white;
-      height: 0.5rem;
-      width: 100%;
       bottom: 0;
       left: 0;
+      background: white;
+      width: 100%;
+      height: 0.5rem;
     }
   }
 </style>
