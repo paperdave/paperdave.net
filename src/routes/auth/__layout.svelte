@@ -17,10 +17,5 @@
     </BackButton>
 
     <slot />
-
-    <div>
-      <input type="color" bind:value={accent} />color,
-      <input type="checkbox" bind:checked={dark} /> dark
-    </div>
   </Paper>
 </ThemeRoot>

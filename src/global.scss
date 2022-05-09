@@ -1,6 +1,10 @@
 @import './fonts.scss';
 @import './reset.scss';
 
+:root {
+  --emoji: 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
 body {
   // We use css variables for the variable font properties
   --text-mono: 0;
@@ -11,11 +15,12 @@ body {
   --icon-fill: 1;
   --icon-grad: 0;
 
+  // The background of the void outside the site is always black.
   background-color: black;
-  overflow-y: scroll;
-  line-height: 1.15;
-  font-family: 'Recursive', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
-    'Noto Color Emoji';
+  // Recursive is the only font we use, falling back to the browser default. However we need to
+  // put emoji fonts behind it (consider twemoji?)
+  font-family: 'Recursive', sans-serif, var(--emoji);
+  // ... i don't know why this letter spacing squish is here. i don't want to remove it.
   letter-spacing: -0.005em;
 }
 
@@ -26,23 +31,27 @@ body {
 }
 
 .material-symbols {
+  // Weight is done with font-weight, and optical size is done automatically.
+  // We use css variables for the other two variable axes.
   font-optical-sizing: auto;
   font-variation-settings: 'FILL' var(--icon-fill), 'GRAD' var(--icon-grad);
 }
 
+// Root is the outermost element of the site, it has a max-width as a part of a gag for people with
+// 4k at 100% scale displays.
 #root {
   position: relative;
-  margin: 0 auto;
-  background-color: white;
-  width: 100%;
+  margin: auto;
+  background-color: hsl(var(--bg));
   max-width: 3860px; // you should not be browsing above this lol
   min-height: 100vh;
+  color: hsl(var(--fg));
 }
 
+// Headings are in Roboto Slab
 :where(h1, h2, h3, h4, h5, h6):not(.custom) {
-  font-family: 'Roboto Slab', sans-serif;
+  font-family: 'Roboto Slab', sans-serif, var(--emoji);
 }
-
 h1 {
   font-size: 3em;
 }
@@ -56,6 +65,7 @@ h4 {
   font-size: 1.25em;
 }
 
+// Here is the default theme:
 :root {
   --dark: 0;
   --light: 1;
@@ -74,6 +84,7 @@ h4 {
   --on-accent: 0, 0%, 0%;
 }
 
+// Every theming context has to calculate the following additional variables:
 :root,
 theme-root {
   --fg: var(--fg-hue), var(--fg-sat), var(--fg-lit);
@@ -95,14 +106,19 @@ theme-root {
     calc(var(--acc-lit) * 0.6 - 8%);
 }
 
+// see $lib/components/ThemeRoot for what this does.
 theme-root {
   display: grid;
   position: relative;
   flex: 1;
   background-color: hsl(var(--bg));
   width: 100%;
+  height: 100%;
   color: hsl(var(--fg));
 
+  // "Swapping" refers to the brief millisecond of time when the theme changes where all transitions
+  // are halted in order to avoid visual fades when changing the theme. Surprised not all sites
+  // properly handle this.
   &.swap * {
     transition-duration: 0ms !important;
   }
@@ -148,7 +164,7 @@ theme-root {
 }
 
 // Links are restyled using the theme, but .custom is a special class that can be used to disable
-// this behavior
+// this behavior, where they will be completely unstyled.
 a:not(.custom) {
   border-radius: 4px;
   color: var(--link-color);
