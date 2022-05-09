@@ -24,7 +24,7 @@
 
 <Meta title="videos" description="various animated videos all made with love." />
 
-<BackButton position="off-center" inverted />
+<BackButton position="off-center" />
 <VideoHeader />
 <grid>
   {#each videos as video}
@@ -39,8 +39,8 @@
   grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(22rem, 1fr));
-    padding: 0 2rem;
     margin: auto;
+    padding: 0 2rem;
     max-width: 110rem;
   }
   article {

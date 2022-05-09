@@ -9,7 +9,7 @@
 
 <header>
   <flex center gap>
-    <Heading level="1" shadow center>new account</Heading>
+    <Heading level="1" shadow center>i forgot</Heading>
     <noscript>
       <p>JavaScript is currently required to use authentication.</p>
     </noscript>
@@ -19,17 +19,10 @@
 <Paper size="form">
   <form method="post">
     <flex gap>
-      <TextBox type="text" name="name" label="name" autofocus />
       <TextBox type="text" name="email" label="email" bind:value={$authEmail} />
-      <TextBox type="password" name="password" label="password" bind:value={$authPassword} />
-      <TextBox type="password" name="password2" label="confirm password" />
-
-      <div>
-        <label><input type="checkbox" name="agreeTos" />agree</label>
-      </div>
 
       <ButtonGroup align="right">
-        <Button text variant="subtle" type="submit" disabled>Coming Soon</Button>
+        <Button text variant="accent" type="submit">Go</Button>
       </ButtonGroup>
     </flex>
   </form>

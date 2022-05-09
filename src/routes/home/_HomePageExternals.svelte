@@ -1,5 +1,6 @@
 <script>
   import ThemeRoot from '$lib/components/ThemeRoot.svelte';
+  import { palette } from '$lib/theme';
 
   import AppleMusicSVG from '$lib/svg/thirdparty-icons/AppleMusic.svg';
   import BandcampSVG from '$lib/svg/thirdparty-icons/Bandcamp.svg';
@@ -36,11 +37,11 @@
   ];
 </script>
 
-<ThemeRoot background="#74d7c5">
+<ThemeRoot background={palette.cyan[200]}>
   <div class="content">
     <div class="top-border" />
     <flex row center class="two-col">
-      <article>
+      <flex gap>
         <h2>other websites</h2>
         <p>
           dave most definitely have signed up to other websites, but here's his main public
@@ -55,7 +56,7 @@
             </flex>
           {/each}
         </grid>
-      </article>
+      </flex>
       <div class="globe">
         <video aria-hidden src="/assets/home/globe.mp4" loop muted autoplay />
       </div>

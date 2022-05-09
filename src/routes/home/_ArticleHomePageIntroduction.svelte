@@ -6,9 +6,9 @@
 </p>
 <p>
   you'll find his art scattered around the internet on other websites; you may have already seen one
-  of <a href="/famous-things">his popular projects</a>. however, <em>this</em> site is the main place
-  to find all of the content, for free — he believes Art is not a product, and therefore should not be
-  monetized.
+  of <a sveltekit:prefetch href="/famous-things">his popular projects</a>. however, <em>this</em> site
+  is the main place to find all of the content, for free — he believes Art is not a product, and therefore
+  should not be monetized.
 </p>
 <p>
   there is no correct way to explore the site, that is your challenge to solve, but the website is
@@ -20,12 +20,12 @@
 
 <style lang="scss">
   p {
-    text-shadow: 0 0 10px white, 0 0 10px white;
     font-weight: 425;
+    text-shadow: 0 0 10px white, 0 0 10px white;
   }
   .have-fun {
-    font-size: 2rem;
     font-weight: 500;
+    font-size: 2rem;
 
     @media (max-width: 608px) {
       max-width: 340px;

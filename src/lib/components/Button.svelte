@@ -7,6 +7,7 @@
 
 <svelte:element
   this={href ? 'a' : 'button'}
+  sveltekit:prefetch={href ? '' : undefined}
   {...$$restProps}
   role="button"
   href={href?.toString() ?? undefined}

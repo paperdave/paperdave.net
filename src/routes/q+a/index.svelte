@@ -4,7 +4,18 @@
 
   export const load: Load = async ({ url, fetch }) => {
     const API = wrapAPI(fetch);
-    const pageNumber = parseInt(url.searchParams.get('page') || '');
+    const legacyPageNumber = parseInt(url.searchParams.get('page') || '');
+
+    if (legacyPageNumber) {
+      // Pages used to be 20 items per page, now they are 100
+      const pageNumber = Math.floor((legacyPageNumber / 100) * 20);
+      return {
+        status: 302,
+        redirect: '/q+a?p=' + pageNumber,
+      };
+    }
+
+    const pageNumber = parseInt(url.searchParams.get('p') || '');
     const qpage = await API.questions.getPage(isNaN(pageNumber) ? 'latest' : pageNumber);
 
     if (!qpage) {
@@ -52,7 +63,7 @@
     description={`i answer anonymous questions you ask, because it's fun. this page is updated every few days after questions are sent.`} />
 {/if}
 <main>
-  <BackButton position="off-center-right" inverted />
+  <BackButton position="off-center-right" />
   <QAHeader />
   <section>
     <p>i answer anonymous questions you ask, because it's fun.</p>

@@ -1,6 +1,7 @@
 <script lang="ts">
+  import Icon from '$lib/components/Icon.svelte';
+
   import { Question } from '$lib/structures';
-  import LinkSVG from '$lib/svg/fluent/Link.svg';
   import { formatDate } from '$lib/utils/date';
 
   export let question: Question;
@@ -28,7 +29,11 @@
   const dateString = formatDate(question.date, 'date-time');
 </script>
 
-<time datetime={question.date.toISOString()} on:click={copy} class:success={copyState} class:clickable={!question.isRejected()}>
+<time
+  datetime={question.date.toISOString()}
+  on:click={copy}
+  class:success={copyState}
+  class:clickable={!question.isRejected()}>
   {#if copyState === null}
     {dateString}
   {:else if copyState}
@@ -36,21 +41,21 @@
   {:else}
     Failed
   {/if}
-  <LinkSVG />
+  <Icon name="link" />
 </time>
 
 <style lang="scss">
   time {
-    color: #999;
-    font-size: 0.9rem;
-    margin-bottom: 0.28rem;
     display: flex;
     gap: 0.25rem;
+    margin-bottom: 0.28rem;
     width: max-content;
+    color: #999;
+    font-size: 0.9rem;
 
     :global(svg) {
-      height: 1rem;
       display: none;
+      height: 1rem;
     }
   }
 

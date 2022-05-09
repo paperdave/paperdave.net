@@ -1,7 +1,7 @@
 <script lang="ts">
-  import '../global.scss';
   import Footer from '$lib/components/Footer.svelte';
   import { browser } from '$app/env';
+  import OutOfBoundsGag from '$lib/components/OutOfBoundsGag.svelte';
 
   if (browser) {
     if (process.env.NODE_ENV === 'production') {
@@ -14,47 +14,10 @@
   }
 </script>
 
-<main>
-  <slot />
-</main>
-
-<span class="oob-text">
-  <a class="custom" href="https://github.com/davecaruso/davecode.net/tree/main/src/global.scss#L17">
-    why do you have such a high-res screen???
-  </a>
-</span>
-
+<main><slot /></main>
 <Footer />
+<OutOfBoundsGag />
 
-<style lang="scss">
-  main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .oob-text {
-    display: none;
-    z-index: 1337;
-    position: absolute;
-    right: 0;
-    top: 0;
-    transform: rotate(-90deg);
-    transform-origin: top right;
-
-    a {
-      color: white;
-      &:hover {
-        color: red;
-      }
-    }
-  }
-
-  @media (min-width: 3880px) {
-    .oob-text {
-      display: block;
-    }
-  }
+<style lang="scss" global>
+  @import '../global.scss';
 </style>

@@ -48,6 +48,21 @@ body {
   color: hsl(var(--fg));
 }
 
+// The main content of the site is this `main` element.
+main {
+  display: flex;
+  position: relative;
+  flex: 1;
+  flex-direction: column;
+  overflow: hidden;
+
+  // I have placed some other <main>s and this rule is just to anoy me when I try to do more invalid
+  // stuff.
+  & main {
+    outline: 2px red !important;
+  }
+}
+
 // Headings are in Roboto Slab
 :where(h1, h2, h3, h4, h5, h6):not(.custom) {
   font-family: 'Roboto Slab', sans-serif, var(--emoji);

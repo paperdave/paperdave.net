@@ -96,7 +96,7 @@
   description={`i answer anonymous questions you ask, because it's fun. this page is updated every few days after questions are sent.`} />
 
 <main>
-  <BackButton position="off-center-right" inverted />
+  <BackButton position="off-center-right" />
   <QaHeader />
 
   <section>
@@ -143,7 +143,7 @@
   }
 
   .noresult {
-    text-align: center;
     color: #df4f3d;
+    text-align: center;
   }
 </style>

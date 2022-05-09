@@ -2,13 +2,10 @@
 <script lang="ts">
   import { slide } from 'svelte/transition';
   import { ProgressRing } from 'fluent-svelte';
-  import PlaySVG from '$lib/svg/fluent/Play.svg';
-  import PauseSVG from '$lib/svg/fluent/Pause.svg';
-  import LinkSVG from '$lib/svg/fluent/Link.svg';
-  import DownloadSVG from '$lib/svg/fluent/Download.svg';
   import { useEffect } from '$lib/hooks/useEffect';
   import { MusicArtifact, MusicVideoArtifact } from '$lib/structures';
   import { formatDate } from '$lib/utils/date';
+  import Icon from '$lib/components/Icon.svelte';
   export let artifact: MusicArtifact;
 
   let trackDiv: HTMLDivElement;
@@ -106,23 +103,22 @@
     loop={artifact.tags.has('loop')} />
 
   <header>
-    <div
+    <button
       class="icon play"
       on:click={play}
       on:keypress={(ev) => {
         if (ev.key === 'Enter' || ev.key === ' ') {
           play();
         }
-      }}
-      tabindex="0">
+      }}>
       {#if showLoading}
         <ProgressRing />
       {:else if !playing}
-        <PlaySVG />
+        <Icon name="play_arrow" />
       {:else}
-        <PauseSVG />
+        <Icon name="pause" />
       {/if}
-    </div>
+    </button>
     <div class="title">
       <h3>{artifact.title}</h3>
       <div class="tags">
@@ -137,11 +133,11 @@
     </div>
     <a
       href={artifact instanceof MusicArtifact ? `/${artifact.id}` : `/music/${artifact.id}`}
-      class="icon">
-      <LinkSVG />
+      class="icon custom">
+      <Icon name="link" />
     </a>
-    <a href={artifact.music.url} target="_blank" class="icon">
-      <DownloadSVG />
+    <a href={artifact.music.url} target="_blank" class="icon custom">
+      <Icon name="download" />
     </a>
   </header>
   {#if expanded}
@@ -209,6 +205,7 @@
   .icon {
     width: 4rem;
     height: 4rem;
+    font-size: 3rem;
     display: flex;
     align-items: center;
     justify-content: center;
