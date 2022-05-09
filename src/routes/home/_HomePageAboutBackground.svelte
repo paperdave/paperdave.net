@@ -1,7 +1,7 @@
 <script lang="ts">
   import { browser } from '$app/env';
   import { onDestroy, onMount } from 'svelte';
-  import { easePolyInOut } from 'd3-ease';
+  import { quadInOut } from 'svelte/easing';
 
   let canvas: null | HTMLCanvasElement = null;
   let ctx: null | CanvasRenderingContext2D = null;
@@ -87,7 +87,7 @@
               ? 0
               : stateTime > endTime
               ? 1
-              : easePolyInOut((stateTime - startTime) / SINGLE_ROTATE_TIME);
+              : quadInOut((stateTime - startTime) / SINGLE_ROTATE_TIME);
           ctx.rotate(t * Math.PI);
 
           // ctx.rotate(angle);
@@ -125,9 +125,9 @@
   }
 
   div {
+    animation: move-background-left 25s infinite linear;
     background: url('/assets/home/Triangles.svg');
     background-position: 0 -50%;
-    animation: move-background-left 25s infinite linear;
   }
 
   @keyframes move-background-left {

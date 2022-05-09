@@ -8,22 +8,17 @@
   },
   "dependencies": {
     "@davecode/structures": "^0.3.0",
-    "@prisma/client": "^3.13.0",
     "blurhash": "^1.1.4",
     "blurhash-image": "^1.0.0",
     "color": "^4.2.1",
-    "d3-ease": "^3.0.1",
     "dotenv": "^10.0.0",
-    "expr-eval": "^2.0.2",
     "fast-deep-equal": "^3.1.3",
     "fluent-svelte": "^1.1.4",
     "html-minifier-terser": "^7.0.0-alpha.2",
-    "modern-normalize": "^1.1.0",
     "realm-web": "^1.7.0",
     "source-map-js": "^1.0.1",
     "stacktrace-parser": "^0.1.10",
-    "svelte-kit-cookie-session": "^2.1.4",
-    "web-vitals": "^2.1.4"
+    "svelte-kit-cookie-session": "^2.1.4"
   },
   "devDependencies": {
     "@originjs/vite-plugin-content": "^1.0.1",
@@ -31,8 +26,6 @@
     "@sveltejs/adapter-cloudflare": "^1.0.0-next.17",
     "@sveltejs/kit": "^1.0.0-next.131",
     "@types/color": "^3.0.3",
-    "@types/d3-ease": "^3.0.0",
-    "@types/fs-extra": "^9.0.13",
     "@types/html-minifier-terser": "^6.1.0",
     "prettier": "^2.3.2",
     "prettier-plugin-css-order": "^1.2.0",
