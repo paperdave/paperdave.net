@@ -1,5 +1,6 @@
 <!-- 
-  @component ThemeRoot allows you to change the page theme (background, foreground, accent, etc) for
+  @component
+  ThemeRoot allows you to change the page theme (background, foreground, accent, etc) for
   theme-based components. Theme values are all CSS variables, so you can embed multiple ThemeRoots
   in your application, or even nest them.
 
@@ -8,8 +9,8 @@
   expands to fill the space.
 -->
 <script lang="ts">
+  import { browser } from '$app/env';
   import { palette } from '$lib/theme';
-
   import Color from 'color';
 
   /** Passing true to `dark` will swap the default background and foreground colors. */
@@ -23,30 +24,42 @@
   /** Links generally use the accent color by default, but there are some cases this isn't desired. */
   export let linkColor: string | null = null;
 
-  $: foregroundColor = new Color(foreground ?? (dark ? palette.grey[50] : palette.grey[900]));
+  let self: HTMLElement;
+
   $: backgroundColor = new Color(background ?? (dark ? palette.grey[800] : palette.grey[100]));
+  $: foregroundColor = new Color(
+    foreground ?? (backgroundColor.isDark() ? palette.grey[50] : palette.grey[900])
+  );
   $: accentColor = new Color(accent);
+
+  $: isDark = backgroundColor.isDark();
+
+  $: browser && [foregroundColor, backgroundColor, accentColor, linkColor] && beforeSwapTheme();
+
+  async function beforeSwapTheme() {
+    if (!self) return;
+    self.classList.add('swap');
+    setTimeout(() => {
+      self.classList.remove('swap');
+    });
+  }
 </script>
 
 <theme-root
-  style:--foreground={[
-    `${Math.round(foregroundColor.hue())}`,
-    `${Math.round(foregroundColor.saturationl())}%`,
-    `${Math.round(foregroundColor.lightness())}%`,
-  ].join(',')}
-  style:--background={[
-    `${Math.round(backgroundColor.hue())}`,
-    `${Math.round(backgroundColor.saturationl())}%`,
-    `${Math.round(backgroundColor.lightness())}%`,
-  ].join(',')}
-  style:--accent-hue={Math.round(accentColor.hue())}
-  style:--accent-saturation={Math.round(accentColor.saturationl())}
-  style:--accent-lightness={Math.round(accentColor.lightness())}
-  style:--link-color={linkColor}
-  style:--input-background={backgroundColor.luminosity() > 0.5
-    ? backgroundColor.lighten(0.3).hex()
-    : backgroundColor.darken(0.3).hex()}
-  class:dark>
+  bind:this={self}
+  style:--dark={isDark ? 1 : 0}
+  style:--light={isDark ? 0 : 1}
+  style:--fg-hue={Math.round(foregroundColor.hue())}
+  style:--fg-sat={Math.round(foregroundColor.saturationl()) + '%'}
+  style:--fg-lit={Math.round(foregroundColor.lightness()) + '%'}
+  style:--bg-hue={Math.round(backgroundColor.hue())}
+  style:--bg-sat={Math.round(backgroundColor.saturationl()) + '%'}
+  style:--bg-lit={Math.round(backgroundColor.lightness()) + '%'}
+  style:--acc-hue={Math.round(accentColor.hue())}
+  style:--acc-sat={Math.round(accentColor.saturationl()) + '%'}
+  style:--acc-lit={Math.round(accentColor.lightness()) + '%'}
+  style:--on-acc={accentColor.isDark() ? '0,0%,100%' : '0,0%,0%'}
+  style:--link-color={linkColor}>
   <slot />
 </theme-root>
 

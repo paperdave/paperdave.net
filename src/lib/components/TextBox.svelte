@@ -1,65 +1,139 @@
+<!-- 
+  @component
+  Functions very similarly to any of the text based <input /> elements, but with a Material 2
+  inspired look and feel. You can pass content to put before and after the input field by using the
+  available slots `"before"` and `"after"`. Supports Themes, Accessibility, Proper Focus Control,
+  SSR, clients without JS, and might even be able to bake you a cake.
+
+  Supported `type` values:
+  - text
+  - password
+  - email
+  - search
+  - tel
+  - url
+
+  See other components for the other input types.
+ -->
 <script lang="ts">
   import { useId } from '$lib/hooks/useId';
   import { onMount } from 'svelte';
+  import { scale } from 'svelte/transition';
+  import Icon from './Icon.svelte';
 
-  export let type = 'text';
-  export let name: string;
+  export let type: 'text' | 'password' | 'email' | 'search' | 'tel' | 'url' = 'text';
+  export let name: string | undefined = undefined;
   export let value = '';
-  export let label = '';
+  export let label: string;
   export let placeholder = '';
   export let disabled = false;
-  export let readonly = false;
-
-  let focused = false;
-  let revealed = false;
+  export let focused = false;
+  export let revealed = false;
+  export let autocapitalize: string | undefined = undefined;
+  export let autocomplete: string | undefined = undefined;
+  export let autocorrect: string | undefined = undefined;
+  export let spellcheck: boolean | undefined = undefined;
 
   $: expanded = focused || !!value;
 
   let id = useId();
-  let labelElem: HTMLLabelElement | undefined;
 
-  let calculatedX = 0;
+  let labelElem: HTMLLabelElement | undefined;
+  let inputElem: HTMLInputElement | undefined;
+  let root: HTMLElement | undefined;
+
+  let labelX = 0;
 
   onMount(() => {
-    calculatedX = labelElem?.offsetLeft ?? 0;
+    labelX = labelElem?.offsetLeft ?? 0;
   });
 
   function handleFocus() {
     focused = true;
   }
-  function handleBlur() {
+  function handleBlur(ev: FocusEvent) {
+    const relatedTarget = ev.relatedTarget as HTMLElement;
+    if (relatedTarget) {
+      let parent = relatedTarget.parentElement;
+      while (parent) {
+        if (parent === root) {
+          relatedTarget.addEventListener('blur', handleRelatedBlur);
+          return;
+        }
+        parent = parent.parentElement;
+      }
+    }
     focused = false;
   }
+  function handleRelatedBlur(ev: FocusEvent) {
+    (ev.currentTarget as HTMLElement).removeEventListener('blur', handleRelatedBlur);
+    handleBlur(ev);
+  }
   function onModify(ev: Event) {
-    value = (ev.currentTarget as HTMLInputElement).value;
+    if (inputElem) value = inputElem.value;
+  }
+  const INTERACTABLE_TAG_NAMES = ['INPUT', 'TEXTAREA', 'SELECT', 'BUTTON', 'A'];
+  function handleClickFocus(ev: MouseEvent) {
+    if (disabled) return;
+    for (const elem of ev.composedPath()) {
+      if (elem === root) {
+        inputElem?.focus();
+        return;
+      }
+      if (
+        elem instanceof HTMLElement &&
+        INTERACTABLE_TAG_NAMES.includes(elem.tagName) &&
+        elem !== inputElem
+      ) {
+        focused = true;
+        elem.addEventListener('blur', handleRelatedBlur);
+        return;
+      }
+    }
   }
 </script>
 
 <noscript><noscript-marker /></noscript>
 
-<flex row class="textbox" class:focused class:expanded class:disabled>
+<flex
+  row
+  class="textbox"
+  class:focused
+  class:expanded
+  class:disabled
+  on:click={handleClickFocus}
+  bind:this={root}>
   <div class="border-cover" aria-hidden="true">{label}</div>
 
   <slot name="left" />
 
   <div class="input-container">
-    <label bind:this={labelElem} for={id} style:--offsetX="{calculatedX}px">{label}</label>
+    <label bind:this={labelElem} for={id} style:--offsetX="{labelX}px">{label}</label>
     <input
       {id}
       type={revealed ? 'text' : type}
+      autocapitalize={revealed ? 'off' : autocapitalize}
+      autocomplete={revealed ? 'off' : autocomplete}
+      autocorrect={revealed ? 'off' : autocorrect}
+      spellcheck={revealed ? false : spellcheck}
       {name}
       {value}
-      {readonly}
       {disabled}
       {placeholder}
+      {...$$restProps}
+      bind:this={inputElem}
       on:input={onModify}
       on:focus={handleFocus}
       on:blur={handleBlur} />
   </div>
 
-  {#if type === 'password'}
-    <button type="button" class="reveal" on:click={() => (revealed = !revealed)}>
-      {revealed ? 'Hide' : 'Show'}
+  {#if (type === 'password' && focused) || revealed}
+    <button
+      type="button"
+      class="reveal"
+      on:click={() => (revealed = !revealed)}
+      transition:scale={{ duration: 100, start: 0.8 }}>
+      <Icon name={revealed ? 'visibility_off' : 'visibility'} />
     </button>
   {/if}
 
@@ -71,27 +145,30 @@
   $easing: cubic-bezier(0.4, 0, 0.1, 1);
 
   .textbox {
-    --textbox-accent: var(--accent-base);
-
     position: relative;
     align-items: center;
-    transition: border-color 100ms $easing, outline-color 100ms $easing;
-    outline: solid 0px hsla(var(--textbox-accent), 0.8);
-    border: 2px solid hsla(var(--foreground), 0.7);
+    transition: border-color 100ms $easing, outline-width 100ms $easing;
+    outline: solid 0px hsla(var(--acc), 0.6);
+    border: 2px solid hsla(var(--fg), 0.7);
     border-radius: 0.3rem;
-    background-color: var(--input-background);
+    background-color: hsl(
+      var(--bg-hue),
+      var(--bg-sat),
+      calc(var(--bg-lit) + (var(--dark) * -5%) + (var(--light) * 5%))
+    );
     padding: 0;
     height: 3rem;
     user-select: none;
   }
 
   .focused.textbox {
-    border-color: hsla(var(--foreground), 1);
+    outline-width: 2px;
+    border-color: hsla(var(--acc), 1);
   }
 
   .input-container {
     flex: 1 1 0;
-    padding: 0 0.5rem;
+    padding: 0 0.6rem;
     width: 0px;
   }
 
@@ -107,40 +184,40 @@
       transform: translateY(5px);
       opacity: 0;
       transition: opacity 100ms $easing, transform 0ms 100ms;
-      color: hsl(var(--foreground));
+      color: hsl(var(--fg));
     }
   }
 
   label {
     position: absolute;
     transform-origin: left center;
-    opacity: 0.45;
-    transition: transform 175ms $easing;
+    transition: transform 175ms $easing, color 100ms $easing;
     pointer-events: none;
+    color: hsla(var(--fg), 0.45);
   }
 
   .border-cover {
     position: absolute;
-    top: -2px;
+    top: -5px;
     left: 0.25rem;
     transform: scaleX(0);
     transition: transform 125ms $easing;
-    background: hsl(var(--background));
+    background: hsl(var(--bg));
     padding: 0 0.4rem;
-    height: 2px;
+    height: 5px;
     color: transparent;
     font-size: $labelFocusScale;
 
     &::after {
       position: absolute;
-      top: 2px;
+      top: 4px;
       left: 0;
       border-bottom-right-radius: 4px;
       border-bottom-left-radius: 4px;
       background: linear-gradient(
         to bottom,
-        hsl(var(--background)) 0%,
-        hsla(var(--background), 0.5) 70%,
+        hsl(var(--bg)) 0%,
+        hsla(var(--bg), 0.5) 70%,
         transparent 100%
       );
       width: 100%;
@@ -151,9 +228,9 @@
 
   .expanded {
     label {
-      transform: translateX(calc(0px - var(--offsetX) + 0.5rem + 2px)) translateY(-100%)
+      transform: translateX(calc(0px - var(--offsetX) + 0.5rem + 2px)) translateY(-1.5rem)
         scale($labelFocusScale * 1);
-      opacity: 1;
+      color: hsl(var(--fg));
     }
     .border-cover {
       transform: scaleX(1);
@@ -166,14 +243,28 @@
     }
   }
 
+  .expanded.focused label {
+    color: hsl(var(--acc));
+  }
+
   .disabled {
-    border-color: hsla(var(--foreground), 0.4);
-    background-color: hsl(var(--background));
-    color: hsla(var(--foreground), 0.7);
+    border-color: hsla(var(--fg), 0.4);
+    background-color: hsl(var(--bg));
+    color: hsla(var(--fg), 0.7);
   }
 
   .reveal {
-    aspect-ratio: 1;
-    height: 100%;
+    display: flex;
+    flex: 0 0 2.5rem;
+    justify-content: center;
+    align-items: center;
+    transform: translateZ(0.1px);
+    margin: 0 0.25rem;
+    border: none;
+    border-radius: 50%;
+    width: 2.5rem;
+    height: 2.5rem;
+    color: hsla(var(--fg), 0.7);
+    font-size: 1.5rem;
   }
 </style>

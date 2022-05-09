@@ -14,15 +14,15 @@
     position: relative;
     border-radius: 4px;
     padding: 0.25em;
-    color: hsla(var(--foreground), 0.5);
+    color: hsla(var(--fg), 0.5);
 
     &:hover {
-      background-color: hsla(var(--foreground), 0.5);
-      color: hsl(var(--background));
+      background-color: hsla(var(--fg), 0.5);
+      color: hsl(var(--bg));
     }
     &:active {
-      background-color: hsla(var(--foreground), 0.75);
-      color: hsla(var(--background), 0.7);
+      background-color: hsla(var(--fg), 0.75);
+      color: hsla(var(--bg), 0.7);
     }
     &:hover,
     &:active {

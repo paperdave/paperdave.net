@@ -1,11 +1,24 @@
+<!-- 
+  @component
+  This component handles all of the site's meta tags. I exclude some old meta tags on purpose, such
+  as `X-UA-Compatible` and `charset`, since IE doesn't exist and since the charset might not always
+  be UTF-8, and either way the browser would figure that out. OpenGraph embeds are here for all
+  pages, and I tailor their appearance for Discord.
+-->
 <script lang="ts">
   import { page } from '$app/stores';
 
+  /** Page Title, automatically suffixed with "- davecode" */
   export let title: string;
+  /** Page Description */
   export let description: string | null = null;
+  /** Site theme color / embed color. */
   export let color = '#51D064';
+  /** Image embed URL */
   export let image: string | null = null;
+  /** Video embed URL */
   export let video: string | null = null;
+  /** Pass true to prevent Google from Indexing this page. */
   export let noIndex = false;
 </script>
 
@@ -17,6 +30,7 @@
   <meta name="distribution" content="web" />
   <meta name="theme-color" content={color} />
   <meta name="keywords" content="art, entertainment, dave caruso, davecode" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="powered by" content="chocolate" />
   <meta name="dark mode extensions" content="please do not use" />
   <meta property="og:site_name" content="davecode - computer art to the limit" />

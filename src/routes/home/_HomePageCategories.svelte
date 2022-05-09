@@ -127,19 +127,19 @@
     flex: 1 0 35rem;
   }
   .inner {
-    position: relative;
     display: flex;
+    position: relative;
     flex: 1;
-    margin-left: -20rem;
     z-index: 5;
     clip-path: polygon(10rem 0, 100% 0, 100% 100%, 7rem 100%, 3rem 42%);
+    margin-left: -20rem;
   }
   h2 {
     --text-mono: 1;
 
+    color: hsl(var(--acc-base));
     font-size: 4rem;
-    color: hsl(var(--accent-base));
-    text-shadow: shadow(3px, 1, hsl(var(--accent-dark-3)));
+    text-shadow: shadow(3px, 1, hsl(var(--acc-dark-3)));
   }
   article {
     position: relative;
@@ -155,12 +155,12 @@
     gap: 0.25rem;
   }
   .link {
-    border-radius: 5px;
     display: flex;
     gap: 0.3rem;
-    font-size: 2rem;
+    border-radius: 5px;
     font-weight: 600;
-    text-decoration: underline hsla(var(--foreground), 0.2);
+    font-size: 2rem;
+    text-decoration: underline hsla(var(--fg), 0.2);
 
     & > :global(svg) {
       display: inline-block;
@@ -169,14 +169,14 @@
   }
 
   a[disabled] {
-    pointer-events: none;
     opacity: 0.5;
+    pointer-events: none;
     text-decoration: line-through;
   }
 
   .more {
-    font-size: 1.5rem;
     font-weight: 600;
+    font-size: 1.5rem;
   }
 
   @media (max-width: 1600px) {
@@ -188,8 +188,8 @@
       display: none;
     }
     .inner {
-      margin-left: 0;
       clip-path: none;
+      margin-left: 0;
       overflow: hidden;
     }
     article {
@@ -197,8 +197,8 @@
     }
     .two-col {
       flex-direction: column;
-      gap: 1rem;
       align-items: center;
+      gap: 1rem;
     }
     .col {
       flex-direction: row;
@@ -215,8 +215,8 @@
     }
     .col {
       flex-direction: column;
-      gap: 1rem;
       align-items: center;
+      gap: 1rem;
       text-align: center;
     }
   }

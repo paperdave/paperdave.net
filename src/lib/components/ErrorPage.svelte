@@ -162,9 +162,9 @@
       }
 
       h1 {
-        text-shadow: shadow(3px, 1, hsl(var(--accent-dark-3)));
-        color: hsl(var(--accent-base));
+        color: hsl(var(--acc-base));
         line-height: 1.15em;
+        text-shadow: shadow(3px, 1, hsl(var(--acc-dark-3)));
         @media (max-width: 519px) {
           font-size: 8.5vw;
         }
@@ -174,37 +174,37 @@
         margin-left: 1.5em;
 
         &:before {
-          content: '-';
           padding-right: 8px;
+          content: '-';
         }
       }
 
       pre {
-        font-family: monospace;
-        font-size: 0.9em;
-        overflow-x: auto;
         width: 100%;
         max-width: calc(100vw - 2rem);
+        overflow-x: auto;
+        font-size: 0.9em;
+        font-family: monospace;
       }
     }
   }
 
   section {
+    margin: auto;
     padding: 1rem;
     padding-top: 3rem;
     max-width: 50rem;
-    margin: auto;
   }
 
   hr {
-    height: 3rem;
     border: none;
+    height: 3rem;
   }
 
   p.now-what {
-    font-weight: bold;
     margin-bottom: 0.25rem;
     color: rgba(0, 0, 0, 0.5);
+    font-weight: bold;
   }
 
   .error-header {

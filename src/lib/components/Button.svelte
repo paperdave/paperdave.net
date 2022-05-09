@@ -1,108 +1,82 @@
 <script lang="ts">
-  export let variant: 'normal' | 'accent' | 'link' | 'subtle' = 'normal';
+  export let variant: 'normal' | 'accent' | 'subtle' = 'normal';
 
   export let href: string | URL | null = null;
   export let text = false;
 </script>
 
-{#if href}
-  <a {...$$restProps} href={href.toString()} class="custom button-{variant}" class:text on:click>
-    <div class="content">
-      <slot />
-    </div>
-  </a>
-{:else}
-  <button {...$$restProps} class="custom button-{variant}" class:text on:click>
-    <div class="content">
-      <slot />
-    </div>
-  </button>
-{/if}
+<svelte:element
+  this={href ? 'a' : 'button'}
+  {...$$restProps}
+  role="button"
+  href={href?.toString() ?? undefined}
+  class="custom button-{variant}"
+  class:text
+  on:click>
+  <slot />
+</svelte:element>
 
 <style lang="scss">
-  .content {
-    z-index: 2;
-  }
-
   .custom {
     display: flex;
     position: relative;
     flex-direction: column;
     appearance: none;
+    transition: background-color 0.2s ease-in-out;
     border: none;
+    border-radius: 0.3rem;
     padding: 0.5rem;
+    color: hsl(var(--fg));
     user-select: none;
     text-decoration: none;
 
-    &.button-link {
-      color: hsl(var(--accent-base));
-    }
-
-    &::before {
-      display: block;
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: 0;
-      transition: background-color 0.2s ease-in-out;
-      border-radius: 0.3rem;
-      width: 100%;
-      height: 100%;
-      content: '';
-    }
     &:focus {
       outline: none;
     }
 
-    &.button-subtle,
-    &.button-link {
-      &::before {
-        border: 1px solid hsla(var(--foreground), 0);
-        background-color: hsla(var(--foreground), 0);
+    &.button-subtle {
+      border: 1px solid hsla(var(--fg), 0);
+      background-color: hsla(var(--fg), 0);
+      &:hover {
+        background-color: hsla(var(--fg), 0.1);
       }
-      &:hover::before {
-        background-color: hsla(var(--foreground), 0.1);
+      &:active {
+        background-color: hsla(var(--fg), 0.2);
       }
-      &:active::before {
-        background-color: hsla(var(--foreground), 0.2);
-      }
-      &:focus::before {
-        border-color: hsla(var(--foreground), 0.6);
+      &:focus {
+        border-color: hsla(var(--fg), 0.6);
       }
     }
 
     &.button-normal {
-      &::before {
-        border: 1px solid hsla(var(--foreground), 0.2);
-        background-color: hsla(var(--foreground), 0.1);
+      border: 1px solid hsla(var(--fg), 0.2);
+      background-color: hsla(var(--fg), 0.1);
+      &:hover {
+        background-color: hsla(var(--fg), 0.2);
       }
-      &:hover::before {
-        background-color: hsla(var(--foreground), 0.2);
-      }
-      &:active::before {
+      &:active {
         transition-duration: 100ms;
-        background-color: hsla(var(--foreground), 0.4);
+        background-color: hsla(var(--fg), 0.4);
       }
-      &:focus::before {
-        border-color: hsla(var(--foreground), 0.6);
+      &:focus {
+        border-color: hsla(var(--fg), 0.6);
       }
     }
 
     &.button-accent {
-      font-weight: bold;
-      &::before {
-        border: 1px solid hsla(var(--foreground), 0.2);
-        background-color: hsla(var(--accent-dark-1), 1);
+      border: 1px solid hsla(var(--fg), 0.2);
+      background-color: hsla(var(--acc), 1);
+      color: hsl(var(--on-acc));
+      font-weight: 600;
+      &:hover {
+        background-color: hsla(var(--acc-l1), 1);
       }
-      &:hover::before {
-        background-color: hsla(var(--accent-dark-2), 1);
-      }
-      &:active::before {
+      &:active {
         transition-duration: 100ms;
-        background-color: hsla(var(--accent-base), 1);
+        background-color: hsla(var(--acc-l2), 1);
       }
-      &:focus::before {
-        border-color: hsla(var(--foreground), 0.6);
+      &:focus {
+        border-color: hsla(var(--fg), 0.6);
       }
     }
   }

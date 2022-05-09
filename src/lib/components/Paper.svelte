@@ -20,7 +20,7 @@
     height: 100%;
   }
   .marginTop {
-    margin-top: 2rem;
+    margin-top: 1rem;
   }
   .size-form {
     max-width: 20rem;

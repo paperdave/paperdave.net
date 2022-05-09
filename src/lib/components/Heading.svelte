@@ -10,8 +10,8 @@
 
 <style lang="scss">
   .shadow {
-    color: hsl(var(--accent-base));
-    text-shadow: shadow(3px, 0.5, hsl(var(--accent-dark-3)));
+    color: hsl(var(--acc));
+    text-shadow: shadow(3px, 0.5, hsl(var(--acc-d2)));
   }
   .center {
     text-align: center;

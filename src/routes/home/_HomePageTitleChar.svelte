@@ -93,11 +93,11 @@
 <style lang="scss">
   span,
   :global(.floating-word-magnet) {
-    font-family: 'Roboto Slab', sans-serif;
-    font-size: 8rem;
     font-weight: bold;
-    user-select: none;
+    font-size: 8rem;
     line-height: 1;
+    font-family: 'Roboto Slab', sans-serif;
+    user-select: none;
     text-shadow: shadow(6px, 1, var(--drop));
 
     @media (max-width: 800px) {
@@ -138,9 +138,9 @@
 
       .shadow {
         position: absolute;
-        text-shadow: none;
-        color: hsla(var(--foreground), 0.3);
         transform: translate(6px, 6px);
+        color: hsla(var(--fg), 0.3);
+        text-shadow: none;
       }
 
       &.held .transform-root {

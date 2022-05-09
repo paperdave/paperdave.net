@@ -65,8 +65,8 @@
 
 <style lang="scss">
   p {
-    max-width: 25rem;
     margin: 0 auto;
+    max-width: 25rem;
   }
 
   .content {
@@ -78,14 +78,14 @@
     $size: 1.5rem;
 
     position: absolute;
-    z-index: 100;
     top: -$size + 0.02rem;
     left: 0;
-    width: 100%;
-    height: $size;
+    z-index: 100;
+    animation: slide 8s infinite linear;
     background: url('/assets/home/Water.svg');
     background-size: auto $size;
-    animation: slide 8s infinite linear;
+    width: 100%;
+    height: $size;
 
     @keyframes slide {
       0% {
@@ -99,12 +99,12 @@
 
   // not particularly proud of this responsive grid lol
   grid {
-    margin: 2rem auto;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     display: grid;
-    width: 30rem;
-    margin: 2rem;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     gap: 2rem;
+    margin: 2rem auto;
+    margin: 2rem;
+    width: 30rem;
 
     a {
       display: flex;
@@ -120,9 +120,9 @@
       width: 70vw;
 
       .custom {
+        margin: auto;
         width: 100%;
         max-width: 5rem;
-        margin: auto;
       }
     }
   }
@@ -134,13 +134,13 @@
   }
 
   .globe {
-    width: 26rem;
     display: flex;
+    position: relative;
     justify-content: center;
     align-items: center;
+    width: 26rem;
     max-width: calc(100vw - 2rem);
     max-height: calc(100vw - 2rem);
-    position: relative;
 
     video {
       pointer-events: none;
@@ -148,34 +148,34 @@
   }
 
   .icon-btn {
-    position: relative;
     display: flex;
-    aspect-ratio: 1;
-    border-radius: 0.5rem;
+    position: relative;
     cursor: pointer;
+    border-radius: 0.5rem;
+    aspect-ratio: 1;
 
     &:focus {
       outline: none;
     }
     &::before {
-      content: ' ';
       position: absolute;
       top: -25%;
       left: -25%;
+      transition: background-color 0.2s ease-in-out;
+      border-radius: 50%;
       width: 150%;
       height: 150%;
-      border-radius: 50%;
-      transition: background-color 0.2s ease-in-out;
+      content: ' ';
     }
     &:hover::before,
     &:focus::before {
-      background: hsla(var(--foreground), 0.1);
+      background: hsla(var(--fg), 0.1);
     }
     &:active::before {
-      background: hsla(var(--foreground), 0.3);
+      background: hsla(var(--fg), 0.3);
     }
     &:focus-visible::before {
-      border: 1px solid hsla(var(--foreground), 1);
+      border: 1px solid hsla(var(--fg), 1);
     }
   }
 </style>
