@@ -38,57 +38,43 @@
   <Meta title="question not found" noIndex />
 {/if}
 
-<main>
-  <BackButton position="off-center-right" />
-  <QaHeader />
-  <section>
-    <p>i answer anonymous questions you ask, because it's fun.</p>
-    <p>
-      <a href="/q+a">latest</a> |
-      <a href="/q+a/search">search</a> |
-      <a href="/q+a/random">random</a> |
-      <a href="/q+a?page=0">start</a>
-    </p>
-  </section>
-
-  {#key question.date.getTime()}
-    {#if question}
-      {#if question.isPending()}
-        <section>
-          <p>this question is awaiting an answer from dave, please be patient:</p>
-        </section>
-        <pre>{question.content[0].message}</pre>
-      {:else if question.isRejected()}
-        <section>
-          <p>ouch...</p>
-        </section>
-        <section>
-          <QuestionRender {question} />
-        </section>
-        <section>
-          <p>tip for the future: do not ask that, i guess.</p>
-        </section>
-      {:else}
-        <section>
-          <p>this page is a permalink for the following question:</p>
-        </section>
-        <section>
-          <QuestionRender {question} />
-        </section>
-      {/if}
+{#key question.date.getTime()}
+  {#if question}
+    {#if question.isPending()}
+      <section>
+        <p>this question is awaiting an answer from dave, please be patient:</p>
+      </section>
+      <pre>{question.content[0].message}</pre>
+    {:else if question.isRejected()}
+      <section>
+        <p>ouch...</p>
+      </section>
+      <section>
+        <QuestionRender {question} />
+      </section>
+      <section>
+        <p>tip for the future: do not ask that, i guess.</p>
+      </section>
     {:else}
       <section>
-        <p>
-          yikes! <br />
-          question permalink was not found. did you type it in manually?
-        </p>
-        <p>
-          <a href="/q+a">view questions that do exist</a>
-        </p>
+        <p>this page is a permalink for the following question:</p>
+      </section>
+      <section>
+        <QuestionRender {question} />
       </section>
     {/if}
-  {/key}
-</main>
+  {:else}
+    <section>
+      <p>
+        yikes! <br />
+        question permalink was not found. did you type it in manually?
+      </p>
+      <p>
+        <a href="/q+a">view questions that do exist</a>
+      </p>
+    </section>
+  {/if}
+{/key}
 
 <style lang="scss">
   section {

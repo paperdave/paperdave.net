@@ -3,11 +3,13 @@
   import { escapeHTML } from '$lib/utils/escape';
   import QaInput from './_QAInput.svelte';
   import QuestionRender from './_QuestionRender.svelte';
-  import DismissSVG from '$lib/svg/fluent/Dismiss.svg';
-  import AddSVG from '$lib/svg/fluent/Add.svg';
-  import ChevronUpSVG from '$lib/svg/fluent/ChevronUp.svg';
-  import ChevronDownSVG from '$lib/svg/fluent/ChevronDown.svg';
   import { createEventDispatcher } from 'svelte';
+  import Icon from '$lib/components/Icon.svelte';
+  import TextBox from '$lib/components/TextBox.svelte';
+  import Button from '$lib/components/Button.svelte';
+  import AccentOverride from '$lib/components/AccentOverride.svelte';
+  import { palette } from '$lib/theme';
+  import { formatDate } from '$lib/utils/date';
 
   const dispatch = createEventDispatcher();
 
@@ -25,8 +27,10 @@
     request = request;
   }
 
-  function changeParagraphText(ev: Event, index: number) {
-    response.content[index].message = (ev.target as HTMLInputElement).value;
+  function changeParagraphText(message: string, index: number) {
+    if (message) {
+      response.content[index].message = message;
+    }
   }
 
   function changeParagraphWho(index: number) {
@@ -68,100 +72,102 @@
   }
 </script>
 
-<main>
-  <section>
-    <div style="display:flex">
-      <QaInput type="button" on:click={reset}>reset</QaInput>
-      <QaInput type="button" on:click={send}>answer</QaInput>
-      <QaInput type="button" on:click={deny}>deny</QaInput>
-      <p>(you can press f2 to split)</p>
-    </div>
+<flex row class="root">
+  <flex gap>
+    <flex row gap>
+      <AccentOverride accent={palette.green[500]}>
+        <Button on:click={send} variant="accent">answer</Button>
+      </AccentOverride>
+      <AccentOverride accent={palette.red[500]}>
+        <Button on:click={deny} variant="accent">deny</Button>
+      </AccentOverride>
+      <Button on:click={reset} variant="subtle">reset</Button>
+    </flex>
     <div class="date">
-      {request.date} - {request.ipAddress}
+      at {formatDate(request.date, 'date-time-sec')}
     </div>
     <pre class="prompt">{request.content}</pre>
-    <hr />
-    {#each response.content as paragraph, i}
-      {#key paragraph._uid}
-        <div class="response-row">
-          <QaInput type="button" on:click={() => insertParagraph(i)}>
-            <AddSVG />
-          </QaInput>
-          <QaInput type="button" on:click={() => moveParagraphUp(i)} disabled={i === 0}>
-            <ChevronUpSVG />
-          </QaInput>
-          <QaInput
-            type="button"
-            on:click={() => moveParagraphDown(i)}
-            disabled={i === response.content.length - 1}>
-            <ChevronDownSVG />
-          </QaInput>
-          <QaInput type="button" on:click={() => removeParagraph(i)}>
-            <DismissSVG />
-          </QaInput>
-          <QaInput type="button" on:click={() => changeParagraphWho(i)}>
-            {paragraph.who === 'QUESTION' ? 'Q' : 'A'}
-          </QaInput>
-          <QaInput
-            type="text"
-            bind:value={paragraph.message}
-            fullWidth
-            on:input={(ev) => changeParagraphText(ev, i)} />
-        </div>
-      {/key}
-    {/each}
-    <div class="response-row">
-      <QaInput type="button" on:click={() => insertParagraph(response.content.length)}>
-        <AddSVG />
-      </QaInput>
-    </div>
-  </section>
+    <flex class="paragraphs">
+      {#each response.content as paragraph, i}
+        {#key paragraph._uid}
+          <flex row class="response-row">
+            <Button center on:click={() => insertParagraph(i)}>
+              <Icon name="add" />
+            </Button>
+            <Button center on:click={() => moveParagraphUp(i)} disabled={i === 0}>
+              <Icon name="arrow_upward" />
+            </Button>
+            <Button
+              center
+              on:click={() => moveParagraphDown(i)}
+              disabled={i === response.content.length - 1}>
+              <Icon name="arrow_downward" />
+            </Button>
+            <Button center on:click={() => removeParagraph(i)}>
+              <Icon name="close" />
+            </Button>
+            <AccentOverride
+              accent={paragraph.who === 'QUESTION' ? palette.yellow[800] : palette.green[500]}>
+              <Button variant="accent" center on:click={() => changeParagraphWho(i)}>
+                {paragraph.who === 'QUESTION' ? 'Q' : 'A'}
+              </Button>
+            </AccentOverride>
+            <TextBox
+              type="text"
+              value={paragraph.message}
+              fullWidth
+              on:change={(ev) => changeParagraphText(ev.detail, i)} />
+          </flex>
+        {/key}
+      {/each}
+      <div class="response-row">
+        <Button center on:click={() => insertParagraph(response.content.length)}>
+          <Icon name="add" />
+        </Button>
+      </div>
+    </flex>
+  </flex>
   <section class="q">
     <QuestionRender question={response} />
   </section>
-</main>
+</flex>
 
 <style lang="scss">
-  main {
-    display: flex;
-    gap: 10px;
+  .root > flex {
+    flex: 1;
   }
+
   section {
     flex: 1;
     padding: 1rem;
   }
-  section > div {
-    margin-bottom: 10px;
-  }
-  .date {
-    opacity: 0.5;
-  }
+
   .prompt {
+    border: 1px solid hsl(var(--fg));
+    border-radius: 4px;
     background: #000;
-    border: 1px solid white;
     padding: 1rem;
     color: #74d7c5;
     white-space: pre-wrap;
-    max-width: 50rem;
   }
-  hr {
-    border: 0;
-    border-top: 1px solid white;
-    margin: 1rem 0;
-  }
+
   .q {
     max-width: 800px;
   }
+
+  .paragraphs {
+    gap: 0.3rem;
+  }
+
   .response-row {
     display: flex;
-    height: 3rem;
-    margin-bottom: 1rem;
     gap: 0.25rem;
+    height: 3rem;
 
-    & > :global(button) {
-      width: 2.5rem;
+    & :global(button) {
+      width: 2rem;
     }
-    & > :global(input) {
+    & :global(input) {
       flex: 1 0 0px;
     }
   }

@@ -17,14 +17,14 @@
  -->
 <script lang="ts">
   import { useId } from '$lib/hooks/useId';
-  import { onMount, tick } from 'svelte';
+  import { createEventDispatcher, onMount, tick } from 'svelte';
   import { scale } from 'svelte/transition';
   import Icon from './Icon.svelte';
 
   export let type: 'text' | 'password' | 'email' | 'search' | 'tel' | 'url' = 'text';
   export let name: string | undefined = undefined;
   export let value = '';
-  export let label: string;
+  export let label: string | undefined = undefined;
   export let placeholder = '';
   export let disabled = false;
   export let focused = false;
@@ -33,6 +33,8 @@
   export let autocomplete: string | undefined = undefined;
   export let autocorrect: string | undefined = undefined;
   export let spellcheck: boolean | undefined = undefined;
+
+  const dispatch = createEventDispatcher();
 
   $: expanded = focused || !!value;
 
@@ -58,6 +60,7 @@
   function handleFocus() {
     focused = true;
   }
+
   function handleBlur(ev: FocusEvent) {
     const relatedTarget = ev.relatedTarget as HTMLElement;
     if (relatedTarget) {
@@ -72,13 +75,19 @@
     }
     focused = false;
   }
+
   function handleRelatedBlur(ev: FocusEvent) {
     (ev.currentTarget as HTMLElement).removeEventListener('blur', handleRelatedBlur);
     handleBlur(ev);
   }
-  function onModify(ev: Event) {
-    if (inputElem) value = inputElem.value;
+
+  function onInput(ev: Event) {
+    if (inputElem) {
+      value = inputElem.value;
+      dispatch('change', value ?? '');
+    }
   }
+
   const INTERACTABLE_TAG_NAMES = ['INPUT', 'TEXTAREA', 'SELECT', 'BUTTON', 'A'];
   function handleClickFocus(ev: MouseEvent) {
     if (disabled) return;
@@ -111,12 +120,16 @@
   class:disabled
   on:click={handleClickFocus}
   bind:this={root}>
-  <div class="border-cover" aria-hidden="true">{label}</div>
+  {#if label}
+    <div class="border-cover" aria-hidden="true">{label}</div>
+  {/if}
 
   <slot name="left" />
 
   <div class="input-container">
-    <label bind:this={labelElem} for={id} style:--offsetX="{labelX}px">{label}</label>
+    {#if label}
+      <label bind:this={labelElem} for={id} style:--offsetX="{labelX}px">{label}</label>
+    {/if}
     <input
       {id}
       type={revealed ? 'text' : type}
@@ -130,9 +143,10 @@
       {placeholder}
       {...$$restProps}
       bind:this={inputElem}
-      on:input={onModify}
+      on:input={onInput}
       on:focus={handleFocus}
-      on:blur={handleBlur} />
+      on:blur={handleBlur}
+      on:change />
   </div>
 
   {#if (type === 'password' && focused) || revealed}
@@ -154,6 +168,7 @@
 
   .textbox {
     position: relative;
+    flex: 1;
     align-items: center;
     transition: border-color 100ms $easing, outline-width 100ms $easing;
     outline: solid 0px hsla(var(--acc), 0.6);

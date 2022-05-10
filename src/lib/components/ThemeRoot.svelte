@@ -21,8 +21,8 @@
   export let background: string | undefined = undefined;
   /** Accent color, used for buttons, links, etc. */
   export let accent = palette.green[500];
-  /** Links generally use the accent color by default, but there are some cases this isn't desired. */
-  export let linkColor: string | null = null;
+  /** Override link color. */
+  export let linkColor: string | undefined = undefined;
 
   let self: HTMLElement;
 
@@ -34,7 +34,10 @@
 
   $: isDark = backgroundColor.isDark();
 
-  $: browser && [foregroundColor, backgroundColor, accentColor, linkColor] && beforeSwapTheme();
+  $: browser && [foregroundColor, backgroundColor, accentColor] && beforeSwapTheme();
+
+  $: calculatedLinkColor =
+    linkColor ?? (backgroundColor.isDark() ? accentColor.hex() : accentColor.darken(0.75).hex());
 
   async function beforeSwapTheme() {
     if (!self) return;
@@ -59,7 +62,7 @@
   style:--acc-sat={Math.round(accentColor.saturationl()) + '%'}
   style:--acc-lit={Math.round(accentColor.lightness()) + '%'}
   style:--on-acc={accentColor.isDark() ? '0,0%,100%' : '0,0%,0%'}
-  style:--link-color={linkColor}>
+  style:--link-color={calculatedLinkColor}>
   <slot />
 </theme-root>
 

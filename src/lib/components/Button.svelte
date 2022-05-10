@@ -3,6 +3,7 @@
 
   export let href: string | URL | null = null;
   export let text = false;
+  export let center = false;
 </script>
 
 <svelte:element
@@ -12,6 +13,7 @@
   role="button"
   href={href?.toString() ?? undefined}
   class="custom button-{variant}"
+  class:center
   class:text
   on:click>
   <slot />
@@ -81,7 +83,18 @@
     }
   }
 
+  .center {
+    justify-content: center;
+    align-items: center;
+  }
+
   .text {
     padding: 0.5rem 0.75rem;
+  }
+
+  [disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
   }
 </style>

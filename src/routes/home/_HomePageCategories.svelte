@@ -33,9 +33,9 @@
   }
 </script>
 
-<flex class="outer">
+<grid class="root">
   <HomePageGearDivider />
-  <flex class="inner">
+  <grid class="inner">
     <ThemeRoot background="#fff599" accent="#f77d0a">
       <HomePageCategoriesBackground />
 
@@ -48,8 +48,8 @@
         <path d="M100 0L30 42L70 100L0 100L0 0Z" fill="#fafafa" />
       </svg>
 
-      <flex class="content" grow center>
-        <article>
+      <flex class="content" center>
+        <section>
           {#if currentPage !== 'home'}
             <div
               class="back-button-container"
@@ -109,11 +109,11 @@
             {/if}
           </flex>
           <span class="more">...more pages coming soon</span>
-        </article>
+        </section>
       </flex>
     </ThemeRoot>
-  </flex>
-</flex>
+  </grid>
+</grid>
 
 <style lang="scss">
   .back-button-container {
@@ -122,14 +122,11 @@
     right: calc(100% + 0.5rem);
     z-index: 1;
   }
-  .outer {
+  .root {
     position: relative;
     flex: 1 0 35rem;
   }
   .inner {
-    display: flex;
-    position: relative;
-    flex: 1;
     z-index: 5;
     clip-path: polygon(10rem 0, 100% 0, 100% 100%, 7rem 100%, 3rem 42%);
     margin-left: -20rem;
@@ -137,12 +134,15 @@
   h2 {
     --text-mono: 1;
 
-    color: hsl(var(--acc-base));
+    color: hsl(var(--acc));
     font-size: 4rem;
-    text-shadow: shadow(3px, 1, hsl(var(--acc-dark-3)));
+    text-shadow: shadow(3px, 1, hsl(var(--acc-d3)));
   }
-  article {
+  section {
+    display: flex;
     position: relative;
+    flex-direction: column;
+    gap: 1rem;
     width: 34rem;
   }
   .content {

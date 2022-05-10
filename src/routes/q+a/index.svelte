@@ -43,6 +43,8 @@
   import { user } from '$lib/api-client/session';
   import { Permission } from '$lib/structures';
   import Meta from '$lib/components/Meta.svelte';
+  import LinkRow from '$lib/components/LinkRow.svelte';
+  import TextBox from '$lib/components/TextBox.svelte';
 
   export let qpage: QuestionPage;
 
@@ -62,69 +64,45 @@
     title="answers & questions - page {qpage.id}"
     description={`i answer anonymous questions you ask, because it's fun. this page is updated every few days after questions are sent.`} />
 {/if}
-<main>
-  <BackButton position="off-center-right" />
-  <QAHeader />
-  <section>
-    <p>i answer anonymous questions you ask, because it's fun.</p>
+
+{#if qpage.latest}
+  <div>
+    <!-- <QuestionForm bind:expanded={formExpanded} /> -->
+    <TextBox name="q" label="ask a question" />
+  </div>
+  <div class="opacity-transition" style="opacity:{formExpanded ? 0 : 1}">
+    <p>and the answers:</p>
+  </div>
+{:else}
+  <div>
     <p>
-      {#if !qpage.latest}
-        <a href="/q+a">latest</a>
-      {:else}
-        <strong>latest</strong>
-      {/if}
-      |
-      <a href="/q+a/search">search</a>
-      |
-      <a href="/q+a/random">random</a>
-      |
-      {#if $page.url.pathname === '/q+a' && $page.url.searchParams.get('page') === '0'}
-        <strong>start</strong>
-      {:else}
-        <a href="/q+a?page=0">start</a>
-      {/if}
-      {#if $user !== null && $user.queryPermission(Permission.RESPOND_TO_QUESTIONS)}
-        |
-        <a href="/q+a/respond" class="special">respond</a>
-      {/if}
+      page #{qpage.id}
+      {#if qpage.id === 0}
+        (we are programmers, start at 0!!!)
+      {/if} <br />
+      <a href="/q+a?page={qpage.id + 1}">newer</a>
     </p>
-  </section>
-  {#if qpage.latest}
-    <section>
-      <QuestionForm bind:expanded={formExpanded} />
-    </section>
-    <section class="opacity-transition" style="opacity:{formExpanded ? 0 : 1}">
-      <p>and the answers:</p>
-    </section>
-  {:else}
-    <section>
-      <p>
-        page #{qpage.id}
-        {#if qpage.id === 0}
-          (we are programmers, start at 0!!!)
-        {/if} <br />
-        <a href="/q+a?page={qpage.id + 1}">newer</a>
-      </p>
-    </section>
-  {/if}
-  <section class="questions">
-    {#each qpage.questions as question}
-      {#key question.date.getTime()}
-        <QuestionRender {question} />
-      {/key}
-    {/each}
-  </section>
-  {#if qpage.id !== 0}
-    <section>
-      <p>
-        <a href="/q+a?page={qpage.id - 1}">older</a>
-      </p>
-    </section>
-  {/if}
-</main>
+  </div>
+{/if}
+
+<div class="questions">
+  {#each qpage.questions as question}
+    {#key question.date.getTime()}
+      <QuestionRender {question} />
+    {/key}
+  {/each}
+</div>
+
+{#if qpage.id !== 0}
+  <div>
+    <p>
+      <a href="/q+a?page={qpage.id - 1}">older</a>
+    </p>
+  </div>
+{/if}
 
 <style lang="scss">
-  section {
+  div {
     margin-bottom: 3rem;
   }
   p {
