@@ -16,52 +16,54 @@
   <div class="item rock" style="--x:38rem;width:4rem" />
 </div>
 
-<style>
+<style lang="scss">
   .root {
     position: absolute;
-    left: 0;
     top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     overflow: hidden;
+    background-color: hsl(var(--bg));
+    isolation: isolate; // I heard this can improve performance
   }
 
   .layer {
     position: absolute;
-    left: -256px;
     top: -256px;
     right: -256px;
     bottom: -256px;
+    left: -256px;
   }
 
   .layer1 {
-    background-image: url('/assets/home/CheckerLayer1.svg');
-    mix-blend-mode: lighten;
-    opacity: 0.4;
-    animation: moveAnimation 20s linear infinite;
     --dx: -128px;
     --dy: -64px;
+    opacity: 0.4;
+    mix-blend-mode: lighten;
+    animation: moveAnimation 20s linear infinite;
+    background-image: url('/assets/home/CheckerLayer1.svg');
   }
 
   .layer2 {
-    background-image: url('/assets/home/CheckerLayer2.svg');
-    mix-blend-mode: darken;
-    filter: blur(5px);
-    opacity: 0.3;
-    animation: moveAnimation 34s linear infinite;
-    background-position: 16px 16px;
     --dx: -256px;
     --dy: -192px;
+    opacity: 0.3;
+    mix-blend-mode: darken;
+    filter: blur(5px);
+    animation: moveAnimation 34s linear infinite;
+    background-image: url('/assets/home/CheckerLayer2.svg');
+    background-position: 16px 16px;
   }
 
   .layer3 {
-    background-image: url('/assets/home/CheckerLayer3.svg');
-    mix-blend-mode: hard-light;
-    filter: blur(4px);
-    opacity: 0.6;
-    animation: moveAnimation 25s linear infinite;
     --dx: -192px;
     --dy: 192px;
+    opacity: 0.6;
+    mix-blend-mode: hard-light;
+    filter: blur(4px);
+    animation: moveAnimation 25s linear infinite;
+    background-image: url('/assets/home/CheckerLayer3.svg');
   }
 
   @keyframes moveAnimation {
@@ -75,11 +77,11 @@
 
   .item {
     position: absolute;
-    aspect-ratio: 138/266;
-    width: 10rem;
     bottom: 0;
     left: calc(50% + var(--x));
     opacity: 0.9;
+    aspect-ratio: 138/266;
+    width: 10rem;
   }
 
   .tree1 {
@@ -90,8 +92,8 @@
   }
 
   .rock {
-    width: 3rem;
-    aspect-ratio: 21.78/12.04;
     background-image: url('/assets/home/Rock.svg');
+    aspect-ratio: 21.78/12.04;
+    width: 3rem;
   }
 </style>
