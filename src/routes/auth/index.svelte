@@ -2,11 +2,11 @@
   import Button from '$lib/components/Button.svelte';
   import ButtonGroup from '$lib/components/ButtonRow.svelte';
   import Heading from '$lib/components/Heading.svelte';
-  import Icon from '$lib/components/Icon.svelte';
   import Paper from '$lib/components/Paper.svelte';
   import TextBox from '$lib/components/TextBox.svelte';
-  import Error from '../__error.svelte';
   import { authEmail, authPassword } from './authorization-store';
+
+  export let error: string | undefined;
 </script>
 
 <header>
@@ -21,12 +21,16 @@
 <Paper size="small">
   <form method="post">
     <flex gap>
-      <TextBox type="text" name="email" label="email" bind:value={$authEmail} disabled />
+      <p class="red">
+        {error ?? ''}
+      </p>
+      <TextBox type="text" name="email" label="email" bind:value={$authEmail} disabled bind:error />
       <TextBox
         type="password"
         name="password"
         label="password"
         bind:value={$authPassword}
+        bind:error
         autofocus />
       <ButtonGroup>
         <Button text variant="subtle" href="/auth/new">New?</Button>
@@ -41,5 +45,10 @@
 <style lang="scss">
   form {
     margin: 2rem 0;
+  }
+  .red {
+    height: 1rem;
+    color: red;
+    text-align: center;
   }
 </style>

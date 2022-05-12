@@ -16,8 +16,6 @@
   See other components for the other input types.
  -->
 <script lang="ts">
-  import { browser } from '$app/env';
-
   import { useId } from '$lib/hooks/useId';
   import { createEventDispatcher, onMount, tick } from 'svelte';
   import { scale } from 'svelte/transition';
@@ -35,6 +33,7 @@
   export let autocomplete: string | undefined = undefined;
   export let autocorrect: string | undefined = undefined;
   export let spellcheck: boolean | undefined = undefined;
+  export let error: unknown = undefined;
 
   const dispatch = createEventDispatcher();
 
@@ -87,6 +86,7 @@
     if (inputElem) {
       value = inputElem.value;
       dispatch('change', value ?? '');
+      error = undefined;
     }
   }
 
@@ -118,6 +118,7 @@
   class:focused
   class:expanded
   class:disabled
+  class:error={!!error && !disabled}
   on:click={handleClickFocus}
   bind:this={root}>
   {#if label}
@@ -132,7 +133,7 @@
         bind:this={labelElem}
         for={id}
         style:--offsetX="{labelX}px"
-        class:ssrExpand={!browser && expanded}>{label}</label>
+        class:ssrExpand={expanded && labelX === 0}>{label}</label>
     {/if}
     <input
       {id}
@@ -174,7 +175,7 @@
     position: relative;
     flex: 1;
     align-items: center;
-    transition: border-color 100ms $easing, outline-width 100ms $easing;
+    transition: border-color 100ms $easing, outline-color 100ms $easing, outline-width 100ms $easing;
     outline: solid 0px hsla(var(--acc), 0.6);
     border: 2px solid hsla(var(--fg), 0.7);
     border-radius: 0.3rem;
@@ -189,9 +190,19 @@
     user-select: none;
   }
 
-  .focused.textbox {
+  .focused {
     outline-width: 2px;
     border-color: hsla(var(--acc), 1);
+  }
+
+  .error {
+    // TODO: use theme color, but we don't have theme error colors, or really anything.
+    border-color: red;
+    outline-color: hsla(0, 100%, 50%, 0.4);
+    
+    label {
+      color: red !important;
+    }
   }
 
   .input-container {
@@ -257,7 +268,7 @@
   .expanded,
   :global(.noscript) .textbox {
     label {
-      transform: translateX(calc(0px - var(--offsetX) + 0.75rem)) translateY(-1.5rem)
+      transform: translateY(-24px) translateX(calc(0px - var(--offsetX) + 0.65rem)) 
         scale($labelFocusScale * 1);
       color: hsl(var(--fg));
     }
@@ -297,15 +308,15 @@
     font-size: 1.5rem;
   }
 
-  .init,
-  .init * {
-    transition-duration: 0 !important;
+  .textbox.init,
+  .textbox.init * {
+    transition-duration: 0ms !important;
   }
 
   :global(.noscript) .textbox label,
   .ssrExpand {
     position: absolute;
-    left: 0.75rem;
+    left: 0.65rem;
     transform: translateY(-1.5rem) scale($labelFocusScale * 1) !important;
   }
 
