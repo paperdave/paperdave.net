@@ -40,6 +40,7 @@ export const artifactListMap: Record<string, ListFn> = {
         db.find({ type: ArtifactType.MUSIC_VIDEO }),
         db.find({ type: 'music' }),
         db.find({ id: 'mayday' }),
+        db.find({ id: 'im-18-now' }),
       ]),
     // TODO: in the future, i would love to create a class like ArtifactPreview, then fetch the
     // detailed information when you click on a MusicCard. right now to avoid validation errors

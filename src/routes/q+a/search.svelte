@@ -1,8 +1,6 @@
 <script lang="ts" context="module">
   import { QuestionPage } from '$lib/structures';
   import type { Load } from '@sveltejs/kit';
-  import QaHeader from './_QAHeader.svelte';
-  import QaInput from './_QAInput.svelte';
 
   export const load: Load = async ({ fetch, url }) => {
     const API = wrapAPI(fetch);
@@ -36,9 +34,9 @@
   import { fly } from 'svelte/transition';
   import { flip } from 'svelte/animate';
   import { cubicIn, cubicInOut, cubicOut } from 'svelte/easing';
-  import BackButton from '$lib/components/BackButton.svelte';
   import { API, wrapAPI } from '$lib/api-client/singleton';
   import Meta from '$lib/components/Meta.svelte';
+  import TextBox from '$lib/components/TextBox.svelte';
 
   export let questions: QuestionPage | null;
   export let lastSearch: string = '';
@@ -95,45 +93,29 @@
   title="question search"
   description={`i answer anonymous questions you ask, because it's fun. this page is updated every few days after questions are sent.`} />
 
-<main>
-  <BackButton position="off-center-right" />
-  <QaHeader />
+<div class="section">
+  <TextBox type="text" label="search" bind:value={search} />
+</div>
 
-  <section>
-    <p>i answer anonymous questions you ask, because it's fun.</p>
-    <p>
-      <a href="/q+a">latest</a>
-      |
-      <strong>search</strong>
-      |
-      <a href="/q+a/random">random</a>
-      |
-      <a href="/q+a?page=0">start</a>
-    </p>
-  </section>
-  <section>
-    <QaInput type="text" placeholder="search..." bind:value={search} fullWidth />
-  </section>
-
-  <section class:loading>
-    {#each qlist as question (question.date.getTime())}
-      <div
-        animate:flip={{ duration: 200, delay: -60, easing: cubicInOut }}
-        in:fly={{ duration: 200, opacity: 0, easing: cubicOut, y: 10 }}
-        out:flyFixed={{ duration: 200, delay: -60, opacity: 0, easing: cubicIn, y: -10 }}>
-        <QuestionRender {question} {search} />
-      </div>
-    {/each}
-    {#if lastSearch && !qlist.length}
-      <p class="noresult">no results for <strong>{lastSearch}</strong></p>
-    {/if}
-  </section>
-</main>
+<div class="section" class:loading>
+  {#each qlist as question (question.date.getTime())}
+    <div
+      animate:flip={{ duration: 200, delay: -60, easing: cubicInOut }}
+      in:fly={{ duration: 200, opacity: 0, easing: cubicOut, y: 10 }}
+      out:flyFixed={{ duration: 200, delay: -60, opacity: 0, easing: cubicIn, y: -10 }}>
+      <QuestionRender {question} {search} />
+    </div>
+  {/each}
+  {#if lastSearch && !qlist.length}
+    <p class="noresult">no results for <strong>{lastSearch}</strong></p>
+  {/if}
+</div>
 
 <style lang="scss">
-  section {
+  .section {
     margin-bottom: 3rem;
   }
+
   p {
     margin-bottom: 1rem;
   }

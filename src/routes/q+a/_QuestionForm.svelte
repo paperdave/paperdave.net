@@ -1,6 +1,5 @@
 <script lang="ts">
   import QaInput from './_QAInput.svelte';
-  import AlertSVG from '$lib/svg/fluent/Alert.svg';
   import QuestionCompose from './_QuestionCompose.svelte';
   import { QuestionRequest } from '$lib/structures';
   import { fade } from 'svelte/transition';
@@ -40,10 +39,6 @@
   </div>
   {#if expanded && !sending}
     <div class="buttons" transition:fade|local={{ duration: 200 }}>
-      <!-- <QaInput type="button" disabled><InfoSVG /></QaInput> -->
-      <QaInput type="button" disabled><AlertSVG /></QaInput>
-      <p style="line-height:2.5rem;opacity:0.4">(email/push notification coming soon)</p>
-      <div class="grow" />
       <QaInput type="submit" disabled={questionText.trim().length === 0}>SEND</QaInput>
     </div>
   {/if}

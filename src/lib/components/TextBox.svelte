@@ -75,6 +75,7 @@
       }
     }
     focused = false;
+    dispatch('blur');
   }
 
   function handleRelatedBlur(ev: FocusEvent) {

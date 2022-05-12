@@ -18,9 +18,6 @@
 </script>
 
 <script lang="ts">
-  import BackButton from '$lib/components/BackButton.svelte';
-
-  import QaHeader from './_QAHeader.svelte';
   import QuestionRender from './_QuestionRender.svelte';
   import { wrapAPI } from '$lib/api-client/singleton';
   import Meta from '$lib/components/Meta.svelte';

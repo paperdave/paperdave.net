@@ -5,31 +5,30 @@
   export let search: string;
 </script>
 
-<main class:q={paragraph.who === 'QUESTION'} class:a={paragraph.who === 'ANSWER'}>
+<p class:q={paragraph.who === 'QUESTION'} class:a={paragraph.who === 'ANSWER'}>
   {@html paragraph.message}
   <!-- {@html paragraph.message.replace(search, '<span class="highlight">$&</span>')} -->
-</main>
+</p>
 
 <style lang="scss">
-  main {
-    line-height: 1.25rem;
+  p {
     margin-bottom: 0.5rem;
+    line-height: 1.25rem;
   }
 
   .q {
-    font-family: 'Roboto Slab';
-    font-size: 1.15em;
     color: white;
     font-weight: 400;
+    font-size: 1.15em;
+    font-family: 'Roboto Slab';
   }
 
   .a {
-    color: #51d064;
-
     --text-casual: 0.5;
+    color: #51d064;
   }
 
-  main :global(.highlight) {
+  p :global(.highlight) {
     background-color: #ffff0044;
   }
 </style>

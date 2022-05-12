@@ -4,20 +4,37 @@
   export let href: string | URL | null = null;
   export let text = false;
   export let center = false;
+  export let disabled = false;
+  export let column = false;
+  export let type = 'button';
 </script>
 
-<svelte:element
-  this={href ? 'a' : 'button'}
-  sveltekit:prefetch={href ? '' : undefined}
-  {...$$restProps}
-  role="button"
-  href={href?.toString() ?? undefined}
-  class="custom button-{variant}"
-  class:center
-  class:text
-  on:click>
-  <slot />
-</svelte:element>
+{#if href && !disabled}
+  <a
+    sveltekit:prefetch
+    href={href?.toString() ?? undefined}
+    class="custom button-{variant}"
+    class:center
+    class:text
+    class:column
+    on:click
+    {...$$restProps}>
+    <slot />
+  </a>
+{:else}
+  <button
+    role={href ? 'link' : undefined}
+    {type}
+    {disabled}
+    class="custom button-{variant}"
+    class:center
+    class:text
+    class:column
+    on:click
+    {...$$restProps}>
+    <slot />
+  </button>
+{/if}
 
 <style lang="scss">
   .custom {
@@ -86,6 +103,10 @@
   .center {
     justify-content: center;
     align-items: center;
+  }
+
+  .column {
+    flex-direction: column;
   }
 
   .text {

@@ -1,10 +1,17 @@
 <script lang="ts">
+  import { page } from '$app/stores';
+
+  import TextBox from '$lib/components/TextBox.svelte';
+
   import { fade } from 'svelte/transition';
 
   export let value: string = '';
   export let expanded: boolean = false;
   export let sending: boolean = false;
   export let sendingState: 'success' | 'failure' | null = null;
+
+  import { data as ideas } from './random-question-ideas.json';
+  let placeholder = ideas[Math.floor(Math.random() * ideas.length)];
 
   let textarea: HTMLTextAreaElement | undefined;
   let wrapCalculator: HTMLDivElement | undefined;
@@ -20,9 +27,15 @@
     }
     expanded = true;
   }
+
+  function handleBlur() {
+    setTimeout(() => {
+      placeholder = ideas[Math.floor(Math.random() * ideas.length)];
+    }, 110);
+  }
 </script>
 
-<main>
+<div class="root">
   <h2 class:expanded>ask a question</h2>
 
   {#if sending}
@@ -38,28 +51,32 @@
     </div>
   {/if}
 
-  <textarea
-    bind:this={textarea}
-    bind:value
-    id="question"
-    placeholder="ask a question..."
-    rows={1}
-    class:expanded-anim={expandedAnim}
-    class:expanded
-    class:sending
-    style="height:{sending ? '0' : expanded ? `${height}px` : '2.5rem'}"
-    on:focus={focus}
-    disabled={sending} />
+  {#if $page.url.searchParams.get('beta') === 'modern_question_ask'}
+    <TextBox name="q" label="ask a question" {placeholder} on:blur={handleBlur} />
+  {:else}
+    <textarea
+      bind:this={textarea}
+      bind:value
+      id="question"
+      placeholder="ask a question..."
+      rows={1}
+      class:expanded-anim={expandedAnim}
+      class:expanded
+      class:sending
+      style="height:{sending ? '0' : expanded ? `${height}px` : '2.5rem'}"
+      on:focus={focus}
+      disabled={sending} />
+  {/if}
 
   <!-- this is a funny trick for calculating the textarea height -->
   <div bind:this={wrapCalculator} class="wrap-calculator" bind:clientHeight={height}>
     {value}
     |
   </div>
-</main>
+</div>
 
 <style lang="scss">
-  main {
+  .root {
     display: flex;
     isolation: isolate;
   }

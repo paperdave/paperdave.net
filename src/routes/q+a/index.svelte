@@ -37,14 +37,9 @@
   import { page } from '$app/stores';
   import QuestionForm from './_QuestionForm.svelte';
   import QuestionRender from './_QuestionRender.svelte';
-  import BackButton from '$lib/components/BackButton.svelte';
   import { wrapAPI } from '$lib/api-client/singleton';
   import { QuestionPage } from '$lib/structures';
-  import { user } from '$lib/api-client/session';
-  import { Permission } from '$lib/structures';
   import Meta from '$lib/components/Meta.svelte';
-  import LinkRow from '$lib/components/LinkRow.svelte';
-  import TextBox from '$lib/components/TextBox.svelte';
 
   export let qpage: QuestionPage;
 
@@ -67,8 +62,7 @@
 
 {#if qpage.latest}
   <div>
-    <!-- <QuestionForm bind:expanded={formExpanded} /> -->
-    <TextBox name="q" label="ask a question" />
+    <QuestionForm bind:expanded={formExpanded} />
   </div>
   <div class="opacity-transition" style="opacity:{formExpanded ? 0 : 1}">
     <p>and the answers:</p>
@@ -80,28 +74,31 @@
       {#if qpage.id === 0}
         (we are programmers, start at 0!!!)
       {/if} <br />
-      <a href="/q+a?page={qpage.id + 1}">newer</a>
+      <a href="/q+a?p={qpage.id + 1}">see newer questions</a>
     </p>
   </div>
 {/if}
 
-<div class="questions">
+<flex class="questions">
   {#each qpage.questions as question}
     {#key question.date.getTime()}
       <QuestionRender {question} />
     {/key}
   {/each}
-</div>
+</flex>
 
 {#if qpage.id !== 0}
   <div>
     <p>
-      <a href="/q+a?page={qpage.id - 1}">older</a>
+      <a href="/q+a?p={qpage.id - 1}">see older questions</a>
     </p>
   </div>
 {/if}
 
 <style lang="scss">
+  .questions {
+    gap: 3rem;
+  }
   div {
     margin-bottom: 3rem;
   }

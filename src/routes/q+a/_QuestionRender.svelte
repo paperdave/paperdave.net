@@ -7,7 +7,7 @@
   export let search: string = '';
 </script>
 
-<main>
+<article>
   <QuestionDate {question} />
   {#if question.isRejected()}
     <p class="red">this question has been rejected</p>
@@ -16,12 +16,9 @@
       <QuestionParagraph {paragraph} {search} />
     {/each}
   {/if}
-</main>
+</article>
 
 <style lang="scss">
-  main {
-    margin-bottom: 2rem;
-  }
   .red {
     color: red;
   }

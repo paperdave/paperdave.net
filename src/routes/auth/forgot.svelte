@@ -5,6 +5,14 @@
   import Paper from '$lib/components/Paper.svelte';
   import TextBox from '$lib/components/TextBox.svelte';
   import { authEmail, authPassword } from './authorization-store';
+
+  let hasSubmitted = false;
+  function submit() {
+    if (hasSubmitted) return;
+    setTimeout(() => {
+      hasSubmitted = true;
+    }, 500);
+  }
 </script>
 
 <header>
@@ -17,13 +25,17 @@
 </header>
 
 <Paper size="small">
-  <form method="post">
+  <form method="post" on:submit|preventDefault={submit}>
     <flex gap>
-      <TextBox type="text" name="email" label="email" bind:value={$authEmail} />
+      {#if !hasSubmitted}
+        <TextBox type="text" name="email" label="email" bind:value={$authEmail} disabled />
 
-      <ButtonGroup align="right">
-        <Button text variant="accent" type="submit">Go</Button>
-      </ButtonGroup>
+        <ButtonGroup align="right">
+          <Button text variant="accent" type="submit">Go</Button>
+        </ButtonGroup>
+      {:else}
+        <p>We've sent you an email with a link to reset your password.</p>
+      {/if}
     </flex>
   </form>
 </Paper>
