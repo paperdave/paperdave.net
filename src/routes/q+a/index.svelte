@@ -111,7 +111,4 @@
   .opacity-transition {
     transition: 100ms opacity ease-in-out;
   }
-  .special {
-    color: #faa719;
-  }
 </style>

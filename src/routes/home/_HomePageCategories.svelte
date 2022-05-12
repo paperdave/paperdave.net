@@ -2,12 +2,11 @@
   // import BackButton from '$lib/components/BackButton.svelte';
   import Button from '$lib/components/Button.svelte';
   import ThemeRoot from '$lib/components/ThemeRoot.svelte';
-  // import ChevonDownSVG from '$lib/svg/fluent/ChevronDown.svg';
-  import ArrowLeftSVG from '$lib/svg/fluent/ArrowLeft.svg';
   import { gearRotations } from './homepage-stores';
   import HomePageCategoriesBackground from './_HomePageCategoriesBackground.svelte';
   import HomePageGearDivider from './_HomePageGearDivider.svelte';
   import { fade, scale } from 'svelte/transition';
+  import Icon from '$lib/components/Icon.svelte';
 
   let currentPage: 'home' | 'blocks' | 'bts' = 'home';
 
@@ -56,7 +55,7 @@
               in:scale={{ start: 0.6, opacity: 0, duration: 100 }}
               out:fade={{ duration: 100 }}>
               <Button variant="subtle" on:click={focusHome}>
-                <ArrowLeftSVG />
+                <Icon name="arrow_left" />
               </Button>
             </div>
           {/if}

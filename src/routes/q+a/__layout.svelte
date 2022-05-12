@@ -45,4 +45,7 @@
   flex {
     margin-bottom: 2rem;
   }
+  .special {
+    color: #faa719;
+  }
 </style>

@@ -1,7 +1,6 @@
 <script lang="ts">
   import { Question, QuestionParagraph, QuestionRequest } from '$lib/structures';
   import { escapeHTML } from '$lib/utils/escape';
-  import QaInput from './_QAInput.svelte';
   import QuestionRender from './_QuestionRender.svelte';
   import { createEventDispatcher } from 'svelte';
   import Icon from '$lib/components/Icon.svelte';
@@ -10,6 +9,7 @@
   import AccentOverride from '$lib/components/AccentOverride.svelte';
   import { palette } from '$lib/theme';
   import { formatDate } from '$lib/utils/date';
+  import ButtonRow from '$lib/components/ButtonRow.svelte';
 
   const dispatch = createEventDispatcher();
 
@@ -74,7 +74,7 @@
 
 <flex row class="root">
   <flex gap>
-    <flex row gap>
+    <ButtonRow>
       <AccentOverride accent={palette.green[500]}>
         <Button on:click={send} variant="accent">answer</Button>
       </AccentOverride>
@@ -82,7 +82,7 @@
         <Button on:click={deny} variant="accent">deny</Button>
       </AccentOverride>
       <Button on:click={reset} variant="subtle">reset</Button>
-    </flex>
+    </ButtonRow>
     <div class="date">
       at {formatDate(request.date, 'date-time-sec')}
     </div>

@@ -16,6 +16,8 @@
   See other components for the other input types.
  -->
 <script lang="ts">
+  import { browser } from '$app/env';
+
   import { useId } from '$lib/hooks/useId';
   import { createEventDispatcher, onMount, tick } from 'svelte';
   import { scale } from 'svelte/transition';
@@ -109,8 +111,6 @@
   }
 </script>
 
-<noscript><noscript-marker /></noscript>
-
 <flex
   row
   class="textbox"
@@ -128,7 +128,11 @@
 
   <div class="input-container">
     {#if label}
-      <label bind:this={labelElem} for={id} style:--offsetX="{labelX}px">{label}</label>
+      <label
+        bind:this={labelElem}
+        for={id}
+        style:--offsetX="{labelX}px"
+        class:ssrExpand={!browser && expanded}>{label}</label>
     {/if}
     <input
       {id}
@@ -180,7 +184,8 @@
       calc(var(--bg-lit) + (var(--dark) * -5%) + (var(--light) * 5%))
     );
     padding: 0;
-    height: 3rem;
+    min-height: 3rem;
+    max-height: 3rem;
     user-select: none;
   }
 
@@ -249,9 +254,10 @@
     }
   }
 
-  .expanded {
+  .expanded,
+  :global(.noscript) .textbox {
     label {
-      transform: translateX(calc(0px - var(--offsetX) + 0.5rem + 2px)) translateY(-1.5rem)
+      transform: translateX(calc(0px - var(--offsetX) + 0.75rem)) translateY(-1.5rem)
         scale($labelFocusScale * 1);
       color: hsl(var(--fg));
     }
@@ -294,5 +300,22 @@
   .init,
   .init * {
     transition-duration: 0 !important;
+  }
+
+  :global(.noscript) .textbox label,
+  .ssrExpand {
+    position: absolute;
+    left: 0.75rem;
+    transform: translateY(-1.5rem) scale($labelFocusScale * 1) !important;
+  }
+
+  :global(.noscript) .textbox input {
+    outline: 1px solid hsla(var(--fg), 0.6);
+    &:focus {
+      outline-color: hsla(var(--acc), 0.6);
+    }
+    &:hover {
+      outline-color: hsla(var(--acc), 0.4);
+    }
   }
 </style>

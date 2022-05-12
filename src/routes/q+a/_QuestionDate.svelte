@@ -41,7 +41,9 @@
   {:else}
     Failed
   {/if}
-  <Icon name="link" />
+  <span class="icon">
+    <Icon name="link" />
+  </span>
 </time>
 
 <style lang="scss">
@@ -53,7 +55,7 @@
     color: #999;
     font-size: 0.9rem;
 
-    :global(svg) {
+    .icon {
       display: none;
       height: 1rem;
     }
@@ -64,7 +66,7 @@
 
     &:hover {
       color: #faa719;
-      :global(svg) {
+      .icon {
         display: block;
       }
     }
