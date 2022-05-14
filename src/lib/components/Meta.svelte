@@ -1,9 +1,8 @@
 <!-- 
   @component
   This component handles all of the site's meta tags. I exclude some old meta tags on purpose, such
-  as `X-UA-Compatible` and `charset`, since IE doesn't exist and since cloudflare informs the
-  browser of the charset. OpenGraph embeds are here for all
-  pages, and I tailor their appearance for Discord.
+  as `X-UA-Compatible`, since IE doesn't exist. OpenGraph embeds are here for all pages, and I
+  tailor their appearance specifically for Discord.
 -->
 <script lang="ts">
   import { dev } from '$app/env';
@@ -26,10 +25,7 @@
 <svelte:head>
   <title>{$page.url.pathname === '/' ? title : `${title} - davecode`}</title>
   {#if description} <meta name="description" content={description} /> {/if}
-  {#if dev}
-    <!-- This is needed during development because the charset isn't defined. -->
-    <meta charset="utf-8" />
-  {/if}
+  <meta charset="utf-8" />
   <meta name="author" content="dave caruso" />
   <meta name="copyright" content="&copy; dave caruso 2022" />
   <meta name="distribution" content="web" />
