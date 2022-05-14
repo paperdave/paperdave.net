@@ -21,15 +21,6 @@ export async function createMappedSource(error: Error) {
       }
       return frame;
     });
-    // .filter((frame) => {
-    //   // if (frame.file) {
-    //   //   if (frame.file.includes('node_modules')) return false;
-    //   //   if (frame.file.startsWith('node:internal')) return false;
-    //   //   if (frame.file.startsWith('.svelte-kit/')) return false;
-    //   //   if (frame.file === 'runtime/client/start.js') return false;
-    //   // }
-    //   return true;
-    // });
   }
 
   const mappedStack = await Promise.all(
