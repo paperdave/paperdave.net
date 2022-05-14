@@ -8,7 +8,7 @@ interface Params extends Dict<string> {
   page: string;
 }
 
-export const PAGE_SIZE = 20;
+export const PAGE_SIZE = 100;
 
 /**
  * Returns a QuestionPage

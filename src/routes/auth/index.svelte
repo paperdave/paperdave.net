@@ -1,60 +1,78 @@
 <script lang="ts">
-  import { page } from '$app/stores';
   import { goto } from '$app/navigation';
+  import { page } from '$app/stores';
   import { API } from '$lib/api-client/singleton';
+
+  import Button from '$lib/components/Button.svelte';
+  import ButtonGroup from '$lib/components/ButtonRow.svelte';
+  import Heading from '$lib/components/Heading.svelte';
+  import Paper from '$lib/components/Paper.svelte';
+  import TextBox from '$lib/components/TextBox.svelte';
   import { decodeRedirect } from '$lib/utils/encode-redirect';
-  import Meta from '$lib/components/Meta.svelte';
+  import { authEmail, authPassword } from './authorization-store';
 
   $: returnPage = $page.url.searchParams.get('r') ?? '/profile';
 
-  let email = 'dave@davecode.net';
-  let password = '';
+  export let error: string | undefined;
+  let loading = false;
 
-  let isLoading = false;
-  let isFailedLogin = false;
+  async function submit() {
+    if (loading) return;
+    loading = true;
+    error = undefined;
 
-  async function submit(ev: Event) {
-    if (isLoading) return;
-
-    isLoading = true;
-    isFailedLogin = false;
-    ev.preventDefault();
-
-    const response = await API.auth.login(email, password);
-
+    const response = await API.auth.login($authEmail, $authPassword);
     if (response) {
       goto(decodeRedirect(returnPage));
-      isLoading = false;
+      loading = false;
     } else {
       await new Promise((resolve) => setTimeout(resolve, 1500));
-      isLoading = false;
-      isFailedLogin = true;
-      password = '';
+      loading = false;
+      error = 'Invalid email or password';
     }
   }
 </script>
 
-<Meta title="authorize" />
+<header>
+  <flex center gap>
+    <Heading level="1" shadow center>authorize</Heading>
+    <noscript>
+      <p>JavaScript is currently required to submit the form.</p>
+    </noscript>
+  </flex>
+</header>
 
-<form on:submit={submit} class:isLoading>
-  <h1>authorize</h1>
-  {#if isFailedLogin}
-    <p>Login failed, email or password is incorrect.</p>
-  {/if}
-  <label for="email">email</label>
-  <input disabled id="email" name="email" type="text" bind:value={email} readonly />
-  <label for="password">password</label>
-  <input
-    disabled={isLoading}
-    id="password"
-    name="password"
-    type="password"
-    bind:value={password}
-    required />
-  <div class="link-container">
-    <a href="/auth/forgot-password">forgot password</a>
-  </div>
-  <div class="button-container">
-    <button disabled={isLoading} type="submit">go</button>
-  </div>
-</form>
+<Paper size="small">
+  <form method="post" on:submit|preventDefault={submit}>
+    <flex gap>
+      <p class="red">
+        {error ?? ''}
+      </p>
+      <TextBox type="text" name="email" label="email" bind:value={$authEmail} disabled bind:error />
+      <TextBox
+        type="password"
+        name="password"
+        label="password"
+        bind:value={$authPassword}
+        bind:error
+        autofocus />
+      <ButtonGroup>
+        <Button text variant="subtle" href="/auth/new">New?</Button>
+        <div />
+        <Button text variant="subtle" href="/auth/forgot">Forgot?</Button>
+        <Button text variant="accent" type="submit">Go</Button>
+      </ButtonGroup>
+    </flex>
+  </form>
+</Paper>
+
+<style lang="scss">
+  form {
+    margin: 2rem 0;
+  }
+  .red {
+    height: 1rem;
+    color: red;
+    text-align: center;
+  }
+</style>

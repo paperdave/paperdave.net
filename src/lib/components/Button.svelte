@@ -1,107 +1,121 @@
 <script lang="ts">
-  export let variant: 'normal' | 'accent' | 'link' | 'subtle' = 'normal';
+  export let variant: 'normal' | 'accent' | 'subtle' = 'normal';
 
   export let href: string | URL | null = null;
+  export let text = false;
+  export let center = false;
+  export let disabled = false;
+  export let column = false;
+  export let type = 'button';
 </script>
 
-{#if href}
-  <a {...$$restProps} href={href.toString()} class="custom button-{variant}" on:click>
-    <div class="content">
-      <slot />
-    </div>
+{#if href && !disabled}
+  <a
+    sveltekit:prefetch
+    href={href?.toString() ?? undefined}
+    class="custom button-{variant}"
+    class:center
+    class:text
+    class:column
+    on:click
+    {...$$restProps}>
+    <slot />
   </a>
 {:else}
-  <button {...$$restProps} class="custom button-{variant}" on:click>
-    <div class="content">
-      <slot />
-    </div>
+  <button
+    role={href ? 'link' : undefined}
+    {type}
+    {disabled}
+    class="custom button-{variant}"
+    class:center
+    class:text
+    class:column
+    on:click
+    {...$$restProps}>
+    <slot />
   </button>
 {/if}
 
 <style lang="scss">
-  .content {
-    z-index: 2;
-  }
-
   .custom {
-    appearance: none;
-    border: none;
     display: flex;
-    flex-direction: column;
-    padding: 0.5rem;
-    user-select: none;
     position: relative;
-    z-index: 2;
+    appearance: none;
+    transition: background-color 0.2s ease-in-out;
+    border: none;
+    border-radius: 0.3rem;
+    padding: 0.5rem;
+    color: hsl(var(--fg));
+    user-select: none;
+    text-decoration: none;
 
-    &.button-link {
-      color: hsl(var(--accent-base));
-    }
-
-    &::after {
-      content: '';
-      display: block;
-      transition: background-color 0.2s ease-in-out;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border-radius: 0.3rem;
-      z-index: 1;
-    }
     &:focus {
       outline: none;
     }
 
-    &.button-subtle,
-    &.button-link {
-      &::after {
-        background-color: hsla(var(--foreground), 0);
-        border: 1px solid hsla(var(--foreground), 0);
+    &.button-subtle {
+      border: 1px solid hsla(var(--fg), 0);
+      background-color: hsla(var(--fg), 0);
+      &:hover {
+        background-color: hsla(var(--fg), 0.1);
       }
-      &:hover::after {
-        background-color: hsla(var(--foreground), 0.1);
+      &:active {
+        background-color: hsla(var(--fg), 0.2);
       }
-      &:active::after {
-        background-color: hsla(var(--foreground), 0.2);
-      }
-      &:focus::after {
-        border-color: hsla(var(--foreground), 0.6);
+      &:focus {
+        border-color: hsla(var(--fg), 0.6);
       }
     }
 
     &.button-normal {
-      &::after {
-        background-color: hsla(var(--foreground), 0.1);
-        border: 1px solid hsla(var(--foreground), 0.2);
+      border: 1px solid hsla(var(--fg), 0.2);
+      background-color: hsla(var(--fg), 0.1);
+      &:hover {
+        background-color: hsla(var(--fg), 0.2);
       }
-      &:hover::after {
-        background-color: hsla(var(--foreground), 0.2);
-      }
-      &:active::after {
+      &:active {
         transition-duration: 100ms;
-        background-color: hsla(var(--foreground), 0.4);
+        background-color: hsla(var(--fg), 0.4);
       }
-      &:focus::after {
-        border-color: hsla(var(--foreground), 0.6);
+      &:focus {
+        border-color: hsla(var(--fg), 0.6);
       }
     }
 
     &.button-accent {
-      &::after {
-        background-color: hsla(var(--accent-dark-1), 1);
-        border: 1px solid hsla(var(--foreground), 0.2);
+      border: 1px solid hsla(var(--fg), 0.2);
+      background-color: hsla(var(--acc), 1);
+      color: hsl(var(--on-acc));
+      font-weight: 600;
+      &:hover {
+        background-color: hsla(var(--acc-l1), 1);
       }
-      &:hover::after {
-        background-color: hsla(var(--accent-dark-2), 1);
-      }
-      &:active::after {
+      &:active {
         transition-duration: 100ms;
-        background-color: hsla(var(--accent-base), 1);
+        background-color: hsla(var(--acc-l2), 1);
       }
-      &:focus::after {
-        border-color: hsla(var(--foreground), 0.6);
+      &:focus {
+        border-color: hsla(var(--fg), 0.6);
       }
     }
+  }
+
+  .center {
+    justify-content: center;
+    align-items: center;
+  }
+
+  .column {
+    flex-direction: column;
+  }
+
+  .text {
+    padding: 0.5rem 0.75rem;
+  }
+
+  [disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
   }
 </style>

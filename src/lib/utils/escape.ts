@@ -1,4 +1,4 @@
-const replacements: Record<string, string> = {
+const htmlReplacements: Record<string, string> = {
   '&': '&amp;',
   '<': '&lt;',
   '>': '&gt;',
@@ -10,9 +10,13 @@ const replacements: Record<string, string> = {
 };
 
 export function escapeHTML(str: string): string {
-  return str.replace(/[&<>"'`=\/]/g, (s) => replacements[s]);
+  return str.replace(/[&<>"'`=\/]/g, (s) => htmlReplacements[s]);
 }
 
 export function escapeMarkdown(str: string): string {
   return str.replace(/[\\`*_{}[\]()#+\-.!]/g, '\\$&');
+}
+
+export function escapeRegex(str: string): string {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }

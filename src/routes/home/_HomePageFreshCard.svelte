@@ -11,8 +11,8 @@
   }
 </script>
 
-<Button href={artifact.getURL().pathname} variant="normal">
-  <flex row class="root">
+<article>
+  <Button href={artifact.getURL().pathname} variant="normal">
     {#if artifact.thumb}
       <div class="thumbnail">
         {#if artifact.thumb.hash}
@@ -31,8 +31,8 @@
         {formatDate(artifact.date, 'date')}
       </p>
     </flex>
-  </flex>
-</Button>
+  </Button>
+</article>
 
 <style lang="scss">
   .root {
@@ -40,12 +40,12 @@
   }
   .thumbnail {
     display: flex;
-    height: 6rem;
-    aspect-ratio: 16/9;
     margin-right: 10px;
-    border-radius: 3px;
-    overflow: hidden;
     border: 1px solid white;
+    border-radius: 3px;
+    aspect-ratio: 16/9;
+    height: 6rem;
+    overflow: hidden;
     & > * {
       flex: 1;
     }

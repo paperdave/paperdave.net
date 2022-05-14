@@ -6,6 +6,7 @@ import { webcrypto } from 'crypto';
 import 'dotenv/config';
 import fs from 'fs';
 import preprocess from 'svelte-preprocess';
+
 global.crypto = webcrypto;
 
 // Modified template with blurhash script
@@ -18,7 +19,7 @@ fs.writeFileSync(
   fs
     .readFileSync('src/app.html', 'utf8')
     .toString()
-    .replace(/%blurhash%/, blurhashImage)
+    .replace(/<\/head>/, `<script>${blurhashImage}</script></head>`)
 );
 
 /** @type {import('@sveltejs/kit').Config} */
@@ -48,11 +49,14 @@ const conf = {
             ['process.env', JSON.stringify({})],
           ])
       ),
-      minify: true,
+      // minify: true,
     }),
     vite: {
       build: {
         sourcemap: true,
+      },
+      define: {
+        'import.meta.env.SOURCE_ROOT': JSON.stringify(process.cwd()),
       },
       plugins: [svgSvelte(), content.default()],
     },

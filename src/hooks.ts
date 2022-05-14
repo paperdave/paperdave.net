@@ -7,13 +7,7 @@ export const EXPIRE_TIME = 1000 * 60 * 60 * 24 * 7;
 const overrideHeaders = {
   // Powered by easter egg :3
   'X-Powered-By': 'chocolate; see https://davecode.net/donate',
-
-  // CORS headers for potential cross origin requests
-  // Read more: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'GET, PUT, PATCH, DELETE, POST',
-  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-  'Access-Control-Max-Age': '86400',
+  'Cache-Control': 'public, maxage=3600, stale-while-revalidate=3600',
 };
 
 function createErrorResponse(statusCode: number, message: string) {
@@ -31,12 +25,6 @@ function createErrorResponse(statusCode: number, message: string) {
   }
 
   return response;
-}
-
-export interface Token {
-  token: string;
-  email: string;
-  expires: number;
 }
 
 export const handle: Handle = async ({ event, resolve }) => {
@@ -80,12 +68,22 @@ export const handle: Handle = async ({ event, resolve }) => {
   const response = await resolve(event);
 
   for (const [key, value] of Object.entries(overrideHeaders)) {
-    response.headers.set(key, value);
+    if (!response.headers.has(key)) {
+      response.headers.set(key, value);
+    }
   }
 
-  if (response.headers.has('Cache-Control')) {
-    response.headers.set('Cache-Control', 'public,maxage=3600,stale-while-revalidate=3600');
-  }
+  // if (response.headers.get('Content-Type') === 'text/html') {
+  //   const minified = await minify(await response.text(), {
+  //     collapseWhitespace: true,
+  //     minifyCSS: true,
+  //     minifyJS: true,
+  //   });
+  //   return new Response(minified, {
+  //     headers: response.headers,
+  //     status: response.status,
+  //   });
+  // }
 
   return response;
 };

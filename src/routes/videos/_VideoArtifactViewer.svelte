@@ -20,7 +20,7 @@
 
 <!-- Layout is here because this is not a page file, but a component. -->
 <Layout>
-  <BackButton inverted position="off-center" href="/videos" text="all videos" />
+  <BackButton position="off-center" href="/videos" text="all videos" />
 
   <VideoHeader />
   <main>
@@ -58,16 +58,16 @@
     margin-bottom: 1rem;
   }
   .tags {
-    margin-top: 1rem;
     display: flex;
     gap: 0.5rem;
+    margin-top: 1rem;
   }
   tag {
-    padding: 0.25rem 0.5rem;
     margin: 0;
     border-radius: 0.5rem;
     background-color: #00442f;
-    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
     font-weight: 500;
+    font-size: 0.75rem;
   }
 </style>

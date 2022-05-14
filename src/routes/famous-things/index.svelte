@@ -99,9 +99,9 @@
 
 <style lang="scss">
   .root {
-    max-width: 50rem;
-    padding: 1rem;
     margin: auto;
+    padding: 1rem;
+    max-width: 50rem;
   }
 
   section {
@@ -109,11 +109,11 @@
   }
 
   .yt {
+    border: 1px solid hsla(var(--fg), 0.2);
+    border-radius: 5px;
+    aspect-ratio: 16/9;
     width: 100%;
     max-width: 30rem;
-    border-radius: 5px;
-    border: 1px solid hsla(var(--foreground), 0.2);
-    aspect-ratio: 16/9;
   }
 
   date {

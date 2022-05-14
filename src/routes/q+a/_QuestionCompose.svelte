@@ -1,10 +1,17 @@
 <script lang="ts">
+  import { page } from '$app/stores';
+
+  import TextBox from '$lib/components/TextBox.svelte';
+
   import { fade } from 'svelte/transition';
 
   export let value: string = '';
   export let expanded: boolean = false;
   export let sending: boolean = false;
   export let sendingState: 'success' | 'failure' | null = null;
+
+  import { data as ideas } from './random-question-ideas.json';
+  let placeholder = ideas[Math.floor(Math.random() * ideas.length)];
 
   let textarea: HTMLTextAreaElement | undefined;
   let wrapCalculator: HTMLDivElement | undefined;
@@ -20,9 +27,15 @@
     }
     expanded = true;
   }
+
+  function handleBlur() {
+    setTimeout(() => {
+      placeholder = ideas[Math.floor(Math.random() * ideas.length)];
+    }, 110);
+  }
 </script>
 
-<main>
+<div class="root">
   <h2 class:expanded>ask a question</h2>
 
   {#if sending}
@@ -38,52 +51,56 @@
     </div>
   {/if}
 
-  <textarea
-    bind:this={textarea}
-    bind:value
-    id="question"
-    placeholder="ask a question..."
-    rows={1}
-    class:expanded-anim={expandedAnim}
-    class:expanded
-    class:sending
-    style="height:{sending ? '0' : expanded ? `${height}px` : '2.5rem'}"
-    on:focus={focus}
-    disabled={sending} />
+  {#if $page.url.searchParams.get('beta') === 'modern_question_ask'}
+    <TextBox name="q" label="ask a question" {placeholder} on:blur={handleBlur} />
+  {:else}
+    <textarea
+      bind:this={textarea}
+      bind:value
+      id="question"
+      placeholder="ask a question..."
+      rows={1}
+      class:expanded-anim={expandedAnim}
+      class:expanded
+      class:sending
+      style="height:{sending ? '0' : expanded ? `${height}px` : '2.5rem'}"
+      on:focus={focus}
+      disabled={sending} />
+  {/if}
 
   <!-- this is a funny trick for calculating the textarea height -->
   <div bind:this={wrapCalculator} class="wrap-calculator" bind:clientHeight={height}>
     {value}
     |
   </div>
-</main>
+</div>
 
 <style lang="scss">
-  main {
+  .root {
     display: flex;
     isolation: isolate;
   }
 
   textarea,
   .wrap-calculator {
-    line-height: 1.25rem;
-    font-size: 1rem;
+    --mono: 1;
+    border: 1px solid white;
+    border-radius: 2px;
+    background: black;
+    padding: 0.5rem;
     width: 100%;
     max-width: 30rem;
-    padding: 0.5rem;
-    background: black;
-    color: rgba(255, 255, 255, 1);
-    border: 1px solid white;
-    resize: none;
-    border-radius: 2px;
     overflow: hidden;
-    font-family: Hack, monospace;
+    resize: none;
+    color: rgba(255, 255, 255, 1);
+    font-size: 1rem;
+    line-height: 1.25rem;
   }
   textarea {
     &::placeholder {
+      opacity: 1;
       transition: opacity 0.2s ease-in-out;
       color: #666;
-      opacity: 1;
     }
     &:focus {
       outline: none;
@@ -101,8 +118,8 @@
   .wrap-calculator {
     position: absolute;
     visibility: hidden;
-    white-space: pre-wrap;
     min-height: 6.25rem;
+    white-space: pre-wrap;
     word-break: break-all;
   }
 
@@ -110,19 +127,19 @@
     transition: height 500ms cubic-bezier(0.4, 0, 0.2, 1), color 100ms ease-in-out;
 
     height: 0.5rem;
-    color: rgba(255, 255, 255, 0);
     pointer-events: none;
+    color: rgba(255, 255, 255, 0);
   }
 
   h2 {
-    user-select: none;
-    color: #bbb;
-    z-index: -1;
-    font-size: 1rem;
-    font-weight: 300;
     position: absolute;
     transform: translate(0.5rem, 0);
+    z-index: -1;
     transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    color: #bbb;
+    font-weight: 300;
+    font-size: 1rem;
+    user-select: none;
   }
   h2.expanded {
     transform: translate(0.5rem, -1.75rem);
@@ -130,28 +147,28 @@
 
   .bar {
     position: absolute;
-    height: 1rem;
+    transform: translate(0, 1px);
     width: 100%;
     max-width: 30rem;
+    height: 1rem;
     overflow: hidden;
-    transform: translate(0, 1px);
   }
 
   .anim {
+    transform-origin: 0% 50%;
+    animation: indeterminateAnimation 1s 400ms both infinite linear;
+    background-color: rgba(255, 255, 255, 0.7);
     width: 100%;
     height: 100%;
-    background-color: rgba(255, 255, 255, 0.7);
-    animation: indeterminateAnimation 1s 400ms both infinite linear;
-    transform-origin: 0% 50%;
   }
 
   .result {
     position: absolute;
     top: 0;
     left: 1px;
+    animation: resultAnimation 1s ease-in-out both;
     width: calc(100% - 2px);
     height: 100%;
-    animation: resultAnimation 1s ease-in-out both;
     &.success {
       background-color: #51d064;
     }

@@ -31,7 +31,7 @@
   );
 </script>
 
-<main>
+<figure>
   {#if showCanvas}
     <blurhash-image blurhash={hash} />
   {/if}
@@ -62,10 +62,10 @@
       class:loaded
       class:transition />
   {/if}
-</main>
+</figure>
 
 <style lang="scss">
-  main {
+  figure {
     flex: 1;
     width: 100%;
     height: 100%;
@@ -83,9 +83,11 @@
   img {
     opacity: 0;
   }
+
   .transition {
     transition: opacity 0.5s;
   }
+
   .loaded {
     opacity: 1;
   }

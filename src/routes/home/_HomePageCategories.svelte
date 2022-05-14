@@ -2,12 +2,11 @@
   // import BackButton from '$lib/components/BackButton.svelte';
   import Button from '$lib/components/Button.svelte';
   import ThemeRoot from '$lib/components/ThemeRoot.svelte';
-  // import ChevonDownSVG from '$lib/svg/fluent/ChevronDown.svg';
-  import ArrowLeftSVG from '$lib/svg/fluent/ArrowLeft.svg';
   import { gearRotations } from './homepage-stores';
   import HomePageCategoriesBackground from './_HomePageCategoriesBackground.svelte';
   import HomePageGearDivider from './_HomePageGearDivider.svelte';
   import { fade, scale } from 'svelte/transition';
+  import Icon from '$lib/components/Icon.svelte';
 
   let currentPage: 'home' | 'blocks' | 'bts' = 'home';
 
@@ -33,9 +32,9 @@
   }
 </script>
 
-<flex class="outer">
+<grid class="root">
   <HomePageGearDivider />
-  <flex class="inner">
+  <grid class="inner">
     <ThemeRoot background="#fff599" accent="#f77d0a">
       <HomePageCategoriesBackground />
 
@@ -48,15 +47,15 @@
         <path d="M100 0L30 42L70 100L0 100L0 0Z" fill="#fafafa" />
       </svg>
 
-      <flex class="content" grow center>
-        <article>
+      <flex class="content" center>
+        <section>
           {#if currentPage !== 'home'}
             <div
               class="back-button-container"
               in:scale={{ start: 0.6, opacity: 0, duration: 100 }}
               out:fade={{ duration: 100 }}>
               <Button variant="subtle" on:click={focusHome}>
-                <ArrowLeftSVG />
+                <Icon name="arrow_left" />
               </Button>
             </div>
           {/if}
@@ -97,6 +96,9 @@
                 <a disabled class="link" href="/toolkit">creative toolkit</a>
                 <a disabled class="link" href="/plugins">plugins</a>
                 <a disabled class="link" href="/nerd gear">nerd gear</a>
+              </flex>
+              <flex class="col">
+                <a disabled class="link" href="/trinkets">trinkets</a>
                 <a disabled class="link" href="/docs">documentation</a>
               </flex>
             {:else if currentPage === 'bts'}
@@ -109,11 +111,11 @@
             {/if}
           </flex>
           <span class="more">...more pages coming soon</span>
-        </article>
+        </section>
       </flex>
     </ThemeRoot>
-  </flex>
-</flex>
+  </grid>
+</grid>
 
 <style lang="scss">
   .back-button-container {
@@ -122,27 +124,27 @@
     right: calc(100% + 0.5rem);
     z-index: 1;
   }
-  .outer {
+  .root {
     position: relative;
     flex: 1 0 35rem;
   }
   .inner {
-    position: relative;
-    display: flex;
-    flex: 1;
-    margin-left: -20rem;
     z-index: 5;
     clip-path: polygon(10rem 0, 100% 0, 100% 100%, 7rem 100%, 3rem 42%);
+    margin-left: -20rem;
   }
   h2 {
     --text-mono: 1;
 
+    color: hsl(var(--acc));
     font-size: 4rem;
-    color: hsl(var(--accent-base));
-    text-shadow: shadow(3px, 1, hsl(var(--accent-dark-3)));
+    text-shadow: shadow(3px, 1, hsl(var(--acc-d3)));
   }
-  article {
+  section {
+    display: flex;
     position: relative;
+    flex-direction: column;
+    gap: 1rem;
     width: 34rem;
   }
   .content {
@@ -155,12 +157,12 @@
     gap: 0.25rem;
   }
   .link {
-    border-radius: 5px;
     display: flex;
     gap: 0.3rem;
-    font-size: 2rem;
+    border-radius: 5px;
     font-weight: 600;
-    text-decoration: underline hsla(var(--foreground), 0.2);
+    font-size: 2rem;
+    text-decoration: underline hsla(var(--fg), 0.2);
 
     & > :global(svg) {
       display: inline-block;
@@ -169,14 +171,14 @@
   }
 
   a[disabled] {
-    pointer-events: none;
     opacity: 0.5;
+    pointer-events: none;
     text-decoration: line-through;
   }
 
   .more {
-    font-size: 1.5rem;
     font-weight: 600;
+    font-size: 1.5rem;
   }
 
   @media (max-width: 1600px) {
@@ -188,8 +190,8 @@
       display: none;
     }
     .inner {
-      margin-left: 0;
       clip-path: none;
+      margin-left: 0;
       overflow: hidden;
     }
     article {
@@ -197,8 +199,8 @@
     }
     .two-col {
       flex-direction: column;
-      gap: 1rem;
       align-items: center;
+      gap: 1rem;
     }
     .col {
       flex-direction: row;
@@ -215,8 +217,8 @@
     }
     .col {
       flex-direction: column;
-      gap: 1rem;
       align-items: center;
+      gap: 1rem;
       text-align: center;
     }
   }

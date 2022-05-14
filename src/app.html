@@ -1,16 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="/assets/brand/icon@256.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script>
-      %blurhash%
-    </script>
-
     %svelte.head%
+    <style>
+      @font-face {
+        font-style: normal;
+        font-weight: 100 700;
+        src: url(/assets/font/MaterialSymbols.woff2) format('woff2');
+        font-family: 'Material Symbols Outlined';
+        font-display: block;
+      }
+    </style>
   </head>
-  <body>
-    <div id="root">%svelte.body%</div>
+  <body class="noscript">
+    <script>
+      document.body.classList.remove('noscript');
+    </script>
+    <flex column id="root">%svelte.body%</flex>
+    <span
+      style="
+        font-family: 'Material Symbols Outlined';
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+      "
+      >a</span
+    >
   </body>
 </html>

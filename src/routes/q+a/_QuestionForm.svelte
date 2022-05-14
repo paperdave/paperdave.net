@@ -1,6 +1,5 @@
 <script lang="ts">
   import QaInput from './_QAInput.svelte';
-  import AlertSVG from '$lib/svg/fluent/Alert.svg';
   import QuestionCompose from './_QuestionCompose.svelte';
   import { QuestionRequest } from '$lib/structures';
   import { fade } from 'svelte/transition';
@@ -40,10 +39,6 @@
   </div>
   {#if expanded && !sending}
     <div class="buttons" transition:fade|local={{ duration: 200 }}>
-      <!-- <QaInput type="button" disabled><InfoSVG /></QaInput> -->
-      <QaInput type="button" disabled><AlertSVG /></QaInput>
-      <p style="line-height:2.5rem;opacity:0.4">(email/push notification coming soon)</p>
-      <div class="grow" />
       <QaInput type="submit" disabled={questionText.trim().length === 0}>SEND</QaInput>
     </div>
   {/if}
@@ -69,21 +64,21 @@
     flex: 1;
   }
   .buttons {
-    width: 100%;
-    max-width: 30rem;
-    position: absolute;
     display: flex;
+    position: absolute;
     gap: 0.5rem;
     margin-top: 0.5rem;
+    width: 100%;
+    max-width: 30rem;
   }
 
   form :global(button) {
-    font-family: Hack, monospace;
+    --mono: 1;
     height: 2.6rem;
 
     & :global(svg) {
-      height: 1.5rem;
       width: 1.5rem;
+      height: 1.5rem;
     }
   }
 
@@ -92,16 +87,16 @@
     z-index: 100;
 
     h2 {
-      font-size: 1.2rem;
-      font-weight: normal;
       margin: 0;
       margin-top: 0.5rem;
+      font-weight: normal;
+      font-size: 1.2rem;
     }
     p {
-      font-size: 0.8rem;
-      font-weight: normal;
       margin: 0;
       margin-top: 0.25rem;
+      font-weight: normal;
+      font-size: 0.8rem;
     }
   }
 </style>

@@ -17,6 +17,6 @@
   When not working on <em>davecode</em>, I hang out with my friends and family. etc.
 </p>
 <p>
-  <a href="/now">see what he is up to now</a> |
+  <a sveltekit:prefetch href="/now">see what he is up to now</a> |
   <a href="mailto:dave@davecode.net">send a letter</a>
 </p>

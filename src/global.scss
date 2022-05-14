@@ -1,192 +1,76 @@
 @import './fonts.scss';
+@import './reset.scss';
 
-html {
-  overflow-y: scroll;
+:root {
+  --emoji: 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
 body {
-  background-color: black;
-}
-
-#root {
-  position: relative;
-  background-color: white;
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
-  width: 100%;
-  max-width: 3860px; // you should not be browsing above this lol
-  margin: 0 auto;
-  overflow: hidden;
-}
-
-.oob-text {
-  display: none;
-  z-index: 10000;
-  position: absolute;
-  right: 0;
-  top: 0;
-  transform: rotate(-90deg);
-  transform-origin: top right;
-
-  a {
-    color: white;
-    &:hover {
-      color: red;
-    }
-  }
-}
-
-@media (min-width: 3880px) {
-  .oob-text {
-    display: block;
-  }
-}
-#root > :first-child {
-  flex-grow: 1;
-  min-width: 100%;
-  position: relative;
-}
-
-// This is a nearly identical copy of tailwindcss' "preflight" base set of
-// styles. I didn't want to install the actual package to be misleading of using
-// their actual CSS framework.
-//
-// Source: https://unpkg.com/tailwindcss@2.0.2/dist/base.css
-// Docs: https://tailwindcss.com/docs/preflight
-//
-@import 'modern-normalize';
-
-// note: this doesnt do what i thought it would
-*:where(:not(:defined)) {
-  display: block;
-}
-
-/**
-* Removes the default spacing and border for appropriate elements.
-*/
-
-blockquote,
-dl,
-dd,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-hr,
-figure,
-p,
-pre {
-  margin: 0;
-}
-
-button {
-  background-color: transparent;
-  background-image: none;
-}
-
-/**
-* Work around a Firefox/IE bug where the transparent `button` background
-* results in a loss of the default `button` focus styles.
-*/
-button:focus {
-  outline: 1px dotted;
-  outline: 5px auto -webkit-focus-ring-color;
-}
-
-fieldset {
-  margin: 0;
-  padding: 0;
-}
-
-ol,
-ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  font-family: 'Recursive', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
-    'Noto Color Emoji';
-  line-height: 1.15;
-
+  // We use css variables for the variable font properties
   --text-mono: 0;
   --text-casual: 0;
   --text-slant: 0;
   --text-cursive: 0.5;
+  // We use css variables for material symbols
+  --icon-fill: 1;
+  --icon-grad: 0;
 
+  // The background of the void outside the site is always black.
+  background-color: black;
+  // Recursive is the only font we use, falling back to the browser default. However we need to
+  // put emoji fonts behind it (consider twemoji?)
+  font-family: 'Recursive', sans-serif, var(--emoji);
+  // ... i don't know why this letter spacing squish is here. i don't want to remove it.
   letter-spacing: -0.005em;
 }
 
 * {
+  // Apply the font variables
   font-variation-settings: 'MONO' var(--text-mono), 'CASL' var(--text-casual),
     'slnt' var(--text-slant), 'CRSV' var(--text-cursive);
 }
 
-body {
-  font-family: inherit;
-  line-height: inherit;
+.material-symbols {
+  // Weight is done with font-weight, and optical size is done automatically.
+  // We use css variables for the other two variable axes.
+  font-optical-sizing: auto;
+  font-variation-settings: 'FILL' var(--icon-fill), 'GRAD' var(--icon-grad);
 }
 
-/**
-* 1. Prevent padding and border from affecting element width.
-*
-*    We used to set this in the html element and inherit from
-*    the parent element for everything else. This caused issues
-*    in shadow-dom-enhanced elements like <details> where the content
-*    is wrapped by a div with box-sizing set to `content-box`.
-*
-*    https://github.com/mozdevs/cssremedy/issues/4
-*
-*/
-
-*,
-::before,
-::after {
-  box-sizing: border-box; /* 1 */
+// Root is the outermost element of the site, it has a max-width as a part of a gag for people with
+// 4k at 100% scale displays.
+#root {
+  position: relative;
+  margin: auto;
+  background-color: hsl(var(--bg));
+  max-width: 3860px; // you should not be browsing above this lol
+  min-height: 100vh;
+  color: hsl(var(--fg));
 }
 
-/*
-* Ensure horizontal rules are visible by default
-*/
+// The main content of the site is this `main` element.
+main {
+  display: flex;
+  position: relative;
+  flex: 1;
+  flex-direction: column;
+  overflow: hidden;
 
-hr {
-  border-top-width: 1px;
+  // I have placed some other <main>s and this rule is just to anoy me when I try to do more invalid
+  // stuff.
+  & main {
+    outline: 2px red !important;
+  }
 }
 
-/**
-* Undo the `border-style: none` reset that Normalize applies to images so that
-* our `border-{width}` utilities have the expected effect.
-*
-* The Normalize reset is unnecessary for us since we default the border-width
-* to 0 on all elements.
-*
-* https://github.com/tailwindcss/tailwindcss/issues/362
-*/
-
-textarea {
-  resize: vertical;
-}
-
-input::placeholder,
-textarea::placeholder {
-  color: #9ca3af;
-}
-
-button,
-[role='button'] {
-  cursor: pointer;
-}
-
-table {
-  border-collapse: collapse;
-}
-
-:where(h1, h2, h3, h4, h5, h6):not(.custom) {
-  font-family: 'Roboto Slab', sans-serif;
+// Headings are in Roboto Slab
+h1:not(.custom),
+h2:not(.custom),
+h3:not(.custom),
+h4:not(.custom),
+h5:not(.custom),
+h6:not(.custom) {
+  font-family: 'Roboto Slab', sans-serif, var(--emoji);
 }
 
 h1 {
@@ -202,73 +86,119 @@ h4 {
   font-size: 1.25em;
 }
 
-/**
-* Reset links to optimize for opt-in styling instead of
-* opt-out.
-*/
-a {
-  color: inherit;
-  text-decoration: inherit;
+// Here is the default theme:
+:root {
+  --dark: 0;
+  --light: 1;
+
+  --bg-hue: 0;
+  --bg-sat: 0%;
+  --bg-lit: 100%;
+  --fg-hue: 0;
+  --fg-sat: 0%;
+  --fg-lit: 0%;
+
+  --acc-hue: 133;
+  --acc-sat: 71%;
+  --acc-lit: 45%;
+
+  --on-accent: 0, 0%, 0%;
 }
 
-/**
-* Reset form element properties that are easy to forget to
-* style explicitly so you don't inadvertently introduce
-* styles that deviate from your design system. These styles
-* supplement a partial reset that is already applied by
-* normalize.css.
-*/
-button,
-input,
-optgroup,
-select,
-textarea {
-  padding: 0;
-  line-height: inherit;
-  color: inherit;
+// Every theming context has to calculate the following additional variables:
+:root,
+theme-root {
+  --fg: var(--fg-hue), var(--fg-sat), var(--fg-lit);
+  --bg: var(--bg-hue), var(--bg-sat), var(--bg-lit);
+  --acc: var(--acc-hue), var(--acc-sat), var(--acc-lit);
+
+  --acc-l3: calc(var(--acc-hue) - 8), calc(var(--acc-sat) * 1.2 + 10%),
+    calc(var(--acc-lit) * 1.6 + 10%);
+  --acc-l2: calc(var(--acc-hue) - 4), calc(var(--acc-sat) * 1.15 + 6%),
+    calc(var(--acc-lit) * 1.4 + 6%);
+  --acc-l1: calc(var(--acc-hue) - 1), calc(var(--acc-sat) * 1.1 + 3%),
+    calc(var(--acc-lit) * 1.3 + 3%);
+  --acc: var(--acc-hue), var(--acc-sat), var(--acc-lit);
+  --acc-d1: calc(var(--acc-hue) + 1), calc(var(--acc-sat) * 1.1 + 3%),
+    calc(var(--acc-lit) * 0.9 - 5%);
+  --acc-d2: calc(var(--acc-hue) + 2), calc(var(--acc-sat) * 1.15 + 6%),
+    calc(var(--acc-lit) * 0.75 - 7%);
+  --acc-d3: calc(var(--acc-hue) + 5), calc(var(--acc-sat) * 1.5 + 10%),
+    calc(var(--acc-lit) * 0.6 - 8%);
 }
 
-/**
-* Use the configured 'mono' font family for elements that
-* are expected to be rendered with a monospace font, falling
-* back to the system monospace stack if there is no configured
-* 'mono' font family.
-*/
-pre,
-code,
-kbd,
-samp {
-  --text-mono: 1;
+// see $lib/components/ThemeRoot for what this does.
+theme-root {
+  display: grid;
+  position: relative;
+  flex: 1;
+  background-color: hsl(var(--bg));
+  width: 100%;
+  height: 100%;
+  color: hsl(var(--fg));
+
+  // "Swapping" refers to the brief millisecond of time when the theme changes where all transitions
+  // are halted in order to avoid visual fades when changing the theme. Surprised not all sites
+  // properly handle this.
+  &.swap * {
+    transition-duration: 0ms !important;
+  }
 }
 
-/**
-* Make replaced elements `display: block` by default as that's
-* the behavior you want almost all of the time. Inspired by
-* CSS Remedy, with `svg` added as well.
-*
-* https://github.com/mozdevs/cssremedy/issues/14
-*/
-img,
-svg,
-video,
-canvas,
-audio,
-iframe,
-embed,
-object {
-  display: block;
-  vertical-align: middle;
+// This is a non-standard element (html5 spec disallows this) but it's so goddamn nice to use
+// <flex> is like a div but its default to a flexbox, and has some nice attributes
+// i promise if i go work for a company, i'll do things the "real" way.
+:where(flex) {
+  display: flex;
+  &[row] {
+    flex-direction: row;
+  }
+  &,
+  &[column] {
+    flex-direction: column;
+  }
+  &[row][reverse] {
+    flex-direction: row-reverse;
+  }
+  &[reverse],
+  &[column][reverse] {
+    flex-direction: column-reverse;
+  }
+  &[gap] {
+    gap: 1rem;
+  }
+  &[center] {
+    justify-content: center;
+    align-items: center;
+  }
 }
 
-/**
-* Constrain images and videos to the parent width and preserve
-* their instrinsic aspect ratio.
-*
-* https://github.com/mozdevs/cssremedy/issues/14
-*/
+// This is another non-standard element.
+// <grid>, like <flex>, is like a div but its default to a grid
+:where(grid) {
+  display: grid;
 
-img,
-video {
-  max-width: 100%;
-  height: auto;
+  &[center] {
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+// Links are restyled using the theme, but .custom is a special class that can be used to disable
+// this behavior, where they will be completely unstyled.
+a:not(.custom) {
+  border-radius: 4px;
+  color: var(--link-color);
+  text-decoration: underline;
+  text-decoration-color: hsla(var(--fg), 0.3);
+
+  &:hover {
+    color: hsla(var(--fg), 0.7);
+    text-decoration-color: hsla(var(--fg), 0.7);
+  }
+  &:active {
+    background-color: hsl(calc(var(--acc-hue) + 20), 100%, 50%);
+    color: black;
+    text-decoration: none;
+  }
 }

@@ -10,7 +10,10 @@
     return {
       status: 302,
       redirect: await API.questions.random(),
-      maxage: 0,
+      cache: {
+        maxage: 0,
+        private: true,
+      },
     };
   };
 </script>

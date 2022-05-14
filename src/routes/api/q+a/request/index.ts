@@ -35,8 +35,16 @@ export const post: RequestHandler = async ({ request }) => {
   const qr = QuestionRequest.fromJSON(await request.json());
   qr.date = new Date(Math.floor(new Date().getTime() / 1000) * 1000);
 
-  const cfConnectingIp = request.headers.get('cf-connecting-ip');
+  if (qr.content.length < 1) {
+    return {
+      status: 400,
+      body: {
+        error: 'Question request content must be at least 1 character long',
+      },
+    };
+  }
 
+  const cfConnectingIp = request.headers.get('cf-connecting-ip');
   if (cfConnectingIp && QA_BLOCKED_IPS.includes(cfConnectingIp)) {
     return {
       status: 403,
@@ -46,7 +54,11 @@ export const post: RequestHandler = async ({ request }) => {
     };
   }
 
-  // just in case, for now. i'll remove this on maybe 2022-03-03 (one week from now)
+  // TODO: move to the new tracking system i want to use
+  // - vpn provider
+  // - country
+  // - a name from `unique-names-generator` or something with ip and other data as a seed
+
   qr.ipAddress = cfConnectingIp;
 
   const db = await getDatabase(QuestionRequest);

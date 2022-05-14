@@ -3,7 +3,7 @@
     "*.svx": "markdown"
   },
   "files.exclude": {
-    "**/.git": false,
+    ".git": false,
     "**/.svn": false,
     "**/.hg": false,
     "**/CVS": false,
@@ -16,7 +16,7 @@
     "node_modules": false,
     ".prettierignore": false,
     ".svelte-kit": false,
-    ".netlify": false,
+    ".github": true,
     "build": false,
     "netlify.toml": false,
     ".gitignore": false,
