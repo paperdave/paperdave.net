@@ -1,11 +1,12 @@
 <!-- 
   @component
   This component handles all of the site's meta tags. I exclude some old meta tags on purpose, such
-  as `X-UA-Compatible` and `charset`, since IE doesn't exist and since the charset might not always
-  be UTF-8, and either way the browser would figure that out. OpenGraph embeds are here for all
+  as `X-UA-Compatible` and `charset`, since IE doesn't exist and since cloudflare informs the
+  browser of the charset. OpenGraph embeds are here for all
   pages, and I tailor their appearance for Discord.
 -->
 <script lang="ts">
+  import { dev } from '$app/env';
   import { page } from '$app/stores';
 
   /** Page Title, automatically suffixed with "- davecode" */
@@ -25,6 +26,10 @@
 <svelte:head>
   <title>{$page.url.pathname === '/' ? title : `${title} - davecode`}</title>
   {#if description} <meta name="description" content={description} /> {/if}
+  {#if dev}
+    <!-- This is needed during development because the charset isn't defined. -->
+    <meta charset="utf-8" />
+  {/if}
   <meta name="author" content="dave caruso" />
   <meta name="copyright" content="&copy; dave caruso 2022" />
   <meta name="distribution" content="web" />
@@ -33,10 +38,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="powered by" content="chocolate" />
   <meta name="dark mode extensions" content="please do not use" />
+
+  <!-- OpenGraph and Twitter embeds. -->
   <meta property="og:site_name" content="davecode - computer art to the limit" />
   <meta property="og:type" content={video ? 'video.other' : 'website'} />
   <meta property="og:title" content={title} />
-  {#if description} <meta property="og:description" content={description} /> {/if}
+  {#if description}<meta property="og:description" content={description} />{/if}
   {#if video}
     <meta property="og:video" content={video} />
     <meta property="twitter:card" content="player" />
@@ -47,10 +54,11 @@
     <meta property="twitter:image" content={image} />
   {/if}
   <meta property="og:url" content="https://davecode.net{$page.url.pathname}" />
-  <link rel="canonical" href="https://davecode.net{$page.url.pathname}" />
+
   <link rel="icon" sizes="192x192" href="/assets/brand/icon@192.png" />
   <link rel="shortcut icon" href="/assets/brand/icon@192.png" />
   <link rel="apple-touch-icon" href="/assets/brand/icon@152.png" />
+  <link rel="canonical" href="https://davecode.net{$page.url.pathname}" />
   <meta name="msapplication-square310x310logo" content="/assets/brand/icon@310.png" />
   {#if import.meta.env.VITE_INDEX !== 'true' && !noIndex}
     <meta name="robots" content="noindex, nofollow" />
