@@ -5,7 +5,6 @@
 
   export const load: Load = async ({}) => {
     if (browser) {
-      debugger;
       const err = new Error('Intentional Crash');
       (err as any).disableReporting = true;
       throw err;

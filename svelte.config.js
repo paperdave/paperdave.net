@@ -8,10 +8,6 @@ import fs from 'fs';
 import preprocess from 'svelte-preprocess';
 
 global.crypto = webcrypto;
-global.XMLHttpRequest = class {
-  open() {}
-};
-global.location = {};
 
 // Modified template with blurhash script
 if (!fs.existsSync('.svelte-kit')) {
@@ -44,12 +40,6 @@ const conf = {
       template: '.svelte-kit/app.html',
     },
     adapter: adapterCloudflare({
-      banner: {
-        // this fixes cloudflare builds. we provide a stub class so
-        // https://github.com/ionic-team/rollup-plugin-node-polyfills/blob/master/polyfills/http-lib/capability.js#L20
-        // and some other things properly run.
-        js: ['globalThis.XMLHttpRequest=class{open(){}};', 'globalThis.location={};'].join(''),
-      },
       define: Object.fromEntries(
         Object.entries(process.env)
           .filter(([key]) => !key.includes('('))
@@ -64,6 +54,9 @@ const conf = {
     vite: {
       build: {
         sourcemap: true,
+      },
+      define: {
+        'import.meta.env.SOURCE_ROOT': JSON.stringify(process.cwd()),
       },
       plugins: [svgSvelte(), content.default()],
     },

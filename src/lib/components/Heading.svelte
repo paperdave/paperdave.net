@@ -11,7 +11,7 @@
 <style lang="scss">
   .shadow {
     color: hsl(var(--acc));
-    text-shadow: shadow(3px, 0.5, hsl(var(--acc-d2)));
+    text-shadow: shadow(3px, 0.5, hsl(var(--acc-d3)));
   }
   .center {
     text-align: center;
