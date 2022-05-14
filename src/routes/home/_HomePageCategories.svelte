@@ -96,6 +96,9 @@
                 <a disabled class="link" href="/toolkit">creative toolkit</a>
                 <a disabled class="link" href="/plugins">plugins</a>
                 <a disabled class="link" href="/nerd gear">nerd gear</a>
+              </flex>
+              <flex class="col">
+                <a disabled class="link" href="/trinkets">trinkets</a>
                 <a disabled class="link" href="/docs">documentation</a>
               </flex>
             {:else if currentPage === 'bts'}
