@@ -1,7 +1,7 @@
 import { getDatabase } from '$lib/db';
 import { Token, User } from '$lib/structures';
 import { Handle } from '@sveltejs/kit';
-import { minify } from 'html-minifier-terser';
+import { minify } from 'html-minifier-terser/dist/htmlminifier.esm.bundle';
 
 export const EXPIRE_TIME = 1000 * 60 * 60 * 24 * 7;
 
