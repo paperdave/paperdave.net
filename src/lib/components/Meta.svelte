@@ -5,15 +5,15 @@
   tailor their appearance specifically for Discord.
 -->
 <script lang="ts">
-  import { dev } from '$app/env';
   import { page } from '$app/stores';
+  import { palette } from '$lib/theme';
 
   /** Page Title, automatically suffixed with "- davecode" */
   export let title: string;
   /** Page Description */
   export let description: string | null = null;
   /** Site theme color / embed color. */
-  export let color = '#51D064';
+  export let color = palette.green[400];
   /** Image embed URL */
   export let image: string | null = null;
   /** Video embed URL */
@@ -23,13 +23,16 @@
 </script>
 
 <svelte:head>
+  <!-- Page-Specific SEO -->
   <title>{$page.url.pathname === '/' ? title : `${title} - davecode`}</title>
   {#if description} <meta name="description" content={description} /> {/if}
+  <link rel="canonical" href="https://davecode.net{$page.url.pathname}" />
+
+  <!-- Constants -->
   <meta charset="utf-8" />
   <meta name="author" content="dave caruso" />
   <meta name="copyright" content="&copy; dave caruso 2022" />
   <meta name="distribution" content="web" />
-  <meta name="theme-color" content={color} />
   <meta name="keywords" content="art, entertainment, dave caruso, davecode" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="powered by" content="chocolate" />
@@ -50,12 +53,15 @@
     <meta property="twitter:image" content={image} />
   {/if}
   <meta property="og:url" content="https://davecode.net{$page.url.pathname}" />
+  <meta name="theme-color" content={color} />
 
+  <!-- Icon -->
   <link rel="icon" sizes="192x192" href="/assets/brand/icon@192.png" />
   <link rel="shortcut icon" href="/assets/brand/icon@192.png" />
   <link rel="apple-touch-icon" href="/assets/brand/icon@152.png" />
-  <link rel="canonical" href="https://davecode.net{$page.url.pathname}" />
   <meta name="msapplication-square310x310logo" content="/assets/brand/icon@310.png" />
+
+  <!-- SE Config -->
   {#if import.meta.env.VITE_INDEX !== 'true' && !noIndex}
     <meta name="robots" content="noindex, nofollow" />
   {:else}
