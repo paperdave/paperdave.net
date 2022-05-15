@@ -1,4 +1,4 @@
-import { RequestHandler } from '@sveltejs/kit';
+import type { RequestHandler } from '@sveltejs/kit';
 
 export interface ForgotPasswordRequest {
   email: string;

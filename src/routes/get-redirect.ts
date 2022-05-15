@@ -1,4 +1,4 @@
-import { RequestHandler } from '@sveltejs/kit';
+import type { RequestHandler } from '@sveltejs/kit';
 import _redirectsList from './simple-redirects.yaml';
 
 const redirectsList: Record<string, string> = _redirectsList;

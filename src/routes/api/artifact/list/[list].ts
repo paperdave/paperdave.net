@@ -1,17 +1,17 @@
-import { StructureJSON } from '$lib/api-client/api-shared';
+import type { StructureJSON } from '$lib/api-client/api-shared';
 import { getDatabase } from '$lib/db';
-import { WrappedCollection } from '$lib/db/WrappedCollection';
+import type { WrappedCollection } from '$lib/db/WrappedCollection';
 import { Artifact, ArtifactType, ArtifactVisibility } from '$lib/structures';
-import { maybeArrayOrPromise, MaybeArrayOrPromise } from '$lib/utils/maybe';
-import { Dict } from '@davecode/structures/dist/helper-types';
-import { RequestHandler } from '@sveltejs/kit';
+import { maybeArrayOrPromise, type MaybeArrayOrPromise } from '$lib/utils/maybe';
+import type { Dict } from '@davecode/structures/dist/helper-types';
+import type { RequestHandler } from '@sveltejs/kit';
 
 interface Params extends Dict<string> {
   list: string;
 }
 
 interface ListFn {
-  fetch(db: WrappedCollection<Artifact>): MaybeArrayOrPromise<Artifact[]>;
+  fetch(db: WrappedCollection<Artifact, Artifact>): MaybeArrayOrPromise<Artifact[]>;
   removeProperties: string[];
 }
 

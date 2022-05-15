@@ -1,4 +1,4 @@
-import { RequestHandler } from '@sveltejs/kit';
+import type { RequestHandler } from '@sveltejs/kit';
 
 export const post: RequestHandler = async ({ locals }) => {
   // TODO: write this in.

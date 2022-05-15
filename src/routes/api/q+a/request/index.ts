@@ -1,7 +1,7 @@
 import { getDatabase } from '$lib/db';
 import { QA_BLOCKED_IPS } from '$lib/env';
 import { Permission, QuestionRequest } from '$lib/structures';
-import { RequestHandler, RequestHandlerOutput } from '@sveltejs/kit';
+import type { RequestHandler, RequestHandlerOutput } from '@sveltejs/kit';
 
 /** Returns all question requests */
 export const get: RequestHandler = async ({ locals }) => {

@@ -1,7 +1,7 @@
 import { dev } from '$app/env';
 import { escapeRegex } from '$lib/utils/escape';
 import { SourceMapConsumer } from 'source-map-js';
-import { parse as parseStackTrace, StackFrame } from 'stacktrace-parser';
+import { parse as parseStackTrace, type StackFrame } from 'stacktrace-parser';
 
 const sources = new Map<string, SourceMapConsumer>();
 

@@ -1,4 +1,4 @@
-import { APIError } from '$lib/api-client/APIClient';
+import type { APIError } from '$lib/api-client/APIClient';
 
 type PromiseWrapper<T, E> = Promise<
   | {

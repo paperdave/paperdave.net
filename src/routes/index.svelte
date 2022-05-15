@@ -1,6 +1,6 @@
 <script context="module" lang="ts">
   import { wrapAPI } from '$lib/api-client/singleton';
-  import { Artifact } from '$lib/structures';
+  import type { Artifact } from '$lib/structures';
   import type { Load } from '@sveltejs/kit';
   import HomePageComponent from './home/_HomePageComponent.svelte';
 

@@ -1,4 +1,4 @@
-import { Instance, Structure, types } from '@davecode/structures';
+import { Structure, types, type Instance } from '@davecode/structures';
 import { ArtifactType, ArtifactVisibility } from './enums';
 import { AudioMedia, ImageMedia, Media, VideoMedia } from './Media';
 import { getBaseOrigin } from './url-helpers';

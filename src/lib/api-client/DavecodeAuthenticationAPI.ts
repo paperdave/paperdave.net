@@ -1,6 +1,6 @@
 import { ClientUser, Token } from '$lib/structures';
 import { resolveAPIError } from '$lib/utils/promise';
-import { APIClient } from './APIClient';
+import type { APIClient } from './APIClient';
 import { token, user } from './session';
 
 /** Client API class that parallels the /artifact endpoints */

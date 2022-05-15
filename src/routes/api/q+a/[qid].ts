@@ -6,10 +6,10 @@ import {
   QuestionParagraph,
   QuestionRequest,
 } from '$lib/structures';
-import { GenericSuccess } from '$lib/utils/api';
+import type { GenericSuccess } from '$lib/utils/api';
 import { escapeHTML } from '$lib/utils/escape';
-import { Dict } from '@davecode/structures/dist/helper-types';
-import { RequestHandler, RequestHandlerOutput } from '@sveltejs/kit';
+import type { Dict } from '@davecode/structures/dist/helper-types';
+import type { RequestHandler, RequestHandlerOutput } from '@sveltejs/kit';
 
 interface Params extends Dict<string> {
   qid: string;

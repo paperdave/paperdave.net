@@ -1,5 +1,5 @@
 <script context="module" lang="ts">
-  import { Artifact } from '$lib/structures';
+  import type { Artifact } from '$lib/structures';
 
   import type { Load } from '@sveltejs/kit';
   import { SvelteComponentTyped } from 'svelte/internal';

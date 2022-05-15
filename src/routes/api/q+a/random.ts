@@ -1,6 +1,6 @@
 import { getDatabase } from '$lib/db';
 import { Question } from '$lib/structures';
-import { RequestHandler } from '@sveltejs/kit';
+import type { RequestHandler } from '@sveltejs/kit';
 
 /** Retrives a random question's URL. */
 export const get: RequestHandler = async ({ url }) => {

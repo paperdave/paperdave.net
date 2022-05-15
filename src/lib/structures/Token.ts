@@ -1,4 +1,4 @@
-import { Instance, Structure, types } from '@davecode/structures';
+import { Structure, types, type Instance } from '@davecode/structures';
 
 export const TOKEN_EXPIRE_TIME = 1000 * 60 * 60 * 24 * 7;
 export const TOKEN_LENGTH = 32;

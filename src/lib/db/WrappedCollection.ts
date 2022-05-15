@@ -1,4 +1,4 @@
-import { DataType } from '@davecode/structures';
+import type { DataType } from '@davecode/structures';
 
 export type Document<IDType = unknown> = Realm.Services.MongoDB.Document<IDType>;
 type Collection<T extends Document> = Realm.Services.MongoDB.MongoDBCollection<T>;

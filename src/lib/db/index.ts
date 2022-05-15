@@ -1,9 +1,9 @@
 import { MONGO_DB, REALM_APPID, REALM_TOKEN } from '$lib/env';
 import { Artifact, Question, QuestionRequest, Token, User } from '$lib/structures';
-import { DataType, Instance } from '@davecode/structures';
+import type { DataType, Instance } from '@davecode/structures';
 import * as realm from 'realm-web';
 import { migrateArtifact, migrateUser } from './legacy-migrators';
-import { Database } from './realm-types';
+import type { Database } from './realm-types';
 import { WrappedCollection } from './WrappedCollection';
 
 const collections = [

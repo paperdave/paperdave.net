@@ -11,7 +11,7 @@
 </script>
 
 <script lang="ts">
-  import ErrorPage, { ErrorPageVariant } from '$lib/components/ErrorPage.svelte';
+  import ErrorPage, { type ErrorPageVariant } from '$lib/components/ErrorPage.svelte';
   import Heading from '$lib/components/Heading.svelte';
   import type { Load } from '@sveltejs/kit';
 

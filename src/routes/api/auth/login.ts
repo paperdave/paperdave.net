@@ -1,9 +1,9 @@
-import { StructureJSON } from '$lib/api-client/api-shared';
+import type { StructureJSON } from '$lib/api-client/api-shared';
 import { getDatabase } from '$lib/db';
 import { Token, TOKEN_LENGTH, User } from '$lib/structures';
-import { GenericSuccess } from '$lib/utils/api';
-import { Instance, Structure, types } from '@davecode/structures';
-import { RequestHandler, RequestHandlerOutput } from '@sveltejs/kit';
+import type { GenericSuccess } from '$lib/utils/api';
+import { Structure, types, type Instance } from '@davecode/structures';
+import type { RequestHandler, RequestHandlerOutput } from '@sveltejs/kit';
 
 // note: move to bcrypt for passwords. but i dont care since it's literally one user account LOL.
 

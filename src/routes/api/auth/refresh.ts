@@ -1,4 +1,4 @@
-import { RequestHandler } from '@sveltejs/kit';
+import type { RequestHandler } from '@sveltejs/kit';
 
 /** Refreshes the users token. */
 export const post: RequestHandler = async ({}) => {

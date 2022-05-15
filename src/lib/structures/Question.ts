@@ -1,7 +1,7 @@
 // Questions use custom serializers to compress the format down A LOT.
 
 import { formatDate } from '$lib/utils/date';
-import { Instance, Structure, types } from '@davecode/structures';
+import { Structure, types, type Instance } from '@davecode/structures';
 import { getBaseOrigin } from './url-helpers';
 
 export const QuestionParagraphType = types.Enum('QUESTION', 'ANSWER');

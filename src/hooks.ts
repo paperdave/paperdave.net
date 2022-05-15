@@ -1,6 +1,6 @@
 import { getDatabase } from '$lib/db';
 import { Token, User } from '$lib/structures';
-import { Handle } from '@sveltejs/kit';
+import type { Handle } from '@sveltejs/kit';
 
 export const EXPIRE_TIME = 1000 * 60 * 60 * 24 * 7;
 

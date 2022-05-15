@@ -1,7 +1,7 @@
-import { StructureJSON } from '$lib/api-client/api-shared';
+import type { StructureJSON } from '$lib/api-client/api-shared';
 import { getDatabase } from '$lib/db';
 import { Question, QuestionPage } from '$lib/structures';
-import { RequestHandler, RequestHandlerOutput } from '@sveltejs/kit';
+import type { RequestHandler, RequestHandlerOutput } from '@sveltejs/kit';
 
 const SEARCH_LIMIT = 20;
 

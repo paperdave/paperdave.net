@@ -1,4 +1,4 @@
-import { Instance, types } from '@davecode/structures';
+import { types, type Instance } from '@davecode/structures';
 
 export const ArtifactType = types.Enum(
   'UNKNOWN',

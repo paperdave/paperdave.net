@@ -1,4 +1,4 @@
-import { Instance, Structure, types } from '@davecode/structures';
+import { Structure, types, type Instance } from '@davecode/structures';
 import { Permission } from './enums';
 import { Media } from './Media';
 

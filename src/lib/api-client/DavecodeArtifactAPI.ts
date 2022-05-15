@@ -1,8 +1,8 @@
 import { Artifact } from '$lib/structures';
-import { GenericSuccess } from '$lib/utils/api';
+import type { GenericSuccess } from '$lib/utils/api';
 import { resolveError } from '$lib/utils/promise';
-import { StructureJSON } from './api-shared';
-import { APIClient } from './APIClient';
+import type { StructureJSON } from './api-shared';
+import type { APIClient } from './APIClient';
 
 /** Client API class that parallels the /artifact endpoints */
 export class DavecodeArtifactAPI {

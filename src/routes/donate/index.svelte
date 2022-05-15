@@ -16,6 +16,10 @@
       name: 'Aya',
       amount: -1,
     },
+    {
+      name: 'grace',
+      amount: -1,
+    },
   ];
 </script>
 
@@ -59,17 +63,17 @@
   .donate-box {
     margin: 5rem auto;
     max-width: 600px;
+    font-weight: bold;
     font-size: 2rem;
     text-align: center;
-    font-weight: bold;
   }
   h1 {
-    text-align: center;
     margin-top: 2rem;
+    text-align: center;
   }
   h2 {
-    text-align: center;
     margin-top: 5rem;
+    text-align: center;
   }
   li {
     text-align: center;
