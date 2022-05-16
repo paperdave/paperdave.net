@@ -73,6 +73,9 @@ export const FragmentArtifact = Artifact.extend('FragmentArtifact')
 /** Story artifacts are written media that can be read. TODO: how this works. */
 export const StoryArtifact = Artifact.extend('StoryArtifact')
   .prop('type', types.String.mustEqual(ArtifactType.STORY), { default: ArtifactType.STORY })
+  .prop('description', types.String.nullable)
+  .prop('url', types.String.nullable)
+  .prop('endDate', types.Date.nullable)
   .create();
 
 /** Word Magnet artifacts are pictures of word magnets. The image is stored in the Artifact.thumbnail property. */

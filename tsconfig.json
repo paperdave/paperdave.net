@@ -1,13 +1,9 @@
 {
   "extends": "./.svelte-kit/tsconfig.json",
-  // the most important options are at the top unlike some configs. /shrug
   "compilerOptions": {
-    // path aliases
     "paths": {
       "$lib": ["src/lib"],
-      "$lib/*": ["src/lib/*"],
-      "$vendor": ["src/vendor"],
-      "$vendor/*": ["src/vendor/*"]
+      "$lib/*": ["src/lib/*"]
     }
   }
 }

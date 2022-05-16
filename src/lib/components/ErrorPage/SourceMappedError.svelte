@@ -1,7 +1,5 @@
 <script lang="ts">
   import { browser } from '$app/env';
-  import { StackFrame } from 'stacktrace-parser';
-  import Button from '../Button.svelte';
   import SimplifiedStackFrame from './SimplifiedStackFrame.svelte';
   import { createMappedSource, isExternal } from './source-mapping-utils';
 

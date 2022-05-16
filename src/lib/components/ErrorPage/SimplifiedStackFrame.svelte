@@ -1,6 +1,6 @@
 <script lang="ts">
   import { dev } from '$app/env';
-  import { StackFrame } from 'stacktrace-parser';
+  import type { StackFrame } from 'stacktrace-parser';
   import { isExternal } from './source-mapping-utils';
 
   const githubBranch = 'main';
