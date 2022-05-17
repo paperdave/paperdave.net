@@ -20,7 +20,8 @@
     "realm-web": "^1.7.0",
     "source-map-js": "^1.0.1",
     "stacktrace-parser": "^0.1.10",
-    "svelte-kit-cookie-session": "^2.1.4"
+    "svelte-kit-cookie-session": "^2.1.4",
+    "svelte-simple-markdown": "^1.0.1"
   },
   "devDependencies": {
     "@originjs/vite-plugin-content": "^1.0.1",

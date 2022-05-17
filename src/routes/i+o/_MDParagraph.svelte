@@ -1,13 +1,10 @@
 <script lang="ts">
-  import { QuestionParagraph } from '$lib/structures';
-
-  export let paragraph: QuestionParagraph;
-  export let search: string;
+  import type { ASTNode } from 'svelte-simple-markdown';
+  export let node: ASTNode;
 </script>
 
-<p class:q={paragraph.who === 'QUESTION'} class:a={paragraph.who === 'ANSWER'}>
-  {@html paragraph.message}
-  <!-- {@html paragraph.message.replace(search, '<span class="highlight">$&</span>')} -->
+<p class={node.type === 'input' ? 'i' : 'o'}>
+  <slot />
 </p>
 
 <style lang="scss">
@@ -16,14 +13,14 @@
     line-height: 1.25rem;
   }
 
-  .q {
+  .i {
     color: white;
     font-weight: 400;
     font-size: 1.15em;
     font-family: 'Roboto Slab';
   }
 
-  .a {
+  .o {
     --text-casual: 0.5;
     color: #51d064;
   }

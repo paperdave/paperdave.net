@@ -1619,6 +1619,11 @@ svelte-preprocess@^4.9.8:
     sorcery "^0.10.0"
     strip-indent "^3.0.0"
 
+svelte-simple-markdown@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/svelte-simple-markdown/-/svelte-simple-markdown-1.0.1.tgz#e0f56ed3517ccb9ea7cd6fded6ed30dd1a055e05"
+  integrity sha512-+/zCJEWAngf8gsXmJ4R3piL29ssjAaUO1qSpG3zC/4xaDXseBK1RkgQXN5+8S+8osXJZ7qDF45jGqpB6Y6PD7w==
+
 svelte@^3.48.0:
   version "3.48.0"
   resolved "https://registry.yarnpkg.com/svelte/-/svelte-3.48.0.tgz#f98c866d45e155bad8e1e88f15f9c03cd28753d3"

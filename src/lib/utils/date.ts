@@ -4,7 +4,7 @@ const dateFormats = {
   'date-time': 'YYYY-MM-DD HH:mm',
   'time-sec': 'HH:mm:ss',
   'date-time-sec': 'YYYY-MM-DD HH:mm:ss',
-  'question-id': 'YYMMDDHHmmss',
+  'message-id': 'YYMMDDHHmmss',
   iso: 'YYYY-MM-DDTHH:mm:ss.SSSZ',
 };
 

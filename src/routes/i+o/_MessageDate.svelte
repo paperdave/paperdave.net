@@ -1,18 +1,17 @@
 <script lang="ts">
   import Icon from '$lib/components/Icon.svelte';
-
-  import { Question } from '$lib/structures';
   import { formatDate } from '$lib/utils/date';
+  import type { Message } from '@prisma/client';
 
-  export let question: Question;
+  export let message: Message;
 
   let copyState: boolean | null = null;
 
   async function copy() {
-    if (question.isRejected()) return;
+    if (message.type === 'REJECT') return;
     if (copyState) return;
 
-    const id = question.getDateId();
+    const id = formatDate(message.date, 'message-id');
     const url = `${window.location.origin}/q+a/${id}`;
 
     try {
@@ -26,14 +25,14 @@
     }, 1500);
   }
 
-  const dateString = formatDate(question.date, 'date-time');
+  const dateString = formatDate(message.date, 'date-time');
 </script>
 
 <time
-  datetime={question.date.toISOString()}
+  datetime={message.date.toISOString()}
   on:click={copy}
   class:success={copyState}
-  class:clickable={!question.isRejected()}>
+  class:clickable={message.type === 'NORMAL'}>
   {#if copyState === null}
     {dateString}
   {:else if copyState}

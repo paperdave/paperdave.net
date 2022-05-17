@@ -1,5 +1,4 @@
 <script lang="ts" context="module">
-  import { QuestionPage } from '$lib/structures';
   import type { Load } from '@sveltejs/kit';
 
   export const load: Load = async ({ fetch, url }) => {
@@ -28,7 +27,7 @@
 <script lang="ts">
   import { page } from '$app/stores';
   import { browser } from '$app/env';
-  import QuestionRender from './_QuestionRender.svelte';
+  import QuestionRender from './_MessageRender.svelte';
   import { debounce } from '$lib/utils/debounce';
   import type { FlyParams, TransitionConfig } from 'svelte/transition';
   import { fly } from 'svelte/transition';

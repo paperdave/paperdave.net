@@ -14,6 +14,6 @@
 
 <style lang="scss">
   div {
-    padding: 0 2rem;
+    padding: 1rem 2rem;
   }
 </style>

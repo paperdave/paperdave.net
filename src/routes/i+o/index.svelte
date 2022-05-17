@@ -1,33 +1,17 @@
-<script lang="ts" context="module">
+<script context="module" lang="ts">
   import type { Load } from '@sveltejs/kit';
-  import QAHeader from './_QAHeader.svelte';
 
-  export const load: Load = async ({ url, fetch }) => {
-    const API = wrapAPI(fetch);
-    const legacyPageNumber = parseInt(url.searchParams.get('page') || '');
-
-    if (legacyPageNumber) {
-      // Pages used to be 20 items per page, now they are 100
-      const pageNumber = Math.floor((legacyPageNumber / 100) * 20);
-      return {
-        status: 302,
-        redirect: '/q+a?p=' + pageNumber,
-      };
-    }
-
-    const pageNumber = parseInt(url.searchParams.get('p') || '');
-    const qpage = await API.questions.getPage(isNaN(pageNumber) ? 'latest' : pageNumber);
-
-    if (!qpage) {
-      return {
-        status: 302,
-        redirect: '/q+a',
-      };
-    }
-
+  export const load: Load = async ({ props }) => {
     return {
       props: {
-        qpage: qpage,
+        mpage: {
+          ...props.mpage,
+          messages: props.mpage.messages.map((m) => ({
+            ...m,
+            type: m.type ?? 'NORMAL',
+            date: new Date(m.date),
+          })),
+        },
       },
     };
   };
@@ -35,34 +19,32 @@
 
 <script lang="ts">
   import { page } from '$app/stores';
-  import QuestionForm from './_QuestionForm.svelte';
-  import QuestionRender from './_QuestionRender.svelte';
-  import { wrapAPI } from '$lib/api-client/singleton';
-  import { QuestionPage } from '$lib/structures';
   import Meta from '$lib/components/Meta.svelte';
+  import MessageRender from './_MessageRender.svelte';
+  import type { MessagePage } from './_types';
 
-  export let qpage: QuestionPage;
+  export let mpage: MessagePage;
 
-  $: if (qpage.latest && $page.url.searchParams.has('page')) {
+  $: if (mpage.latest && $page.url.searchParams.has('page')) {
     history.replaceState(null, '', '/q+a');
   }
 
   let formExpanded = false;
 </script>
 
-{#if qpage.latest}
+{#if mpage.latest}
   <Meta
-    title="answers & questions"
-    description={`i answer anonymous questions you ask, because it's fun. this page is updated every few days after questions are sent.`} />
+    title="input & output"
+    description={`i answer anonymous questions you ask, because it's fun. this page is updated every few days after messages are sent.`} />
 {:else}
   <Meta
-    title="answers & questions - page {qpage.id}"
-    description={`i answer anonymous questions you ask, because it's fun. this page is updated every few days after questions are sent.`} />
+    title="input & output - page {mpage.id}"
+    description={`i answer anonymous questions you ask, because it's fun. this page is updated every few days after messages are sent.`} />
 {/if}
 
-{#if qpage.latest}
+{#if mpage.latest}
   <div>
-    <QuestionForm bind:expanded={formExpanded} />
+    <!-- <QuestionForm bind:expanded={formExpanded} /> -->
   </div>
   <div class="opacity-transition" style="opacity:{formExpanded ? 0 : 1}">
     <p>and the answers:</p>
@@ -70,27 +52,27 @@
 {:else}
   <div>
     <p>
-      page #{qpage.id}
-      {#if qpage.id === 0}
+      page #{mpage.id}
+      {#if mpage.id === 0}
         (we are programmers, start at 0!!!)
       {/if} <br />
-      <a href="/q+a?p={qpage.id + 1}">see newer questions</a>
+      <a href="/i+o?p={mpage.id + 1}">see newer questions</a>
     </p>
   </div>
 {/if}
 
 <flex class="questions">
-  {#each qpage.questions as question}
-    {#key question.date.getTime()}
-      <QuestionRender {question} />
+  {#each mpage.messages as message}
+    {#key message.date.toString()}
+      <MessageRender {message} />
     {/key}
   {/each}
 </flex>
 
-{#if qpage.id !== 0}
+{#if mpage.id !== 0}
   <div>
     <p>
-      <a href="/q+a?p={qpage.id - 1}">see older questions</a>
+      <a href="/i+o?p={mpage.id - 1}">see older questions</a>
     </p>
   </div>
 {/if}

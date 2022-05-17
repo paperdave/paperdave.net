@@ -17,7 +17,7 @@
 </script>
 
 <script lang="ts">
-  import QaHeader from './_QAHeader.svelte';
+  import QaHeader from './_IOHeader.svelte';
   import QuestionRespondApp from './_QuestionRespondApp.svelte';
   import { API, wrapAPI } from '$lib/api-client/singleton';
   import RestrictedPageRoot from '$lib/components/RestrictedPageRoot.svelte';

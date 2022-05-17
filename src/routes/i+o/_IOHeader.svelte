@@ -3,38 +3,38 @@
 </script>
 
 <h1 class:invert on:click={() => (invert = !invert)}>
-  <span class="answers">answers</span>
+  <span class="input">input</span>
   <span class="and">&</span>
-  <span class="questions">questions</span>
+  <span class="output">output</span>
 </h1>
 
 <style lang="scss">
   h1 {
-    line-height: 1.15em;
-    margin-bottom: 1rem;
-    user-select: none;
-    cursor: pointer;
     display: flex;
     flex-wrap: wrap;
+    cursor: pointer;
+    margin-bottom: 1rem;
+    line-height: 1.15em;
+    user-select: none;
     & * {
       display: inline-block;
     }
   }
 
-  .answers {
+  .input {
     color: #ff3a32;
     text-shadow: shadow(2px, 1, #8f1004);
   }
 
   .and {
+    position: relative;
+    z-index: 10;
+    margin: 0 5px;
     color: #f7f7f7;
     text-shadow: shadow(2px, 1, #888888);
-    margin: 0 5px;
-    z-index: 10;
-    position: relative;
   }
 
-  .questions {
+  .output {
     color: #faa719;
     text-shadow: shadow(2px, 1, #7a471a);
   }
@@ -45,13 +45,13 @@
     }
 
     .invert {
-      .questions {
+      .input {
         transform: translateX(-194px - 40px);
       }
       .and {
         transform: translateX(-194px + 221px);
       }
-      .answers {
+      .output {
         transform: translateX(221px + 40px);
       }
     }

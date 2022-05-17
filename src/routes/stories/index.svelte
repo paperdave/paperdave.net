@@ -6,8 +6,6 @@
   export let stories: Story[];
 </script>
 
-<BackButton position="off-center" />
-
 {#each stories as story}
   <article class="story">
     <flex row gap class="title">

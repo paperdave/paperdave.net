@@ -1,13 +1,11 @@
 <script lang="ts">
   import { page } from '$app/stores';
-  import { user } from '$lib/api-client/session';
   import BackButton from '$lib/components/BackButton.svelte';
   import LinkRow from '$lib/components/LinkRow.svelte';
   import Paper from '$lib/components/Paper.svelte';
   import ThemeRoot from '$lib/components/ThemeRoot.svelte';
-  import { Permission } from '$lib/structures';
   import { palette } from '$lib/theme';
-  import QaHeader from './_QAHeader.svelte';
+  import QaHeader from './_IOHeader.svelte';
 </script>
 
 <ThemeRoot
@@ -17,22 +15,20 @@
   <Paper>
     <BackButton
       position="off-center-right"
-      href={$page.url.pathname === '/q+a' ? '/' : '/q+a'}
-      text={$page.url.pathname === '/q+a' ? 'go home' : 'all questions'} />
+      href={$page.url.pathname === '/i+o' ? '/' : '/i+o'}
+      text={$page.url.pathname === '/i+o' ? 'go home' : 'all messages'} />
     <flex>
       <QaHeader />
       <flex gap>
-        <p>i answer anonymous questions you ask, because it's fun.</p>
+        <p>conversations between me and the universe</p>
 
         <LinkRow>
-          <li><a href="/q+a">latest</a></li>
-          <li><a href="/q+a/search">search</a></li>
-          <li><a href="/q+a/random">random</a></li>
-          <li><a href="/q+a?page=0">start</a></li>
+          <li><a href="/i+o">latest</a></li>
+          <li><a href="/i+o/search">search</a></li>
+          <li><a href="/i+o/random">random</a></li>
+          <li><a href="/i+o?page=0">start</a></li>
 
-          {#if $user !== null && $user.queryPermission(Permission.RESPOND_TO_QUESTIONS)}
-            <li><a href="/q+a/respond" class="special">respond</a></li>
-          {/if}
+          <li><a href="/i+o/respond" class="special">respond</a></li>
         </LinkRow>
       </flex>
     </flex>
