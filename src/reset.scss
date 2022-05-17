@@ -13,14 +13,12 @@ Use a better box model (opinionated).
 /**
 1. `-webkit-text-size-adjust` is supposed to fix something on iOS
 2. Remove the margin on the body
-3. Always show the vertical scrollbar (opinionated)
 4. Set the line-height to be consistent in all browsers
 5. Use a smaller tab size
 */
 body {
   -webkit-text-size-adjust: 100%; /* 1 */
   margin: 0; /* 2 */
-  overflow-y: scroll; /* 3 */
   line-height: 1.15; /* 4 */
   tab-size: 4; /* 5 */
 }

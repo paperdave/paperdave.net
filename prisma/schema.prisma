@@ -10,13 +10,78 @@ datasource db {
   url = env("DATABASE_URL")
 }
 
+model ArtifactEntry {
+  id String @id
+  type String
+  date DateTime
+}
+
 model Story {
   id String @id
-  date DateTime
+  date DateTime @default(now())
   dateEnd DateTime?
   title String
   thumb String?
   description String
   url String
   tags String[]
+}
+
+model Donator {
+  id Int @id @default(autoincrement())
+  name String
+}
+
+model Message {
+  date DateTime @id @default(now())
+  type MessageType?
+  text String
+}
+
+enum MessageType {
+  NORMAL
+}
+
+model MessageInput {
+  date DateTime @id @default(now())
+  prompt String
+  notifyEmail String
+  sourceLocation String
+  sourceVPN Boolean
+}
+
+model Video {
+  id String @id
+  date DateTime @default(now())
+  title String
+  tags String[]
+  thumb String?
+  thumbBlur String?
+  mediaHash String
+}
+
+model Song {
+  id String @id
+  date DateTime @default(now())
+  title String
+  tags String[]
+  album String?
+  albumBlur String?
+  mediaHash String
+}
+
+model Game {
+  id String @id
+  date DateTime @default(now())
+  title String
+  description String
+  data Json
+}
+
+model Application {
+  id String @id
+  date DateTime @default(now())
+  title String
+  description String
+  data Json
 }

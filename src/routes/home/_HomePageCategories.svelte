@@ -75,19 +75,13 @@
                 <a sveltekit:prefetch class="link" href="/music">music</a>
                 <a sveltekit:prefetch class="link" href="/videos">videos</a>
                 <a sveltekit:prefetch class="link" href="/stories">stories</a>
-                <a disabled class="link" href="/games">games</a>
-                <a disabled class="link" href="/applications">applications</a>
+                <a sveltekit:prefetch class="link" href="/games">games</a>
+                <a sveltekit:prefetch class="link" href="/applications">applications</a>
               </flex>
               <flex class="col">
                 <a class="link" href="/q+a">ask a question</a>
-                <!-- <a class="link" href="/#bts" on:click={focusBTS}>
-                  behind the scenes
-                  <ChevonDownSVG />
-                </a>
-                <a class="link" href="/#blocks" on:click={focusBlocks}>
-                  building blocks
-                  <ChevonDownSVG />
-                </a> -->
+                <!-- <a class="link" href="/#bts" on:click={focusBTS}> behind the scenes </a>
+                <a class="link" href="/#blocks" on:click={focusBlocks}> building blocks </a> -->
                 <a class="link" href="/donate">give chocolate</a>
                 <a class="link" href="/credits">credits</a>
               </flex>
@@ -110,7 +104,6 @@
               </flex>
             {/if}
           </flex>
-          <span class="more">...more pages coming soon</span>
         </section>
       </flex>
     </ThemeRoot>

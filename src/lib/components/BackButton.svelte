@@ -1,11 +1,11 @@
 <script lang="ts">
-  export let position: 'corner' | 'off-center' | 'off-center-right';
+  export let position: 'corner' | 'off-center' | 'off-center-right' | undefined = undefined;
 
   export let text = 'go home';
   export let href = '/';
 </script>
 
-<a sveltekit:prefetch class="position-{position} custom" {href}>
+<a sveltekit:prefetch class="{position ? `position-${position}` : ''} custom" {href}>
   <slot>{text}</slot>
 </a>
 

@@ -1,10 +1,9 @@
 <script lang="ts">
   import BlurHash from '$lib/components/BlurHash.svelte';
   import Button from '$lib/components/Button.svelte';
-  import { Artifact } from '$lib/structures';
   import { formatDate } from '$lib/utils/date';
 
-  export let artifact: Artifact;
+  export let artifact: unknown;
 
   function formatType(type: string) {
     return type.replace(/_/g, ' ').toLowerCase();

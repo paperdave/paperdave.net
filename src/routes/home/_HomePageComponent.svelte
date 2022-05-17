@@ -1,6 +1,5 @@
 <script lang="ts">
   import Meta from '$lib/components/Meta.svelte';
-  import { Artifact } from '$lib/structures';
   import HomePageAbout from './_HomePageAbout.svelte';
   import HomePageCategories from './_HomePageCategories.svelte';
   import HomePageExternals from './_HomePageExternals.svelte';
@@ -8,7 +7,7 @@
   import HomePageHeader from './_HomePageHeader.svelte';
   import HomePageKeyboardNav from './_HomePageKeyboardNav.svelte';
 
-  export let freshList: Artifact[] = [];
+  export let freshList: unknown[] = [];
 </script>
 
 <Meta

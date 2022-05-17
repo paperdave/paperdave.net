@@ -1,32 +1,17 @@
 <script lang="ts">
+  import type { Donator } from '@prisma/client';
   import BackButton from '$lib/components/BackButton.svelte';
   import Meta from '$lib/components/Meta.svelte';
   import ThemeRoot from '$lib/components/ThemeRoot.svelte';
+  import Paper from '$lib/components/Paper.svelte';
 
-  const hardcodedData = [
-    {
-      name: 'Filip Kin',
-      amount: -1,
-    },
-    {
-      name: 'Egrodo',
-      amount: -1,
-    },
-    {
-      name: 'Aya',
-      amount: -1,
-    },
-    {
-      name: 'grace',
-      amount: -1,
-    },
-  ];
+  export let hallOfFame: Donator[];
 </script>
 
 <Meta title="give me chocolate" description="donation page" />
 
 <ThemeRoot background="#9c8772" accent="#F77D0A">
-  <main>
+  <Paper>
     <BackButton position="off-center" />
     <h1>i like chocolate</h1>
     <p>
@@ -44,22 +29,15 @@
 
     <h2>donator hall of fame</h2>
     <ul>
-      {#each hardcodedData as dontation}
-        <li>{dontation.name}</li>
+      {#each hallOfFame as donator}
+        <li>{donator.name}</li>
       {/each}
       <li class="other">and other anonymous people</li>
     </ul>
-  </main>
+  </Paper>
 </ThemeRoot>
 
 <style lang="scss">
-  main {
-    flex: 1;
-  }
-  p {
-    margin: auto;
-    max-width: 600px;
-  }
   .donate-box {
     margin: 5rem auto;
     max-width: 600px;
