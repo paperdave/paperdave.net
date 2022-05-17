@@ -17,6 +17,12 @@
 
   $: methodName = (frame.methodName || '<anonymous>').replace(/^async /, '');
   $: isAsync = frame.methodName?.startsWith('async ');
+
+  $: libraryName = file.startsWith('node_modules/')
+    ? split[1].startsWith('@')
+      ? split[1] + '/' + split[2]
+      : split[1]
+    : null;
 </script>
 
 <li class:external={isExternal(frame)}>
@@ -32,7 +38,7 @@
   {:else if file.startsWith('.svelte-kit/runtime/') || file.startsWith('runtime/')}
     <a class="file" href="https://npmjs.com/package/@sveltejs/kit" title={file}>@sveltejs/kit</a>
   {:else if file.startsWith('node_modules/')}
-    <a class="file" href="https://npmjs.com/package/{split[1]}" title={file}>{split[1]}</a>
+    <a class="file" href="https://npmjs.com/package/{libraryName}" title={file}>{libraryName}</a>
   {:else}
     <span class="file" title={file}>{basename}</span>
   {/if}

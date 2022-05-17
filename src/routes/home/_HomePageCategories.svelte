@@ -72,9 +72,9 @@
           <flex row class="two-col">
             {#if currentPage === 'home'}
               <flex class="col">
-                <a class="link" href="/music">music</a>
-                <a class="link" href="/videos">videos</a>
-                <a disabled class="link" href="/stories">stories</a>
+                <a sveltekit:prefetch class="link" href="/music">music</a>
+                <a sveltekit:prefetch class="link" href="/videos">videos</a>
+                <a sveltekit:prefetch class="link" href="/stories">stories</a>
                 <a disabled class="link" href="/games">games</a>
                 <a disabled class="link" href="/applications">applications</a>
               </flex>

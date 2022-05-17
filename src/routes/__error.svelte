@@ -1,10 +1,11 @@
 <script context="module" lang="ts">
-  export const load: Load = async ({ status, error }) => {
+  export const load: Load = async ({ status, error, props }) => {
     return {
       props: {
         status: status,
         message: String(error?.message),
         stack: error?.stack,
+        props: Object.keys(props ?? {}).length ? props : undefined,
       },
     };
   };
@@ -18,6 +19,7 @@
   export let status: number;
   export let message: string;
   export let stack: string;
+  export let props: any;
 
   const variant: ErrorPageVariant =
     status === 404 ? 'not-found' : status >= 400 && status < 600 ? 'error' : 'unknown';
@@ -63,5 +65,10 @@
     <p>
       <strong>server says</strong>: {message}
     </p>
+  {/if}
+
+  {#if status !== 404 && props}
+    <p>Page Props</p>
+    <pre><code>{JSON.stringify(props, null, 2)}</code></pre>
   {/if}
 </ErrorPage>

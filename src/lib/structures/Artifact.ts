@@ -102,10 +102,10 @@ export const NerdGearArtifact = Artifact.extend('NerdGearArtifact')
   .create();
 
 /** Game artifacts are software intended to be entertainment. */
-export const GameArtifact = Artifact.extend('GameArtifact')
-  .prop('type', types.String.mustEqual(ArtifactType.GAME), { default: ArtifactType.GAME })
-  .mixin(MixinSoftware)
-  .create();
+// export const GameArtifact = Artifact.extend('GameArtifact')
+//   .prop('type', types.String.mustEqual(ArtifactType.GAME), { default: ArtifactType.GAME })
+//   .mixin(MixinSoftware)
+//   .create();
 
 /** Music Video artifacts are a cross between music and video artifacts. */
 export const MusicVideoArtifact = Artifact.extend('MusicVideoArtifact')

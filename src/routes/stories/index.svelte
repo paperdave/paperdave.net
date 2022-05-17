@@ -17,49 +17,37 @@
   export let stories: StoryArtifact[];
 </script>
 
-<ThemeRoot background={palette.purple[100]} accent={palette.purple[300]}>
-  <Paper marginTop>
-    <Heading center shadow level="1">stories</Heading>
-    <p class="center">
-      the written word shares a huge meaning. in each story, i usually push the medium to a
-      different extent, hopefully to create a uniquely meaningful experience.
+{#each stories as story}
+  <article class="story">
+    <flex row gap class="title">
+      <h2>
+        <a sveltekit:prefetch href={story.url}>{story.title}</a>
+      </h2>
+      <div>
+        {#if story.endDate}
+          released from
+          <time datetime={story.date.toISOString()}>
+            {formatDate(story.date, 'date')}
+          </time>
+          to
+          <time datetime={story.endDate.toISOString()}>
+            {formatDate(story.endDate, 'date')}
+          </time>
+        {:else}
+          released on
+          <time datetime={story.date.toISOString()}>
+            {formatDate(story.date, 'date')}
+          </time>
+        {/if}
+      </div>
+    </flex>
+    <p>
+      {story.description}
     </p>
-    {#each stories as story}
-      <article class="story">
-        <flex row gap class="title">
-          <h2>
-            <a sveltekit:prefetch href={story.url}>{story.title}</a>
-          </h2>
-          <div>
-            {#if story.endDate}
-              released from
-              <time datetime={story.date.toISOString()}>
-                {formatDate(story.date, 'date')}
-              </time>
-              to
-              <time datetime={story.endDate.toISOString()}>
-                {formatDate(story.endDate, 'date')}
-              </time>
-            {:else}
-              released on
-              <time datetime={story.date.toISOString()}>
-                {formatDate(story.date, 'date')}
-              </time>
-            {/if}
-          </div>
-        </flex>
-        <p>
-          {story.description}
-        </p>
-      </article>
-    {/each}
-  </Paper>
-</ThemeRoot>
+  </article>
+{/each}
 
 <style lang="scss">
-  .center {
-    text-align: center;
-  }
   .story {
     display: flex;
     flex-direction: column;
