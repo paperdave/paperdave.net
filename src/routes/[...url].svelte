@@ -88,6 +88,7 @@
   import ErrorPage from '$lib/components/ErrorPage.svelte';
   import MusicArtifactViewer from './music/_MusicArtifactViewer.svelte';
   import VideoArtifactViewer from './videos/_VideoArtifactViewer.svelte';
+  import IFrameViewer from '$lib/components/IFrameViewer.svelte';
 
   export let artifact: Artifact;
   export let viewer: string | null = null;
@@ -96,6 +97,7 @@
     MUSIC: MusicArtifactViewer,
     VIDEO: VideoArtifactViewer,
     MUSIC_VIDEO: VideoArtifactViewer,
+    // STORY: IFrameViewer,
   };
 
   $: comp = viewers[viewer ?? artifact.type];

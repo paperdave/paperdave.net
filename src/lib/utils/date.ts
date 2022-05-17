@@ -5,6 +5,7 @@ const dateFormats = {
   'time-sec': 'HH:mm:ss',
   'date-time-sec': 'YYYY-MM-DD HH:mm:ss',
   'question-id': 'YYMMDDHHmmss',
+  iso: 'YYYY-MM-DDTHH:mm:ss.SSSZ',
 };
 
 const formatRules: Record<string, (date: Date) => string | number> = {
@@ -24,7 +25,8 @@ const regex = new RegExp(regexSrc, 'g');
 
 export type DateFormat = keyof typeof dateFormats;
 
-export function formatDate(date: Date, format: DateFormat | string) {
+export function formatDate(date: Date | number, format: DateFormat | string) {
+  date = new Date(date);
   const dateFormat = dateFormats[format as DateFormat] ?? format;
   const convertedDate = new Date(date.toLocaleString('en-US', { timeZone: 'EST' }));
   return dateFormat.replace(regex, (match) => String(formatRules[match](convertedDate)));

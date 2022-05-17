@@ -1,5 +1,3 @@
-import { getDatabase } from '$lib/db';
-import { Token, User } from '$lib/structures';
 import type { Handle } from '@sveltejs/kit';
 
 export const EXPIRE_TIME = 1000 * 60 * 60 * 24 * 7;
@@ -28,43 +26,6 @@ function createErrorResponse(statusCode: number, message: string) {
 }
 
 export const handle: Handle = async ({ event, resolve }) => {
-  event.locals.user = new User({
-    name: 'Guest',
-    email: 'noreply@davecode.net',
-    permissions: new Set(),
-  });
-
-  const auth = event.request.headers.get('Authorization');
-  if (auth) {
-    const match = auth.match(/^Bearer (.*)$/);
-    if (match) {
-      const token = match[1];
-
-      const tokenDb = await getDatabase(Token);
-      const tokenData = await tokenDb.findOne({ token });
-      if (!tokenData) {
-        return createErrorResponse(401, 'Invalid Token');
-      }
-
-      if (!tokenData.isValid()) {
-        tokenDb.deleteOne({ token });
-        return createErrorResponse(401, 'Token Expired');
-      }
-
-      const userDb = await getDatabase(User);
-      const userData = await userDb.findOne({ email: tokenData.email });
-      if (!userData) {
-        return createErrorResponse(401, 'Invalid Token');
-      }
-
-      event.locals.user = userData;
-
-      await tokenDb.replace(tokenData);
-    } else {
-      return createErrorResponse(400, 'Unsupported Authorization Format');
-    }
-  }
-
   const response = await resolve(event);
 
   for (const [key, value] of Object.entries(overrideHeaders)) {

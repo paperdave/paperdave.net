@@ -1,16 +1,12 @@
-import { getDatabase } from '$lib/db';
-import { Artifact, ArtifactType } from '$lib/structures';
+import { db } from '$lib/db';
 import type { RequestHandler } from '@sveltejs/kit';
 
 export const get: RequestHandler = async ({}) => {
-  const artifacts = await getDatabase(Artifact);
-  const stories = await artifacts.find({ type: ArtifactType.STORY });
-
-  console.log(stories);
+  const stories = await db.story.findMany();
 
   return {
     body: {
-      stories: stories,
+      stories,
     },
   };
 };

@@ -12,6 +12,8 @@
       the written word shares a huge meaning. in each story, i usually push the medium to a
       different extent, hopefully to create a uniquely meaningful experience.
     </p>
+
+    <slot />
   </Paper>
 </ThemeRoot>
 

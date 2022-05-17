@@ -1,20 +1,8 @@
-<script context="module" lang="ts">
-  export const load = createLoad({
-    stories: types.ArrayOf(StoryArtifact),
-  });
-</script>
-
 <script lang="ts">
-  import { StoryArtifact } from '$lib/structures';
-  import Heading from '$lib/components/Heading.svelte';
-  import Paper from '$lib/components/Paper.svelte';
-  import ThemeRoot from '$lib/components/ThemeRoot.svelte';
-  import { palette } from '$lib/theme';
   import { formatDate } from '$lib/utils/date';
-  import { createLoad } from '$lib/utils/deserialize-load';
-  import { types } from '@davecode/structures';
+  import type { Story } from '@prisma/client';
 
-  export let stories: StoryArtifact[];
+  export let stories: Story[];
 </script>
 
 {#each stories as story}
@@ -24,18 +12,18 @@
         <a sveltekit:prefetch href={story.url}>{story.title}</a>
       </h2>
       <div>
-        {#if story.endDate}
+        {#if story.dateEnd}
           released from
-          <time datetime={story.date.toISOString()}>
+          <time datetime={formatDate(story.date, 'iso')}>
             {formatDate(story.date, 'date')}
           </time>
           to
-          <time datetime={story.endDate.toISOString()}>
-            {formatDate(story.endDate, 'date')}
+          <time datetime={formatDate(story.dateEnd, 'iso')}>
+            {formatDate(story.dateEnd, 'date')}
           </time>
         {:else}
           released on
-          <time datetime={story.date.toISOString()}>
+          <time datetime={formatDate(story.date, 'iso')}>
             {formatDate(story.date, 'date')}
           </time>
         {/if}
