@@ -1,40 +1,125 @@
 <script context="module" lang="ts">
-  function decodeSrc(src: string) {
-    if (!src) return;
+  export type ObjectFit =
+    | 'contain'
+    | 'cover'
+    | 'fill'
+    | 'none'
+    | 'scale-down'
+    | 'scale-to-fill'
+    | 'unset';
+  export type StretchMode = 'absolute' | 'width' | 'height' | 'both';
+</script>
 
-    try {
-      return {
-        url: new URL(src).toString(),
-        blurhash: null,
-      };
-    } catch (error) {
-      //
-    }
+<script lang="ts">
+  import { browser } from '$app/env';
+  import { useEffect } from '$lib/hooks/useEffect';
+  import { decodeImageUrl } from '$lib/utils/media-url';
 
-    const [hash, blurhash] = src.split('/');
-    if (hash.length === 32) {
-      return {
-        url: `https://media.davecode.net/upload/${hash.slice(0, 2)}/${hash}.png`,
-        blurhash,
-      };
+  const threshold = 75;
+
+  export let src: string;
+  export let alt: string;
+  export let noBlur = false;
+  export let noDrag = false;
+  export let fit: ObjectFit | undefined = undefined;
+  export let stretch: StretchMode = fit ? 'both' : 'width';
+  export let fade = 400;
+  export let absolute = false;
+
+  let image: HTMLImageElement;
+
+  $: img = decodeImageUrl(src);
+  $: isBlurhash = !noBlur && !!img?.blurhash;
+
+  let start = Date.now();
+  $: showCanvas = isBlurhash;
+  $: loaded = !isBlurhash;
+  let transition = false;
+
+  useEffect(
+    () => {
+      if (isBlurhash) return;
+
+      start = Date.now();
+      loaded = image.complete;
+      transition = !loaded;
+      showCanvas = !loaded;
+
+      if (loaded) {
+        setTimeout(() => {
+          showCanvas = false;
+        }, 100);
+      }
+    },
+    () => [img?.url, image]
+  );
+
+  function onLoad() {
+    const duration = Date.now() - start;
+
+    transition = duration > threshold;
+    showCanvas = transition;
+    loaded = true;
+
+    if (showCanvas) {
+      setTimeout(() => {
+        showCanvas = false;
+      }, fade + 100);
     }
   }
 </script>
 
-<script lang="ts">
-  import BlurHash from './BlurHash.svelte';
-
-  export let src: string;
-  export let alt: string;
-  export let noBlurhash = false;
-
-  $: img = decodeSrc(src);
-</script>
-
 {#if img}
-  {#if img.blurhash && !noBlurhash}
-    <BlurHash hash={img.blurhash} src={img.url} {alt} />
-  {:else}
-    <img src={img.url} {alt} />
-  {/if}
+  <figure class="stretch-{stretch}" class:isBlurhash class:absolute style:aspect-ratio={img.aspect}>
+    {#if showCanvas}
+      <blurhash-image blurhash={img.blurhash} />
+    {/if}
+    {#if browser || !isBlurhash}
+      <img
+        bind:this={image}
+        src={img.url}
+        {alt}
+        class:transition
+        style:opacity={!isBlurhash || loaded ? 1 : 0}
+        style:transition-duration={browser && transition && `${fade}ms`}
+        style:object-fit={fit}
+        draggable={noDrag ? 'false' : undefined}
+        loading="lazy"
+        decoding="async"
+        on:load={onLoad} />
+    {/if}
+  </figure>
 {/if}
+
+<style lang="scss">
+  figure {
+    position: relative;
+    flex: 1;
+
+    & > :global(*) {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .transition {
+    transition: opacity ease-in-out;
+  }
+
+  .stretch-width,
+  .stretch-both {
+    width: 100%;
+  }
+  .stretch-height,
+  .stretch-both {
+    height: 100%;
+  }
+  .absolute {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+</style>

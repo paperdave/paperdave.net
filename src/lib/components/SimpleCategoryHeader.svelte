@@ -19,7 +19,7 @@
 </script>
 
 <ThemeRoot {background} {accent} {foreground}>
-  <Paper marginTop size={paperSize}>
+  <Paper marginTop={2} size={paperSize}>
     <div>
       <Heading center shadow level="1">{title}</Heading>
       <BackButton

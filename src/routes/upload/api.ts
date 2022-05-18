@@ -29,7 +29,7 @@ export const post: RequestHandler = async ({ request, url }) => {
       })
       .toBuffer();
     data = new Uint8Array(buffer);
-    filename = filename.slice(0, ext.length) + 'webp';
+    filename = filename.slice(0, -ext.length) + 'webp';
     ext = 'webp';
     mimetype = 'image/webp';
   }
@@ -52,7 +52,13 @@ export const post: RequestHandler = async ({ request, url }) => {
   if (mimetype?.startsWith('image/')) {
     const img = sharp(new Uint8Array(data));
     const info = await img.metadata();
-    const pixelData = new Uint8ClampedArray(await img.raw().toBuffer());
+    const pixelData = new Uint8ClampedArray(
+      await img.raw({ depth: 'char' }).ensureAlpha(1).toBuffer()
+    );
+
+    console.log(info.channels);
+    console.log(info.width);
+    console.log(info.height);
 
     blurhash = encode(pixelData, info.width, info.height, 4, 3);
     width = info.width;
@@ -68,17 +74,19 @@ export const post: RequestHandler = async ({ request, url }) => {
     ratio = a.length <= b.length ? a : b;
   }
 
-  await db.upload.create({
-    data: {
-      filename,
-      hash: half,
-      mimetype,
-      date: new Date(),
-      blurhash,
-      width,
-      height,
-    },
-  });
+  try {
+    await db.upload.create({
+      data: {
+        filename,
+        hash: half,
+        mimetype,
+        date: new Date(),
+        blurhash,
+        width,
+        height,
+      },
+    });
+  } catch (error) {}
 
   // temp solution
   const uploadRoot = 'M:\\upload';

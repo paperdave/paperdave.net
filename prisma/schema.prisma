@@ -7,33 +7,33 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url = env("DATABASE_URL")
+  url      = env("DATABASE_URL")
 }
 
 model ArtifactEntry {
-  id String @id
+  id   String   @id
   type String
   date DateTime
 }
 
 model Story {
-  id String @id
-  date DateTime @default(now())
-  dateEnd DateTime?
-  title String
-  thumb String?
+  id          String    @id
+  date        DateTime  @default(now())
+  dateEnd     DateTime?
+  title       String
+  thumb       String?
   description String
-  url String
-  tags String[]
+  url         String
+  tags        String[]
 }
 
 model Donator {
-  id Int @id @default(autoincrement())
+  id   Int    @id @default(autoincrement())
   name String
 }
 
 model Message {
-  date DateTime @id @default(now())
+  date DateTime     @id @default(now())
   type MessageType?
   text String
 }
@@ -44,61 +44,65 @@ enum MessageType {
 }
 
 model MessageInput {
-  date DateTime @id @default(now())
-  prompt String
-  notifyEmail String
-  sourceName String
+  date           DateTime @id @default(now())
+  prompt         String
+  notifyEmail    String
+  sourceName     String
   sourceLocation String
-  sourceVPN String?
+  sourceVPN      String?
 }
 
 model Video {
-  id String @id
-  date DateTime @default(now())
+  id    String   @id
+  date  DateTime @default(now())
   title String
-  tags String[]
+  tags  String[]
   thumb String?
   media String
 }
 
 model Song {
-  id String @id
-  date DateTime @default(now())
+  id    String   @id
+  date  DateTime @default(now())
   title String
-  tags String[]
+  tags  String[]
   album String?
   media String
 }
 
 model Game {
-  id String @id
-  date DateTime @default(now())
-  title String
-  description String
-  web String?
-  webAlwaysFullscreen Boolean @default(false)
-  downloads Json[]
-  banner String?
-  logo String?
+  id                  String   @id
+  date                DateTime @default(now())
+  title               String
+  description         String   @default("")
+  shortDescription    String?
+  web                 String?
+  webAlwaysFullscreen Boolean  @default(false)
+  downloads           Json[]
+  banner              String?
+  logo                String?
+  themeBG             String?
+  themeFG             String?
+  themeAccent         String?
 }
 
 model Application {
-  id String @id
-  date DateTime @default(now())
-  title String
-  description String
-  web String?
-  webAlwaysFullscreen Boolean @default(false)
-  downloads Json[]
+  id                  String   @id
+  date                DateTime @default(now())
+  title               String
+  description         String
+  web                 String?
+  webAlwaysFullscreen Boolean  @default(false)
+  downloads           Json[]
 }
 
 model Upload {
-  hash String @id
-  date DateTime @default(now())
+  hash     String   @id
+  date     DateTime @default(now())
   filename String
   mimetype String
   blurhash String?
-  width Int?
-  height Int?
-  ratio String?
+  width    Int?
+  height   Int?
+  ratio    String?
 }

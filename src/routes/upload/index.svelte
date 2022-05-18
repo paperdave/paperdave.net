@@ -26,7 +26,7 @@
         console.log(json);
         if (json.blurhash) {
           out = json.hash + '/' + json.ratio + '/' + json.blurhash;
-          out2 = json.hash + '/' + json.ratio + '/' + json.blurhash;
+          out2 = json.hash + '/' + json.ratio;
         } else {
           out = json.hash;
         }
