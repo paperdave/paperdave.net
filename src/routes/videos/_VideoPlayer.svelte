@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { VideoMedia } from '$lib/structures/Media';
-
   export let video: VideoMedia;
 </script>
 
@@ -12,16 +10,16 @@
 
 <style lang="scss">
   container {
-    width: 100%;
     display: flex;
     justify-content: center;
+    width: 100%;
   }
   main {
     position: relative;
-    width: calc(100% - 4px);
-    aspect-ratio: 16/9;
-    background-color: black;
     outline: 2px solid black;
+    background-color: black;
+    aspect-ratio: 16/9;
+    width: calc(100% - 4px);
   }
   video {
     position: absolute;

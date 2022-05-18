@@ -3,7 +3,6 @@
   import { slide } from 'svelte/transition';
   import { ProgressRing } from 'fluent-svelte';
   import { useEffect } from '$lib/hooks/useEffect';
-  import { MusicArtifact, MusicVideoArtifact } from '$lib/structures';
   import { formatDate } from '$lib/utils/date';
   import Icon from '$lib/components/Icon.svelte';
   export let artifact: MusicArtifact;

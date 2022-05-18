@@ -1,6 +1,5 @@
 <script context="module" lang="ts">
   import type { Load } from '@sveltejs/kit';
-  import { MusicArtifact } from '$lib/structures';
   import BackButton from '$lib/components/BackButton.svelte';
   import MusicCard from './_MusicCard.svelte';
 
@@ -17,7 +16,6 @@
 <script lang="ts">
   import Meta from '$lib/components/Meta.svelte';
   import MusicHeader from './_MusicHeader.svelte';
-  import { wrapAPI } from '$lib/api-client/singleton';
 
   export let music: MusicArtifact[];
 
@@ -46,9 +44,9 @@
 
 <style lang="scss">
   h2 {
-    font-size: 1.5rem;
     color: #515025;
     font-weight: 500;
+    font-size: 1.5rem;
     text-align: center;
   }
 </style>

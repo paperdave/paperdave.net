@@ -1,6 +1,4 @@
 <script context="module" lang="ts">
-  import type { Question } from '$lib/structures';
-  import { QuestionRequest, Permission } from '$lib/structures';
   import { restrictedPage } from '$lib/utils/restricted-page';
 
   import type { Load } from '@sveltejs/kit';
@@ -19,7 +17,6 @@
 <script lang="ts">
   import QaHeader from './_IOHeader.svelte';
   import QuestionRespondApp from './_QuestionRespondApp.svelte';
-  import { API, wrapAPI } from '$lib/api-client/singleton';
   import RestrictedPageRoot from '$lib/components/RestrictedPageRoot.svelte';
   import Meta from '$lib/components/Meta.svelte';
 

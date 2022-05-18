@@ -33,7 +33,6 @@
   import { fly } from 'svelte/transition';
   import { flip } from 'svelte/animate';
   import { cubicIn, cubicInOut, cubicOut } from 'svelte/easing';
-  import { API, wrapAPI } from '$lib/api-client/singleton';
   import Meta from '$lib/components/Meta.svelte';
   import TextBox from '$lib/components/TextBox.svelte';
 

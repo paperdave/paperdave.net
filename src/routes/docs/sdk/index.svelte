@@ -1,6 +1,4 @@
 <script>
-  import { API } from '$lib/api-client/singleton';
-
   const sections = Object.keys(API).filter((key) => API[key]?.client);
 </script>
 
@@ -25,8 +23,8 @@
 
 <style>
   ul {
-    list-style: circle;
     padding: 0;
     padding-left: 20px;
+    list-style: circle;
   }
 </style>

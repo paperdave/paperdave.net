@@ -18,7 +18,6 @@
 
 <script lang="ts">
   import QuestionRender from './_MessageRender.svelte';
-  import { wrapAPI } from '$lib/api-client/singleton';
   import Meta from '$lib/components/Meta.svelte';
   import { formatDate } from '$lib/utils/date';
 

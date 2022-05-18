@@ -58,6 +58,9 @@ const conf = {
       define: {
         'import.meta.env.SOURCE_ROOT': JSON.stringify(process.cwd()),
       },
+      optimizeDeps: {
+        exclude: ['canvas', 'sharp'],
+      },
       plugins: [svgSvelte(), content.default()],
     },
   },

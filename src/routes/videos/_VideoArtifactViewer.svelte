@@ -1,5 +1,4 @@
 <script context="module" lang="ts">
-  import { VideoArtifact } from '$lib/structures';
 </script>
 
 <script lang="ts">

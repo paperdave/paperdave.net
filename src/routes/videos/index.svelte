@@ -1,5 +1,4 @@
 <script lang="ts" context="module">
-  import { VideoArtifact } from '$lib/structures';
   import BackButton from '$lib/components/BackButton.svelte';
   import type { Load } from '@sveltejs/kit';
   import VideoButton from './_VideoButton.svelte';
@@ -16,7 +15,6 @@
 
 <script lang="ts">
   import VideoHeader from './_VideoHeader.svelte';
-  import { wrapAPI } from '$lib/api-client/singleton';
   import Meta from '$lib/components/Meta.svelte';
 
   export let videos: VideoArtifact[];

@@ -29,14 +29,6 @@
   <link rel="canonical" href="https://davecode.net{$page.url.pathname}" />
 
   <!-- Constants -->
-  <meta charset="utf-8" />
-  <meta name="author" content="dave caruso" />
-  <meta name="copyright" content="&copy; dave caruso 2022" />
-  <meta name="distribution" content="web" />
-  <meta name="keywords" content="art, entertainment, dave caruso, davecode" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="powered by" content="chocolate" />
-  <meta name="dark mode extensions" content="please do not use" />
 
   <!-- OpenGraph and Twitter embeds. -->
   <meta property="og:site_name" content="davecode - computer art to the limit" />

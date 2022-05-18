@@ -1,7 +1,5 @@
 <script lang="ts" context="module">
-  import { wrapAPI } from '$lib/api-client/singleton';
   import ThemeRoot from '$lib/components/ThemeRoot.svelte';
-  import { Artifact } from '$lib/structures';
   import { formatDate } from '$lib/utils/date';
   import type { Load } from '@sveltejs/kit';
   import hardcoded from './amateur-extras.yaml';
@@ -147,10 +145,10 @@
 
 <style lang="scss">
   .container {
-    width: 750px;
     margin: auto;
     padding-top: 48px;
     padding-bottom: 48px;
+    width: 750px;
   }
 
   h1,
@@ -165,18 +163,18 @@
   }
 
   h1 {
-    font-family: 'Roboto Slab';
-    font-size: 3em;
-    font-weight: bold;
     color: #d71a25;
+    font-weight: bold;
+    font-size: 3em;
+    font-family: 'Roboto Slab';
     text-shadow: shadow(2px, 0.5, #520505);
   }
   h2 {
-    font-family: 'Roboto Slab';
-    font-weight: 400;
     margin-top: 50px;
-    font-size: 2em;
     color: #000;
+    font-weight: 400;
+    font-size: 2em;
+    font-family: 'Roboto Slab';
   }
 
   ul {
@@ -197,30 +195,30 @@
   .underlined {
     position: absolute;
     right: 100%;
-    background-color: #dedede;
-    border-bottom: 0.2rem solid #aaa;
     z-index: 100;
+    border-bottom: 0.2rem solid #aaa;
+    background-color: #dedede;
   }
 
   .year-implied {
     position: absolute;
-    transform: translateY(-0.5rem);
     right: calc(100% + 0.6rem);
+    transform: translateY(-0.5rem);
+    background: #aaa;
     width: 0.2rem;
     height: 1.5rem;
-    background: #aaa;
   }
 
   .search {
     margin-bottom: 16px;
 
     input {
-      background: white;
-      color: black;
-      border: 1px solid transparent;
       --text-mono: 1;
+      border: 1px solid transparent;
+      background: white;
       padding: 8px;
       width: 100%;
+      color: black;
       &:focus {
         outline: none;
         border: 1px solid black;

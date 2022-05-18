@@ -47,8 +47,9 @@ model MessageInput {
   date DateTime @id @default(now())
   prompt String
   notifyEmail String
+  sourceName String
   sourceLocation String
-  sourceVPN Boolean
+  sourceVPN String?
 }
 
 model Video {
@@ -57,8 +58,7 @@ model Video {
   title String
   tags String[]
   thumb String?
-  thumbBlur String?
-  mediaHash String
+  media String
 }
 
 model Song {
@@ -67,8 +67,7 @@ model Song {
   title String
   tags String[]
   album String?
-  albumBlur String?
-  mediaHash String
+  media String
 }
 
 model Game {
@@ -79,6 +78,8 @@ model Game {
   web String?
   webAlwaysFullscreen Boolean @default(false)
   downloads Json[]
+  banner String?
+  logo String?
 }
 
 model Application {
@@ -89,4 +90,15 @@ model Application {
   web String?
   webAlwaysFullscreen Boolean @default(false)
   downloads Json[]
+}
+
+model Upload {
+  hash String @id
+  date DateTime @default(now())
+  filename String
+  mimetype String
+  blurhash String?
+  width Int?
+  height Int?
+  ratio String?
 }

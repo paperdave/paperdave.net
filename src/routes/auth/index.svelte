@@ -1,7 +1,6 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
-  import { API } from '$lib/api-client/singleton';
 
   import Button from '$lib/components/Button.svelte';
   import ButtonGroup from '$lib/components/ButtonRow.svelte';

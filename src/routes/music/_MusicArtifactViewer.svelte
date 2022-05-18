@@ -1,5 +1,4 @@
 <script context="module" lang="ts">
-  import type { MusicArtifact } from '$lib/structures';
   import BackButton from '$lib/components/BackButton.svelte';
   import MusicCard from './_MusicCard.svelte';
 </script>

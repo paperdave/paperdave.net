@@ -1,6 +1,4 @@
 import { browser } from '$app/env';
-import { getUser } from '$lib/api-client/session';
-import type { Permission } from '$lib/structures';
 import type { Load } from '@sveltejs/kit';
 import { encodeRedirect } from './encode-redirect';
 

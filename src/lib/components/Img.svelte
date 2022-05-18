@@ -1,18 +1,40 @@
-<script lang="ts">
-  import { ImageMedia } from '$lib/structures/Media';
-  import BlurHash from './BlurHash.svelte';
+<script context="module" lang="ts">
+  function decodeSrc(src: string) {
+    if (!src) return;
 
-  export let src: ImageMedia;
-  export let alt: string;
+    try {
+      return {
+        url: new URL(src).toString(),
+        blurhash: null,
+      };
+    } catch (error) {
+      //
+    }
+
+    const [hash, blurhash] = src.split('/');
+    if (hash.length === 32) {
+      return {
+        url: `https://media.davecode.net/upload/${hash.slice(0, 2)}/${hash}.png`,
+        blurhash,
+      };
+    }
+  }
 </script>
 
-{#if src}
-  {#if src.hash}
-    <BlurHash hash={src.hash} src={src.url} {alt} />
+<script lang="ts">
+  import BlurHash from './BlurHash.svelte';
+
+  export let src: string;
+  export let alt: string;
+  export let noBlurhash = false;
+
+  $: img = decodeSrc(src);
+</script>
+
+{#if img}
+  {#if img.blurhash && !noBlurhash}
+    <BlurHash hash={img.blurhash} src={img.url} {alt} />
   {:else}
-    <img src={src.url} {alt} />
+    <img src={img.url} {alt} />
   {/if}
 {/if}
-
-<style lang="scss">
-</style>

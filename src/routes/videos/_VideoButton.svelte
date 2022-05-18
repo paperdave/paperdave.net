@@ -1,7 +1,6 @@
 <script lang="ts">
   import Button from '$lib/components/Button.svelte';
   import Img from '$lib/components/Img.svelte';
-  import { VideoArtifact } from '$lib/structures';
   import { formatDate } from '$lib/utils/date';
 
   export let video: VideoArtifact;

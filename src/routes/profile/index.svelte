@@ -3,9 +3,6 @@
 </script>
 
 <script lang="ts">
-  import { user } from '$lib/api-client/session';
-  import { API } from '$lib/api-client/singleton';
-
   import BackButton from '$lib/components/BackButton.svelte';
   import Button from '$lib/components/Button.svelte';
   import Meta from '$lib/components/Meta.svelte';

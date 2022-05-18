@@ -9,7 +9,8 @@
   accent={palette.green[400]}
   foreground={palette.green[100]}
   backButtonUrl="/games"
-  backLabel="all games">
+  backLabel="all games"
+  paperSize="large">
   <svelte:fragment slot="description">playable experiences</svelte:fragment>
 
   <slot />
