@@ -10,7 +10,7 @@
 <iframe src={story.url} title={story.title} frameborder="0" />
 
 <div class="back-container">
-  <BackButton href="/stories">all stories</BackButton>
+  <BackButton href="/stories" opaque>all stories</BackButton>
 </div>
 
 <style lang="scss">
@@ -25,7 +25,7 @@
     position: absolute;
     top: 0;
     left: 0;
+    z-index: 10;
     padding: 1rem;
-    color: white;
   }
 </style>

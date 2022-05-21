@@ -23,6 +23,7 @@
     "source-map-js": "^1.0.1",
     "stacktrace-parser": "^0.1.10",
     "svelte-kit-cookie-session": "^2.1.4",
+    "svelte-portal": "^2.1.2",
     "svelte-simple-markdown": "^1.0.1"
   },
   "devDependencies": {

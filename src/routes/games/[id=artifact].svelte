@@ -2,15 +2,12 @@
   import BackButton from '$lib/components/BackButton.svelte';
 
   import Button from '$lib/components/Button.svelte';
-
-  import ButtonRow from '$lib/components/ButtonRow.svelte';
-  import Heading from '$lib/components/Heading.svelte';
-  import Icon from '$lib/components/Icon.svelte';
   import Img from '$lib/components/Img.svelte';
   import Paper from '$lib/components/Paper.svelte';
   import ThemeRoot from '$lib/components/ThemeRoot.svelte';
   import { palette } from '$lib/theme';
   import type { Game } from '@prisma/client';
+  import GameEmbed from './_GameEmbed.svelte';
 
   export let game: Game;
 </script>
@@ -23,20 +20,18 @@
     <header>
       <Img src={game.banner} alt="" absolute />
       <div class="logo">
-        <Img src={game.logo} alt="" stretch="height" />
+        <Img src={game.logo} alt="" stretch="height" noBlur />
       </div>
     </header>
     <BackButton position="corner" opaque href="/games">all games</BackButton>
 
+    {#if game.web}
+      <GameEmbed src={game.web} />
+    {/if}
+
     <p>
       {game.description}
     </p>
-
-    <div class="embed">
-      <div>
-        <Button variant="accent">Play Game in Browser</Button>
-      </div>
-    </div>
   </Paper>
 </ThemeRoot>
 
@@ -55,13 +50,5 @@
     position: absolute;
     bottom: -4rem;
     height: 8rem;
-  }
-  .embed {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 4px solid white;
-    background: #222;
-    aspect-ratio: 16/9;
   }
 </style>

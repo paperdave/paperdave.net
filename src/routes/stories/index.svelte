@@ -10,7 +10,7 @@
   <article class="story">
     <flex row gap class="title">
       <h2>
-        <a sveltekit:prefetch href={story.url}>{story.title}</a>
+        <a sveltekit:prefetch href={`/stories/${story.id}`}>{story.title}</a>
       </h2>
       <div>
         {#if story.dateEnd}

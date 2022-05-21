@@ -10,32 +10,14 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model ArtifactEntry {
-  id   String   @id
-  type String
-  date DateTime
-}
-
-model Story {
-  id          String    @id
-  date        DateTime  @default(now())
-  dateEnd     DateTime?
-  title       String
-  thumb       String?
-  description String
-  url         String
-  tags        String[]
-}
-
-model Donator {
-  id   Int    @id @default(autoincrement())
-  name String
-}
-
 model Message {
   date DateTime     @id @default(now())
   type MessageType?
   text String
+
+  mentionedArtifacts ArtifactEntry[]
+  mentionedMessages  Message[]       @relation("messageMention", references: [date])
+  mentionedIn        Message[]       @relation("messageMention", references: [date])
 }
 
 enum MessageType {
@@ -52,22 +34,60 @@ model MessageInput {
   sourceVPN      String?
 }
 
+model ArtifactEntry {
+  id          String       @id
+  type        ArtifactType
+  title       String
+  date        DateTime
+  mentionedIn Message[]
+  unlisted    Boolean
+}
+
+enum ArtifactType {
+  Application
+  Doodle
+  Fragment
+  Game
+  Journal
+  MusicVideo
+  NerdGear
+  Song
+  Square
+  Story
+  Video
+  WordMagnet
+}
+
+model Story {
+  id          String    @id
+  date        DateTime  @default(now())
+  dateEnd     DateTime?
+  title       String
+  thumb       String?
+  description String
+  url         String
+  tags        String[]
+  unlisted    Boolean   @default(false)
+}
+
 model Video {
-  id    String   @id
-  date  DateTime @default(now())
-  title String
-  tags  String[]
-  thumb String?
-  media String
+  id       String   @id
+  date     DateTime @default(now())
+  title    String
+  tags     String[]
+  thumb    String?
+  media    String
+  unlisted Boolean  @default(false)
 }
 
 model Song {
-  id    String   @id
-  date  DateTime @default(now())
-  title String
-  tags  String[]
-  album String?
-  media String
+  id       String   @id
+  date     DateTime @default(now())
+  title    String
+  tags     String[]
+  album    String?
+  media    String
+  unlisted Boolean  @default(false)
 }
 
 model Game {
@@ -78,12 +98,15 @@ model Game {
   shortDescription    String?
   web                 String?
   webAlwaysFullscreen Boolean  @default(false)
+  source              String?
   downloads           Json[]
   banner              String?
   logo                String?
+  screenshots         String[]
   themeBG             String?
   themeFG             String?
   themeAccent         String?
+  unlisted            Boolean  @default(false)
 }
 
 model Application {
@@ -94,6 +117,7 @@ model Application {
   web                 String?
   webAlwaysFullscreen Boolean  @default(false)
   downloads           Json[]
+  unlisted            Boolean  @default(false)
 }
 
 model Upload {
@@ -105,4 +129,9 @@ model Upload {
   width    Int?
   height   Int?
   ratio    String?
+}
+
+model Donator {
+  id   Int    @id @default(autoincrement())
+  name String
 }

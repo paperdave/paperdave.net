@@ -56,10 +56,6 @@ export const post: RequestHandler = async ({ request, url }) => {
       await img.raw({ depth: 'char' }).ensureAlpha(1).toBuffer()
     );
 
-    console.log(info.channels);
-    console.log(info.width);
-    console.log(info.height);
-
     blurhash = encode(pixelData, info.width, info.height, 4, 3);
     width = info.width;
     height = info.height;
@@ -70,8 +66,10 @@ export const post: RequestHandler = async ({ request, url }) => {
     if (b.startsWith('0.')) {
       b = b.slice(1);
     }
-    console.log('ratios: ', a, b);
     ratio = a.length <= b.length ? a : b;
+    if (numerator === 16 && denominator === 9) {
+      ratio = '$';
+    }
   }
 
   try {

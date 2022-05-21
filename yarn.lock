@@ -1992,6 +1992,11 @@ svelte-kit-cookie-session@^2.1.4:
   resolved "https://registry.yarnpkg.com/svelte-kit-cookie-session/-/svelte-kit-cookie-session-2.1.4.tgz#9f4f39713c9bb02fee15c9376ea16d7c05031c86"
   integrity sha512-z/ckxHWguYyy66UqfId4Lu+A77ft/3mV5oozbRTI9bnQY0tyJfns/SM0ikdkj7OV5GiI8kq7GSOGvajWwyGeZw==
 
+svelte-portal@^2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/svelte-portal/-/svelte-portal-2.1.2.tgz#5a355c18c9782149f94cbb1649ecbdf3d3667293"
+  integrity sha512-u1ONI4ZJDNhVJPDW7tH6RH1ZIzALt6kJZbF00Hz9bgNIVRlzvzimsnwf35rGFMtPFA+FYenvsTHUR815yYNc9A==
+
 svelte-preprocess@^4.9.8:
   version "4.10.6"
   resolved "https://registry.yarnpkg.com/svelte-preprocess/-/svelte-preprocess-4.10.6.tgz#5f9a53e7ed3b85fc7e0841120c725b76ac5a1ba8"

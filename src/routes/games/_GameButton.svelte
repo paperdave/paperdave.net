@@ -1,13 +1,13 @@
 <script lang="ts">
   import Img from '$lib/components/Img.svelte';
   import { formatDate } from '$lib/utils/date';
-  import type { Game } from '@prisma/client';
+  import type { GamePartial } from '.';
 
-  export let game: Game;
+  export let game: GamePartial;
 
   $: ariaLabel =
     game.title +
-    (game.description ? `: ${game.description}` : '') +
+    (game.shortDescription ? `: ${game.shortDescription}` : '') +
     '. Released on ' +
     formatDate(game.date, 'date');
 </script>

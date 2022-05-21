@@ -2,10 +2,10 @@
   import SimpleCategoryHeader from '$lib/components/SimpleCategoryHeader.svelte';
   import { palette } from '$lib/theme';
 
-  import type { Game } from '@prisma/client';
+  import type { GamePartial } from '.';
   import GameButton from './_GameButton.svelte';
 
-  export let games: Game[];
+  export let games: GamePartial[];
 </script>
 
 <SimpleCategoryHeader
