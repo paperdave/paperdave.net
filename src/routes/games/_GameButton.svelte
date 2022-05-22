@@ -25,7 +25,9 @@
         {#if game.logo}
           <Img src={game.logo} alt={game.title} noDrag noBlur stretch="height" absolute />
         {:else}
-          {game.title}
+          <div class="text">
+            {game.title}
+          </div>
         {/if}
       </div>
       {#if game.shortDescription}
@@ -118,11 +120,24 @@
     flex-direction: column;
     gap: 1rem;
     height: 100%;
+  }
 
-    .logo {
-      display: grid;
-      position: relative;
-      flex: 1 0 0;
+  .logo {
+    display: grid;
+    position: relative;
+    flex: 1 0 0;
+
+    .text {
+      transform-origin: top left;
+      transition: transform 250ms cubic-bezier(0.165, 0.84, 0.44, 1);
+      max-width: 50%;
+      font-weight: 700;
+      font-size: 2.4rem;
+
+      a:hover &,
+      a:focus & {
+        transform: scale(1.4);
+      }
     }
   }
 
