@@ -8,23 +8,6 @@ const overrideHeaders = {
   'Cache-Control': 'public, maxage=3600, stale-while-revalidate=3600',
 };
 
-function createErrorResponse(statusCode: number, message: string) {
-  const response = new Response(
-    JSON.stringify({
-      error: message,
-    }),
-    {
-      status: statusCode,
-    }
-  );
-
-  for (const [key, value] of Object.entries(overrideHeaders)) {
-    response.headers.set(key, value);
-  }
-
-  return response;
-}
-
 export const handle: Handle = async ({ event, resolve }) => {
   const response = await resolve(event);
 

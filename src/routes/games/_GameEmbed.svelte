@@ -32,6 +32,11 @@
   $: browser && running && updateDocumentInertState();
 
   function start() {
+    if (src.startsWith('external://')) {
+      const url = src.substring('external://'.length);
+      location.href = url;
+      return;
+    }
     history.pushState(null, '', location.pathname + PLAYING_HASH);
     running = true;
   }

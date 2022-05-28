@@ -1,7 +1,6 @@
 <script lang="ts">
   import BackButton from '$lib/components/BackButton.svelte';
 
-  import { formatDate } from '$lib/utils/date';
   import type { Story } from '@prisma/client';
 
   export let story: Story;

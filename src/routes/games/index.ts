@@ -4,6 +4,9 @@ import type { RequestHandler } from '@sveltejs/kit';
 
 export const get: RequestHandler = async ({}) => {
   const games = await db.game.findMany({
+    where: {
+      unlisted: false,
+    },
     orderBy: {
       date: 'desc',
     },

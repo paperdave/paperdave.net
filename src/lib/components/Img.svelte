@@ -70,7 +70,12 @@
 </script>
 
 {#if img}
-  <figure class="stretch-{stretch}" class:isBlurhash class:absolute style:aspect-ratio={img.aspect}>
+  <figure
+    class="stretch-{stretch}"
+    class:isBlurhash
+    class:absolute
+    style:aspect-ratio={img.aspect}
+    on:click>
     {#if showCanvas}
       <blurhash-image blurhash={img.blurhash} />
     {/if}
