@@ -1,6 +1,3 @@
-<script context="module" lang="ts">
-</script>
-
 <script lang="ts">
   import BackButton from '$lib/components/BackButton.svelte';
   import Meta from '$lib/components/Meta.svelte';
@@ -8,14 +5,15 @@
   import Layout from './__layout.svelte';
   import VideoPlayer from './_VideoPlayer.svelte';
   import { formatDate } from '$lib/utils/date';
+  import type { Video } from '@prisma/client';
 
-  export let artifact: VideoArtifact;
+  export let artifact: Video;
 </script>
 
 <Meta
   title={artifact.title + ''}
   description="video by dave caruso released on {formatDate(artifact.date, 'date')}"
-  video={artifact.video.url} />
+  video={artifact.media} />
 
 <!-- Layout is here because this is not a page file, but a component. -->
 <Layout>
@@ -28,7 +26,7 @@
       <date>{formatDate(artifact.date, 'date')}</date>
     </div>
 
-    <VideoPlayer video={artifact.video} />
+    <VideoPlayer src={artifact.media} />
 
     <div class="tags">
       {#each [...artifact.tags] as tag}

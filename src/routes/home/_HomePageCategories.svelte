@@ -76,31 +76,34 @@
                 <a sveltekit:prefetch class="link" href="/videos">videos</a>
                 <a sveltekit:prefetch class="link" href="/stories">stories</a>
                 <a sveltekit:prefetch class="link" href="/games">games</a>
-                <a sveltekit:prefetch class="link" href="/applications">applications</a>
+                <!-- <a sveltekit:prefetch class="link" href="/apps">applications</a> -->
+                <span disabled class="link">applications</span>
               </flex>
               <flex class="col">
-                <a class="link" href="/q+a">ask a question</a>
-                <!-- <a class="link" href="/#bts" on:click={focusBTS}> behind the scenes </a>
-                <a class="link" href="/#blocks" on:click={focusBlocks}> building blocks </a> -->
-                <a class="link" href="/donate">give chocolate</a>
-                <a class="link" href="/credits">credits</a>
+                <a sveltekit:prefetch class="link" href="/i+o">input/output</a>
+                <span class="link" disabled>behind the scenes</span>
+                <span class="link" disabled>building blocks</span>
+                <!-- <a sveltekit:prefetch class="link" href="/#bts" on:click={focusBTS}>behind the scenes</a>
+                <a sveltekit:prefetch class="link" href="/#blocks" on:click={focusBlocks}>building blocks</a> -->
+                <a sveltekit:prefetch class="link" href="/donate">give chocolate</a>
+                <a sveltekit:prefetch class="link" href="/credits">credits</a>
               </flex>
             {:else if currentPage === 'blocks'}
               <flex class="col">
-                <a disabled class="link" href="/toolkit">creative toolkit</a>
-                <a disabled class="link" href="/plugins">plugins</a>
-                <a disabled class="link" href="/nerd gear">nerd gear</a>
+                <span disabled class="link" href="/toolkit">creative toolkit</span>
+                <span disabled class="link" href="/plugins">plugins</span>
+                <span disabled class="link" href="/nerd gear">nerd gear</span>
               </flex>
               <flex class="col">
-                <a disabled class="link" href="/trinkets">trinkets</a>
-                <a disabled class="link" href="/docs">documentation</a>
+                <span disabled class="link" href="/trinkets">trinkets</span>
+                <span disabled class="link" href="/docs">documentation</span>
               </flex>
             {:else if currentPage === 'bts'}
               <flex class="col">
-                <a disabled class="link" href="/fragments">bits & fragments</a>
-                <a disabled class="link" href="/journal">journal</a>
-                <a disabled class="link" href="/thoughts">thoughts</a>
-                <a disabled class="link" href="/source">source code</a>
+                <span disabled class="link" href="/fragments">bits & fragments</span>
+                <span disabled class="link" href="/journal">journal</span>
+                <span disabled class="link" href="/thoughts">thoughts</span>
+                <span disabled class="link" href="/source">source code</span>
               </flex>
             {/if}
           </flex>
@@ -163,7 +166,7 @@
     }
   }
 
-  a[disabled] {
+  span[disabled] {
     opacity: 0.5;
     pointer-events: none;
     text-decoration: line-through;

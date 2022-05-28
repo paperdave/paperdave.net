@@ -49,9 +49,9 @@ enum ArtifactType {
   Fragment
   Game
   Journal
+  Music
   MusicVideo
   NerdGear
-  Song
   Square
   Story
   Video
@@ -77,10 +77,12 @@ model Video {
   tags     String[]
   thumb    String?
   media    String
+  source   String?
+  ttms     Float?
   unlisted Boolean  @default(false)
 }
 
-model Song {
+model Music {
   id       String   @id
   date     DateTime @default(now())
   title    String

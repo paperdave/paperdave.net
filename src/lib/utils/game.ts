@@ -1,7 +1,7 @@
 import type { Game } from '@prisma/client';
 
 export interface GameDownload {
-  platform: 'windows' | 'linux';
+  platform: 'win' | 'linux';
   url: string;
 }
 

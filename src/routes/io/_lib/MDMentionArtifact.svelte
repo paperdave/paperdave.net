@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { ASTNode } from 'svelte-simple-markdown';
+
   export let node: ASTNode;
 </script>
 

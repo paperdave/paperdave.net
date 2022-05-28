@@ -2,18 +2,24 @@ import { db } from '$lib/db';
 import type { RequestHandler } from '@sveltejs/kit';
 
 export const get: RequestHandler = async ({}) => {
-  const stories = await db.story.findMany({
+  const videos = await db.video.findMany({
     where: {
       unlisted: false,
     },
     orderBy: {
       date: 'desc',
     },
+    select: {
+      id: true,
+      date: true,
+      title: true,
+      thumb: true,
+    },
   });
 
   return {
     body: {
-      stories,
+      videos,
     },
   };
 };

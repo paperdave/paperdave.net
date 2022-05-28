@@ -20,8 +20,9 @@
 <script lang="ts">
   import { page } from '$app/stores';
   import Meta from '$lib/components/Meta.svelte';
-  import MessageRender from './_MessageRender.svelte';
-  import type { MessagePage } from './_types';
+  import MessageRender from './_lib/MessageRender.svelte';
+  import type { MessagePage } from './_lib/utils';
+  import MessageForm from './_lib/MessageForm.svelte';
 
   export let mpage: MessagePage;
 
@@ -44,7 +45,7 @@
 
 {#if mpage.latest}
   <div>
-    <!-- <QuestionForm bind:expanded={formExpanded} /> -->
+    <MessageForm bind:expanded={formExpanded} />
   </div>
   <div class="opacity-transition" style="opacity:{formExpanded ? 0 : 1}">
     <p>and the answers:</p>

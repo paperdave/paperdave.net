@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Message } from '@prisma/client';
-  import { mdConfig } from './_markdown';
-  import MessageDate from './_MessageDate.svelte';
+  import { messageMarkdown } from './markdown';
+  import MessageDate from './MessageDate.svelte';
   import { Markdown } from 'svelte-simple-markdown';
 
   export let message: Message;
@@ -12,7 +12,7 @@
   {#if message.type === 'REJECT'}
     <p class="red">this message has been rejected</p>
   {:else}
-    <Markdown config={mdConfig} value={message.text} />
+    <Markdown config={messageMarkdown} value={message.text} />
   {/if}
 </article>
 

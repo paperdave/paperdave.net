@@ -46,13 +46,13 @@
 
     .invert {
       .input {
-        transform: translateX(-194px - 40px);
+        transform: translateX(228px - 40px);
       }
       .and {
         transform: translateX(-194px + 221px);
       }
       .output {
-        transform: translateX(221px + 40px);
+        transform: translateX(calc(-100% - 10px));
       }
     }
   }

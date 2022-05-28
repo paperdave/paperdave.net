@@ -34,15 +34,18 @@
   export let autocorrect: string | undefined = undefined;
   export let spellcheck: boolean | undefined = undefined;
   export let error: unknown = undefined;
+  export let id = useId();
+
+  export let unstable_ioTextarea = false;
+  let unstable_ioTextareaHeight = 3 * 16;
+  let unstable_ioTextareaMeasure: HTMLDivElement;
 
   const dispatch = createEventDispatcher();
 
   $: expanded = focused || !!value;
 
-  let id = useId();
-
   let labelElem: HTMLLabelElement | undefined;
-  let inputElem: HTMLInputElement | undefined;
+  let inputElem: HTMLInputElement | HTMLTextAreaElement | undefined;
   let root: HTMLElement | undefined;
 
   let labelX = 0;
@@ -52,6 +55,7 @@
     labelX = labelElem?.offsetLeft ?? 0;
     if (document.activeElement === inputElem) {
       focused = true;
+      dispatch('focus');
     }
     setTimeout(() => {
       init = false;
@@ -60,6 +64,7 @@
 
   function handleFocus() {
     focused = true;
+    dispatch('focus');
   }
 
   function handleBlur(ev: FocusEvent) {
@@ -75,6 +80,7 @@
       }
     }
     focused = false;
+    value = value.trim();
     dispatch('blur');
   }
 
@@ -105,10 +111,23 @@
         elem !== inputElem
       ) {
         focused = true;
+        dispatch('focus');
         elem.addEventListener('blur', handleRelatedBlur);
         return;
       }
     }
+  }
+
+  async function updateHeight() {
+    await tick();
+    const height = unstable_ioTextareaMeasure.scrollHeight;
+    unstable_ioTextareaHeight = Math.max(height + 4, 3 * 16) + (focused ? 32 : 0);
+  }
+
+  $: [value, focused] && unstable_ioTextareaMeasure && updateHeight();
+
+  export function focus() {
+    inputElem?.focus();
   }
 </script>
 
@@ -120,6 +139,8 @@
   class:expanded
   class:disabled
   class:error={!!error && !disabled}
+  style:--height={unstable_ioTextarea ? `${unstable_ioTextareaHeight}px` : undefined}
+  class:animatedHeight={unstable_ioTextarea}
   on:click={handleClickFocus}
   bind:this={root}>
   {#if label}
@@ -136,23 +157,48 @@
         style:--offsetX="{labelX}px"
         class:ssrExpand={expanded && labelX === 0}>{label}</label>
     {/if}
-    <input
-      {id}
-      type={revealed ? 'text' : type}
-      autocapitalize={revealed ? 'off' : autocapitalize}
-      autocomplete={revealed ? 'off' : autocomplete}
-      autocorrect={revealed ? 'off' : autocorrect}
-      spellcheck={revealed ? false : spellcheck}
-      {name}
-      {value}
-      {disabled}
-      {placeholder}
-      {...$$restProps}
-      bind:this={inputElem}
-      on:input={onInput}
-      on:focus={handleFocus}
-      on:blur={handleBlur}
-      on:change />
+    {#if !unstable_ioTextarea}
+      <input
+        {id}
+        type={revealed ? 'text' : type}
+        autocapitalize={revealed ? 'off' : autocapitalize}
+        autocomplete={revealed ? 'off' : autocomplete}
+        autocorrect={revealed ? 'off' : autocorrect}
+        spellcheck={revealed ? false : spellcheck}
+        {name}
+        {value}
+        {disabled}
+        {placeholder}
+        {...$$restProps}
+        bind:this={inputElem}
+        on:input={onInput}
+        on:focus={handleFocus}
+        on:blur={handleBlur}
+        on:change />
+    {:else}
+      <textarea
+        {id}
+        autocapitalize={revealed ? 'off' : autocapitalize}
+        autocomplete={revealed ? 'off' : autocomplete}
+        autocorrect={revealed ? 'off' : autocorrect}
+        spellcheck={revealed ? false : spellcheck}
+        {name}
+        bind:value
+        {disabled}
+        {placeholder}
+        {...$$restProps}
+        bind:this={inputElem}
+        on:input={onInput}
+        on:focus={handleFocus}
+        on:blur={handleBlur}
+        on:change />
+      <div
+        class="textarea-height-measure"
+        aria-hidden="true"
+        bind:this={unstable_ioTextareaMeasure}>
+        {value}.
+      </div>
+    {/if}
   </div>
 
   {#if (type === 'password' && focused) || revealed}
@@ -170,7 +216,7 @@
 
 <style lang="scss">
   $labelFocusScale: 75%;
-  $easing: cubic-bezier(0.4, 0, 0.1, 1);
+  $easing2: cubic-bezier(0.1, 0.6, 0.4, 1);
 
   .textbox {
     position: relative;
@@ -185,10 +231,19 @@
       var(--bg-sat),
       calc(var(--bg-lit) + (var(--dark) * -5%) + (var(--light) * 5%))
     );
+    --height: 3rem;
+    min-height: var(--height);
+    max-height: var(--height);
     padding: 0;
-    min-height: 3rem;
-    max-height: 3rem;
     user-select: none;
+    align-items: stretch;
+  }
+  .animatedHeight {
+    transition: border-color 100ms $easing, outline-color 100ms $easing, outline-width 100ms $easing,
+      height 200ms $easing2;
+    height: var(--height);
+    min-height: 3rem;
+    max-height: unset;
   }
 
   .focused {
@@ -200,23 +255,28 @@
     // TODO: use theme color, but we don't have theme error colors, or really anything.
     border-color: red;
     outline-color: hsla(0, 100%, 50%, 0.4);
-    
+
     label {
       color: red !important;
     }
   }
 
   .input-container {
-    flex: 1 1 0;
+    flex: 1 1 0px;
     padding: 0 0.6rem;
     width: 0px;
+    display: flex;
+    align-items: stretch;
+    overflow: hidden;
   }
 
-  input {
+  input,
+  textarea {
     border: none;
+    resize: none;
     background-color: transparent;
     width: 100%;
-    height: 100%;
+    font-weight: 500;
     &:focus {
       outline: none;
     }
@@ -228,12 +288,41 @@
     }
   }
 
+  textarea {
+    padding: 0.8rem 0.6rem;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+  }
+
+  .textarea-height-measure {
+    font-weight: 500;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    pointer-events: none;
+    padding: 0.8rem 0.6rem;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    letter-spacing: 0px;
+    opacity: 0;
+  }
+
   label {
     position: absolute;
     transform-origin: left center;
     transition: transform 175ms $easing, color 100ms $easing;
     pointer-events: none;
     color: hsla(var(--fg), 0.45);
+    align-self: flex-start;
+    height: calc(3rem - 4px);
+    display: flex;
+    align-items: center;
   }
 
   .border-cover {
@@ -269,14 +358,14 @@
   .expanded,
   :global(.noscript) .textbox {
     label {
-      transform: translateY(-24px) translateX(calc(0px - var(--offsetX) + 0.65rem)) 
+      transform: translateY(-24px) translateX(calc(0px - var(--offsetX) + 0.65rem))
         scale($labelFocusScale * 1);
       color: hsl(var(--fg));
     }
     .border-cover {
       transform: scaleX(1);
     }
-    input::placeholder {
+    :where(input, textarea)::placeholder {
       transform: none;
       opacity: 0.45;
       transition-delay: 0ms;
@@ -321,7 +410,7 @@
     transform: translateY(-1.5rem) scale($labelFocusScale * 1) !important;
   }
 
-  :global(.noscript) .textbox input {
+  :global(.noscript) .textbox :where(input, textarea) {
     outline: 1px solid hsla(var(--fg), 0.6);
     &:focus {
       outline-color: hsla(var(--acc), 0.6);

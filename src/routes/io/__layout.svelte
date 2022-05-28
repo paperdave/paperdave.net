@@ -5,14 +5,14 @@
   import Paper from '$lib/components/Paper.svelte';
   import ThemeRoot from '$lib/components/ThemeRoot.svelte';
   import { palette } from '$lib/theme';
-  import QaHeader from './_IOHeader.svelte';
+  import QaHeader from './_lib/IOHeader.svelte';
 </script>
 
 <ThemeRoot
   background={palette.grey[900]}
   accent={palette.yellow[800]}
   linkColor={palette.cyan[300]}>
-  <Paper>
+  <Paper marginTop={2}>
     <BackButton
       position="off-center-right"
       href={$page.url.pathname === '/i+o' ? '/' : '/i+o'}

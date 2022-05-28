@@ -1,6 +1,6 @@
 <script lang="ts">
   import { escapeHTML } from '$lib/utils/escape';
-  import QuestionRender from './_MessageRender.svelte';
+  import QuestionRender from './MessageRender.svelte';
   import { createEventDispatcher } from 'svelte';
   import Icon from '$lib/components/Icon.svelte';
   import TextBox from '$lib/components/TextBox.svelte';

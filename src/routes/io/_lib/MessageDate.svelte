@@ -12,7 +12,7 @@
     if (copyState) return;
 
     const id = formatDate(message.date, 'message-id');
-    const url = `${window.location.origin}/q+a/${id}`;
+    const url = `${window.location.origin}/io/${id}`;
 
     try {
       await navigator.clipboard.writeText(url);

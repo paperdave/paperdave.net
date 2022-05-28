@@ -1,46 +1,30 @@
-<script context="module" lang="ts">
-  import type { Load } from '@sveltejs/kit';
-  import BackButton from '$lib/components/BackButton.svelte';
-  import MusicCard from './_MusicCard.svelte';
-
-  export const load: Load = async ({ fetch }) => {
-    const API = wrapAPI(fetch);
-    return {
-      props: {
-        music: await API.artifacts.getArtifactList('music'),
-      },
-    };
-  };
-</script>
-
 <script lang="ts">
   import Meta from '$lib/components/Meta.svelte';
-  import MusicHeader from './_MusicHeader.svelte';
+  import type { Music } from '@prisma/client';
+  import MusicCard from './_MusicCard.svelte';
 
-  export let music: MusicArtifact[];
+  export let music: Music[];
 
   $: yearSeparated = music.reduce((acc, curr) => {
-    const year = curr.date.getFullYear().toString();
+    const year = new Date(curr.date).getFullYear().toString();
     if (!acc[year]) {
       acc[year] = [];
     }
     acc[year].push(curr);
     return acc;
-  }, {} as { [year: string]: MusicArtifact[] });
+  }, {} as { [year: string]: Music[] });
 </script>
 
 <Meta title="music" description="i like making music, here's some of it." />
 
-<BackButton position="off-center" />
-
-<MusicHeader />
-
-{#each Object.entries(yearSeparated).reverse() as [year, musicList]}
-  <h2>{year}</h2>
-  {#each musicList as artifact}
-    <MusicCard {artifact} />
+<div>
+  {#each Object.entries(yearSeparated).reverse() as [year, musicList]}
+    <h2>{year}</h2>
+    {#each musicList as artifact}
+      <MusicCard {artifact} />
+    {/each}
   {/each}
-{/each}
+</div>
 
 <style lang="scss">
   h2 {

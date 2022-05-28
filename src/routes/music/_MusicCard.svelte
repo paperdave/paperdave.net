@@ -5,7 +5,8 @@
   import { useEffect } from '$lib/hooks/useEffect';
   import { formatDate } from '$lib/utils/date';
   import Icon from '$lib/components/Icon.svelte';
-  export let artifact: MusicArtifact;
+  import type { Music } from '@prisma/client';
+  export let artifact: Music;
 
   let trackDiv: HTMLDivElement;
   let expanded = false;
@@ -92,14 +93,14 @@
 
 <main>
   <audio
-    src={artifact.music.url}
+    src={artifact.media}
     preload="none"
     bind:this={audioElement}
     on:playing={() => (playing = true)}
     on:pause={() => (playing = false)}
     on:durationchange={() => (loading = true)}
     on:canplay={() => (loading = false)}
-    loop={artifact.tags.has('loop')} />
+    loop={artifact.tags.includes('loop')} />
 
   <header>
     <button
@@ -122,8 +123,8 @@
       <h3>{artifact.title}</h3>
       <div class="tags">
         <span class="date">{formatDate(artifact.date, 'date')}</span>
-        {#if artifact instanceof MusicVideoArtifact}
-          <a href="/{artifact.id}" class="custom tag">has video</a>
+        {#if artifact.tags.includes('music video')}
+          <a href="/{artifact.id}" class="custom tag">music video</a>
         {/if}
         {#each displayTags as tag}
           <span class="tag">{tag}</span>
@@ -131,11 +132,11 @@
       </div>
     </div>
     <a
-      href={artifact instanceof MusicArtifact ? `/${artifact.id}` : `/music/${artifact.id}`}
+      href={!artifact.tags.includes('music video') ? `/${artifact.id}` : `/music/${artifact.id}`}
       class="icon custom">
       <Icon name="link" />
     </a>
-    <a href={artifact.music.url} target="_blank" class="icon custom">
+    <a href={artifact.media} target="_blank" class="icon custom">
       <Icon name="download" />
     </a>
   </header>

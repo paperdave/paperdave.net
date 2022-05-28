@@ -1,6 +1,6 @@
 import { db } from '$lib/db';
 import type { RequestHandler } from '@sveltejs/kit';
-import type { MessagePage } from './_types';
+import type { MessagePage } from './_lib/utils';
 
 const MESSAGES_PER_PAGE = 80;
 

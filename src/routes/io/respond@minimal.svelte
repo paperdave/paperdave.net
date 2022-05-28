@@ -16,7 +16,7 @@
 
 <script lang="ts">
   import QaHeader from './_IOHeader.svelte';
-  import QuestionRespondApp from './_QuestionRespondApp.svelte';
+  import QuestionRespondApp from './_lib/QuestionRespondApp.svelte';
   import RestrictedPageRoot from '$lib/components/RestrictedPageRoot.svelte';
   import Meta from '$lib/components/Meta.svelte';
 

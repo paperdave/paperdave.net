@@ -5,31 +5,23 @@
 
 <script lang="ts">
   import Meta from '$lib/components/Meta.svelte';
-  import MusicHeader from './_MusicHeader.svelte';
-  import Layout from './__layout.svelte';
   import { formatDate } from '$lib/utils/date';
+  import type { Music } from '@prisma/client';
+  import { decodeImageUrl } from '$lib/utils/media-url';
 
-  export let artifact: MusicArtifact;
+  export let artifact: Music;
 </script>
 
 <Meta
   title={artifact.title + ''}
   description="music by dave caruso released on {formatDate(artifact.date, 'date')}"
-  image={artifact.thumb?.url} />
+  image={decodeImageUrl(artifact.album)?.url} />
 
-<Layout>
-  <BackButton position="off-center" />
+<BackButton position="off-center" href="/music">all music</BackButton>
 
-  <MusicHeader />
-
-  <p>
-    <a href="/music">see all music</a>
-  </p>
-
-  <div>
-    <MusicCard {artifact} />
-  </div>
-</Layout>
+<div>
+  <MusicCard {artifact} />
+</div>
 
 <style lang="scss">
   p {

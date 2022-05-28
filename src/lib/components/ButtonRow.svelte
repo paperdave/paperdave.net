@@ -2,12 +2,18 @@
   export let align: 'left' | 'right' = 'left';
 </script>
 
-<flex gap row class="align-{align}">
+<div class="align-{align}">
   <slot />
-</flex>
+</div>
 
 <style lang="scss">
-  flex :global(:empty) {
+  div {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  div :global(:empty) {
     flex: 1;
   }
 

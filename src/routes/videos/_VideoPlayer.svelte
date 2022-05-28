@@ -1,10 +1,10 @@
 <script lang="ts">
-  export let video: VideoMedia;
+  export let src: string;
 </script>
 
 <container>
   <main>
-    <video src={video.url} controls />
+    <video {src} controls />
   </main>
 </container>
 

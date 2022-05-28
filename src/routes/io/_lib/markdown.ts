@@ -5,9 +5,9 @@ import {
   inlineRegex,
   parseCaptureInline,
 } from 'svelte-simple-markdown';
-import MDMentionArtifact from './_MDMentionArtifact.svelte';
-import MDMentionMessage from './_MDMentionMessage.svelte';
-import MDParagraph from './_MDParagraph.svelte';
+import MDMentionArtifact from './MDMentionArtifact.svelte';
+import MDMentionMessage from './MDMentionMessage.svelte';
+import MDParagraph from './MDParagraph.svelte';
 
 const customRules = defaultRules.clone();
 
@@ -39,7 +39,7 @@ customRules.insertBefore('em', {
 
 const parser = createParser(customRules);
 
-export const mdConfig = {
+export const messageMarkdown = {
   parser,
   renderers: {
     input: MDParagraph,

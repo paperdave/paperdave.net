@@ -2,7 +2,7 @@ import { db } from '$lib/db';
 import type { RequestHandler } from '@sveltejs/kit';
 
 export const get: RequestHandler = async ({}) => {
-  const stories = await db.story.findMany({
+  const music = await db.music.findMany({
     where: {
       unlisted: false,
     },
@@ -13,7 +13,7 @@ export const get: RequestHandler = async ({}) => {
 
   return {
     body: {
-      stories,
+      music,
     },
   };
 };

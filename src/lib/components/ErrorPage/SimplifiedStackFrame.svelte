@@ -40,7 +40,7 @@
   {:else if file.startsWith('node_modules/')}
     <a class="file" href="https://npmjs.com/package/{libraryName}" title={file}>{libraryName}</a>
   {:else}
-    <span class="file" title={file}>{basename}</span>
+    <a href="#" class="file" title={file}>{basename}</a>
   {/if}
 </li>
 

@@ -1,5 +1,7 @@
 @use 'sass:math';
 
+$easing: cubic-bezier(0.4, 0, 0.1, 1);
+
 @function shadow($size, $prec, $color) {
   $str: '';
   $i: 0;

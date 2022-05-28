@@ -2,7 +2,7 @@
   import Icon from '$lib/components/Icon.svelte';
   import { formatDate } from '$lib/utils/date';
   import type { ASTNode } from 'svelte-simple-markdown';
-  import { parseMessageDateID } from './_utils';
+  import { parseMessageDateID } from './utils';
   export let node: ASTNode;
 
   $: date = parseMessageDateID(node.id);

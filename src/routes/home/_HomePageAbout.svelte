@@ -24,7 +24,10 @@
           </flex>
           <aside>
             <div class="img1">
-              <Img src="/assets/photos/2022_SeniorGrad_1.jpg" alt="dave caruso face" />
+              <Img
+                src="/assets/photos/2022_SeniorGrad_1.jpg"
+                alt="dave caruso face"
+                stretch="both" />
             </div>
             <!--  I WILL ADD THESE AT SOME POINT I JUST DONT WANT TO RIGHT NOW  -->
             <!-- <div class="img2">

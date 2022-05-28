@@ -46,7 +46,7 @@ export function decodeImageUrl(string: string): DecodedImage {
 
   try {
     return {
-      url: new URL(string).toString(),
+      url: string.startsWith('/') ? string : new URL(string).toString(),
     };
   } catch (error) {
     //

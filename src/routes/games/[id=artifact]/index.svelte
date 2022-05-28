@@ -10,9 +10,17 @@
   import GameEmbed from '../_GameEmbed.svelte';
   import { markdownConfig } from '$lib/markdown';
   import ClickableImg from '$lib/components/ClickableImg.svelte';
-  import { getTypedGameDownloads } from '$lib/utils/game';
+  import { getTypedGameDownloads, type GameDownload } from '$lib/utils/game';
+  import ButtonRow from '$lib/components/ButtonRow.svelte';
+  import Button from '$lib/components/Button.svelte';
 
   export let game: Game;
+
+  function getPlatformName(str: GameDownload['platform']) {
+    if (str === 'win') return 'Windows';
+    if (str === 'linux') return 'Linux';
+    return 'Other Download';
+  }
 </script>
 
 <ThemeRoot
@@ -47,17 +55,23 @@
     {/if}
 
     {#if game.downloads.length > 0}
-      <div class="downloads">
-        <h2>Downloads</h2>
-        <flex row gap>
-          {#each getTypedGameDownloads(game) as download}
-            <a href={download.url}>{download.platform}</a>
-          {/each}
-        </flex>
-      </div>
+      <ButtonRow>
+        <span><strong>Download for:</strong></span>
+        {#each getTypedGameDownloads(game) as download}
+          <Button href={download.url} variant="accent">
+            {getPlatformName(download.platform)} (.{download.url.split('.').pop()})
+          </Button>
+        {/each}
+      </ButtonRow>
     {/if}
 
     <Markdown config={markdownConfig} value={game.description} />
+
+    {#if game.source}
+      <p>
+        <a href={game.source}>Source Code</a>
+      </p>
+    {/if}
   </Paper>
 </ThemeRoot>
 
