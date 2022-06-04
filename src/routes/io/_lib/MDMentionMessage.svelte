@@ -8,7 +8,7 @@
   $: date = parseMessageDateID(node.id);
 </script>
 
-<a sveltekit:prefetch class="custom" href="/i+o/{node.id}">
+<a sveltekit:prefetch class="custom" href="/io/{node.id}">
   <span class="icon">
     <Icon name="message" />
   </span>

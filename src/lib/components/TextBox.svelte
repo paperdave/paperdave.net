@@ -26,6 +26,8 @@
   export let value = '';
   export let label: string | undefined = undefined;
   export let placeholder = '';
+  export let autoHeight = false;
+  export let maxlength: number | undefined = undefined;
   export let disabled = false;
   export let focused = false;
   export let revealed = false;
@@ -121,7 +123,7 @@
   async function updateHeight() {
     await tick();
     const height = unstable_ioTextareaMeasure.scrollHeight;
-    unstable_ioTextareaHeight = Math.max(height + 4, 3 * 16) + (focused ? 32 : 0);
+    unstable_ioTextareaHeight = Math.max(height + 4, 3 * 16) + (focused || value ? 32 : 0);
   }
 
   $: [value, focused] && unstable_ioTextareaMeasure && updateHeight();
@@ -139,7 +141,11 @@
   class:expanded
   class:disabled
   class:error={!!error && !disabled}
-  style:--height={unstable_ioTextarea ? `${unstable_ioTextareaHeight}px` : undefined}
+  style:--height={autoHeight
+    ? 'auto'
+    : unstable_ioTextarea
+    ? `${unstable_ioTextareaHeight}px`
+    : null}
   class:animatedHeight={unstable_ioTextarea}
   on:click={handleClickFocus}
   bind:this={root}>
@@ -165,6 +171,7 @@
         autocomplete={revealed ? 'off' : autocomplete}
         autocorrect={revealed ? 'off' : autocorrect}
         spellcheck={revealed ? false : spellcheck}
+        {maxlength}
         {name}
         {value}
         {disabled}
@@ -178,6 +185,7 @@
     {:else}
       <textarea
         {id}
+        {maxlength}
         autocapitalize={revealed ? 'off' : autocapitalize}
         autocomplete={revealed ? 'off' : autocomplete}
         autocorrect={revealed ? 'off' : autocorrect}

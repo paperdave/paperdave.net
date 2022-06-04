@@ -34,6 +34,7 @@ specifiers:
   svelte-preprocess: ^4.9.8
   svelte-simple-markdown: ^1.0.1
   typescript: ^4.4.3
+  unique-names-generator: ^4.7.1
 
 dependencies:
   '@davecode/structures': 0.3.0
@@ -52,6 +53,7 @@ dependencies:
   stacktrace-parser: 0.1.10
   svelte-portal: 2.1.2
   svelte-simple-markdown: 1.0.1_svelte@3.48.0
+  unique-names-generator: 4.7.1
 
 devDependencies:
   '@originjs/vite-plugin-content': 1.0.1
@@ -2050,6 +2052,11 @@ packages:
     engines: {node: '>=4.2.0'}
     hasBin: true
     dev: true
+
+  /unique-names-generator/4.7.1:
+    resolution: {integrity: sha512-lMx9dX+KRmG8sq6gulYYpKWZc9RlGsgBR6aoO8Qsm3qvkSJ+3rAymr+TnV8EDMrIrwuFJ4kruzMWM/OpYzPoow==}
+    engines: {node: '>=8'}
+    dev: false
 
   /unist-util-stringify-position/3.0.2:
     resolution: {integrity: sha512-7A6eiDCs9UtjcwZOcCpM4aPII3bAAGv13E96IkawkOAW0OhH+yRxtY0lzo8KiHpzEMfH7Q+FizUmwp8Iqy5EWg==}

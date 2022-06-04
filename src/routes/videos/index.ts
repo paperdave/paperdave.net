@@ -1,4 +1,5 @@
 import { db } from '$lib/db';
+import type { Video } from '@prisma/client';
 import type { RequestHandler } from '@sveltejs/kit';
 
 export const get: RequestHandler = async ({}) => {
@@ -23,3 +24,5 @@ export const get: RequestHandler = async ({}) => {
     },
   };
 };
+
+export type VideoPartial = Pick<Video, 'id' |  'date' |  'title' |  'thumb'>;

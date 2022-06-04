@@ -91,7 +91,7 @@
   const displayTags = [...artifact.tags].filter((tag) => !hiddenTags.includes(tag));
 </script>
 
-<main>
+<div class="root">
   <audio
     src={artifact.media}
     preload="none"
@@ -154,10 +154,10 @@
       </div>
     </section>
   {/if}
-</main>
+</div>
 
 <style lang="scss">
-  main {
+  div.root {
     color: #52501c;
     padding: 0rem 1rem 0rem 0.5rem;
     width: 700px;

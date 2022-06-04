@@ -23,11 +23,12 @@
   import MessageRender from './_lib/MessageRender.svelte';
   import type { MessagePage } from './_lib/utils';
   import MessageForm from './_lib/MessageForm.svelte';
+  import { browser } from '$app/env';
 
   export let mpage: MessagePage;
 
-  $: if (mpage.latest && $page.url.searchParams.has('page')) {
-    history.replaceState(null, '', '/q+a');
+  $: if (browser && mpage.latest && $page.url.searchParams.has('page')) {
+    history.replaceState(null, '', '/io');
   }
 
   let formExpanded = false;
@@ -47,9 +48,7 @@
   <div>
     <MessageForm bind:expanded={formExpanded} />
   </div>
-  <div class="opacity-transition" style="opacity:{formExpanded ? 0 : 1}">
-    <p>and the answers:</p>
-  </div>
+  <p>and my responses:</p>
 {:else}
   <div>
     <p>
@@ -57,7 +56,7 @@
       {#if mpage.id === 0}
         (we are programmers, start at 0!!!)
       {/if} <br />
-      <a href="/i+o?p={mpage.id + 1}">see newer questions</a>
+      <a href="/io?p={mpage.id + 1}">see newer questions</a>
     </p>
   </div>
 {/if}
@@ -73,7 +72,7 @@
 {#if mpage.id !== 0}
   <div>
     <p>
-      <a href="/i+o?p={mpage.id - 1}">see older questions</a>
+      <a href="/io?p={mpage.id - 1}">see older questions</a>
     </p>
   </div>
 {/if}

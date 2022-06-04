@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Meta from '$lib/components/Meta.svelte';
   import Paper from '$lib/components/Paper.svelte';
   import ThemeRoot from '$lib/components/ThemeRoot.svelte';
 
@@ -41,6 +42,8 @@
       });
   }
 </script>
+
+<Meta title="upload file" noIndex />
 
 <ThemeRoot>
   <Paper>

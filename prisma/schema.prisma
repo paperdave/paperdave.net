@@ -11,8 +11,8 @@ datasource db {
 }
 
 model Message {
-  date DateTime     @id @default(now())
-  type MessageType?
+  date DateTime    @id @default(now())
+  type MessageType
   text String
 
   mentionedArtifacts ArtifactEntry[]
@@ -23,14 +23,15 @@ model Message {
 enum MessageType {
   NORMAL
   REJECT
+  MARKER
 }
 
 model MessageInput {
   date           DateTime @id @default(now())
   prompt         String
-  notifyEmail    String
-  sourceName     String
-  sourceLocation String
+  notifyEmail    String?
+  sourceName     String?
+  sourceLocation String?
   sourceVPN      String?
 }
 

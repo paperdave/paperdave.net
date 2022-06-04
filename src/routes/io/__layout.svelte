@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { goto } from '$app/navigation';
+
   import { page } from '$app/stores';
   import BackButton from '$lib/components/BackButton.svelte';
   import LinkRow from '$lib/components/LinkRow.svelte';
@@ -6,6 +8,7 @@
   import ThemeRoot from '$lib/components/ThemeRoot.svelte';
   import { palette } from '$lib/theme';
   import QaHeader from './_lib/IOHeader.svelte';
+  import RandomizeLink from './_lib/RandomizeLink.svelte';
 </script>
 
 <ThemeRoot
@@ -15,20 +18,20 @@
   <Paper marginTop={2}>
     <BackButton
       position="off-center-right"
-      href={$page.url.pathname === '/i+o' ? '/' : '/i+o'}
-      text={$page.url.pathname === '/i+o' ? 'go home' : 'all messages'} />
+      href={$page.url.pathname === '/io' ? '/' : '/io'}
+      text={$page.url.pathname === '/io' ? 'go home' : 'all messages'} />
     <flex>
       <QaHeader />
       <flex gap>
         <p>conversations between me and the universe</p>
 
         <LinkRow>
-          <li><a href="/i+o">latest</a></li>
-          <li><a href="/i+o/search">search</a></li>
-          <li><a href="/i+o/random">random</a></li>
-          <li><a href="/i+o?page=0">start</a></li>
+          <li><a sveltekit:prefetch href="/io">latest</a></li>
+          <!-- <li><a sveltekit:prefetch href="/io/search">search</a></li> -->
+          <li><RandomizeLink href="/io/random" /></li>
+          <li><a sveltekit:prefetch href="/io?page=0">start</a></li>
 
-          <li><a href="/i+o/respond" class="special">respond</a></li>
+          <!-- <li><a href="/io/respond" class="special">respond</a></li> -->
         </LinkRow>
       </flex>
     </flex>

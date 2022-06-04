@@ -80,7 +80,7 @@
                 <span disabled class="link">applications</span>
               </flex>
               <flex class="col">
-                <a sveltekit:prefetch class="link" href="/i+o">input/output</a>
+                <a sveltekit:prefetch class="link" href="/io">input/output</a>
                 <span class="link" disabled>behind the scenes</span>
                 <span class="link" disabled>building blocks</span>
                 <!-- <a sveltekit:prefetch class="link" href="/#bts" on:click={focusBTS}>behind the scenes</a>

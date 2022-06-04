@@ -7,14 +7,13 @@
   import VideoHeader from './_VideoHeader.svelte';
   import Meta from '$lib/components/Meta.svelte';
   import type { Video } from '@prisma/client';
+  import type { VideoPartial } from '.';
 
-  export let videos: Video[];
+  export let videos: VideoPartial[];
 </script>
 
 <Meta title="videos" description="various animated videos all made with love." />
 
-<BackButton position="off-center" />
-<VideoHeader />
 <grid>
   {#each videos as video}
     <article>
@@ -22,6 +21,7 @@
     </article>
   {/each}
 </grid>
+
 <p>welcome to the end of the video list</p>
 
 <style lang="scss">
@@ -30,14 +30,6 @@
     margin: auto;
     padding: 0 2rem;
     max-width: 110rem;
-  }
-  article {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  p {
-    margin: 2rem 0;
-    text-align: center;
+    width: 100%;
   }
 </style>

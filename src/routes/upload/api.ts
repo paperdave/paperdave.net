@@ -1,4 +1,5 @@
 import { db } from '$lib/db';
+import { are_we_on_localhost_so_idont_have_to_check_auth } from '$lib/env';
 import type { RequestHandler } from '@sveltejs/kit';
 import { encode } from 'blurhash';
 import { lookup } from 'mime-types';
@@ -14,6 +15,12 @@ function reduce(numerator: number, denominator: number) {
 }
 
 export const post: RequestHandler = async ({ request, url }) => {
+  if (!are_we_on_localhost_so_idont_have_to_check_auth) {
+    return {
+      body: { error: 'stuff is denied regardless of authentication state rn.' }
+    };
+  }
+
   let filename = url.searchParams.get('filename');
   let ext = filename.split('.').pop();
 

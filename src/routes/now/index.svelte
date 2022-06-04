@@ -1,6 +1,7 @@
 <script>
   import BackButton from '$lib/components/BackButton.svelte';
   import Meta from '$lib/components/Meta.svelte';
+  import Paper from '$lib/components/Paper.svelte';
   import ThemeRoot from '$lib/components/ThemeRoot.svelte';
 
   const things = [
@@ -14,26 +15,28 @@
 <Meta title="what dave is doing now" description="short page explaining the current situation" />
 
 <ThemeRoot background="#74d7c5" accent="#74d7c5">
-  <main>
-    <BackButton position="off-center" />
-    <h1>what's now</h1>
+  <div class="root">
+    <Paper marginTop>
+      <BackButton position="off-center" />
+      <h1>what's now</h1>
 
-    <section>
-      <ul>
-        {#each things as thing}
-          <li>{thing}</li>
-        {/each}
-      </ul>
-    </section>
+      <section>
+        <ul>
+          {#each things as thing}
+            <li>{thing}</li>
+          {/each}
+        </ul>
+      </section>
 
-    <footer>
-      <a href="https://nownownow.com/about">(learn more about "now" pages.)</a>
-    </footer>
-  </main>
+      <footer>
+        <a href="https://nownownow.com/about">(learn more about "now" pages.)</a>
+      </footer>
+    </Paper>
+  </div>
 </ThemeRoot>
 
 <style lang="scss">
-  main {
+  .root {
     background: linear-gradient(45deg, #74d7c5, #00b89b);
     flex: 1;
     font-size: 1.25rem;

@@ -1,8 +1,5 @@
 <script lang="ts">
-  import BackButton from '$lib/components/BackButton.svelte';
   import Meta from '$lib/components/Meta.svelte';
-  import VideoHeader from './_VideoHeader.svelte';
-  import Layout from './__layout.svelte';
   import VideoPlayer from './_VideoPlayer.svelte';
   import { formatDate } from '$lib/utils/date';
   import type { Video } from '@prisma/client';
@@ -15,35 +12,22 @@
   description="video by dave caruso released on {formatDate(artifact.date, 'date')}"
   video={artifact.media} />
 
-<!-- Layout is here because this is not a page file, but a component. -->
-<Layout>
-  <BackButton position="off-center" href="/videos" text="all videos" />
+<div class="meta">
+  <h2>{artifact.title}</h2>
+  <date>{formatDate(artifact.date, 'date')}</date>
+</div>
 
-  <VideoHeader />
-  <main>
-    <div class="meta">
-      <h2>{artifact.title}</h2>
-      <date>{formatDate(artifact.date, 'date')}</date>
-    </div>
+<VideoPlayer src={artifact.media} />
 
-    <VideoPlayer src={artifact.media} />
-
-    <div class="tags">
-      {#each [...artifact.tags] as tag}
-        <tag>
-          {tag}
-        </tag>
-      {/each}
-    </div>
-  </main>
-</Layout>
+<div class="tags">
+  {#each [...artifact.tags] as tag}
+    <tag>
+      {tag}
+    </tag>
+  {/each}
+</div>
 
 <style lang="scss">
-  main {
-    margin: 2rem auto;
-    width: 100%;
-    max-width: 50rem;
-  }
   h2 {
     font-size: 2.5rem;
   }

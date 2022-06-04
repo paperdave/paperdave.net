@@ -3,8 +3,9 @@
   import Img from '$lib/components/Img.svelte';
   import { formatDate } from '$lib/utils/date';
   import type { Video } from '@prisma/client';
+  import type { VideoPartial } from '.';
 
-  export let video: Video;
+  export let video: VideoPartial;
 </script>
 
 <article class="root">

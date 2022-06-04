@@ -1,5 +1,5 @@
 import { DataType, Structure } from '@davecode/structures';
-import type { Load, LoadInput, LoadOutput } from '@sveltejs/kit';
+import type { Load, LoadEvent, LoadOutput } from '@sveltejs/kit';
 
 /** Flattens out .toJSON() benchmarks for this and other potential solutions: https://jsbench.me/htl3960qht/1 */
 function flattenToJSON(o: any) {
@@ -19,7 +19,7 @@ function flattenToJSON(o: any) {
   return o;
 }
 
-export type CreateLoadInput = DataType | Record<string, DataType>;
+export type CreateLoadEvent = DataType | Record<string, DataType>;
 
 function createStructureFromRecord(props: Record<string, DataType>) {
   const s = new Structure('LoadData');
@@ -29,10 +29,10 @@ function createStructureFromRecord(props: Record<string, DataType>) {
   return s.create();
 }
 
-export function createLoad(props: CreateLoadInput, extra?: Load | Omit<LoadOutput, 'props'>): Load {
+export function createLoad(props: CreateLoadEvent, extra?: Load | Omit<LoadOutput, 'props'>): Load {
   const struct = props instanceof DataType ? props : createStructureFromRecord(props);
 
-  return (ev: LoadInput) => {
+  return (ev: LoadEvent) => {
     // Waiting on https://github.com/sveltejs/kit/issues/4944
     ev.props = flattenToJSON(ev.props);
 

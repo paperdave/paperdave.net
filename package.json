@@ -22,7 +22,8 @@
     "source-map-js": "^1.0.1",
     "stacktrace-parser": "^0.1.10",
     "svelte-portal": "^2.1.2",
-    "svelte-simple-markdown": "^1.0.1"
+    "svelte-simple-markdown": "^1.0.1",
+    "unique-names-generator": "^4.7.1"
   },
   "devDependencies": {
     "@originjs/vite-plugin-content": "^1.0.1",

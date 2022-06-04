@@ -46,4 +46,9 @@
   .title {
     align-items: baseline;
   }
+  @media (max-width: 768px) {
+    .title {
+      flex-direction: column;
+    }
+  }
 </style>

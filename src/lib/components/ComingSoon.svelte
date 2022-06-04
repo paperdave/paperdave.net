@@ -1,5 +1,6 @@
 <script lang="ts">
   import Button from './Button.svelte';
+  import ButtonRow from './ButtonRow.svelte';
 
   import Meta from './Meta.svelte';
   import Paper from './Paper.svelte';
@@ -11,7 +12,9 @@
 <ThemeRoot accent="#d255b2" background="#101010">
   <Paper size="medium" marginTop={4}>
     <h1>coming soon...</h1>
-    <p>check back later</p>
-    <Button variant="accent" href="/">go to the home page</Button>
+    <p>check back later ;)</p>
+    <ButtonRow>
+      <Button variant="accent" href="/">go to the home page</Button>
+    </ButtonRow>
   </Paper>
 </ThemeRoot>

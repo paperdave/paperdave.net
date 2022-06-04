@@ -29,7 +29,7 @@
 </script>
 
 <time
-  datetime={message.date.toISOString()}
+  datetime={new Date(message.date).toISOString()}
   on:click={copy}
   class:success={copyState}
   class:clickable={message.type === 'NORMAL'}>

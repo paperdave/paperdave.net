@@ -15,10 +15,6 @@ export function parseMessageDateID(id: string) {
   return new Date(`${month} ${day} 20${year} ${hour}:${minute}:${second} EST`);
 }
 
-export const MessageSendData = new Structure('MessageSendData')
-  .prop('message', types.String)
-  .prop('notifyEmail', types.String.nullable);
-
 export type MessagePage = {
   id: number;
   messages: Message[];

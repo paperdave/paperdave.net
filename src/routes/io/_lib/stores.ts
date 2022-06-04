@@ -1,4 +1,4 @@
-import { persistent } from '@furudean/svelte-persistent-store';
+import { persistent } from '@furudean/svelte-persistent-store/persistent';
 
 export const ioNotifyEmail = persistent({
   key: 'io.notifyEmail',

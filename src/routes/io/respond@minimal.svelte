@@ -1,77 +1,44 @@
-<script context="module" lang="ts">
-  import { restrictedPage } from '$lib/utils/restricted-page';
-
-  import type { Load } from '@sveltejs/kit';
-
-  export const load: Load = restrictedPage([Permission.RESPOND_TO_QUESTIONS], async ({ fetch }) => {
-    const API = wrapAPI(fetch);
-
-    return {
-      props: {
-        requests: await API.questions.getAllRequests(),
-      },
-    };
-  });
-</script>
-
 <script lang="ts">
-  import QaHeader from './_IOHeader.svelte';
-  import QuestionRespondApp from './_lib/QuestionRespondApp.svelte';
-  import RestrictedPageRoot from '$lib/components/RestrictedPageRoot.svelte';
-  import Meta from '$lib/components/Meta.svelte';
+  import type { Message, MessageInput } from '@prisma/client';
+  import MessageRespondPage from './_lib/MessageRespondPage.svelte';
 
-  export let requests: QuestionRequest[] = [];
+  export let messages: MessageInput[];
 
-  $: latestRequest = requests[0];
+  function messageFromInput(input: MessageInput): Message {
+    if (!input) return null;
+    return {
+      date: new Date(input.date),
+      text:
+        input.prompt
+          .split('\n')
+          .filter(Boolean)
+          .map((x) => `i: ${x}`)
+          .join('\n\n') + '\n\n',
+      type: 'NORMAL',
+    };
+  }
 
-  let sending = false;
+  $: input = messages[0];
+  $: message = messageFromInput(input);
 
-  async function publishNewQuestion(q: Question, request: QuestionRequest) {
-    try {
-      sending = true;
+  function next() {
+    messages = messages.slice(1);
+  }
 
-      await Promise.all([
-        //
-        API.questions.createQuestion(q),
-        API.questions.deleteRequest(request),
-      ]);
-
-      // update ui
-      requests = requests.slice(1);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      sending = false;
-    }
+  function defer() {
+    messages = messages.slice(1).concat(messages[0]);
   }
 </script>
 
-<Meta title="question dashboard" noIndex />
-
-<RestrictedPageRoot>
-  <main>
-    <div style="pointer-events:none">
-      <QaHeader />
-    </div>
-    <div class="stats">
-      <p>#q: {requests.length}</p>
-    </div>
-    {#if latestRequest}
-      {#key latestRequest.date.getTime()}
-        <QuestionRespondApp
-          request={latestRequest}
-          on:send={(ev) => publishNewQuestion(ev.detail, latestRequest)} />
-      {/key}
-    {:else}
-      <p>caught up :D</p>
-    {/if}
-  </main>
-</RestrictedPageRoot>
-
-<style lang="scss">
-  .stats {
-    position: absolute;
-    top: 20px;
-    left: 500px;
-  }
-</style>
+{#if input}
+  {#key input}
+    <MessageRespondPage
+      {input}
+      {message}
+      on:done={next}
+      on:defer={defer}
+      inboxLength={messages.length} />
+  {/key}
+{:else}
+  all caught up! 🎉
+{/if}

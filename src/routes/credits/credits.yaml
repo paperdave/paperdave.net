@@ -1,19 +1,21 @@
 special_thanks:
-  - grace
   - filip
-  - jason
-  - eli
   - noah
+  - timmy
+  - april
+  - vincent
   - clembs
   - jules
-  - april
-  - timmy
   - jacob
+  - jonah
   - matt
+  - jason
   - hunter
-  - augustus
   - parker
   - franco
+  - eli
+  - grace
+  - augustus
   - jenna
   - ashley
 baked_rng:
@@ -27,6 +29,8 @@ baked_rng:
   - 0.999
   - 0.050
   - 0.659
+  - 0.234
+  - 0.634
   - 0.834
   - 0.665
   - 0.297

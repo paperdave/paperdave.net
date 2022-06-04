@@ -47,6 +47,6 @@
     --size: 60rem;
   }
   .size-xl {
-    --size: 80rem;
+    --size: 100rem;
   }
 </style>

@@ -5,6 +5,7 @@ import {
   inlineRegex,
   parseCaptureInline,
 } from 'svelte-simple-markdown';
+import MDHTML from './MDHTML.svelte';
 import MDMentionArtifact from './MDMentionArtifact.svelte';
 import MDMentionMessage from './MDMentionMessage.svelte';
 import MDParagraph from './MDParagraph.svelte';
@@ -37,6 +38,18 @@ customRules.insertBefore('em', {
   },
 });
 
+customRules.insertBefore('paragraph', {
+  name: 'html',
+  match: blockRegex(/^@html ((?:[^\n]|\n(?! *\n))+)(?:\n *)+\n/),
+  parse(capture) {
+    return {
+      data: capture[1],
+    };
+  },
+});
+
+customRules.remove('heading');
+
 const parser = createParser(customRules);
 
 export const messageMarkdown = {
@@ -46,5 +59,6 @@ export const messageMarkdown = {
     paragraph: MDParagraph,
     mentionArtifact: MDMentionArtifact,
     mentionMessage: MDMentionMessage,
+    html: MDHTML
   },
 };
