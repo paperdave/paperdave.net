@@ -2,9 +2,19 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "prisma generate && svelte-kit build --verbose",
     "dev": "svelte-kit dev",
-    "preview": "wrangler pages dev .svelte-kit/cloudflare"
+    "build": "svelte-kit build",
+    "preview": "svelte-kit preview",
+    "check": "svelte-check --tsconfig ./tsconfig.json",
+    "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
+    "lint": "prettier --check --plugin-search-dir=. .",
+    "format": "prettier --write --plugin-search-dir=. .",
+    "postinstall": "prisma generate",
+    "postbuild": "cp node_modules/@prisma/engines/*query* .vercel_build_output/functions/node/render/;cp prisma/schema.prisma .vercel_build_output/functions/node/render/",
+    "predev": "npm run prisma:migrate:dev",
+    "prisma:migrate:dev": "prisma migrate dev",
+    "prisma:migrate:reset": "prisma migrate reset --force",
+    "vercel-build": "prisma generate && prisma migrate deploy && npm run build"
   },
   "dependencies": {
     "@davecode/structures": "^0.3.0",
