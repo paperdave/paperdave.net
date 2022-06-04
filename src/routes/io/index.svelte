@@ -37,11 +37,11 @@
 {#if mpage.latest}
   <Meta
     title="input & output"
-    description={`i answer anonymous questions you ask, because it's fun. this page is updated every few days after messages are sent.`} />
+    description={`conversations between me and the universe. this page is updated every few days after messages are sent.`} />
 {:else}
   <Meta
     title="input & output - page {mpage.id}"
-    description={`i answer anonymous questions you ask, because it's fun. this page is updated every few days after messages are sent.`} />
+    description={`conversations between me and the universe. this page is updated every few days after messages are sent.`} />
 {/if}
 
 {#if mpage.latest}
@@ -56,7 +56,7 @@
       {#if mpage.id === 0}
         (we are programmers, start at 0!!!)
       {/if} <br />
-      <a href="/io?p={mpage.id + 1}">see newer questions</a>
+      <a href="/io?page={mpage.id + 1}">see newer questions</a>
     </p>
   </div>
 {/if}
@@ -72,7 +72,7 @@
 {#if mpage.id !== 0}
   <div>
     <p>
-      <a href="/io?p={mpage.id - 1}">see older questions</a>
+      <a href="/io?page={mpage.id - 1}">see older questions</a>
     </p>
   </div>
 {/if}
