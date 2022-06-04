@@ -14,7 +14,7 @@
     "predev": "npm run prisma:migrate:dev",
     "prisma:migrate:dev": "prisma migrate dev",
     "prisma:migrate:reset": "prisma migrate reset --force",
-    "vercel-build": "prisma generate && prisma migrate deploy && npm run build"
+    "vercel-build": "prisma generate && npm run build"
   },
   "dependencies": {
     "@davecode/structures": "^0.3.0",
