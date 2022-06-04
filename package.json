@@ -2,7 +2,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "svelte-kit build --verbose",
+    "build": "prisma generate && svelte-kit build --verbose",
     "dev": "svelte-kit dev",
     "preview": "wrangler pages dev .svelte-kit/cloudflare"
   },
