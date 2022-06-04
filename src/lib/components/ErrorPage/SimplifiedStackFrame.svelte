@@ -1,6 +1,6 @@
 <script lang="ts">
   import { dev } from '$app/env';
-  import { StackFrame } from 'stacktrace-parser';
+  import type { StackFrame } from 'stacktrace-parser';
   import { isExternal } from './source-mapping-utils';
 
   const githubBranch = 'main';
@@ -17,6 +17,12 @@
 
   $: methodName = (frame.methodName || '<anonymous>').replace(/^async /, '');
   $: isAsync = frame.methodName?.startsWith('async ');
+
+  $: libraryName = file.startsWith('node_modules/')
+    ? split[1].startsWith('@')
+      ? split[1] + '/' + split[2]
+      : split[1]
+    : null;
 </script>
 
 <li class:external={isExternal(frame)}>
@@ -32,9 +38,9 @@
   {:else if file.startsWith('.svelte-kit/runtime/') || file.startsWith('runtime/')}
     <a class="file" href="https://npmjs.com/package/@sveltejs/kit" title={file}>@sveltejs/kit</a>
   {:else if file.startsWith('node_modules/')}
-    <a class="file" href="https://npmjs.com/package/{split[1]}" title={file}>{split[1]}</a>
+    <a class="file" href="https://npmjs.com/package/{libraryName}" title={file}>{libraryName}</a>
   {:else}
-    <span class="file" title={file}>{basename}</span>
+    <a href="#" class="file" title={file}>{basename}</a>
   {/if}
 </li>
 

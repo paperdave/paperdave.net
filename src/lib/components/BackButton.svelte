@@ -1,11 +1,12 @@
 <script lang="ts">
-  export let position: 'corner' | 'off-center' | 'off-center-right';
+  export let position: 'corner' | 'off-center' | 'off-center-right' | undefined = undefined;
 
   export let text = 'go home';
   export let href = '/';
+  export let opaque = false;
 </script>
 
-<a sveltekit:prefetch class="position-{position} custom" {href}>
+<a sveltekit:prefetch class="{position ? `position-${position}` : ''} custom" class:opaque {href}>
   <slot>{text}</slot>
 </a>
 
@@ -27,6 +28,19 @@
     &:hover,
     &:active {
       text-decoration: none;
+    }
+  }
+
+  .opaque {
+    background-color: hsl(var(--bg));
+    color: hsla(var(--fg), 0.8);
+    &:hover {
+      background-color: hsla(var(--fg), 0.8);
+      color: hsl(var(--bg));
+    }
+    &:active {
+      background-color: hsla(var(--fg), 0.8);
+      color: hsla(var(--bg), 1);
     }
   }
 

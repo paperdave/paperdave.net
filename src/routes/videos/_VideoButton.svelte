@@ -1,22 +1,23 @@
 <script lang="ts">
   import Button from '$lib/components/Button.svelte';
   import Img from '$lib/components/Img.svelte';
-  import { VideoArtifact } from '$lib/structures';
   import { formatDate } from '$lib/utils/date';
+  import type { Video } from '@prisma/client';
+  import type { VideoPartial } from '.';
 
-  export let video: VideoArtifact;
+  export let video: VideoPartial;
 </script>
 
 <article class="root">
-  <Button variant="subtle" href="/{video.id}" column aria-label={video.title}>
-    <figure>
+  <Button variant="subtle" href="/videos/{video.id}" column aria-label={video.title}>
+    <div class="thumb">
       {#if video.thumb}
         <Img src={video.thumb} alt={video.title} />
       {/if}
-    </figure>
+    </div>
     <div class="details">
       <div class="title">{video.title}</div>
-      <time datetime={video.date.toISOString()}>{formatDate(video.date, 'date')}</time>
+      <time datetime={new Date(video.date).toISOString()}>{formatDate(video.date, 'date')}</time>
     </div>
   </Button>
 </article>
@@ -26,7 +27,7 @@
     width: 100%;
   }
 
-  figure {
+  .thumb {
     display: flex;
     flex-direction: column;
     margin-bottom: 0.25rem;

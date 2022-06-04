@@ -1,7 +1,7 @@
 import { dev } from '$app/env';
 import { escapeRegex } from '$lib/utils/escape';
 import { SourceMapConsumer } from 'source-map-js';
-import { parse as parseStackTrace, StackFrame } from 'stacktrace-parser';
+import { parse as parseStackTrace, type StackFrame } from 'stacktrace-parser';
 
 const sources = new Map<string, SourceMapConsumer>();
 
@@ -16,7 +16,9 @@ export async function createMappedSource(error: Error) {
   if (dev) {
     return stack.map((frame) => {
       if (frame.file) {
+        frame.file = frame.file.replace(/\\/g, '/');
         frame.file = frame.file.replace(/.*davecode.net\//, '');
+        frame.file = frame.file.replace(/node_modules\/\.pnpm\/(.+)@.*?\//, '');
         frame.file = frame.file.replace(new RegExp(`^${escapeRegex(location.origin)}\/`), '');
       }
       return frame;

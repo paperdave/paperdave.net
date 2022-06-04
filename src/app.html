@@ -1,7 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    %svelte.head%
+    <meta charset="utf-8" />
+    %sveltekit.head%
+    <meta name="author" content="dave caruso" />
+    <meta name="copyright" content="&copy; dave caruso 2022" />
+    <meta name="distribution" content="web" />
+    <meta name="keywords" content="art, entertainment, dave caruso, davecode" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="powered by" content="chocolate" />
+    <meta name="dark mode extensions" content="please do not use" />
     <style>
       @font-face {
         font-style: normal;
@@ -16,7 +24,7 @@
     <script>
       document.body.classList.remove('noscript');
     </script>
-    <flex column id="root">%svelte.body%</flex>
+    <flex column id="root">%sveltekit.body%</flex>
     <span
       style="
         font-family: 'Material Symbols Outlined';

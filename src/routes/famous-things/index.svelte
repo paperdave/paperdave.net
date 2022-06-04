@@ -1,14 +1,18 @@
 <script>
+  import Heading from '$lib/components/Heading.svelte';
+
   import Meta from '$lib/components/Meta.svelte';
+  import Paper from '$lib/components/Paper.svelte';
+  import ThemeRoot from '$lib/components/ThemeRoot.svelte';
 </script>
 
 <Meta
   title="things i'm known for"
   description={`here is a brief list of the notible things i've done, as the rest of the internet defines "notable" and "popular."`} />
 
-<main>
-  <article class="root">
-    <h1>things i'm known for</h1>
+<ThemeRoot accent="#009def" background="#E1F5FF">
+  <Paper marginTop>
+    <Heading level="1" shadow>things i'm known for</Heading>
     <p>
       here is a brief list of the <em>notible</em> things i've done, as the rest of the internet defines
       "notable" and "popular."
@@ -31,7 +35,7 @@
           over 150 entries, and gave us a prize money of $2,000 to split.
         </p>
         <p>
-          <a href="/phoenix-write">Play the game here</a>. Watch the video below:
+          <a href="/games/phoenix-write">Play the game here</a>. Watch the video below:
         </p>
         <iframe
           class="yt"
@@ -94,8 +98,8 @@
           allowfullscreen />
       </article>
     </section>
-  </article>
-</main>
+  </Paper>
+</ThemeRoot>
 
 <style lang="scss">
   .root {
@@ -118,5 +122,11 @@
 
   date {
     margin-top: -0.75rem;
+  }
+
+  article {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
   }
 </style>

@@ -2,12 +2,9 @@ import content from '@originjs/vite-plugin-content';
 import svgSvelte from '@poppanator/sveltekit-svg';
 import adapterCloudflare from '@sveltejs/adapter-cloudflare';
 import blurhashImage from 'blurhash-image';
-import { webcrypto } from 'crypto';
 import 'dotenv/config';
 import fs from 'fs';
 import preprocess from 'svelte-preprocess';
-
-global.crypto = webcrypto;
 
 // Modified template with blurhash script
 if (!fs.existsSync('.svelte-kit')) {
@@ -57,6 +54,9 @@ const conf = {
       },
       define: {
         'import.meta.env.SOURCE_ROOT': JSON.stringify(process.cwd()),
+      },
+      optimizeDeps: {
+        exclude: ['canvas', 'sharp'],
       },
       plugins: [svgSvelte(), content.default()],
     },

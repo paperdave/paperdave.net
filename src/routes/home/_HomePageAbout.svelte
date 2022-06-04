@@ -1,5 +1,5 @@
 <script>
-  import BlurHash from '$lib/components/BlurHash.svelte';
+  import Img from '$lib/components/Img.svelte';
 
   import ThemeRoot from '$lib/components/ThemeRoot.svelte';
   import ArticleAboutDaveCaruso from './_ArticleAboutDaveCaruso.svelte';
@@ -18,19 +18,16 @@
         <flex row class="row1">
           <flex gap class="passage">
             <div class="mobile-photo">
-              <BlurHash
-                hash="TfJICXxuyD?^WAtRADoMVsI]axR5"
-                src="/assets/photos/2022_SeniorGrad_1.jpg"
-                alt="dave caruso face" />
+              <Img src="/assets/photos/2022_SeniorGrad_1.jpg" alt="dave caruso face" />
             </div>
             <ArticleAboutDaveCaruso />
           </flex>
           <aside>
             <div class="img1">
-              <BlurHash
-                hash="TfJICXxuyD?^WAtRADoMVsI]axR5"
+              <Img
                 src="/assets/photos/2022_SeniorGrad_1.jpg"
-                alt="dave caruso face" />
+                alt="dave caruso face"
+                stretch="both" />
             </div>
             <!--  I WILL ADD THESE AT SOME POINT I JUST DONT WANT TO RIGHT NOW  -->
             <!-- <div class="img2">

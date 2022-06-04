@@ -2,11 +2,10 @@
   import Paper from '$lib/components/Paper.svelte';
 
   import ThemeRoot from '$lib/components/ThemeRoot.svelte';
-  import { Artifact } from '$lib/structures';
   import { palette } from '$lib/theme';
   import HomePageFreshCard from './_HomePageFreshCard.svelte';
 
-  export let list: Artifact[] = [];
+  export let list: unknown[] = [];
 </script>
 
 <grid class="root">

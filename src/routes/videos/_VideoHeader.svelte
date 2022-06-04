@@ -1,10 +1,10 @@
-<main>
+<header>
   <h1>dave's videos</h1>
   <p>various animated videos all made with love.</p>
-</main>
+</header>
 
 <style lang="scss">
-  main {
+  header {
     display: flex;
     flex-direction: column;
     align-items: center;

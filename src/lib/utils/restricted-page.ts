@@ -1,7 +1,5 @@
 import { browser } from '$app/env';
-import { getUser } from '$lib/api-client/session';
-import { Permission } from '$lib/structures';
-import { Load } from '@sveltejs/kit';
+import type { Load } from '@sveltejs/kit';
 import { encodeRedirect } from './encode-redirect';
 
 const defaultLoadFunction: Load = () => {

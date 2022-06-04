@@ -1,34 +1,52 @@
+<script context="module" lang="ts">
+  export type PaperSize = 'small' | 'medium' | 'standard' | 'large' | 'xl';
+</script>
+
 <script lang="ts">
-  export let size: 'small' | 'medium' | 'standard' | 'xl' = 'standard';
+  export let size: PaperSize = 'standard';
   export let marginTop: boolean | number = false;
 </script>
 
-<flex
-  center
-  class="outer"
-  style:margin-top={marginTop ? `${typeof marginTop === 'number' ? marginTop : 1}rem` : undefined}>
-  <flex gap class="inner size-{size}">
+<div>
+  <grid
+    center
+    class="size-{size}"
+    style:margin-top={marginTop
+      ? `${typeof marginTop === 'number' ? marginTop : 1}rem`
+      : undefined}>
     <slot />
-  </flex>
-</flex>
+  </grid>
+</div>
 
 <style lang="scss">
-  .outer {
-    padding: 1rem;
-  }
-  .inner {
+  grid {
+    display: grid;
     position: relative;
-    width: 100%;
-    max-width: 45rem;
-    height: 100%;
+    grid-template-columns: 1fr 2rem min(var(--size), calc(100vw - 4rem)) 2rem 1fr;
+    row-gap: 1rem;
+    & > :global(*) {
+      grid-column: 3;
+    }
+    & > :global(.full-bleed),
+    & > :global(img:not(.custom)),
+    & > :global(figure:not(.custom)) {
+      grid-column: 2 / 5;
+    }
   }
+
   .size-small {
-    max-width: 20rem;
+    --size: 20rem;
   }
   .size-medium {
-    max-width: 30rem;
+    --size: 30rem;
+  }
+  .size-standard {
+    --size: 45rem;
+  }
+  .size-large {
+    --size: 60rem;
   }
   .size-xl {
-    max-width: 80rem;
+    --size: 100rem;
   }
 </style>

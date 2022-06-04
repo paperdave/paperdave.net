@@ -3,10 +3,10 @@
   import { slide } from 'svelte/transition';
   import { ProgressRing } from 'fluent-svelte';
   import { useEffect } from '$lib/hooks/useEffect';
-  import { MusicArtifact, MusicVideoArtifact } from '$lib/structures';
   import { formatDate } from '$lib/utils/date';
   import Icon from '$lib/components/Icon.svelte';
-  export let artifact: MusicArtifact;
+  import type { Music } from '@prisma/client';
+  export let artifact: Music;
 
   let trackDiv: HTMLDivElement;
   let expanded = false;
@@ -91,16 +91,16 @@
   const displayTags = [...artifact.tags].filter((tag) => !hiddenTags.includes(tag));
 </script>
 
-<main>
+<div class="root">
   <audio
-    src={artifact.music.url}
+    src={artifact.media}
     preload="none"
     bind:this={audioElement}
     on:playing={() => (playing = true)}
     on:pause={() => (playing = false)}
     on:durationchange={() => (loading = true)}
     on:canplay={() => (loading = false)}
-    loop={artifact.tags.has('loop')} />
+    loop={artifact.tags.includes('loop')} />
 
   <header>
     <button
@@ -123,8 +123,8 @@
       <h3>{artifact.title}</h3>
       <div class="tags">
         <span class="date">{formatDate(artifact.date, 'date')}</span>
-        {#if artifact instanceof MusicVideoArtifact}
-          <a href="/{artifact.id}" class="custom tag">has video</a>
+        {#if artifact.tags.includes('music video')}
+          <a href="/{artifact.id}" class="custom tag">music video</a>
         {/if}
         {#each displayTags as tag}
           <span class="tag">{tag}</span>
@@ -132,11 +132,11 @@
       </div>
     </div>
     <a
-      href={artifact instanceof MusicArtifact ? `/${artifact.id}` : `/music/${artifact.id}`}
+      href={!artifact.tags.includes('music video') ? `/${artifact.id}` : `/music/${artifact.id}`}
       class="icon custom">
       <Icon name="link" />
     </a>
-    <a href={artifact.music.url} target="_blank" class="icon custom">
+    <a href={artifact.media} target="_blank" class="icon custom">
       <Icon name="download" />
     </a>
   </header>
@@ -154,10 +154,10 @@
       </div>
     </section>
   {/if}
-</main>
+</div>
 
 <style lang="scss">
-  main {
+  div.root {
     color: #52501c;
     padding: 0rem 1rem 0rem 0.5rem;
     width: 700px;

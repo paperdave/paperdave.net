@@ -1,0 +1,140 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Message {
+  date DateTime    @id @default(now())
+  type MessageType
+  text String
+
+  mentionedArtifacts ArtifactEntry[]
+  mentionedMessages  Message[]       @relation("messageMention", references: [date])
+  mentionedIn        Message[]       @relation("messageMention", references: [date])
+}
+
+enum MessageType {
+  NORMAL
+  REJECT
+  MARKER
+}
+
+model MessageInput {
+  date           DateTime @id @default(now())
+  prompt         String
+  notifyEmail    String?
+  sourceName     String?
+  sourceLocation String?
+  sourceVPN      String?
+}
+
+model ArtifactEntry {
+  id          String       @id
+  type        ArtifactType
+  title       String
+  date        DateTime
+  mentionedIn Message[]
+  unlisted    Boolean
+}
+
+enum ArtifactType {
+  Application
+  Doodle
+  Fragment
+  Game
+  Journal
+  Music
+  MusicVideo
+  NerdGear
+  Square
+  Story
+  Video
+  WordMagnet
+}
+
+model Story {
+  id          String    @id
+  date        DateTime  @default(now())
+  dateEnd     DateTime?
+  title       String
+  thumb       String?
+  description String
+  url         String
+  tags        String[]
+  unlisted    Boolean   @default(false)
+}
+
+model Video {
+  id       String   @id
+  date     DateTime @default(now())
+  title    String
+  tags     String[]
+  thumb    String?
+  media    String
+  source   String?
+  ttms     Float?
+  unlisted Boolean  @default(false)
+}
+
+model Music {
+  id       String   @id
+  date     DateTime @default(now())
+  title    String
+  tags     String[]
+  album    String?
+  media    String
+  unlisted Boolean  @default(false)
+}
+
+model Game {
+  id                  String   @id
+  date                DateTime @default(now())
+  title               String
+  description         String   @default("")
+  shortDescription    String?
+  web                 String?
+  webAlwaysFullscreen Boolean  @default(false)
+  source              String?
+  downloads           Json[]
+  banner              String?
+  logo                String?
+  screenshots         String[]
+  themeBG             String?
+  themeFG             String?
+  themeAccent         String?
+  unlisted            Boolean  @default(false)
+}
+
+model Application {
+  id                  String   @id
+  date                DateTime @default(now())
+  title               String
+  description         String
+  web                 String?
+  webAlwaysFullscreen Boolean  @default(false)
+  downloads           Json[]
+  unlisted            Boolean  @default(false)
+}
+
+model Upload {
+  hash     String   @id
+  date     DateTime @default(now())
+  filename String
+  mimetype String
+  blurhash String?
+  width    Int?
+  height   Int?
+  ratio    String?
+}
+
+model Donator {
+  id   Int    @id @default(autoincrement())
+  name String
+}

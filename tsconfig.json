@@ -1,37 +1,7 @@
 {
-  // the most important options are at the top unlike some configs. /shrug
+  "extends": "./.svelte-kit/tsconfig.json",
   "compilerOptions": {
-    // path aliases
-    "paths": {
-      "$lib": ["src/lib"],
-      "$lib/*": ["src/lib/*"],
-      "$vendor": ["src/vendor"],
-      "$vendor/*": ["src/vendor/*"]
-    },
-    // unnecessarily strict
-    "strict": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "strictPropertyInitialization": true,
-    "strictBindCallApply": true,
-    "noImplicitAny": true,
-    "noImplicitReturns": true,
-    "noImplicitOverride": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    //
-    "moduleResolution": "node",
-    "module": "es2020",
-    "lib": ["es2020", "DOM"],
-    "target": "es2020",
-    "isolatedModules": true,
-    "resolveJsonModule": true,
-    "sourceMap": true,
-    "skipLibCheck": true,
-    "baseUrl": ".",
-    "noEmit": true,
-    "checkJs": true,
-    "experimentalDecorators": true
-  },
-  "include": ["src/**/*.d.ts", "src/**/*.js", "src/**/*.ts", "src/**/*.svelte"]
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true
+  }
 }

@@ -1,10 +1,9 @@
 <script lang="ts">
-  import BlurHash from '$lib/components/BlurHash.svelte';
   import Button from '$lib/components/Button.svelte';
-  import { Artifact } from '$lib/structures';
+  import Img from '$lib/components/Img.svelte';
   import { formatDate } from '$lib/utils/date';
 
-  export let artifact: Artifact;
+  export let artifact: unknown;
 
   function formatType(type: string) {
     return type.replace(/_/g, ' ').toLowerCase();
@@ -16,7 +15,7 @@
     {#if artifact.thumb}
       <div class="thumbnail">
         {#if artifact.thumb.hash}
-          <BlurHash src={artifact.thumb.url} hash={artifact.thumb.hash} alt={artifact.title} />
+          <Img src={artifact.thumb.url} hash={artifact.thumb.hash} alt={artifact.title} />
         {:else}
           <img src={artifact.thumb.url} alt={artifact.title} />
         {/if}
