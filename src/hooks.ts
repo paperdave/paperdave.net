@@ -1,3 +1,4 @@
+import { ensurePrismaIsSetup } from '$lib/db';
 import type { Handle } from '@sveltejs/kit';
 
 export const EXPIRE_TIME = 1000 * 60 * 60 * 24 * 7;
@@ -9,6 +10,7 @@ const overrideHeaders = {
 };
 
 export const handle: Handle = async ({ event, resolve }) => {
+  await ensurePrismaIsSetup();
   const response = await resolve(event);
 
   for (const [key, value] of Object.entries(overrideHeaders)) {
