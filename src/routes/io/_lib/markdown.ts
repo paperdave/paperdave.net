@@ -177,7 +177,7 @@ customRules.insertBefore('em', {
     const data = capture[2];
     return {
       type: 'attachment',
-      filename: capture[2] ?? ('pasted ' + dataDecoderTypeToLabel[type]),
+      filename: capture[3] ?? ('pasted ' + dataDecoderTypeToLabel[type]),
       target: dataDecoderTypeToFunc[type](data).url,
     }
   }
