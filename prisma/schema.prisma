@@ -39,10 +39,12 @@ model MessageInput {
 model ArtifactEntry {
   id          String       @id
   type        ArtifactType
+  thumb       String?
   title       String
   date        DateTime
   mentionedIn Message[]
-  unlisted    Boolean
+  unlisted    Boolean      @default(false)
+  featured    Boolean      @default(false)
 }
 
 enum ArtifactType {

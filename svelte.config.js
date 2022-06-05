@@ -5,6 +5,7 @@ import blurhashImage from 'blurhash-image';
 import 'dotenv/config';
 import fs from 'fs';
 import preprocess from 'svelte-preprocess';
+import { minify } from 'html-minifier-terser';
 
 // Modified template with blurhash script
 if (!fs.existsSync('.svelte-kit')) {
@@ -12,10 +13,23 @@ if (!fs.existsSync('.svelte-kit')) {
 }
 fs.writeFileSync(
   '.svelte-kit/app.html',
-  fs
+  await minify(fs
     .readFileSync('src/app.html', 'utf8')
     .toString()
-    .replace(/<\/head>/, `<script>${blurhashImage}</script></head>`)
+    .replace(/<\/head>/, `<script>${blurhashImage}</script></head>`), {
+      caseSensitive: true,
+      collapseBooleanAttributes: true,
+      collapseWhitespace: true,
+      conservativeCollapse: false,
+      decodeEntities: true,
+      removeOptionalTags: true,
+      removeAttributeQuotes: true,
+      removeRedundantAttributes: true,
+      removeTagWhitespace: true,
+      removeComments: true,
+      minifyCSS: true,
+      minifyJS: true,
+    })
 );
 
 /** @type {import('@sveltejs/kit').Config} */

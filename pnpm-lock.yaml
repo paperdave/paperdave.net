@@ -17,7 +17,7 @@ specifiers:
   color: ^4.2.1
   dotenv: ^10.0.0
   fluent-svelte: ^1.1.4
-  html-minifier-terser: ^7.0.0-alpha.2
+  html-minifier-terser: 7.0.0-alpha.2
   mime-types: ^2.1.35
   postcss: ^8.0.9
   prettier: ^2.3.2
@@ -2536,6 +2536,7 @@ packages:
   /svelte/3.48.0:
     resolution: {integrity: sha512-fN2YRm/bGumvjUpu6yI3BpvZnpIm9I6A7HR4oUNYd7ggYyIwSA/BX7DJ+UXXffLp6XNcUijyLvttbPVCYa/3xQ==}
     engines: {node: '>= 8'}
+    dev: true
 
   /svgo/2.8.0:
     resolution: {integrity: sha512-+N/Q9kV1+F+UeWYoSiULYo4xYSDQlTgb+ayMobAXPwMnLvop7oxKMo9OzIrX5x3eS4L4f2UHhc9axXwY8DpChg==}

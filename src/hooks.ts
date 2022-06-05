@@ -1,5 +1,6 @@
 import { ensurePrismaIsSetup } from '$lib/db';
 import type { Handle } from '@sveltejs/kit';
+import { minify } from 'html-minifier-terser';
 
 export const EXPIRE_TIME = 1000 * 60 * 60 * 24 * 7;
 
@@ -19,17 +20,18 @@ export const handle: Handle = async ({ event, resolve }) => {
     }
   }
 
-  // if (response.headers.get('Content-Type') === 'text/html') {
-  //   const minified = await minify(await response.text(), {
-  //     collapseWhitespace: true,
-  //     minifyCSS: true,
-  //     minifyJS: true,
-  //   });
-  //   return new Response(minified, {
-  //     headers: response.headers,
-  //     status: response.status,
-  //   });
-  // }
+  if (response.headers.get('Content-Type') === 'text/html') {
+    const minified = await minify(await response.text(), {
+      collapseWhitespace: true,
+      minifyCSS: true,
+      minifyJS: true,
+    });
+
+    return new Response(minified, {
+      headers: response.headers,
+      status: response.status,
+    });
+  }
 
   return response;
 };
