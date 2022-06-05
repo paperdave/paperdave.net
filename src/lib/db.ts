@@ -8,3 +8,7 @@ export const db = new PrismaClient({
     },
   },
 });
+
+export function ensurePrismaIsSetup() {
+  // magic function...
+}

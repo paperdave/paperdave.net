@@ -1,3 +1,4 @@
+<!-- this whole file gets minified twice. once at build but also in hook.ts, the file is re-minified -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -12,7 +13,7 @@
     <meta name="dark mode extensions" content="please do not use" />
     <style>
       @font-face {
-        font-style: normal;
+        font-style:normal;
         font-weight: 100 700;
         src: url(/assets/font/MaterialSymbols.woff2) format('woff2');
         font-family: 'Material Symbols Outlined';
@@ -21,18 +22,31 @@
     </style>
   </head>
   <body class="noscript">
+    <div id="safari_warn" style="display:none">
+      <h1>browser not supported</h1>
+      <p>
+        Safari is a mess of a browser and breaks almost every page of my website. They also do
+        not distribute Windows or Linux versions of their browser or allow emulating them, this
+        makes it impossible for me to reliably support Safari.
+      </p>
+      <p>
+        If you're on a Mac, download Chrome or Firefox; If you're on an iPhone, then you have no
+        options as third-party browsers that do not use built in webview are banned on the App Store.
+      </p>
+      <p>
+        <a href="#" class='custom' style='text-decoration:underline;' onclick="safari_elem.remove(),document.body.style=''">i don't care</a>
+      </p>
+    </div>
     <script>
       document.body.classList.remove('noscript');
+      window.safari && (
+        (safari_elem=document.querySelector('#safari_warn')).style="",
+        document.body.style='overflow:hidden'
+      );
     </script>
     <flex column id="root">%sveltekit.body%</flex>
-    <span
-      style="
-        font-family: 'Material Symbols Outlined';
-        position: absolute;
-        top: -9999px;
-        left: -9999px;
-      "
-      >a</span
-    >
+    <span style="font-family:'Material Symbols Outlined';position:absolute;top:-9999px;left:-9999px;">
+      a
+    </span>
   </body>
 </html>

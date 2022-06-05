@@ -1,5 +1,6 @@
 <script lang="ts">
   import Meta from '$lib/components/Meta.svelte';
+  import type { ArtifactEntry } from '@prisma/client';
   import HomePageAbout from './_HomePageAbout.svelte';
   import HomePageCategories from './_HomePageCategories.svelte';
   import HomePageExternals from './_HomePageExternals.svelte';
@@ -7,7 +8,7 @@
   import HomePageHeader from './_HomePageHeader.svelte';
   import HomePageKeyboardNav from './_HomePageKeyboardNav.svelte';
 
-  export let freshList: unknown[] = [];
+  export let featured: ArtifactEntry[] = [];
 </script>
 
 <Meta
@@ -19,7 +20,7 @@
 <flex>
   <flex row class="first-row">
     <HomePageHeader />
-    <HomePageFresh list={freshList} />
+    <HomePageFresh list={featured} />
   </flex>
   <flex row reverse class="second-row">
     <HomePageCategories />

@@ -1,5 +1,4 @@
 import { formatDate } from '$lib/utils/date';
-import { Structure, types } from '@davecode/structures';
 import type { Message } from '@prisma/client';
 
 export function getMessageDateID(m: Pick<Message, 'date'>) {

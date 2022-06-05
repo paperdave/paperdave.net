@@ -46,6 +46,7 @@
           body: JSON.stringify({
             date: message.date,
             type: 'REJECT',
+            text: '',
           }),
           headers: {
             'Content-Type': 'application/json',

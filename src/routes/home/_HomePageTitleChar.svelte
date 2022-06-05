@@ -141,6 +141,7 @@
         transform: translate(6px, 6px);
         color: hsla(var(--fg), 0.3);
         text-shadow: none;
+        filter: blur(2px);
       }
 
       &.held .transform-root {
