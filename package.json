@@ -20,6 +20,7 @@
     "@davecode/structures": "^0.3.0",
     "@furudean/svelte-persistent-store": "^0.6.0",
     "@prisma/client": "^3.14.0",
+    "@ungap/structured-clone": "^1.0.1",
     "blurhash": "^1.1.5",
     "blurhash-image": "^1.0.0",
     "color": "^4.2.1",

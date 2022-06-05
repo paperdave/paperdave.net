@@ -104,6 +104,11 @@
         <Button variant="normal" on:click={reset}>reset</Button>
       </ButtonRow>
       {#if input}
+        {#if input.sourceName}
+          <p>
+            from {input.sourceName} from {input.sourceLocation ?? 'unknown'}
+          </p>
+        {/if}
         <pre><code>{input.prompt}</code></pre>
       {/if}
 

@@ -14,8 +14,6 @@ export const post: RequestHandler = async ({ request }) => {
   const email = toStrOrUndef(formData.get("email"));
   const content = toStrOrUndef(formData.get("content"));
 
-  console.log(email, content);
-
   const input: MessageInput = {
     date: new Date(),
     notifyEmail: email ?? null,
@@ -60,25 +58,25 @@ export const post: RequestHandler = async ({ request }) => {
     }
   }
 
-  const cfConnectingIp = request.headers.get('cf-connecting-ip');
-  if (cfConnectingIp) {
+  const ipAddr = request.headers.get('x-vercel-forwarded-for');
+  if (ipAddr) {
     input.sourceName = uniqueNamesGenerator({
       dictionaries: [adjectives, colors, animals],
       separator: '-',
-      seed: cfConnectingIp,
+      seed: ipAddr,
     });
   }
 
-  const cfIPCountry = request.headers.get('cf-ipcountry');
+  const cfIPCountry = request.headers.get('x-vercel-ip-country');
   if (cfIPCountry) {
     input.sourceLocation = cfIPCountry;
   }
 
-  if((cfConnectingIp || email) && PROXYCHECK_API_KEY) {
+  if ((ipAddr || email) && PROXYCHECK_API_KEY) {
     const proxyCheck = await fetch(`https://proxycheck.io/v2/?key=${PROXYCHECK_API_KEY}&risk=1&vpn=1`, {
       method: 'POST',
       body: 'ips=' + [
-        cfConnectingIp,
+        ipAddr,
         email,
       ].filter(Boolean).join(','),
       headers: {
@@ -96,11 +94,11 @@ export const post: RequestHandler = async ({ request }) => {
       }
     }
 
-    if (cfConnectingIp && proxyCheck[cfConnectingIp]) {
-      if (proxyCheck[cfConnectingIp].proxy === 'yes') {
-        input.sourceVPN = proxyCheck[cfConnectingIp].operator?.name ?? 'unknown';
+    if (ipAddr && proxyCheck[ipAddr]) {
+      if (proxyCheck[ipAddr].proxy === 'yes') {
+        input.sourceVPN = proxyCheck[ipAddr].operator?.name ?? 'unknown';
       }
-      if (Number(proxyCheck[cfConnectingIp].risk) > 72) {
+      if (Number(proxyCheck[ipAddr].risk) > 72) {
         return {
           status: 403,
           body: {

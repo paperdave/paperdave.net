@@ -25,6 +25,7 @@ export const post: RequestHandler = async ({ request }) => {
 
   const body: Message = await request.json();
   body.date = new Date(body.date);
+  body.text = body.text ?? '';
 
   const parsed = messageMarkdown.parser(body.text);
   const mentions = walkAst({ type: 'document', content: parsed });

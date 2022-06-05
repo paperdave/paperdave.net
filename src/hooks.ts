@@ -1,3 +1,4 @@
+import '@ungap/structured-clone';
 import { ensurePrismaIsSetup } from '$lib/db';
 import type { Handle } from '@sveltejs/kit';
 import { minify } from 'html-minifier-terser';

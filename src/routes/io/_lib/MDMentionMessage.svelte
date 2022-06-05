@@ -21,6 +21,7 @@
 
 <style lang="scss">
   a {
+    color: white;
     transition: background-color 0.2s ease-in-out;
     border-radius: 4px;
     background-color: #22c6ad55;

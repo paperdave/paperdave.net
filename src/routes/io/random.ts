@@ -13,15 +13,13 @@ export const get = async ({ request }) => {
   const msg = await db.message.findFirst({
     skip: Math.floor(Math.random() * count),
     take: 1,
-    select: { 
+    select: {
       date: true
     },
     where: {
       type: 'NORMAL',
     }
   });
-
-console.log(accept);
 
   return accept === 'text/plain' ? {
     status: 200,
