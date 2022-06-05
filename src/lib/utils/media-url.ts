@@ -5,6 +5,11 @@ interface DecodedImage {
   aspect?: string;
   blurhash?: string;
 }
+interface DecodedVideo {
+  url: string;
+  aspect?: string;
+  blurhash?: string;
+}
 
 function gcd(a: number, b: number) {
   return b ? gcd(b, a % b) : a;
@@ -61,5 +66,26 @@ export function decodeImageUrl(string: string): DecodedImage {
     url: `${URL_BASE}/${hash.slice(0, 2)}/${hash}.webp`,
     aspect: aspect ? decodeAspect(aspect) : undefined,
     blurhash,
+  };
+}
+
+export function decodeVideoUrl(string: string): DecodedVideo {
+  if (!string) return null;
+
+  try {
+    return {
+      url: string.startsWith('/') ? string : new URL(string).toString(),
+    };
+  } catch (error) {
+    //
+  }
+
+  const [hash] = string.split('/');
+  if (hash.length !== 32) {
+    return null;
+  }
+
+  return {
+    url: `${URL_BASE}/${hash.slice(0, 2)}/${hash}.webm`,
   };
 }

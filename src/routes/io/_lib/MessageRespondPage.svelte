@@ -92,7 +92,9 @@
       editing message from {formatDate(message.date, 'date-time')}
     </p>
   {:else}
-    you have {inboxLength} question{inboxLength === 1 ? '' : 's'} in your inbox
+    <p>
+      you have {inboxLength} question{inboxLength === 1 ? '' : 's'} in your inbox
+    </p>
   {/if}
 
   <flex row gap class="equal-width">
@@ -118,6 +120,11 @@
         {#if input.sourceName}
           <p>
             from {input.sourceName} from {input.sourceLocation ?? 'unknown'}
+          </p>
+        {/if}
+        {#if input.sourceVPN}
+          <p>
+            using a vpn. type={input.sourceVPN}
           </p>
         {/if}
         <pre><code>{input.prompt}</code></pre>

@@ -1,4 +1,4 @@
-import { decodeImageUrl } from '$lib/utils/media-url';
+import { decodeImageUrl, decodeVideoUrl } from '$lib/utils/media-url';
 import {
   blockRegex,
   createParser,
@@ -155,14 +155,30 @@ customRules.insertBefore('em', {
     }
   }
 });
+const dataDecoderTypeToFunc = {
+  img: decodeImageUrl,
+  video: decodeVideoUrl,
+  audio: decodeVideoUrl,
+  vid: decodeVideoUrl,
+  aud: decodeVideoUrl,
+};
+const dataDecoderTypeToLabel = {
+  img: 'image',
+  video: 'video',
+  audio: 'audio',
+  vid: 'video',
+  aud: 'audio',
+};
 customRules.insertBefore('em', {
   name: 'autolink_imagestring',
-  match: inlineRegex(/^(?:img|data):([a-z0-9+_-]{32}(?:\/[a-z0-9](?:\/[a-zA-Z0-9#$%*+,.:;=?@[\]^_{|}~-]))?)(?:\(([^)]*)\))?/),
+  match: inlineRegex(/^(img|vid(?:eo)?|aud(?:io)?):([a-z0-9+_-]{32}(?:\/[a-z0-9](?:\/[a-zA-Z0-9#$%*+,.:;=?@[\]^_{|}~-]))?)(?:\(([^)]*)\))?/),
   parse(capture) {
+    const type = capture[1];
+    const data = capture[2];
     return {
       type: 'attachment',
-      filename: capture[2] ?? 'pasted image',
-      target: decodeImageUrl(capture[1]).url,
+      filename: capture[2] ?? ('pasted ' + dataDecoderTypeToLabel[type]),
+      target: dataDecoderTypeToFunc[type](data).url,
     }
   }
 });
