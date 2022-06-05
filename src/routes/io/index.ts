@@ -27,6 +27,17 @@ export const get: RequestHandler = async ({ url }) => {
     orderBy: {
       date: 'desc',
     },
+    select: {
+      date: true,
+      text: true,
+      mentionedArtifacts: {
+        select: {
+          id: true,
+          title: true,
+          type: true,
+        }
+      },
+    },
     skip: pageNumber * MESSAGES_PER_PAGE,
     take: latest === pageNumber ? MESSAGES_PER_PAGE * 2 : MESSAGES_PER_PAGE,
   });
@@ -36,7 +47,15 @@ export const get: RequestHandler = async ({ url }) => {
       mpage: {
         id: pageNumber,
         latest: latest === pageNumber,
-        messages,
+        messages: messages.map(({ text, date, mentionedArtifacts }) => ({
+          text,
+          date,
+          artifacts: mentionedArtifacts.length > 0 ? mentionedArtifacts.reduce((acc, { id, title, type }) => {
+            acc[id] = { title, type };
+            return acc;
+          }
+            , {}) : undefined
+        })),
       } as MessagePage,
     },
   };

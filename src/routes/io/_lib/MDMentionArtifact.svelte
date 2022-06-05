@@ -3,27 +3,48 @@
 
   import Icon from '$lib/components/Icon.svelte';
   import type { ArtifactEntry, ArtifactType } from '@prisma/client';
+  import { getContext } from 'svelte';
   import type { ASTNode } from 'svelte-simple-markdown';
+  import { resolvedArtifactContext } from './MessageRender.svelte';
 
   export let node: ASTNode;
 
-  $: data = null as Pick<ArtifactEntry, 'title' | 'type'>;
+  const context = getContext(resolvedArtifactContext) ?? {};
+
+  $: data = context[node.id] as Pick<ArtifactEntry, 'title' | 'type'> | null;
 
   let currentFetchId = 0;
   function fetchData() {
     let fetchId = ++currentFetchId;
-    fetch(`/io/api/artifact/${node.id}`)
-      .then((res) => res.json())
-      .then((newData) => {
-        if (fetchId === currentFetchId) {
-          data = newData;
-        }
-      });
+    fetch(`/io/api/artifact/${node.id}`).then((x) => {
+      if (x.status === 200) {
+        return x.json().then((newData) => {
+          if (fetchId === currentFetchId) {
+            data = newData;
+          }
+        });
+      } else {
+        data = null;
+      }
+    });
   }
 
   $: browser && !data && fetchData();
 
-  const artifactTypeToIcon: Record<ArtifactType, string> = {};
+  const artifactTypeToIcon: Record<ArtifactType, string> = {
+    Application: 'grid_view',
+    Doodle: 'draw',
+    Fragment: 'atr',
+    Game: 'sports_esports',
+    Journal: '',
+    Music: 'music_note',
+    MusicVideo: 'music_note',
+    NerdGear: 'terminal',
+    Square: 'photo',
+    Story: 'description',
+    Video: 'videocam',
+    WordMagnet: 'draft',
+  };
 </script>
 
 <a sveltekit:prefetch class="custom" href="/{node.id}">
@@ -39,11 +60,13 @@
 
 <style lang="scss">
   a {
+    font-family: 'Recursive', sans-serif;
+    font-size: 1rem;
     color: white;
     transition: background-color 0.2s ease-in-out;
     border-radius: 4px;
     background-color: #c6222255;
-    padding: 0 0.25rem;
+    padding: 0 0.4rem;
 
     &:hover {
       background-color: #c62222aa;
@@ -59,5 +82,6 @@
     align-items: center;
     height: 100%;
     font-size: 0.8rem;
+    transform: scale(1.4) translateY(0.6px);
   }
 </style>

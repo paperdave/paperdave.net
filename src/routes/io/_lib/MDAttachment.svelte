@@ -1,21 +1,18 @@
 <script lang="ts">
   import Icon from '$lib/components/Icon.svelte';
-  import { formatDate } from '$lib/utils/date';
   import type { ASTNode } from 'svelte-simple-markdown';
   import { parseMessageDateID } from './utils';
   export let node: ASTNode;
-
-  $: date = parseMessageDateID(node.id);
 </script>
 
-<a sveltekit:prefetch class="custom" href="/io/{node.id}">
+<a class="custom" href={node.target}>
   <span class="icon">
-    <Icon name="message" />
+    <Icon name="attachment" />
   </span>
   {#if node.content}
     <slot />
   {:else}
-    {formatDate(date, 'date-time')}
+    {node.filename}
   {/if}
 </a>
 
@@ -26,15 +23,15 @@
     color: white;
     transition: background-color 0.2s ease-in-out;
     border-radius: 4px;
-    background-color: #22c6ad55;
+    background-color: #27c62255;
     padding: 0 0.25rem;
 
     &:hover {
-      background-color: #22c6adaa;
+      background-color: #27c622aa;
     }
     &:active {
       transition-duration: 0ms;
-      background-color: #22c6adff;
+      background-color: #27c622ff;
     }
   }
   .icon {
@@ -43,5 +40,6 @@
     align-items: center;
     height: 100%;
     font-size: 0.8rem;
+    transform: scale(1.4) translateY(0.6px);
   }
 </style>

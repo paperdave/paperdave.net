@@ -5,13 +5,8 @@
   const message: Message = {
     type: 'NORMAL',
     date: new Date(),
-    text: [
-      'i: Hello, world!',
-      'example response 1, supports *markdown*',
-      'reference to another message: #220604173159',
-      'reference to an artifact: @im-18-now',
-    ].join('\n\n'),
+    text: ['i: Hello, world!', 'answer here'].join('\n\n'),
   };
 </script>
 
-<MessageRespondPage {message} />
+<MessageRespondPage {message} isSandbox />

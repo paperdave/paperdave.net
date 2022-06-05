@@ -8,6 +8,7 @@
   import type { Message, MessageInput } from '@prisma/client';
   import { createEventDispatcher } from 'svelte';
   import MessageRender from './MessageRender.svelte';
+  import MessageRespondUploadUtil from './MessageRespondUploadUtil.svelte';
 
   const dispatch = createEventDispatcher();
 
@@ -16,6 +17,7 @@
   export let message: Message;
   export let input: MessageInput | null = null;
   export let inboxLength = 0;
+  export let isSandbox = false;
 
   let copied = structuredClone(message);
   let text = copied.text;
@@ -75,11 +77,17 @@
     copied = structuredClone(message);
     text = copied.text;
   }
+
+  function insertFile() {
+    document.querySelector('#stupid_hardcoded_url').click();
+  }
 </script>
 
 <flex gap inert={loading ? 'true' : null} class:loading>
   <h1>io message management dashboard</h1>
-  {#if !input}
+  {#if isSandbox}
+    <p>you are using the sandbox. this shows how the formatter works.</p>
+  {:else if !input}
     <p>
       editing message from {formatDate(message.date, 'date-time')}
     </p>
@@ -87,20 +95,23 @@
     you have {inboxLength} question{inboxLength === 1 ? '' : 's'} in your inbox
   {/if}
 
-  <p>btw if youre not logged in, you wont be able to actually submit changes.</p>
-
   <flex row gap class="equal-width">
     <flex column gap>
       <ButtonRow>
-        <AccentOverride accent={palette.green[500]}>
-          <Button variant="accent" on:click={apply}>apply</Button>
-        </AccentOverride>
-        <AccentOverride accent={palette.red[500]}>
-          <Button variant="accent" on:click={del}>delete</Button>
-        </AccentOverride>
+        {#if !isSandbox}
+          <AccentOverride accent={palette.green[500]}>
+            <Button variant="accent" on:click={apply}>apply</Button>
+          </AccentOverride>
+          <AccentOverride accent={palette.red[500]}>
+            <Button variant="accent" on:click={del}>delete</Button>
+          </AccentOverride>
+        {/if}
         {#if input}
           <Button variant="normal" on:click={defer}>defer</Button>
         {/if}
+        <AccentOverride accent={palette.cyan[500]}>
+          <Button variant="accent" on:click={insertFile}>insert file</Button>
+        </AccentOverride>
         <Button variant="normal" on:click={reset}>reset</Button>
       </ButtonRow>
       {#if input}
@@ -111,6 +122,8 @@
         {/if}
         <pre><code>{input.prompt}</code></pre>
       {/if}
+
+      <MessageRespondUploadUtil />
 
       <div>
         <TextBox unstable_ioTextarea label="response" bind:value={text} />

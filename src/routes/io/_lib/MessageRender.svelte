@@ -1,10 +1,18 @@
+<script context="module" lang="ts">
+  export const resolvedArtifactContext = Symbol('resolvedArtifactContext');
+</script>
+
 <script lang="ts">
   import type { Message } from '@prisma/client';
   import { messageMarkdown } from './markdown';
   import MessageDate from './MessageDate.svelte';
   import { Markdown } from 'svelte-simple-markdown';
+  import { setContext } from 'svelte';
+  import type { MessageWithResolvedArtifacts } from './utils';
 
-  export let message: Message;
+  export let message: MessageWithResolvedArtifacts;
+
+  setContext(resolvedArtifactContext, message.artifacts);
 </script>
 
 <article>
