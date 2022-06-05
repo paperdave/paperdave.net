@@ -28,6 +28,7 @@ export const get: RequestHandler = async ({ url }) => {
       date: 'desc',
     },
     select: {
+      type: true,
       date: true,
       text: true,
       mentionedArtifacts: {
@@ -47,9 +48,10 @@ export const get: RequestHandler = async ({ url }) => {
       mpage: {
         id: pageNumber,
         latest: latest === pageNumber,
-        messages: messages.map(({ text, date, mentionedArtifacts }) => ({
+        messages: messages.map(({ type, text, date, mentionedArtifacts }) => ({
           text,
           date,
+          type: type !== 'NORMAL' ? type : undefined,
           artifacts: mentionedArtifacts.length > 0 ? mentionedArtifacts.reduce((acc, { id, title, type }) => {
             acc[id] = { title, type };
             return acc;
