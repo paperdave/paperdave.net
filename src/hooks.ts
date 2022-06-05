@@ -7,7 +7,7 @@ export const EXPIRE_TIME = 1000 * 60 * 60 * 24 * 7;
 const overrideHeaders = {
   // Powered by easter egg :3
   'X-Powered-By': 'chocolate; see https://davecode.net/donate',
-  'Cache-Control': 'public, maxage=3600, stale-while-revalidate=3600',
+  'Cache-Control': 's-maxage=3600, maxage=3600, stale-while-revalidate=1728000',
 };
 
 export const handle: Handle = async ({ event, resolve }) => {
