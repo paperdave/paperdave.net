@@ -9,15 +9,12 @@
     "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
     "lint": "prettier --check --plugin-search-dir=. .",
     "format": "prettier --write --plugin-search-dir=. .",
-    "postinstall": "prisma generate",
     "postbuild": "cp prisma/schema.prisma .vercel_build_output/functions/node/render/",
-    "predev": "npm run prisma:migrate:dev",
-    "prisma:migrate:dev": "prisma migrate dev",
-    "prisma:migrate:reset": "prisma migrate reset --force",
     "vercel-build": "prisma generate && npm run build"
   },
   "dependencies": {
     "@davecode/structures": "^0.3.0",
+    "@davecode/types": "^1.0.2",
     "@furudean/svelte-persistent-store": "^0.6.0",
     "@prisma/client": "^3.14.0",
     "@ungap/structured-clone": "^1.0.1",
@@ -33,7 +30,7 @@
     "source-map-js": "^1.0.2",
     "stacktrace-parser": "^0.1.10",
     "svelte-portal": "^2.2.0",
-    "svelte-simple-markdown": "^1.0.1",
+    "svelte-simple-markdown": "^1.0.3",
     "unique-names-generator": "^4.7.1"
   },
   "devDependencies": {
@@ -44,6 +41,7 @@
     "@types/color": "^3.0.3",
     "@types/html-minifier-terser": "^6.1.0",
     "@types/sharp": "^0.30.2",
+    "chalk": "^5.0.1",
     "postcss": "^8.4.14",
     "prettier": "^2.6.2",
     "prettier-plugin-css-order": "^1.2.0",

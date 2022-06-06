@@ -3,6 +3,7 @@
   import Button from '$lib/components/Button.svelte';
   import ButtonRow from '$lib/components/ButtonRow.svelte';
   import TextBox from '$lib/components/TextBox.svelte';
+  import { markdownConfig } from '$lib/markdown';
   import { palette } from '$lib/theme';
   import { formatDate } from '$lib/utils/date';
   import type { Message, MessageInput } from '@prisma/client';
@@ -127,7 +128,12 @@
             using a vpn. type={input.sourceVPN}
           </p>
         {/if}
-        <pre><code>{input.prompt}</code></pre>
+        {#if input.notifyEmail}
+          <p>
+            notify {input.notifyEmail}
+          </p>
+        {/if}
+        <pre class="prompt"><code>{input.prompt}</code></pre>
       {/if}
 
       <MessageRespondUploadUtil />
@@ -155,10 +161,16 @@
     pointer-events: none;
   }
 
-  pre {
+  .prompt {
     background-color: black;
     color: hsl(var(--acc));
     padding: 1.5rem;
     white-space: pre-wrap;
+  }
+  .output {
+    white-space: pre;
+    width: 800px;
+    color: white;
+    overflow-x: scroll;
   }
 </style>

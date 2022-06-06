@@ -1,0 +1,14 @@
+{
+  "configurations": [
+    {
+      "name": "davecode.net debug",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "node ./scripts/dev.js",
+      "serverReadyAction": {
+        "pattern": "listening on port ([0-9]+)",
+        "action": "debugWithEdge"
+      }
+    }
+  ]
+}

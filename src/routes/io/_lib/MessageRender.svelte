@@ -33,9 +33,42 @@
     color: red;
   }
   .marker {
+    --fg: var(--restore-fg);
     color: #999;
     background-color: hsla(var(--fg), 0.1);
     padding: 1rem;
     border-radius: 5px;
+  }
+  article :global {
+    position: relative;
+    line-height: 1.25rem;
+    --restore-fg: var(--fg);
+    --text-casual: 0.5;
+
+    & > * {
+      --fg: 129, 57%, 57%;
+      color: hsl(var(--fg));
+    }
+
+    code {
+      background-color: hsla(var(--fg), 0.2);
+      color: hsl(var(--fg));
+      padding: 0.05rem 0.2rem;
+      border-radius: 5px;
+    }
+
+    ul {
+      margin-bottom: 0.5rem;
+    }
+
+    li::before {
+      position: absolute;
+      content: '-';
+      left: 0;
+    }
+    li {
+      padding-left: 0.75rem;
+      margin-bottom: 0.5rem;
+    }
   }
 </style>

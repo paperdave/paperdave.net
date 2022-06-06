@@ -53,6 +53,7 @@
     width: max-content;
     color: #999;
     font-size: 0.9rem;
+    line-height: 1rem;
 
     .icon {
       display: none;

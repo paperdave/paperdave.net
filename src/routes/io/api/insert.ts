@@ -49,17 +49,17 @@ export const post: RequestHandler = async ({ request }) => {
       update: {
         ...body,
         mentionedMessages: {
-          set: mentionedMessages
+          connect: mentionedMessages
         },
         mentionedArtifacts: {
-          set: mentionedArtifacts
+          connect: mentionedArtifacts
         }
       },
     }),
-    db.messageInput.delete({
+    db.messageInput.deleteMany({
       where: {
         date: body.date,
-      }
+      },
     })
   ]);
 

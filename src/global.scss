@@ -17,11 +17,14 @@ body {
 
   // The background of the void outside the site is always black.
   background-color: black;
-  // Recursive is the only font we use, falling back to the browser default. However we need to
-  // put emoji fonts behind it (consider twemoji?)
-  font-family: 'Recursive', sans-serif, var(--emoji);
   // ... i don't know why this letter spacing squish is here. i don't want to remove it.
   letter-spacing: -0.005em;
+}
+
+body, code {
+  // Recursive is the only font we use, falling back to the browser default. However we need to
+  // put emoji fonts behind it (consider twemoji?). Also, this is applied to code blocks.
+  font-family: 'Recursive', sans-serif, var(--emoji);
 }
 
 * {
