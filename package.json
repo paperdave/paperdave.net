@@ -2,15 +2,14 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "svelte-kit dev",
-    "build": "svelte-kit build",
+    "dev": "node scripts/dev.js",
+    "build": "node scripts/build.js",
     "preview": "svelte-kit preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
     "lint": "prettier --check --plugin-search-dir=. .",
     "format": "prettier --write --plugin-search-dir=. .",
-    "postbuild": "cp prisma/schema.prisma .vercel_build_output/functions/node/render/",
-    "vercel-build": "prisma generate && npm run build"
+    "vercel-build": "node ./scripts/vercel-build.js"
   },
   "dependencies": {
     "@davecode/structures": "^0.3.0",

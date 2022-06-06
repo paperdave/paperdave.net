@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": ".",
+			"name": "All Files"
+		},
+		{
+			"path": "shortcuts",
+			"name": "Quick Access"
+		},
+		{
+			"path": "src/lib",
+			"name": "Library Code"
+		},
+		{
+			"path": "src/routes",
+			"name": "Routes"
+		},
+	],
+}

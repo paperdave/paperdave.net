@@ -5,6 +5,7 @@ export function run(command, show = true) {
   return new Promise((resolve, reject) => {
     const proc = exec(command, {
       env: {
+        ...process.env,
         PATH: process.env.PATH
           + (process.platform === 'win32' ? ';' : ':')
           + path.resolve('node_modules/.bin'),
