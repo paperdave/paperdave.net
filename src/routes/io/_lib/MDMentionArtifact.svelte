@@ -13,23 +13,22 @@
 
   $: data = context[node.id] as Pick<ArtifactEntry, 'title' | 'type'> | null;
 
-  let currentFetchId = 0;
-  function fetchData() {
-    let fetchId = ++currentFetchId;
-    fetch(`/io/api/artifact/${node.id}`).then((x) => {
-      if (x.status === 200) {
-        return x.json().then((newData) => {
-          if (fetchId === currentFetchId) {
-            data = newData;
-          }
-        });
-      } else {
-        data = null;
-      }
-    });
-  }
-
-  $: browser && !data && fetchData();
+  // let currentFetchId = 0;
+  // function fetchData() {
+  //   let fetchId = ++currentFetchId;
+  //   fetch(`/io/api/artifact/${node.id}`).then((x) => {
+  //     if (x.status === 200) {
+  //       return x.json().then((newData) => {
+  //         if (fetchId === currentFetchId) {
+  //           data = newData;
+  //         }
+  //       });
+  //     } else {
+  //       data = null;
+  //     }
+  //   });
+  // }
+  // $: browser && !data && fetchData();
 
   const artifactTypeToIcon: Record<ArtifactType, string> = {
     Application: 'grid_view',
@@ -54,7 +53,7 @@
     </span>
     {data.title}
   {:else}
-    ...
+    unresolved: {node.id}
   {/if}
 </a>
 

@@ -1,4 +1,3 @@
-import '@ungap/structured-clone';
 import { ensurePrismaIsSetup } from '$lib/db';
 import type { Handle } from '@sveltejs/kit';
 import { minify } from 'html-minifier-terser';
@@ -13,6 +12,8 @@ const overrideHeaders = {
 
 export const handle: Handle = async ({ event, resolve }) => {
   await ensurePrismaIsSetup();
+  await import('@ungap/structured-clone');
+
   const response = await resolve(event);
 
   for (const [key, value] of Object.entries(overrideHeaders)) {

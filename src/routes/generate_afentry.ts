@@ -3,7 +3,7 @@ import { are_we_on_localhost_so_idont_have_to_check_auth } from "$lib/env";
 import type { ArtifactEntry } from "@prisma/client";
 
 export const get = async ({ params }) => {
-  if (!are_we_on_localhost_so_idont_have_to_check_auth) return { body: { ok: false } };
+  if (true) return { body: { ok: false } };
   const data = await Promise.all([
     db.music.findMany({
       select: {

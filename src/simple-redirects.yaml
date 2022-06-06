@@ -5,7 +5,7 @@
 /apple-music: https://music.apple.com/us/artist/davecode/1611375169
 
 # legacy moved content
-/learning-svelte/*: /blog/learning-svelte/*
+/learning-svelte/*: / # todo re-alive this
 /series/the-writer: /the-writer
 /word-magnets: /treehouse/word-magnets
 /476: /stories/life-in-476

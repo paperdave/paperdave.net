@@ -7,6 +7,7 @@
   import HomePageGearDivider from './_HomePageGearDivider.svelte';
   import { fade, scale } from 'svelte/transition';
   import Icon from '$lib/components/Icon.svelte';
+  import IconButton from '$lib/components/IconButton.svelte';
 
   let currentPage: 'home' | 'blocks' | 'bts' = 'home';
 
@@ -54,9 +55,7 @@
               class="back-button-container"
               in:scale={{ start: 0.6, opacity: 0, duration: 100 }}
               out:fade={{ duration: 100 }}>
-              <Button variant="subtle" on:click={focusHome}>
-                <Icon name="arrow_left" />
-              </Button>
+              <IconButton name="keyboard_return" variant="subtle" on:click={focusHome} />
             </div>
           {/if}
           <h2 class="custom">
@@ -81,29 +80,17 @@
               </flex>
               <flex class="col">
                 <a sveltekit:prefetch class="link" href="/io">input/output</a>
-                <span class="link" disabled>behind the scenes</span>
-                <span class="link" disabled>building blocks</span>
-                <!-- <a sveltekit:prefetch class="link" href="/#bts" on:click={focusBTS}>behind the scenes</a>
-                <a sveltekit:prefetch class="link" href="/#blocks" on:click={focusBlocks}>building blocks</a> -->
+                <span disabled class="link">nerd gear</span>
+                <!-- <a sveltekit:prefetch class="link" href="/nerd-gear">nerd gear</a> -->
+                <a class="link" href="/#bts" on:click={focusBTS}>behind the scenes</a>
                 <a sveltekit:prefetch class="link" href="/donate">give chocolate</a>
                 <a sveltekit:prefetch class="link" href="/credits">credits</a>
-              </flex>
-            {:else if currentPage === 'blocks'}
-              <flex class="col">
-                <span disabled class="link" href="/toolkit">creative toolkit</span>
-                <span disabled class="link" href="/plugins">plugins</span>
-                <span disabled class="link" href="/nerd gear">nerd gear</span>
-              </flex>
-              <flex class="col">
-                <span disabled class="link" href="/trinkets">trinkets</span>
-                <span disabled class="link" href="/docs">documentation</span>
               </flex>
             {:else if currentPage === 'bts'}
               <flex class="col">
                 <span disabled class="link" href="/fragments">bits & fragments</span>
                 <span disabled class="link" href="/journal">journal</span>
-                <span disabled class="link" href="/thoughts">thoughts</span>
-                <span disabled class="link" href="/source">source code</span>
+                <a sveltekit:prefetch class="link" href="/trinkets">trinkets</a>
               </flex>
             {/if}
           </flex>
