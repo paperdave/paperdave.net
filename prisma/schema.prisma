@@ -127,14 +127,20 @@ model Application {
 }
 
 model Upload {
-  hash     String   @id
-  date     DateTime @default(now())
+  hash     String         @id
+  date     DateTime       @default(now())
   filename String
-  mimetype String
+  type     String
   blurhash String?
-  width    Int?
-  height   Int?
-  ratio    String?
+  width    Int
+  height   Int
+  duration Int? // for videos
+  purpose  UploadPurpose?
+}
+
+enum UploadPurpose {
+  MessageAttachment
+  ArtifactData
 }
 
 model Donator {

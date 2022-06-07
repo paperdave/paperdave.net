@@ -1,18 +1,33 @@
 <script lang="ts">
   import Icon from '$lib/components/Icon.svelte';
   import type { ASTNode } from 'svelte-simple-markdown';
-  import { parseMessageDateID } from './utils';
+  import type { DecodedMediaData } from '$lib/utils/media-url';
+
   export let node: ASTNode;
+
+  function getDuration(duration: number) {
+    const days = Math.floor(duration / 86400);
+    const hours = Math.floor((duration % 86400) / 3600);
+    const minutes = Math.floor((duration % 3600) / 60);
+    const seconds = Math.floor(duration % 60);
+
+    return [days, hours, minutes, seconds]
+      .filter((part, i) => i > 1 || part > 0)
+      .map((part) => part.toString().padStart(2, '0'))
+      .join(':')
+      .replace(/^0+/, '');
+  }
+
+  $: data = node.data as DecodedMediaData;
 </script>
 
 <a class="custom" href={node.target}>
   <span class="icon">
     <Icon name="attachment" />
   </span>
-  {#if node.content}
-    <slot />
-  {:else}
-    {node.filename}
+  <slot />
+  {#if data.duration}
+    ({getDuration(data.duration)})
   {/if}
 </a>
 

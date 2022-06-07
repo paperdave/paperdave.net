@@ -13,7 +13,7 @@
 <script lang="ts">
   import { browser } from '$app/env';
   import { useEffect } from '$lib/hooks/useEffect';
-  import { decodeImageUrl } from '$lib/utils/media-url';
+  import { decodeMediaId } from '$lib/utils/media-url';
 
   const threshold = 75;
 
@@ -28,7 +28,7 @@
 
   let image: HTMLImageElement;
 
-  $: img = decodeImageUrl(src);
+  $: img = decodeMediaId(src);
   $: isBlurhash = !noBlur && !!img?.blurhash;
 
   let start = Date.now();

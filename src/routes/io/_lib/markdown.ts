@@ -1,4 +1,4 @@
-import { decodeImageUrl, decodeVideoUrl } from '$lib/utils/media-url';
+import { decodeMediaId, type MediaType } from '$lib/utils/media-url';
 import {
   blockRegex,
   createParser,
@@ -142,43 +142,36 @@ customRules.insertBefore('em', {
     }
   }
 });
-customRules.insertBefore('em', {
-  name: 'autolink_media',
-  match: inlineRegex(/^media:([^ ]+)/),
-  parse(capture) {
-    const data = capture[1].split('/');
-    const basename = data[data.length - 1];
-    return {
-      type: 'attachment',
-      filename: basename,
-      target: `https://media.davecode.net/${basename}`,
-    }
-  }
-});
-const dataDecoderTypeToFunc = {
-  img: decodeImageUrl,
-  video: decodeVideoUrl,
-  audio: decodeVideoUrl,
-  vid: decodeVideoUrl,
-  aud: decodeVideoUrl,
-};
-const dataDecoderTypeToLabel = {
-  img: 'image',
-  video: 'video',
-  audio: 'audio',
-  vid: 'video',
-  aud: 'audio',
+
+const dataDecoderTypeToLabel: Record<MediaType, string> = {
+  webp: 'image',
+  png: 'image',
+  jpeg: 'image',
+  avif: 'image',
+  webm: 'video',
+  av1: 'video',
+  mp4: 'video',
+  flac: 'audio',
+  mp3: 'audio',
+  wav: 'audio',
 };
 customRules.insertBefore('em', {
-  name: 'autolink_imagestring',
-  match: inlineRegex(/^(img|vid(?:eo)?|aud(?:io)?):([a-z0-9+_-]{32}(?:\/[a-z0-9](?:\/[a-zA-Z0-9#$%*+,.:;=?@[\]^_{|}~-]))?)(?:\(([^)]*)\))?/),
-  parse(capture) {
-    const type = capture[1];
-    const data = capture[2];
+  name: 'attachment',
+  match: inlineRegex(/^file:([a-zA-Z0-9][a-zA-Z0-9_-]{20}[\/a-zA-Z0-9#$%*+,\.:;=?@[\]^_{|}~-]+)(?:\(([^)]*)\))?/),
+  parse(capture, parse, state) {
+    const data = capture[1];
+    const decoded = decodeMediaId(data);
     return {
       type: 'attachment',
-      filename: capture[3] ?? ('pasted ' + dataDecoderTypeToLabel[type]),
-      target: dataDecoderTypeToFunc[type](data).url,
+      data: decoded,
+      content: capture[2]
+        ? parse(capture[2], state)
+        : [
+          {
+            type: 'text',
+            content: `pasted ${dataDecoderTypeToLabel[decoded.type]}`,
+          }
+        ],
     }
   }
 });
