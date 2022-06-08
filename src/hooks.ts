@@ -1,4 +1,4 @@
-import { ensurePrismaIsSetup } from '$lib/db';
+import { db, ensurePrismaIsSetup } from '$lib/db';
 import type { Handle } from '@sveltejs/kit';
 import { minify } from 'html-minifier-terser';
 
@@ -13,6 +13,27 @@ const overrideHeaders = {
 export const handle: Handle = async ({ event, resolve }) => {
   await ensurePrismaIsSetup();
   await import('@ungap/structured-clone');
+
+  const auth = event.request.headers.get('Authorization') ?? '';
+  const match = auth.match(/^Bearer (.*)$/);
+  if (match) {
+    const session = await db.session.findFirst({
+      where: {
+        token: match[1]
+      },
+      include: {
+        user: true
+      },
+    });
+
+    if (session) {
+      event.locals.user = session.user;
+    } else {
+      return new Response(JSON.stringify({ error: 'Invalid token' }), {
+        status: 401,
+      });
+    }
+  }
 
   const response = await resolve(event);
 

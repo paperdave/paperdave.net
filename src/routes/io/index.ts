@@ -1,5 +1,4 @@
 import { db } from '$lib/db';
-import type { Message } from '@prisma/client';
 import type { RequestHandler } from '@sveltejs/kit';
 import type { MessagePage } from './_lib/utils';
 

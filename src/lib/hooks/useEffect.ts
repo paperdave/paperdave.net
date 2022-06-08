@@ -1,6 +1,6 @@
 import { afterUpdate, onDestroy } from 'svelte';
 
-export function useEffect(cb, deps) {
+export function useEffect(cb: Function, deps: () => unknown[]) {
   let cleanup;
 
   function apply() {

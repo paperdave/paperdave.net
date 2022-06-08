@@ -7,10 +7,11 @@
   import Heading from '$lib/components/Heading.svelte';
   import Paper from '$lib/components/Paper.svelte';
   import TextBox from '$lib/components/TextBox.svelte';
+  import { api } from '$lib/session';
   import { decodeRedirect } from '$lib/utils/encode-redirect';
   import { authEmail, authPassword } from './authorization-store';
 
-  $: returnPage = $page.url.searchParams.get('r') ?? '/profile';
+  $: returnPage = $page.url.searchParams.get('r') ?? '/';
 
   export let error: string | undefined;
   let loading = false;
@@ -20,8 +21,14 @@
     loading = true;
     error = undefined;
 
-    const response = await API.auth.login($authEmail, $authPassword);
+    const response = await api.post('/auth/api/login', {
+      json: {
+        email: $authEmail,
+        password: $authPassword,
+      },
+    });
     if (response) {
+      api.setToken(response.token);
       goto(decodeRedirect(returnPage));
       loading = false;
     } else {

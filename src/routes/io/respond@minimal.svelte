@@ -1,8 +1,13 @@
 <script lang="ts">
+  import { useEffect } from '$lib/hooks/useEffect';
+
+  import { api } from '$lib/session';
   import type { Message, MessageInput } from '@prisma/client';
   import MessageRespondPage from './_lib/MessageRespondPage.svelte';
 
-  export let messages: MessageInput[];
+  const { data: messages } = api.useSWR<MessageInput[]>('/io/api/responses');
+
+  let current: Date | null = null;
 
   function messageFromInput(input: MessageInput): Message {
     if (!input) return null;
@@ -18,15 +23,28 @@
     };
   }
 
-  $: input = messages[0];
+  $: input = $messages?.find((x) => x.date === current) ?? null;
   $: message = messageFromInput(input);
 
+  useEffect(
+    () => {
+      console.log('useEffect');
+      if (current === null && $messages && $messages?.length) {
+        current = $messages[0].date;
+      }
+    },
+    () => [current === null && $messages]
+  );
+
   function next() {
-    messages = messages.slice(1);
+    const index = $messages?.findIndex((x) => x.date === current) ?? 0;
+    $messages = $messages.filter((x) => x.date !== current);
+    current = $messages[index]?.date ?? null;
   }
 
   function defer() {
-    messages = messages.slice(1).concat(messages[0]);
+    current =
+      $messages[($messages.findIndex((x) => x.date === current) + 1) % $messages.length].date;
   }
 </script>
 
@@ -37,7 +55,7 @@
       {message}
       on:done={next}
       on:defer={defer}
-      inboxLength={messages.length} />
+      inboxLength={$messages.length} />
   {/key}
 {:else}
   all caught up! 🎉

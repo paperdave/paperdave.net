@@ -31,11 +31,13 @@ specifiers:
   sass: ^1.52.2
   sharp: ^0.30.6
   source-map-js: ^1.0.2
+  sswr: ^1.7.0
   stacktrace-parser: ^0.1.10
   svelte: ^3.48.0
   svelte-portal: ^2.2.0
   svelte-preprocess: ^4.10.7
   svelte-simple-markdown: ^1.0.3
+  swrev: ^3.0.0
   typescript: ^4.7.3
   unique-names-generator: ^4.7.1
 
@@ -55,6 +57,7 @@ dependencies:
   prisma: 3.14.0
   sharp: 0.30.6
   source-map-js: 1.0.2
+  sswr: 1.7.0_svelte@3.48.0
   stacktrace-parser: 0.1.10
   svelte-portal: 2.2.0
   svelte-simple-markdown: 1.0.3_svelte@3.48.0
@@ -78,6 +81,7 @@ devDependencies:
   sass: 1.52.2
   svelte: 3.48.0
   svelte-preprocess: 4.10.7_3zw2fhwsckgfi66fgbdpirgnkq
+  swrev: 3.0.0
   typescript: 4.7.3
 
 packages:
@@ -359,6 +363,10 @@ packages:
   /@types/unist/2.0.6:
     resolution: {integrity: sha512-PBjIUxZHOuj0R15/xuwJYjFi+KZdNFrehocChv4g5hu6aFroHue8m0lBP0POdK2nKzbw0cgV1mws8+V/JAcEkQ==}
     dev: true
+
+  /@ungap/event-target/0.2.3:
+    resolution: {integrity: sha512-7Bz0qdvxNGV9n0f+xcMKU7wsEfK6PNzo8IdAcOiBgMNyCuU0Mk9dv0Hbd/Kgr+MFFfn4xLHFbuOt820egT5qEA==}
+    dev: false
 
   /@ungap/structured-clone/1.0.1:
     resolution: {integrity: sha512-zKVyTt6rELvPXYwcVPTJcPFtY0AckN5A7xWuc7owBqR0FdtuDYhE9MZZUi6IY1kZUQFSXV1B3UOOIyLkVHYd2w==}
@@ -2210,6 +2218,15 @@ packages:
       frac: 1.1.2
     dev: true
 
+  /sswr/1.7.0_svelte@3.48.0:
+    resolution: {integrity: sha512-Scpq5YulJPPEC9WDgp6uiyIrhlxuuane8ax2Wybctqy6R6vKbL0aQzu34Wvuwo0nsEYHyDcmrw7HUkbcVo8+eQ==}
+    peerDependencies:
+      svelte: ^3.29.0
+    dependencies:
+      svelte: 3.48.0
+      swrev: 1.11.0
+    dev: false
+
   /stable/0.1.8:
     resolution: {integrity: sha512-ji9qxRnOVfcuLDySj9qzhGSEFVobyt1kIOSkj1qZzYLzq7Tos/oUUWvotUPQLlrsidqsK6tBH89Bc9kL5zHA6w==}
     dev: true
@@ -2372,6 +2389,16 @@ packages:
       csso: 4.2.0
       picocolors: 1.0.0
       stable: 0.1.8
+    dev: true
+
+  /swrev/1.11.0:
+    resolution: {integrity: sha512-bx8egJdPcnJ6k/MFjTJx1GlUhxQwR108emEEudYey10Vh/TKnSvXySMrlgczaGyO4sZm6X016NB/juuA6VtRvQ==}
+    dependencies:
+      '@ungap/event-target': 0.2.3
+    dev: false
+
+  /swrev/3.0.0:
+    resolution: {integrity: sha512-QJuZiptdOmbDY45pECBRVEgnoBlOKjeT2MWVz04wKHpWX15hM3P7EjcIbHDg5yLoPCMQ7to3349MEE+l9QF5HA==}
     dev: true
 
   /sync-threads/1.0.1:

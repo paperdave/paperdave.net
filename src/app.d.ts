@@ -1,10 +1,10 @@
 /// <reference types="@sveltejs/kit" />
 
-// declare global {
-//   declare namespace App {
-//     interface Locals {}
-//     interface Platform {}
-//     interface Session {}
-//     interface Stuff {}
-//   }
-// }
+declare namespace App {
+  interface Locals {
+    user: import('@prisma/client').User;
+  }
+  interface Platform { }
+  interface Session { }
+  interface Stuff { }
+}

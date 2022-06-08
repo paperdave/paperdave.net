@@ -149,9 +149,18 @@ model Donator {
 }
 
 model User {
-  id     Int    @id @default(autoincrement())
-  name   String
-  email  String
-  bcrypt String
-  flags  Int    @default(0)
+  id       Int       @id @default(autoincrement())
+  name     String
+  email    String
+  bcrypt   String
+  flags    Int       @default(0)
+  sessions Session[] @relation("session")
+}
+
+model Session {
+  uid    String   @id
+  token  String   @unique
+  date   DateTime @default(now())
+  user   User     @relation("session", references: [id], fields: [userId])
+  userId Int
 }

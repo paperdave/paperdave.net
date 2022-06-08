@@ -106,6 +106,7 @@ export type MediaDataAllowWidthHeight = MediaData | {
   height: number;
   duration?: number;
 }
+
 export type MediaData = {
   type: MediaType;
   hash: string;
