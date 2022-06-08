@@ -9,7 +9,6 @@ specifiers:
   '@prisma/client': ^3.14.0
   '@sveltejs/adapter-auto': 1.0.0-next.50
   '@sveltejs/kit': ^1.0.0-next.348
-  '@types/bcrypt': ^5.0.0
   '@types/bcryptjs': ^2.4.2
   '@types/color': ^3.0.3
   '@types/html-minifier-terser': ^6.1.0
@@ -69,7 +68,6 @@ devDependencies:
   '@poppanator/sveltekit-svg': 0.3.2_svelte@3.48.0
   '@sveltejs/adapter-auto': 1.0.0-next.50
   '@sveltejs/kit': 1.0.0-next.348_sass@1.52.2+svelte@3.48.0
-  '@types/bcrypt': 5.0.0
   '@types/bcryptjs': 2.4.2
   '@types/color': 3.0.3
   '@types/html-minifier-terser': 6.1.0
@@ -304,12 +302,6 @@ packages:
   /@trysound/sax/0.2.0:
     resolution: {integrity: sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA==}
     engines: {node: '>=10.13.0'}
-    dev: true
-
-  /@types/bcrypt/5.0.0:
-    resolution: {integrity: sha512-agtcFKaruL8TmcvqbndlqHPSJgsolhf/qPWchFlgnW1gECTN/nKbFcoFnvKAQRFfKbh+BO6A3SWdJu9t+xF3Lw==}
-    dependencies:
-      '@types/node': 17.0.40
     dev: true
 
   /@types/bcryptjs/2.4.2:
