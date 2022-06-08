@@ -5,7 +5,7 @@
   import type { Message, MessageInput } from '@prisma/client';
   import MessageRespondPage from './_lib/MessageRespondPage.svelte';
 
-  const { data: messages, isValid } = api.useSWR<MessageInput[]>('/io/api/responses');
+  const { data: messages, isValid, revalidate } = api.useSWR<MessageInput[]>('/io/api/responses');
 
   let current: Date | null = null;
 
@@ -36,9 +36,14 @@
   );
 
   function next() {
+    revalidate({ force: true });
+
     const index = $messages?.findIndex((x) => x.date === current) ?? 0;
     $messages = $messages.filter((x) => x.date !== current);
-    current = $messages[index]?.date ?? null;
+    current = $messages[index + 1]?.date ?? null;
+    if (!current) {
+      current = $messages[0]?.date;
+    }
   }
 
   function defer() {
