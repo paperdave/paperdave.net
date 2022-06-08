@@ -5,7 +5,7 @@
   import type { Message, MessageInput } from '@prisma/client';
   import MessageRespondPage from './_lib/MessageRespondPage.svelte';
 
-  const { data: messages, isValid, revalidate } = api.useSWR<MessageInput[]>('/io/api/responses');
+  const { data: messages, isLoading } = api.useSWR<MessageInput[]>('/io/api/responses');
 
   let current: Date | null = null;
 
@@ -36,14 +36,9 @@
   );
 
   function next() {
-    revalidate({ force: true });
-
-    const index = $messages?.findIndex((x) => x.date.getTime() === current.getTime()) ?? 0;
     $messages = $messages.filter((x) => x.date.getTime() !== current.getTime());
-    current = $messages[index + 1]?.date ?? null;
-    if (!current) {
-      current = $messages[0]?.date ?? null;
-    }
+    current = $messages[0]?.date ?? null;
+    revalidate({ force: true });
   }
 
   function defer() {
@@ -63,8 +58,8 @@
       on:defer={defer}
       inboxLength={$messages.length} />
   {/key}
-{:else if $isValid}
-  all caught up! 🎉
+{:else if !$isLoading}
+  <span style="font-size: 4rem;padding:2rem;">all caught up! 🎉</span>
 {:else}
   loading...
 {/if}

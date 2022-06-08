@@ -42,11 +42,12 @@ export function parseObjectWithDateStrings(o: any) {
     return o;
   } else if (Array.isArray(o)) {
     return o.map((item) => parseObjectWithDateStrings(item));
-  } else if (typeof o === 'object') {
+  } else if (typeof o === 'object' && o !== null) {
     const newObj = {};
     for (const key in o) {
       newObj[key] = parseObjectWithDateStrings(o[key]);
     }
     return newObj;
   }
+  return o;
 }
