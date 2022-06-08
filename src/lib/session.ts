@@ -4,6 +4,7 @@ import { persistent } from "@furudean/svelte-persistent-store/persistent";
 import type { JSONValue } from "@sveltejs/kit/types/private";
 import { createSWR, SSWR } from "sswr";
 import { get } from "svelte/store";
+import { parseObjectWithDateStrings } from "./utils/date";
 import { encodeRedirect } from "./utils/encode-redirect";
 
 const never = new Promise(() => { });
@@ -25,21 +26,22 @@ async function fetcher(url: string, requestInit: RequestInit = {}) {
       ...requestInit.headers,
     } : requestInit.headers,
   });
+  const status = data.status;
 
   // 401 if token invalid. whenever providing a token to an api, it
   // will error if the token is invalid.
-  if (data.status === 401 && tokenText) {
+  if (status === 401 && tokenText) {
     token.set(null);
     data = await fetch(url, requestInit);
   }
 
   // 401 we have already cleared token, so must mean this point requires a token.
-  if (data.status === 401) {
-    goto(`/auth?r=${encodeRedirect(get(page).url.pathname)}`);
+  if (status === 401) {
+    goto(`/auth?r=${encodeRedirect(location.pathname)}`);
     return never;
   }
 
-  return await data.json();
+  return parseObjectWithDateStrings(await data.json());
 }
 
 function getAPIFunction(method: string) {

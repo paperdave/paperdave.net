@@ -1,6 +1,7 @@
 import { db } from '$lib/db';
-import type { } from '@prisma/client'
 import type { RequestHandler } from '@sveltejs/kit';
+import bcrypt from 'bcrypt';
+import { delay } from '@davecode/utils/dist/index'
 
 function generateTokenString() {
   return crypto.randomUUID().replaceAll('-', '');
@@ -18,10 +19,15 @@ export const post: RequestHandler = async ({ request }) => {
   });
 
   if (!user) {
-    return { status: 404 };
+    await delay(1500)
+    return { status: 200, body: { error: 'User does not exist.' } };
   }
 
-  // todo check password
+  const isValid = await bcrypt.compare(password, user.bcrypt);
+  if (!isValid) {
+    await delay(1500)
+    return { status: 200, body: { error: 'Incorrect password.' } };
+  }
 
   const token = generateTokenString();
   const uid = crypto.randomUUID();

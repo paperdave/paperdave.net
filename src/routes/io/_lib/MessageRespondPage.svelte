@@ -71,7 +71,7 @@
   }
 
   function insertFile() {
-    document.querySelector('#stupid_hardcoded_url').click();
+    document.querySelector<HTMLElement>('#stupid_hardcoded_url').click();
   }
 </script>
 
@@ -116,12 +116,12 @@
         {/if}
         {#if input.sourceVPN}
           <p>
-            using a vpn. type={input.sourceVPN}
+            using a vpn. type={JSON.stringify(input.sourceVPN)}
           </p>
         {/if}
         {#if input.notifyEmail}
           <p>
-            notify {input.notifyEmail}
+            notify {JSON.stringify(input.notifyEmail)}
           </p>
         {/if}
         <pre class="prompt"><code>{input.prompt}</code></pre>

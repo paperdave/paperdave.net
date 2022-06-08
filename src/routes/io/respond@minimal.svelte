@@ -5,11 +5,11 @@
   import type { Message, MessageInput } from '@prisma/client';
   import MessageRespondPage from './_lib/MessageRespondPage.svelte';
 
-  const { data: messages } = api.useSWR<MessageInput[]>('/io/api/responses');
+  const { data: messages, isValid } = api.useSWR<MessageInput[]>('/io/api/responses');
 
   let current: Date | null = null;
 
-  function messageFromInput(input: MessageInput): Message {
+  function messageFromInput(current: Date): Message {
     if (!input) return null;
     return {
       date: new Date(input.date),
@@ -23,17 +23,16 @@
     };
   }
 
-  $: input = $messages?.find((x) => x.date === current) ?? null;
-  $: message = messageFromInput(input);
+  $: input = $messages?.find((x) => x.date.getTime() === current?.getTime()) ?? null;
+  $: message = messageFromInput(current);
 
   useEffect(
     () => {
-      console.log('useEffect');
       if (current === null && $messages && $messages?.length) {
         current = $messages[0].date;
       }
     },
-    () => [current === null && $messages]
+    () => [current, $messages]
   );
 
   function next() {
@@ -57,6 +56,8 @@
       on:defer={defer}
       inboxLength={$messages.length} />
   {/key}
-{:else}
+{:else if $isValid}
   all caught up! 🎉
+{:else}
+  loading...
 {/if}
