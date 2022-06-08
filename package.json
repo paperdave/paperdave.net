@@ -12,7 +12,6 @@
     "vercel-build": "node ./scripts/vercel-build.js"
   },
   "dependencies": {
-    "@davecode/structures": "^0.3.0",
     "@davecode/types": "^1.0.2",
     "@furudean/svelte-persistent-store": "^0.6.0",
     "@prisma/client": "^3.14.0",
@@ -23,7 +22,6 @@
     "dotenv": "^10.0.0",
     "fluent-svelte": "^1.6.0",
     "html-minifier-terser": "^7.0.0-alpha.2",
-    "mime-types": "^2.1.35",
     "prisma": "^3.14.0",
     "sharp": "^0.30.6",
     "source-map-js": "^1.0.2",

@@ -1,6 +1,5 @@
 import { db } from '$lib/db';
 import type { } from '@prisma/client'
-import { are_we_on_localhost_so_idont_have_to_check_auth } from '$lib/env';
 import type { RequestHandler } from '@sveltejs/kit';
 
 function generateTokenString() {
@@ -20,10 +19,6 @@ export const post: RequestHandler = async ({ request }) => {
 
   if (!user) {
     return { status: 404 };
-  }
-
-  if (!are_we_on_localhost_so_idont_have_to_check_auth) {
-    return { status: 401 };
   }
 
   // todo check password

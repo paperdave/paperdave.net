@@ -29,13 +29,29 @@ export const handle: Handle = async ({ event, resolve }) => {
     if (session) {
       event.locals.user = session.user;
     } else {
-      return new Response(JSON.stringify({ error: 'Invalid token' }), {
+      return new Response(JSON.stringify({ error: 'Your authorization token has expired.' }), {
         status: 401,
       });
     }
   }
 
-  const response = await resolve(event);
+  event.locals.assertAuthorized = () => {
+    if (!event.locals.user) {
+      throw new Response(JSON.stringify({ error: 'This route requires authorization.' }), {
+        status: 401,
+      });
+    }
+  };
+
+  let response: Response;
+  try {
+    response = await resolve(event);
+  } catch (error) {
+    if (!(error instanceof Response)) {
+      throw error
+    }
+    response = error;
+  }
 
   for (const [key, value] of Object.entries(overrideHeaders)) {
     if (!response.headers.has(key)) {

@@ -1,5 +1,4 @@
 import { db } from "$lib/db";
-import { are_we_on_localhost_so_idont_have_to_check_auth } from "$lib/env"
 import type { Message } from "@prisma/client";
 import type { RequestHandler } from "@sveltejs/kit"
 import type { ASTNode } from "svelte-simple-markdown";
@@ -16,12 +15,8 @@ function walkAst(astNode: ASTNode) {
   } else return [];
 }
 
-export const post: RequestHandler = async ({ request }) => {
-  if (!are_we_on_localhost_so_idont_have_to_check_auth) {
-    return {
-      status: 401,
-    };
-  }
+export const post: RequestHandler = async ({ locals, request }) => {
+  locals.assertAuthorized();
 
   const body: Message = await request.json();
   body.date = new Date(body.date);

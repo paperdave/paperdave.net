@@ -18,6 +18,9 @@ export const post: RequestHandler = async ({ request }) => {
     date: new Date(),
     notifyEmail: email ?? null,
     prompt: content,
+    sourceName: 'unknown',
+    sourceLocation: 'unknown',
+    sourceVPN: null,
   };
 
   input.date.setMilliseconds(0);

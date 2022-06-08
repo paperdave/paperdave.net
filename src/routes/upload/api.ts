@@ -1,9 +1,7 @@
 import { db } from '$lib/db';
-import { are_we_on_localhost_so_idont_have_to_check_auth } from '$lib/env';
 import { createMediaId, hashMediaData, type MediaType } from '$lib/utils/media-url';
 import type { RequestHandler } from '@sveltejs/kit';
 import { encode } from 'blurhash';
-import { lookup } from 'mime-types';
 import sharp from 'sharp';
 
 function gcd(a: number, b: number) {
@@ -15,12 +13,8 @@ function reduce(numerator: number, denominator: number) {
   return [numerator / divide, denominator / divide];
 }
 
-export const post: RequestHandler = async ({ request, url }) => {
-  if (!are_we_on_localhost_so_idont_have_to_check_auth) {
-    return {
-      body: { error: 'stuff is denied regardless of authentication state rn.' }
-    };
-  }
+export const post: RequestHandler = async ({ request, url, locals }) => {
+  locals.assertAuthorized();
 
   let filename = url.searchParams.get('filename');
   let ext = filename.split('.').pop();
