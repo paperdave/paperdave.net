@@ -4,15 +4,6 @@ import type { RequestHandler } from '@sveltejs/kit';
 import { encode } from 'blurhash';
 import sharp from 'sharp';
 
-function gcd(a: number, b: number) {
-  return b ? gcd(b, a % b) : a;
-}
-
-function reduce(numerator: number, denominator: number) {
-  const divide = gcd(numerator, denominator);
-  return [numerator / divide, denominator / divide];
-}
-
 export const post: RequestHandler = async ({ request, url, locals }) => {
   locals.assertAuthorized();
 
@@ -69,7 +60,7 @@ export const post: RequestHandler = async ({ request, url, locals }) => {
       data: {
         filename,
         hash: imgId,
-        mimetype: ext,
+        type: ext,
         date: new Date(),
         blurhash,
         width,
