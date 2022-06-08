@@ -48,7 +48,7 @@
 </script>
 
 {#if input}
-  {#key input}
+  {#key current.getTime()}
     <MessageRespondPage
       {input}
       {message}
