@@ -38,17 +38,19 @@
   function next() {
     revalidate({ force: true });
 
-    const index = $messages?.findIndex((x) => x.date === current) ?? 0;
-    $messages = $messages.filter((x) => x.date !== current);
+    const index = $messages?.findIndex((x) => x.date.getTime() === current.getTime()) ?? 0;
+    $messages = $messages.filter((x) => x.date.getTime() !== current.getTime());
     current = $messages[index + 1]?.date ?? null;
     if (!current) {
-      current = $messages[0]?.date;
+      current = $messages[0]?.date ?? null;
     }
   }
 
   function defer() {
     current =
-      $messages[($messages.findIndex((x) => x.date === current) + 1) % $messages.length].date;
+      $messages[
+        ($messages.findIndex((x) => x.date.getTime() === current.getTime()) + 1) % $messages.length
+      ].date;
   }
 </script>
 
