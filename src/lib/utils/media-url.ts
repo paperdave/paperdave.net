@@ -50,7 +50,7 @@ function decodeImageUrl(string: string): DecodedImage {
   }
 
   const [hash, aspect, blurhash] = string.split('/');
-  if (hash.length !== 32) {
+  if (!hash.match(/[a-f0-9]{32}/)) {
     return null;
   }
 
@@ -136,14 +136,14 @@ export function createMediaId(options: MediaDataAllowWidthHeight) {
 }
 
 export function decodeMediaId(id: string) {
-  const legacy = decodeImageUrl(id);
-  if (legacy) return {
-    type: 'webp',
-    url: legacy.url,
-    hash: legacy.hash,
-    blurhash: legacy.blurhash,
-    aspect: legacy.aspect,
-  };
+  // const legacy = decodeImageUrl(id);
+  // if (legacy) return {
+  //   type: 'webp',
+  //   url: legacy.url,
+  //   hash: legacy.hash,
+  //   blurhash: legacy.blurhash,
+  //   aspect: legacy.aspect,
+  // };
 
   const firstSlashIndexOf = id.indexOf('/');
   const endOfAspect = firstSlashIndexOf === -1 ? 21 : firstSlashIndexOf;

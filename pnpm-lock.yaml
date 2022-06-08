@@ -12,6 +12,7 @@ specifiers:
   '@types/bcryptjs': ^2.4.2
   '@types/color': ^3.0.3
   '@types/html-minifier-terser': ^6.1.0
+  '@types/mime-types': ^2.1.1
   '@types/sharp': ^0.30.2
   '@ungap/structured-clone': ^1.0.1
   bcryptjs: ^2.4.3
@@ -22,6 +23,7 @@ specifiers:
   dotenv: ^10.0.0
   fluent-svelte: ^1.6.0
   html-minifier-terser: ^7.0.0-alpha.2
+  mime-types: ^2.1.35
   postcss: ^8.4.14
   prettier: ^2.6.2
   prettier-plugin-css-order: ^1.2.0
@@ -54,6 +56,7 @@ dependencies:
   dotenv: 10.0.0
   fluent-svelte: 1.6.0
   html-minifier-terser: 7.0.0-alpha.2
+  mime-types: 2.1.35
   prisma: 3.14.0
   sharp: 0.30.6
   source-map-js: 1.0.2
@@ -71,6 +74,7 @@ devDependencies:
   '@types/bcryptjs': 2.4.2
   '@types/color': 3.0.3
   '@types/html-minifier-terser': 6.1.0
+  '@types/mime-types': 2.1.1
   '@types/sharp': 0.30.2
   chalk: 5.0.1
   postcss: 8.4.14
@@ -338,6 +342,10 @@ packages:
     resolution: {integrity: sha512-W864tg/Osz1+9f4lrGTZpCSO5/z4608eUp19tbozkq2HJK6i3z1kT0H9tlADXuYIb1YYOBByU4Jsqkk75q48qA==}
     dependencies:
       '@types/unist': 2.0.6
+    dev: true
+
+  /@types/mime-types/2.1.1:
+    resolution: {integrity: sha512-vXOTGVSLR2jMw440moWTC7H19iUyLtP3Z1YTj7cSsubOICinjMxFeb/V57v9QdyyPGbbWolUFSSmSiRSn94tFw==}
     dev: true
 
   /@types/ms/0.7.31:
@@ -1573,6 +1581,18 @@ packages:
       braces: 3.0.2
       picomatch: 2.3.1
     dev: true
+
+  /mime-db/1.52.0:
+    resolution: {integrity: sha512-sPU4uV7dYlvtWJxwwxHD0PuihVNiE7TyAbQ5SWxDCB9mUYvOgroQOwYQQOKPJ8CIbE+1ETVlOoK1UC2nU3gYvg==}
+    engines: {node: '>= 0.6'}
+    dev: false
+
+  /mime-types/2.1.35:
+    resolution: {integrity: sha512-ZDY+bPm5zTTF+YpCrAU9nK0UgICYPT0QtT1NZWFv4s++TNkcgVaT0g6+4R2uI4MjQjzysHB1zxuWL50hzaeXiw==}
+    engines: {node: '>= 0.6'}
+    dependencies:
+      mime-db: 1.52.0
+    dev: false
 
   /mimic-response/3.1.0:
     resolution: {integrity: sha512-z0yWI+4FDrrweS8Zmt4Ej5HdJmky15+L2e6Wgn3+iK5fWzb6T3fhNFq2+MeTRb064c6Wr4N/wv0DzQTjNzHNGQ==}

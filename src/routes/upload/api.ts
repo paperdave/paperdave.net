@@ -1,11 +1,13 @@
+import { b2 } from '$lib/b2';
 import { db } from '$lib/db';
-import { createMediaId, hashMediaData, type MediaType } from '$lib/utils/media-url';
+import { createMediaId, decodeMediaId, hashMediaData, type MediaType } from '$lib/utils/media-url';
 import type { RequestHandler } from '@sveltejs/kit';
 import { encode } from 'blurhash';
 import sharp from 'sharp';
+import { lookup } from 'mime-types';
 
 export const post: RequestHandler = async ({ request, url, locals }) => {
-  locals.assertAuthorized();
+  // locals.assertAuthorized();
 
   let filename = url.searchParams.get('filename');
   let ext = filename.split('.').pop();
@@ -59,7 +61,7 @@ export const post: RequestHandler = async ({ request, url, locals }) => {
     await db.upload.create({
       data: {
         filename,
-        hash: imgId,
+        hash,
         type: ext,
         date: new Date(),
         blurhash,
@@ -70,22 +72,18 @@ export const post: RequestHandler = async ({ request, url, locals }) => {
   } catch (error) { }
 
   // temp solution
-  const uploadRoot = 'M:\\upload';
-  const fs = await import('fs');
-
-  if (!fs.existsSync(uploadRoot)) {
-    await fs.mkdirSync(uploadRoot);
-  }
-
-  if (!fs.existsSync(`${uploadRoot}/${hash[0]}`)) {
-    await fs.mkdirSync(`${uploadRoot}/${hash[0]}`);
-  }
-
-  await fs.writeFileSync(`${uploadRoot}/${hash[0]}/${hash}.${ext}`, Buffer.from(data));
+  const uploadUrl = await b2.getUploadUrl(process.env.B2_UPLOAD_BUCKET_ID);
+  const file = await b2.uploadFile(uploadUrl, data, {
+    name: `${process.env.B2_UPLOAD_ROOT}/${hash[0]}/${hash}.${ext}`,
+    contentType: lookup(ext) || 'application/octet-stream',
+    // lastModified: ???
+  });
 
   return {
     body: {
-      // TODO: return data
-    },
-  };
+      mediaId: imgId,
+      mediaData: decodeMediaId(imgId),
+      b2File: file
+    }
+  }
 };

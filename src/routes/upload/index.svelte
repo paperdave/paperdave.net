@@ -26,13 +26,6 @@
       .then((x) => x.json())
       .then((json) => {
         console.log(json);
-        if (json.blurhash) {
-          out = json.hash + '/' + json.ratio + '/' + json.blurhash;
-          out2 = json.hash + '/' + json.ratio;
-        } else {
-          out = json.hash;
-        }
-        url = json.url;
       })
       .catch((e) => {
         alert(e);
