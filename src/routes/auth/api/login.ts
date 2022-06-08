@@ -1,6 +1,6 @@
 import { db } from '$lib/db';
 import type { RequestHandler } from '@sveltejs/kit';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import { delay } from '@davecode/utils/dist/index'
 
 function generateTokenString() {

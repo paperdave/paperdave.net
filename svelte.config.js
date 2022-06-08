@@ -17,19 +17,19 @@ fs.writeFileSync(
     .readFileSync('src/app.html', 'utf8')
     .toString()
     .replace(/<\/head>/, `<script>${blurhashImage}</script></head>`), {
-      caseSensitive: true,
-      collapseBooleanAttributes: true,
-      collapseWhitespace: true,
-      conservativeCollapse: false,
-      decodeEntities: true,
-      removeOptionalTags: true,
-      removeAttributeQuotes: true,
-      removeRedundantAttributes: true,
-      removeTagWhitespace: true,
-      removeComments: true,
-      minifyCSS: true,
-      minifyJS: true,
-    })
+    caseSensitive: true,
+    collapseBooleanAttributes: true,
+    collapseWhitespace: true,
+    conservativeCollapse: false,
+    decodeEntities: true,
+    removeOptionalTags: true,
+    removeAttributeQuotes: true,
+    removeRedundantAttributes: true,
+    removeTagWhitespace: true,
+    removeComments: true,
+    minifyCSS: true,
+    minifyJS: true,
+  })
 );
 
 /** @type {import('@sveltejs/kit').Config} */
@@ -44,7 +44,7 @@ const conf = {
       sourceMap: true,
     }),
   ],
-  onwarn: () => {},
+  onwarn: () => { },
   kit: {
     files: {
       template: '.svelte-kit/app.html',

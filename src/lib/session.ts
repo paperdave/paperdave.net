@@ -1,8 +1,7 @@
 import { goto } from "$app/navigation";
-import { page } from "$app/stores";
 import { persistent } from "@furudean/svelte-persistent-store/persistent";
 import type { JSONValue } from "@sveltejs/kit/types/private";
-import { createSWR, SSWR } from "sswr";
+import * as sswr from "sswr";
 import { get } from "svelte/store";
 import { parseObjectWithDateStrings } from "./utils/date";
 import { encodeRedirect } from "./utils/encode-redirect";
@@ -58,7 +57,7 @@ function getAPIFunction(method: string) {
 }
 
 
-class SSWRExtended extends SSWR {
+class SSWRExtended extends sswr.SSWR {
   constructor() {
     super({
       fetcher,
