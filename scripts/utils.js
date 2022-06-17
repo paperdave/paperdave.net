@@ -1,7 +1,7 @@
 import { exec } from 'child_process';
 import path from 'path';
 
-export function run(command, show = true) {
+export function run(command, show = true, stdin = false) {
   return new Promise((resolve, reject) => {
     const proc = exec(command, {
       env: {
@@ -15,6 +15,9 @@ export function run(command, show = true) {
     if (show) {
       proc.stdout.pipe(process.stdout);
       proc.stderr.pipe(process.stderr);
+    }
+    if (stdin) {
+      process.stdin.pipe(proc.stdin);
     }
     proc.on('close', (code) => {
       if (code === 0) {

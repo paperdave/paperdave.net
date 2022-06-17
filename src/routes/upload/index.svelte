@@ -1,46 +1,41 @@
 <script lang="ts">
   import Button from '$lib/components/Button.svelte';
+  import Img from '$lib/components/Img.svelte';
   import Meta from '$lib/components/Meta.svelte';
   import Paper from '$lib/components/Paper.svelte';
   import ThemeRoot from '$lib/components/ThemeRoot.svelte';
+  import { api } from '$lib/session';
+  import { formatDate } from '$lib/utils/date';
+  import { decodeMediaId } from '$lib/utils/media-id';
 
   let fileInput: HTMLInputElement;
   let loading = false;
+  let result: string | null = null;
   let filename = '';
-  let out: string = '';
-  let out2: string = '';
-  let url: string = '';
-  let ratio: string = '';
+  let modified = 0;
 
-  function onsubmit(ev) {
+  $: decoded = result && decodeMediaId(result);
+
+  async function handleSubmit(ev) {
     if (fileInput.files.length === 0) return;
     loading = true;
+    result = null;
 
-    out = '';
     filename = fileInput.files[0].name;
+    modified = fileInput.files[0].lastModified;
 
-    fetch('/upload/api?filename=' + encodeURIComponent(fileInput.files[0].name), {
-      body: fileInput.files[0],
-      method: 'POST',
-    })
-      .then((x) => x.json())
-      .then((json) => {
-        console.log(json);
-        if (json.blurhash) {
-          out = json.hash + '/' + json.ratio + '/' + json.blurhash;
-          out2 = json.hash + '/' + json.ratio;
-        } else {
-          out = json.hash;
-        }
-        url = json.url;
-      })
-      .catch((e) => {
-        alert(e);
-      })
-      .finally(() => {
-        loading = false;
-        fileInput.value = '';
-      });
+    const response = await api.post(
+      '/upload/api?filename=' +
+        encodeURIComponent(fileInput.files[0].name) +
+        '&modified=' +
+        fileInput.files[0].lastModified,
+      {
+        body: fileInput.files[0],
+      }
+    );
+
+    result = response.data;
+    loading = false;
   }
 </script>
 
@@ -52,23 +47,24 @@
     {#if loading}
       <h1>loading!!</h1>
     {/if}
-    <form method="post" on:submit|preventDefault={onsubmit}>
+    <form method="post" onsubmit={handleSubmit}>
       <input
         type="file"
         name="data"
         bind:this={fileInput}
-        on:change={onsubmit}
+        on:change={handleSubmit}
         disabled={loading} />
     </form>
-    {#if out}
-      <ul>
-        <li>filename: <code>{filename}</code></li>
-        <br />
-        <li>code: <code style="user-select: all;">{out}</code></li>
-        <li>no bh: <code style="user-select: all;">{out2}</code></li>
-        <br />
-        <li>image url: <a href={url}>{url}</a></li>
-      </ul>
+    {#if result}
+      <p>
+        {filename}, modified {formatDate(modified, 'date-time')}
+      </p>
+      <p>
+        ID: <code>{result}</code>
+      </p>
+      <pre style="white-space:pre-wrap"><code>{JSON.stringify(decoded, null, 2)}</code></pre>
+
+      <Img src={result} alt="Uploaded Image" />
     {/if}
   </Paper>
 </ThemeRoot>

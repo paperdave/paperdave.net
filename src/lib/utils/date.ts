@@ -31,3 +31,23 @@ export function formatDate(date: Date | number, format: DateFormat | string) {
   const convertedDate = new Date(date.toLocaleString('en-US', { timeZone: 'EST' }));
   return dateFormat.replace(regex, (match) => String(formatRules[match](convertedDate)));
 }
+
+const dateRegex = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})(\.\d{1,3})?Z$/;
+
+export function parseObjectWithDateStrings(o: any) {
+  if (typeof o === 'string') {
+    if (o.match(dateRegex)) {
+      return new Date(o);
+    }
+    return o;
+  } else if (Array.isArray(o)) {
+    return o.map((item) => parseObjectWithDateStrings(item));
+  } else if (typeof o === 'object' && o !== null) {
+    const newObj = {};
+    for (const key in o) {
+      newObj[key] = parseObjectWithDateStrings(o[key]);
+    }
+    return newObj;
+  }
+  return o;
+}

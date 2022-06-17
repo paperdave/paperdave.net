@@ -7,10 +7,11 @@
   import Heading from '$lib/components/Heading.svelte';
   import Paper from '$lib/components/Paper.svelte';
   import TextBox from '$lib/components/TextBox.svelte';
+  import { api, token } from '$lib/session';
   import { decodeRedirect } from '$lib/utils/encode-redirect';
   import { authEmail, authPassword } from './authorization-store';
 
-  $: returnPage = $page.url.searchParams.get('r') ?? '/profile';
+  $: returnPage = $page.url.searchParams.get('r') ?? '/';
 
   export let error: string | undefined;
   let loading = false;
@@ -20,15 +21,23 @@
     loading = true;
     error = undefined;
 
-    const response = await API.auth.login($authEmail, $authPassword);
-    if (response) {
-      goto(decodeRedirect(returnPage));
+    const response = await api.post('/auth/api/login', {
+      json: {
+        email: $authEmail,
+        password: $authPassword,
+      },
+    });
+    if (response.error) {
+      error = response.error;
       loading = false;
     } else {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      loading = false;
-      error = 'Invalid email or password';
+      api.setToken(response.token);
+      goto(decodeRedirect(returnPage));
     }
+  }
+
+  if ($token) {
+    goto(decodeRedirect($page.url.searchParams.get('r') ?? '/'));
   }
 </script>
 
@@ -47,19 +56,26 @@
       <p class="red">
         {error ?? ''}
       </p>
-      <TextBox type="text" name="email" label="email" bind:value={$authEmail} disabled bind:error />
+      <TextBox
+        type="text"
+        name="email"
+        label="email"
+        bind:value={$authEmail}
+        disabled={true || loading}
+        bind:error />
       <TextBox
         type="password"
         name="password"
         label="password"
         bind:value={$authPassword}
         bind:error
+        disabled={loading}
         autofocus />
       <ButtonGroup>
-        <Button text variant="subtle" href="/auth/new">New?</Button>
+        <Button text variant="subtle" href="/auth/new" disabled={loading}>New?</Button>
         <div />
-        <Button text variant="subtle" href="/auth/forgot">Forgot?</Button>
-        <Button text variant="accent" type="submit">Go</Button>
+        <Button text variant="subtle" href="/auth/forgot" disabled={loading}>Forgot?</Button>
+        <Button text variant="accent" type="submit" disabled={loading}>Go</Button>
       </ButtonGroup>
     </flex>
   </form>

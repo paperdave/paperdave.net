@@ -1,5 +1,4 @@
 import { db } from '$lib/db';
-import { are_we_on_localhost_so_idont_have_to_check_auth } from '$lib/env';
 import type { RequestHandler } from '@sveltejs/kit';
 
 export const get: RequestHandler = async ({ params }) => {
@@ -22,10 +21,8 @@ export const get: RequestHandler = async ({ params }) => {
   };
 };
 
-export const post: RequestHandler = async ({ params, request }) => {
-  if(!are_we_on_localhost_so_idont_have_to_check_auth) {
-    throw new Error("fadsjdfsjkdfsajkfdsad");
-  }
+export const post: RequestHandler = async ({ params, request, locals }) => {
+  locals.assertAuthorized();
 
   const data = await request.json();
 
@@ -35,4 +32,10 @@ export const post: RequestHandler = async ({ params, request }) => {
       id: params.id,
     },
   });
+
+  return {
+    body: {
+      ok: true,
+    }
+  };
 };

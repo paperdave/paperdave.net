@@ -9,7 +9,7 @@
   import Icon from '$lib/components/Icon.svelte';
   import IconButton from '$lib/components/IconButton.svelte';
 
-  let currentPage: 'home' | 'blocks' | 'bts' = 'home';
+  let currentPage: 'home' | 'aso' | 'bts' = 'home';
 
   function moveGears() {
     $gearRotations += 1;
@@ -23,7 +23,7 @@
 
   function focusBlocks(ev: MouseEvent) {
     ev.preventDefault();
-    currentPage = 'blocks';
+    currentPage = 'aso';
     moveGears();
   }
 
@@ -61,11 +61,10 @@
           <h2 class="custom">
             {#if currentPage === 'home'}
               categories
-            {:else if currentPage === 'blocks'}
-              building blocks
+            {:else if currentPage === 'aso'}
+              and so on
             {:else if currentPage === 'bts'}
-              behind <br />
-              the scenes
+              bts
             {/if}
           </h2>
           <flex row class="two-col">
@@ -79,8 +78,7 @@
                 <span disabled class="link">applications</span>
               </flex>
               <flex class="col">
-                <a sveltekit:prefetch class="link" href="/io">input/output</a>
-                <span disabled class="link">nerd gear</span>
+                <span disabled class="link">and so on</span>
                 <!-- <a sveltekit:prefetch class="link" href="/nerd-gear">nerd gear</a> -->
                 <a class="link" href="/#bts" on:click={focusBTS}>behind the scenes</a>
                 <a sveltekit:prefetch class="link" href="/donate">give chocolate</a>
@@ -89,8 +87,16 @@
             {:else if currentPage === 'bts'}
               <flex class="col">
                 <span disabled class="link" href="/fragments">bits & fragments</span>
+                <span disabled class="link" href="/journal">test videos</span>
                 <span disabled class="link" href="/journal">journal</span>
                 <a sveltekit:prefetch class="link" href="/trinkets">trinkets</a>
+              </flex>
+            {:else if currentPage === 'aso'}
+              <flex class="col">
+                <span disabled class="link">word magnets</span>
+                <span disabled class="link">squares</span>
+                <span disabled class="link">doodles</span>
+                <span disabled class="link">nerd gear</span>
               </flex>
             {/if}
           </flex>

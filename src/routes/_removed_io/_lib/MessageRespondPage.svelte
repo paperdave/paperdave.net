@@ -3,7 +3,7 @@
   import Button from '$lib/components/Button.svelte';
   import ButtonRow from '$lib/components/ButtonRow.svelte';
   import TextBox from '$lib/components/TextBox.svelte';
-  import { markdownConfig } from '$lib/markdown';
+  import { api } from '$lib/session';
   import { palette } from '$lib/theme';
   import { formatDate } from '$lib/utils/date';
   import type { Message, MessageInput } from '@prisma/client';
@@ -30,13 +30,10 @@
 
   async function apply() {
     loading = true;
-    fetch('/io/api/insert', {
-      method: 'POST',
-      body: JSON.stringify(copied),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
+    api
+      .post('/io/api/insert', {
+        json: copied,
+      })
       .then(() => dispatch('done'))
       .finally(() => (loading = false));
   }
@@ -44,22 +41,16 @@
   function del() {
     loading = true;
     (input
-      ? fetch('/io/api/insert', {
-          method: 'POST',
-          body: JSON.stringify({
+      ? api.post('/io/api/insert', {
+          json: {
             date: message.date,
             type: 'REJECT',
             text: '',
-          }),
-          headers: {
-            'Content-Type': 'application/json',
           },
         })
-      : fetch('/io/api/delete', {
-          method: 'POST',
-          body: JSON.stringify({ date: message.date }),
-          headers: {
-            'Content-Type': 'application/json',
+      : api.post('/io/api/delete', {
+          json: {
+            date: message.date,
           },
         })
     )
@@ -80,7 +71,7 @@
   }
 
   function insertFile() {
-    document.querySelector('#stupid_hardcoded_url').click();
+    document.querySelector<HTMLElement>('#stupid_hardcoded_url').click();
   }
 </script>
 
@@ -125,12 +116,12 @@
         {/if}
         {#if input.sourceVPN}
           <p>
-            using a vpn. type={input.sourceVPN}
+            using a vpn. type={JSON.stringify(input.sourceVPN)}
           </p>
         {/if}
         {#if input.notifyEmail}
           <p>
-            notify {input.notifyEmail}
+            notify {JSON.stringify(input.notifyEmail)}
           </p>
         {/if}
         <pre class="prompt"><code>{input.prompt}</code></pre>

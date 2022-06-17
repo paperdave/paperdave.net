@@ -1,7 +1,4 @@
 {
-  "files.associations": {
-    "*.svx": "markdown"
-  },
   "files.exclude": {
     ".git": true,
     "**/.svn": true,
@@ -10,17 +7,6 @@
     "**/.DS_Store": true,
     "**/Thumbs.db": true,
     "node_modules": true,
-    ".vscode": true,
-    "tsconfig.json": true,
-    ".prettierrc": true,
-    "pnpm-lock.yaml": true,
-    "svelte.config.js": true,
-    ".vercel_build_output": true,
-    ".prettierignore": true,
-    ".svelte-kit": true,
-    ".github": true,
-    ".gitignore": true,
-    "src/global.d.ts": true,
   },
-  "workspace.isHidden": true
+  "workspace.isHidden": false,
 }

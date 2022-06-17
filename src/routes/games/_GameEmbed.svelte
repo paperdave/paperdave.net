@@ -29,7 +29,7 @@
     }
   }
 
-  $: browser && running && updateDocumentInertState();
+  $: browser && [running] && updateDocumentInertState();
 
   function start() {
     if (src.startsWith('external://')) {

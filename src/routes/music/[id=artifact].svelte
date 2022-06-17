@@ -7,7 +7,7 @@
   import Meta from '$lib/components/Meta.svelte';
   import { formatDate } from '$lib/utils/date';
   import type { Music } from '@prisma/client';
-  import { decodeImageUrl } from '$lib/utils/media-url';
+  import { decodeMediaId } from '$lib/utils/media-id';
 
   export let artifact: Music;
 </script>
@@ -15,7 +15,7 @@
 <Meta
   title={artifact.title + ''}
   description="music by dave caruso released on {formatDate(artifact.date, 'date')}"
-  image={decodeImageUrl(artifact.album)?.url} />
+  image={decodeMediaId(artifact.album)?.url} />
 
 <BackButton position="off-center" href="/music">all music</BackButton>
 

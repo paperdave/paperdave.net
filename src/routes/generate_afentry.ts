@@ -1,5 +1,4 @@
 import { db } from "$lib/db"
-import { are_we_on_localhost_so_idont_have_to_check_auth } from "$lib/env";
 import type { ArtifactEntry } from "@prisma/client";
 
 export const get = async ({ params }) => {

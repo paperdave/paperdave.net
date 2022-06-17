@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { decodeImageUrl } from '$lib/utils/media-url';
+  import { decodeMediaId } from '$lib/utils/media-id';
 
   import Img, { type ObjectFit, type StretchMode } from './Img.svelte';
 
@@ -15,7 +15,7 @@
   // TODO: make this not open a new tab
   // let isEnlarged = false;
 
-  $: img = decodeImageUrl(src);
+  $: img = decodeMediaId(src);
 </script>
 
 <a href={img.url}>

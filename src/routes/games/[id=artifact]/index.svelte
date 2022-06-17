@@ -10,7 +10,7 @@
   import GameEmbed from '../_GameEmbed.svelte';
   import { markdownConfig } from '$lib/markdown';
   import ClickableImg from '$lib/components/ClickableImg.svelte';
-  import { getTypedGameDownloads, type GameDownload } from '$lib/utils/game';
+  import { getTypedGameDownloads, type GameDownload } from '../_game-utils';
   import ButtonRow from '$lib/components/ButtonRow.svelte';
   import Button from '$lib/components/Button.svelte';
 

@@ -1,10 +1,5 @@
-function envNonEmptyString(name: string, value: string) {
-  if (!value) {
-    throw new Error(`${name} environment variable is required`);
-  }
-  return value;
-}
-
-export const DATABASE_URL = envNonEmptyString('DATABASE_URL', (process.env as any).DATABASE_URL);
-export const PROXYCHECK_API_KEY = (process.env as any).PROXYCHECK_API_KEY;
-export const are_we_on_localhost_so_idont_have_to_check_auth = (process.env as any).ALLOW_STUFF === 'true';
+// 
+export const DATABASE_URL = process.env.DATABASE_URL;
+export const PROXYCHECK_API_KEY = process.env.PROXYCHECK_API_KEY;
+export const GIT_COMMIT_ID = process.env.VERCEL_GIT_COMMIT_SHA;
+export const GIT_COMMIT_BRANCH = process.env.VERCEL_GIT_COMMIT_REF;
