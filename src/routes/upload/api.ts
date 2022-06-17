@@ -1,15 +1,16 @@
 import { b2 } from '$lib/b2';
 import { db } from '$lib/db';
-import { createMediaId, decodeMediaId, hashMediaData, type MediaType } from '$lib/utils/media-url';
+import { createMediaId, decodeMediaId, hashMediaData, type MediaType } from '$lib/utils/media-id';
 import type { RequestHandler } from '@sveltejs/kit';
 import { encode } from 'blurhash';
 import sharp from 'sharp';
 import { lookup } from 'mime-types';
 
 export const post: RequestHandler = async ({ request, url, locals }) => {
-  // locals.assertAuthorized();
+  locals.assertAuthorized();
 
   let filename = url.searchParams.get('filename');
+  let modified = parseInt(url.searchParams.get('modified') || '0', 10);
   let ext = filename.split('.').pop();
 
   let data = await request.arrayBuffer();
@@ -71,19 +72,15 @@ export const post: RequestHandler = async ({ request, url, locals }) => {
     });
   } catch (error) { }
 
-  // temp solution
-  const uploadUrl = await b2.getUploadUrl(process.env.B2_UPLOAD_BUCKET_ID);
-  const file = await b2.uploadFile(uploadUrl, data, {
+  await b2.uploadFile(process.env.B2_UPLOAD_BUCKET_ID, data, {
     name: `${process.env.B2_UPLOAD_ROOT}/${hash[0]}/${hash}.${ext}`,
     contentType: lookup(ext) || 'application/octet-stream',
-    // lastModified: ???
+    lastModified: modified
   });
 
   return {
     body: {
-      mediaId: imgId,
-      mediaData: decodeMediaId(imgId),
-      b2File: file
+      data: imgId
     }
   }
 };

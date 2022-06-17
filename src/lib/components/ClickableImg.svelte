@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { decodeMediaId } from '$lib/utils/media-url';
+  import { decodeMediaId } from '$lib/utils/media-id';
 
   import Img, { type ObjectFit, type StretchMode } from './Img.svelte';
 

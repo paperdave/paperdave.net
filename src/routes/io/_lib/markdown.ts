@@ -1,4 +1,4 @@
-import { decodeMediaId, type MediaType } from '$lib/utils/media-url';
+import { decodeMediaId, type MediaType } from '$lib/utils/media-id';
 import {
   blockRegex,
   createParser,

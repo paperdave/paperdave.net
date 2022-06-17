@@ -100,7 +100,11 @@ export class B2 {
     });
   }
 
-  async uploadFile(uploadUrl: UploadURL, file: ArrayBufferLike, options: B2UploadOptions): Promise<B2UploadFileResult> {
+  async uploadFile(uploadUrlOrBucketId: UploadURL | string, file: ArrayBufferLike, options: B2UploadOptions): Promise<B2UploadFileResult> {
+    const uploadUrl = (typeof uploadUrlOrBucketId === 'string')
+      ? await this.getUploadUrl(uploadUrlOrBucketId)
+      : uploadUrlOrBucketId;
+
     const sha1 = await crypto.subtle.digest('sha-1', file);
     const sha1hex = Array.from(new Uint8Array(sha1)).map(b => b.toString(16).padStart(2, '0')).join('');
     const name = encodeURIComponent(options.name);

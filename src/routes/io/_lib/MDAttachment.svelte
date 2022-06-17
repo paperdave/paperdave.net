@@ -1,7 +1,7 @@
 <script lang="ts">
   import Icon from '$lib/components/Icon.svelte';
   import type { ASTNode } from 'svelte-simple-markdown';
-  import type { DecodedMediaData } from '$lib/utils/media-url';
+  import type { DecodedMediaData } from '$lib/utils/media-id';
 
   export let node: ASTNode;
 

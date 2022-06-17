@@ -9,7 +9,8 @@
     "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
     "lint": "prettier --check --plugin-search-dir=. .",
     "format": "prettier --write --plugin-search-dir=. .",
-    "vercel-build": "node ./scripts/vercel-build.js"
+    "vercel-build": "node ./scripts/vercel-build.js",
+    "test": "vitest"
   },
   "dependencies": {
     "@davecode/types": "^1.0.2",
@@ -54,6 +55,8 @@
     "sass": "^1.52.2",
     "svelte": "^3.48.0",
     "svelte-preprocess": "^4.10.7",
-    "typescript": "^4.7.3"
+    "typescript": "^4.7.3",
+    "vitest": "^0.14.1",
+    "vitest-svelte-kit": "^0.0.6"
   }
 }

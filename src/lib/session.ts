@@ -44,7 +44,7 @@ async function fetcher(url: string, requestInit: RequestInit = {}) {
 }
 
 function getAPIFunction(method: string) {
-  return (url: string, init?: RequestInit & { json: JSONValue }) =>
+  return (url: string, init?: RequestInit & { json?: JSONValue }) =>
     fetcher(url, {
       method,
       body: init?.json ? JSON.stringify(init.json) : undefined,

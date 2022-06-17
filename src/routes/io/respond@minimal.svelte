@@ -38,7 +38,6 @@
   function next() {
     $messages = $messages.filter((x) => x.date.getTime() !== current.getTime());
     current = $messages[0]?.date ?? null;
-    revalidate({ force: true });
   }
 
   function defer() {

@@ -41,12 +41,10 @@ function encodeAspect(width: number, height: number) {
 function decodeImageUrl(string: string): DecodedImage {
   if (!string) return null;
 
-  try {
+  if (string.startsWith('/') || string.startsWith('http')) {
     return {
       url: string.startsWith('/') ? string : new URL(string).toString(),
     };
-  } catch (error) {
-    //
   }
 
   const [hash, aspect, blurhash] = string.split('/');
@@ -77,6 +75,7 @@ export async function hashMediaData(data: ArrayBufferLike) {
 }
 
 const extensionToTypeChar = {
+  'blob': '*',
   'webp': 'i',
   'webm': 'v',
   'mp4': '4',
@@ -111,7 +110,7 @@ export type MediaData = {
   type: MediaType;
   hash: string;
   blurhash?: string;
-  aspect: string;
+  aspect?: string;
   duration?: number;
 }
 
@@ -122,28 +121,34 @@ export function createMediaId(options: MediaDataAllowWidthHeight) {
     options.aspect.includes('/')
       ? options.aspect.split('/').map(x => parseInt(x, 10))
       : [parseInt(options.aspect, 10), 1]
-    : [options.width, options.height];
+    : 'width' in options && 'height' in options ? [options.width, options.height] : [];
 
-  const aspect = encodeAspect(width, height);
-  let str = `${extensionToTypeChar[options.type]}${options.hash}${aspect}`;
+  let str = `${extensionToTypeChar[options.type]}${options.hash}`;
+  if (width && height) {
+    const aspect = encodeAspect(width, height);
+    str += `${aspect}`;
+  }
+
   if (options.blurhash) {
     str += `/${options.blurhash}`;
   }
   if (options.duration) {
-    str += `/${options.duration.toString()}`;
+    str += `/${options.duration.toString(36)}`;
   }
   return str;
 }
 
 export function decodeMediaId(id: string) {
-  // const legacy = decodeImageUrl(id);
-  // if (legacy) return {
-  //   type: 'webp',
-  //   url: legacy.url,
-  //   hash: legacy.hash,
-  //   blurhash: legacy.blurhash,
-  //   aspect: legacy.aspect,
-  // };
+  if (!id) return null;
+
+  const legacy = decodeImageUrl(id);
+  if (legacy) return {
+    type: 'webp',
+    url: legacy.url,
+    hash: legacy.hash,
+    blurhash: legacy.blurhash,
+    aspect: legacy.aspect,
+  };
 
   const firstSlashIndexOf = id.indexOf('/');
   const endOfAspect = firstSlashIndexOf === -1 ? 21 : firstSlashIndexOf;
@@ -151,13 +156,16 @@ export function decodeMediaId(id: string) {
   const media: DecodedMediaData = {
     type: typeCharToExtension[id.slice(0, 1)],
     hash: id.slice(1, 21),
-    aspect: decodeAspect(id.slice(21, endOfAspect)),
     url: URL_BASE,
   };
   media.url += `/${media.hash[0]}/${media.hash}.${media.type}`;
 
+  if (endOfAspect >= 21) {
+    media.aspect = decodeAspect(id.slice(21, endOfAspect + 1));
+  }
+
   if (firstSlashIndexOf !== -1) {
-    const extra = id.slice(endOfAspect).split('/');
+    const extra = id.slice(endOfAspect + 1).split('/');
     if (extra.length === 2) {
       media.blurhash = extra[0];
       media.duration = parseInt(extra[1], 32);

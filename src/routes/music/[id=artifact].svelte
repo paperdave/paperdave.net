@@ -7,7 +7,7 @@
   import Meta from '$lib/components/Meta.svelte';
   import { formatDate } from '$lib/utils/date';
   import type { Music } from '@prisma/client';
-  import { decodeMediaId } from '$lib/utils/media-url';
+  import { decodeMediaId } from '$lib/utils/media-id';
 
   export let artifact: Music;
 </script>
