@@ -78,7 +78,6 @@
                 <span disabled class="link">applications</span>
               </flex>
               <flex class="col">
-                <a sveltekit:prefetch class="link" href="/io">input/output</a>
                 <span disabled class="link">and so on</span>
                 <!-- <a sveltekit:prefetch class="link" href="/nerd-gear">nerd gear</a> -->
                 <a class="link" href="/#bts" on:click={focusBTS}>behind the scenes</a>
