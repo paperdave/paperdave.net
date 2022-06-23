@@ -6,9 +6,11 @@
 
   const things = [
     //
-    'doing high school',
+    'college prep @ OU',
+    'making a discord bot framework',
+    'making another web app',
     'writing software for making videos',
-    'making a discord bot',
+    'producing another song & music video',
   ];
 </script>
 
