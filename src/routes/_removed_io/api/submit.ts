@@ -122,7 +122,7 @@ export const post: RequestHandler = async ({ request }) => {
 
   return {
     body: {
-      url: 'https://davecode.net/io/' + getMessageDateID(message),
+      url: 'https://paperdave.net/io/' + getMessageDateID(message),
     },
   };
 };

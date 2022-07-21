@@ -12,8 +12,8 @@
 </script>
 
 <Meta
-  title="davecode: computer art to the limit"
-  description="davecode is a creative project by dave caruso to take computer software and its artistic and automation capabilities to the limits." />
+  title="paperdave: computer art to the limit"
+  description="paperdave is a creative project by dave caruso to take computer software and its artistic and automation capabilities to the limits." />
 
 <HomePageKeyboardNav />
 

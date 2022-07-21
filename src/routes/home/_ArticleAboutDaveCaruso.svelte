@@ -9,12 +9,12 @@
 </p>
 <p>
   Aside from computer science, I have a passion for music and video production. One of my goals with
-  davecode is to make original music videos in an abstract art style similar to that of <a
+  paperdave is to make original music videos in an abstract art style similar to that of <a
     href="https://billwurtz.com">Bill Wurtz</a
   >, but I won't limit myself to just music videos.
 </p>
 <p>
-  When not working on <em>davecode</em>, I hang out with my friends and family. etc.
+  When not working on <em>paperdave</em>, I hang out with my friends and family. etc.
 </p>
 <p>
   <a sveltekit:prefetch href="/now">see what he is up to now</a> |

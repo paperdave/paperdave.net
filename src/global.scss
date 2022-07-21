@@ -21,7 +21,8 @@ body {
   letter-spacing: -0.005em;
 }
 
-body, code {
+body,
+code {
   // Recursive is the only font we use, falling back to the browser default. However we need to
   // put emoji fonts behind it (consider twemoji?). Also, this is applied to code blocks.
   font-family: 'Recursive', sans-serif, var(--emoji);
@@ -211,16 +212,16 @@ a:not(.custom) {
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 42069;
+  background-color: black;
+  padding: 2rem;
   width: 100%;
   height: 100%;
-  background-color: black;
   color: white;
-  padding: 2rem;
-  z-index: 42069;
 
   & > * {
     margin: 0 auto;
-    max-width: 600px;
     margin-bottom: 1rem;
+    max-width: 600px;
   }
 }

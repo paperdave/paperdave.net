@@ -2,15 +2,17 @@
   import HomePageTitleChar from './_HomePageTitleChar.svelte';
   import PlaneSVG from '$lib/svg/brand/Plane.svg';
 
-  let titleOrder = 'Davecode';
+  let titleOrder = 'PApErdave';
   const titleColors: Record<string, string> = {
-    D: '#007205',
-    a: '#006004',
-    v: '#006004',
-    e: '#007205',
-    c: '#007205',
-    o: '#329437',
-    d: '#720DA1',
+    P: '#007205',
+    A: '#006004',
+    p: '#006004',
+    E: '#007205',
+    r: '#329437',
+    d: '#006004',
+    a: '#007205',
+    v: '#720DA1',
+    e: '#329437',
   };
 </script>
 
@@ -28,11 +30,12 @@
 <style lang="scss">
   h1 {
     position: relative;
+    margin-bottom: 0.75rem;
   }
 
   h1 :global(svg) {
     fill: #004202;
-    width: 6rem;
+    width: 5rem;
 
     @media (max-width: 800px) {
       width: 10vw;

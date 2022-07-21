@@ -34,7 +34,8 @@
 
   const accent = colors[variant];
 
-  $: subject = 'davecode.net ' + variant === 'not-found' ? 'page not found report' : 'error report';
+  $: subject =
+    'paperdave.net ' + variant === 'not-found' ? 'page not found report' : 'error report';
   $: body =
     variant === 'not-found'
       ? `error: 404 not found ${$page.url.toString()}\n\n`
@@ -75,7 +76,7 @@
             <!-- <li><a href="#game">play a game</a></li> -->
           {:else}
             <li>
-              <a href="https://github.com/davecaruso/davecode.net/issues">browse github issues</a>
+              <a href="https://github.com/davecaruso/paperdave.net/issues">browse github issues</a>
             </li>
           {/if}
         </ul>

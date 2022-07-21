@@ -1,7 +1,7 @@
 {
   "configurations": [
     {
-      "name": "davecode.net debug",
+      "name": "paperdave.net debug",
       "type": "node-terminal",
       "request": "launch",
       "command": "node ./scripts/dev.js",

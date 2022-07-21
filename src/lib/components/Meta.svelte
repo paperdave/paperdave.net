@@ -8,7 +8,7 @@
   import { page } from '$app/stores';
   import { palette } from '$lib/theme';
 
-  /** Page Title, automatically suffixed with "- davecode" */
+  /** Page Title, automatically suffixed with "- paperdave" */
   export let title: string;
   /** Page Description */
   export let description: string | null = null;
@@ -24,14 +24,14 @@
 
 <svelte:head>
   <!-- Page-Specific SEO -->
-  <title>{$page.url.pathname === '/' ? title : `${title} - davecode`}</title>
+  <title>{$page.url.pathname === '/' ? title : `${title} - paperdave`}</title>
   {#if description} <meta name="description" content={description} /> {/if}
-  <link rel="canonical" href="https://davecode.net{$page.url.pathname}" />
+  <link rel="canonical" href="https://paperdave.net{$page.url.pathname}" />
 
   <!-- Constants -->
 
   <!-- OpenGraph and Twitter embeds. -->
-  <meta property="og:site_name" content="davecode - computer art to the limit" />
+  <meta property="og:site_name" content="paperdave - computer art to the limit" />
   <meta property="og:type" content={video ? 'video.other' : 'website'} />
   <meta property="og:title" content={title} />
   {#if description}<meta property="og:description" content={description} />{/if}
@@ -44,7 +44,7 @@
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:image" content={image} />
   {/if}
-  <meta property="og:url" content="https://davecode.net{$page.url.pathname}" />
+  <meta property="og:url" content="https://paperdave.net{$page.url.pathname}" />
   <meta name="theme-color" content={color} />
 
   <!-- Icon -->

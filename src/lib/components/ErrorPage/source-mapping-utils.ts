@@ -17,7 +17,7 @@ export async function createMappedSource(error: Error) {
     return stack.map((frame) => {
       if (frame.file) {
         frame.file = frame.file.replace(/\\/g, '/');
-        frame.file = frame.file.replace(/.*davecode.net\//, '');
+        frame.file = frame.file.replace(/.*paperdave.net\//, '');
         frame.file = frame.file.replace(/node_modules\/\.pnpm\/(.+)@.*?\//, '');
         frame.file = frame.file.replace(new RegExp(`^${escapeRegex(location.origin)}\/`), '');
       }

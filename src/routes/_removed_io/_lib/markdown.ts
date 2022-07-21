@@ -59,7 +59,7 @@ customRules.insertBefore('paragraph', {
 /** Adjust autolinking to use my own components if possible */
 customRules.insertBefore('url', {
   name: 'autolink_mention',
-  match: inlineRegex(/^https?:\/\/(?:davecode\.net|localhost:3000)\/([^\s<]+[^<.,:;"')\]\s])/),
+  match: inlineRegex(/^https?:\/\/(?:paperdave\.net|davecode\.net|localhost:3000)\/([^\s<]+[^<.,:;"')\]\s])/),
   parse(capture) {
     const ioMatch = capture[1].match(/^io\/([0-9]{12})/);
     if (ioMatch) {

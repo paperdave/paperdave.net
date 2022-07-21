@@ -9,9 +9,9 @@
   import InstagramSVG from '$lib/svg/thirdparty-icons/Instagram.svg';
   import ItchSVG from '$lib/svg/thirdparty-icons/Itch.svg';
   import TidalSVG from '$lib/svg/thirdparty-icons/Tidal.svg';
-  import NewgroundsSVG from '$lib/svg/thirdparty-icons/Newgrounds.svg';
-  import RedditSVG from '$lib/svg/thirdparty-icons/Reddit.svg';
-  import SoundcloudSVG from '$lib/svg/thirdparty-icons/Soundcloud.svg';
+  // import NewgroundsSVG from '$lib/svg/thirdparty-icons/Newgrounds.svg';
+  // import RedditSVG from '$lib/svg/thirdparty-icons/Reddit.svg';
+  // import SoundcloudSVG from '$lib/svg/thirdparty-icons/Soundcloud.svg';
   import SpotifySVG from '$lib/svg/thirdparty-icons/Spotify.svg';
   import TikTokSVG from '$lib/svg/thirdparty-icons/TikTok.svg';
   import TwitchSVG from '$lib/svg/thirdparty-icons/Twitch.svg';
@@ -19,21 +19,18 @@
   import YoutubeSVG from '$lib/svg/thirdparty-icons/Youtube.svg';
 
   const otherWebsites = [
-    { name: 'Youtube', icon: YoutubeSVG, url: 'https://youtube.com/davecode' },
-    { name: 'Github', icon: GithubSVG, url: 'https://github.com/davecaruso' },
+    { name: 'Youtube', icon: YoutubeSVG, url: 'https://youtube.com/paperdave' },
+    { name: 'Github', icon: GithubSVG, url: 'https://github.com/paperdave' },
     { name: 'Discord', icon: DiscordSVG, url: 'https://discord.gg/4AbvSXV' },
     { name: 'Itch', icon: ItchSVG, url: 'https://davecode.itch.io' },
-    { name: 'Reddit', icon: RedditSVG, url: 'https://reddit.com/r/davecode' },
-    { name: 'Apple Music', icon: AppleMusicSVG, url: 'https://davecode.net/apple-music' },
-    { name: 'Spotify', icon: SpotifySVG, url: 'https://davecode.net/spotify' },
-    { name: 'Bandcamp', icon: BandcampSVG, url: 'https://davecode.bandcamp.com' },
+    { name: 'Apple Music', icon: AppleMusicSVG, url: 'https://paperdave.net/apple-music' },
+    { name: 'Spotify', icon: SpotifySVG, url: 'https://paperdave.net/spotify' },
+    { name: 'Bandcamp', icon: BandcampSVG, url: 'https://paperdave.bandcamp.com' },
     { name: 'Tidal', icon: TidalSVG, url: 'https://listen.tidal.com/artist/30839601' },
-    { name: 'Soundcloud', icon: SoundcloudSVG, url: 'https://soundcloud.com/davecaruso' },
-    { name: 'Twitch', icon: TwitchSVG, url: 'https://twitch.tv/davecaruso' },
-    { name: 'Newgrounds', icon: NewgroundsSVG, url: 'https://davecode.newgrounds.com/' },
-    { name: 'TikTok', icon: TikTokSVG, url: 'https://tiktok.com/@dave_caruso' },
-    { name: 'Instagram', icon: InstagramSVG, url: 'https://instagram.com/isdavecaruso' },
-    { name: 'Twitter', icon: TwitterSVG, url: 'https://twitter.com/isdavecaruso' },
+    { name: 'Twitch', icon: TwitchSVG, url: 'https://twitch.tv/thepaperdave' },
+    { name: 'TikTok', icon: TikTokSVG, url: 'https://tiktok.com/@thepaperdave' },
+    { name: 'Instagram', icon: InstagramSVG, url: 'https://instagram.com/thepaperdave' },
+    { name: 'Twitter', icon: TwitterSVG, url: 'https://twitter.com/thepaperdave' },
   ];
 </script>
 
@@ -101,11 +98,11 @@
   // not particularly proud of this responsive grid lol
   grid {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 2rem;
     margin: 2rem auto;
     margin: 2rem;
-    width: 30rem;
+    width: 25rem;
 
     a {
       display: flex;

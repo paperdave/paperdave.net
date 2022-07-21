@@ -17,7 +17,7 @@
 
 <ThemeRoot background="#e7f8e9">
   <Paper marginTop={3}>
-    <Heading level="1" center shadow>davecode.net trinkets</Heading>
+    <Heading level="1" center shadow>paperdave.net trinkets</Heading>
     <p>experiments, experiments, experiments!</p>
     <br />
     <ul>

@@ -1,5 +1,5 @@
 <p>
-  davecode is a creative project by dave caruso to take computer software and its artistic and
+  paperdave is a creative project by dave caruso to take computer software and its artistic and
   automation capabilities to the limits. on it, you can find a collection of his work of all
   mediums, including original music, abstract videos, video games, and the custom software built to
   make his processes go faster.

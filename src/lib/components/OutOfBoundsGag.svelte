@@ -1,5 +1,7 @@
 <span class="oob-text">
-  <a class="custom" href="https://github.com/davecaruso/davecode.net/tree/main/src/global.scss#L17">
+  <a
+    class="custom"
+    href="https://github.com/davecaruso/paperdave.net/tree/main/src/global.scss#L17">
     why do you have such a high-res screen???
   </a>
 </span>

@@ -94,14 +94,14 @@
   span,
   :global(.floating-word-magnet) {
     font-weight: bold;
-    font-size: 8rem;
+    font-size: 7rem;
     line-height: 1;
     font-family: 'Roboto Slab', sans-serif;
     user-select: none;
     text-shadow: shadow(6px, 1, var(--drop));
 
     @media (max-width: 800px) {
-      font-size: 15vw;
+      font-size: 13vw;
       text-shadow: shadow(3px, 1, var(--drop));
     }
   }

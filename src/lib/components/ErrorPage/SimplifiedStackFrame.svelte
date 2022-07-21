@@ -4,7 +4,7 @@
   import { isExternal } from './source-mapping-utils';
 
   const githubBranch = 'main';
-  const githubBase = `https://github.com/davecaruso/davecode.net/tree/${githubBranch}/`;
+  const githubBase = `https://github.com/davecaruso/paperdave.net/tree/${githubBranch}/`;
 
   export let frame: StackFrame;
 

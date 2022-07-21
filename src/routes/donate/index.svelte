@@ -15,7 +15,7 @@
     <BackButton position="off-center" />
     <h1>i like chocolate</h1>
     <p>
-      chocolate is awesome. in fact, the entire davecode creative dream is powered by the sweet
+      chocolate is awesome. in fact, the entire paperdave creative dream is powered by the sweet
       taste of chocolate. i give all my art out for free, paid for by myself. if you want to help
       funding, which i probably will just waste on chocolate, you can donate here:
     </p>

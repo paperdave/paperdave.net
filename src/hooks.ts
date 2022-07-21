@@ -6,7 +6,7 @@ export const EXPIRE_TIME = 1000 * 60 * 60 * 24 * 7;
 
 const overrideHeaders = {
   // Powered by easter egg :3
-  'X-Powered-By': 'chocolate; see https://davecode.net/donate',
+  'X-Powered-By': 'chocolate; see https://paperdave.net/donate',
   'Cache-Control': 's-maxage=3600, maxage=3600, stale-while-revalidate=1728000',
 };
 

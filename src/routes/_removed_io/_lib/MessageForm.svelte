@@ -103,7 +103,7 @@
                 type="email"
                 name="email"
                 maxlength={128}
-                id="davecode-io-notify-email"
+                id="paperdave-io-notify-email"
                 bind:focused={emailTextBoxHasFocus}
                 bind:this={emailTextBox}
                 on:blur={unfocusNotifForm}
@@ -114,7 +114,7 @@
                 tabindex={notifFormOpened ? undefined : '-1'}
                 placeholder="email@domain.net" />
             </div>
-            <label class="text" for="davecode-io-notify-email">notify at:</label>
+            <label class="text" for="paperdave-io-notify-email">notify at:</label>
           </div>
 
           <Button tabindex={expanded ? undefined : '-1'} type="submit" disabled={loading}>

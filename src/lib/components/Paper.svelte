@@ -22,7 +22,7 @@
   grid {
     display: grid;
     position: relative;
-    grid-template-columns: 1fr 2rem min(var(--size), calc(100vw - 4rem)) 2rem 1fr;
+    grid-template-columns: 1fr 2rem min(var(--size), calc(100% - 4rem)) 2rem 1fr;
     row-gap: 1rem;
     & > :global(*) {
       grid-column: 3;
