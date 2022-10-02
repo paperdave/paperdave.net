@@ -33,7 +33,8 @@
     "stacktrace-parser": "0.1.10",
     "svelte-portal": "2.2.0",
     "svelte-simple-markdown": "1.0.3",
-    "unique-names-generator": "4.7.1"
+    "unique-names-generator": "4.7.1",
+    "vite": "^2.9.0"
   },
   "devDependencies": {
     "@originjs/vite-plugin-content": "1.0.1",
