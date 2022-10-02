@@ -7,4 +7,4 @@ await rm('.vercel_build_output', { recursive: true, force: true });
 await run('prisma generate', false);
 // await run('prisma migrate deploy');
 await run('svelte-kit build');
-await copyFile('prisma/schema.prisma', '.vercel_build_output/functions/node/render/schema.prisma');
+// await copyFile('prisma/schema.prisma', '.vercel_build_output/functions/node/render/schema.prisma');
