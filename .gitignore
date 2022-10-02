@@ -5,3 +5,4 @@ node_modules
 .env
 .mf
 .vercel_build_output
+.pnpm-store

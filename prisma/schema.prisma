@@ -2,8 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["dataProxy"]
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -17,8 +16,8 @@ model Message {
   text String
 
   mentionedArtifacts ArtifactEntry[]
-  mentionedMessages  Message[]       @relation("messageMention", references: [date])
-  mentionedIn        Message[]       @relation("messageMention", references: [date])
+  mentionedMessages  Message[]       @relation("messageMention")
+  mentionedIn        Message[]       @relation("messageMention")
 }
 
 enum MessageType {
