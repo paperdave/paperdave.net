@@ -11,7 +11,7 @@
   <layout-container size="normal">
     <h1>
       <div class="paperdave">paperdave</div>
-      <div>(dave caruso)</div>
+      <div class="real">dave caruso</div>
     </h1>
   </layout-container>
 </ThemeRoot>
@@ -24,5 +24,8 @@
   }
   .paperdave {
     --text-mono: 1;
+  }
+  .real {
+    font-size: 2rem;
   }
 </style>
