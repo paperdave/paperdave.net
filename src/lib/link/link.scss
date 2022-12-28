@@ -1,0 +1,37 @@
+.link {
+	color: rgb(var(--on-bg-pri));
+	text-decoration: rgba(var(--on-bg), 0.25) solid underline 2px;
+	text-underline-offset: 4px;
+	transition: font-weight 80ms var(--ease);
+
+	&:focus-visible {
+		outline: none;
+		background-color: rgba(var(--pri), 0.2);
+		text-decoration-color: rgb(var(--on-bg-pri));
+		border-radius: 6px;
+	}
+
+	&.active,
+	&:hover,
+	&:active {
+		font-weight: 600;
+	}
+
+	&.active {
+		text-decoration-color: transparent;
+		color: rgb(var(--on-pri));
+	}
+
+	&:hover {
+		color: rgb(var(--on-bg-pri));
+		text-decoration-color: rgb(var(--on-bg-pri));
+	}
+
+	&:active {
+		text-decoration: none;
+		background-color: rgb(var(--pri));
+		color: rgb(var(--on-pri));
+		border-radius: 6px;
+		outline: 4px solid rgb(var(--pri));
+	}
+}

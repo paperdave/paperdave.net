@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { ThemeRoot, Button, LCHPalette } from '@paperdave/ui';
+  import { ThemeRoot, Button, LCHPalette } from '$lib';
 
   let background = '#65cc3d';
   let foreground = '#111111';

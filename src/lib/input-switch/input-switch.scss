@@ -1,0 +1,122 @@
+input-switch {
+	--acc: var(--pri);
+	--on-acc: var(--on-pri);
+	&[variant='secondary'] {
+		--acc: var(--sec);
+		--on-acc: var(--on-sec);
+	}
+	&[variant='tertiary'] {
+		--acc: var(--tri);
+		--on-acc: var(--on-tri);
+	}
+
+	label {
+		display: flex;
+		align-items: center;
+		cursor: pointer;
+		gap: 0.5rem;
+	}
+	input {
+		position: absolute;
+		opacity: 0;
+	}
+	.visual {
+		position: relative;
+		height: 1.5rem;
+		flex: 0 0 2.625rem;
+	}
+
+	.border {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		border-radius: 1.5rem;
+		border: 2px solid rgb(var(--on-bg));
+		outline: 0px solid rgba(var(--on-bg), 0.45);
+		background-color: rgba(var(--on-bg), 0.05);
+		transition: border-width 200ms var(--ease), border-color 150ms var(--ease),
+			background-color 150ms var(--ease), outline-width 100ms var(--ease),
+			outline-color 150ms var(--ease);
+	}
+
+	.dot {
+		--s: 0.75;
+		position: absolute;
+		width: 1rem;
+		height: 1rem;
+		top: 0.25rem;
+		left: 0.25rem;
+		border-radius: 50%;
+		background-color: rgb(var(--on-bg));
+		transform: scale(var(--s)) translateX(var(--drag));
+		transition: transform 200ms var(--ease);
+	}
+
+	.dragging {
+		transition-timing-function: var(--ease-out);
+	}
+
+	.overlay {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		border-radius: 1.5rem;
+		background-color: rgb(var(--on-bg));
+		transition: background-color 150ms var(--ease), opacity 200ms var(--ease);
+		opacity: 0;
+	}
+
+	input:checked + .visual {
+		.border {
+			border-color: rgb(var(--acc));
+			outline-color: rgba(var(--acc), 0.45);
+			background-color: rgb(var(--acc));
+			border-width: 0.35rem;
+		}
+		.dot {
+			--s: 0.75;
+			transform: translateX(1rem) scale(calc(var(--s) + 0.25)) translateX(var(--drag));
+			background-color: rgb(var(--on-acc));
+		}
+		.overlay {
+			background-color: rgba(var(--on-acc), 0.8);
+		}
+	}
+
+	&[disabled] {
+		opacity: 0.5;
+
+		label {
+			cursor: not-allowed;
+		}
+	}
+
+	&:not([disabled]) {
+		input:focus-visible + .visual .border {
+			outline-width: 2px;
+		}
+
+		&:hover {
+			.overlay {
+				opacity: 0.05;
+			}
+			.dot {
+				--s: 0.78;
+			}
+		}
+
+		input:active + .visual,
+		&:active {
+			.overlay {
+				opacity: 0.2;
+			}
+			.dot {
+				--s: 0.85 !important;
+			}
+		}
+	}
+}

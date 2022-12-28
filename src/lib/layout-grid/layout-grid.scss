@@ -1,0 +1,8 @@
+layout-grid {
+  display: grid;
+
+  &[center] {
+    justify-content: center;
+    align-items: center;
+  }
+}

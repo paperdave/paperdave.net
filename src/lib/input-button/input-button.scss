@@ -1,0 +1,86 @@
+input-button > * {
+	--btn: var(--bg);
+	--on-btn: var(--on-bg);
+
+	display: flex;
+	position: relative;
+	appearance: none;
+	border: none;
+	border-radius: 5px;
+	padding: 0.5rem;
+	user-select: none;
+	background-color: rgb(var(--btn));
+	color: rgb(var(--on-btn));
+	border: 1.5px solid rgba(var(--on-btn), 0.4);
+	outline: 0px solid rgba(var(--btn), 0.5);
+	transition: outline-width 100ms var(--ease);
+	font-family: inherit;
+	font-size: inherit;
+	cursor: pointer;
+	text-decoration: unset!important;
+
+	&::before {
+		position: absolute;
+		top: -1px;
+		bottom: -1px;
+		left: -1px;
+		right: -1px;
+		border-radius: 5px;
+		content: ' ';
+		background: rgb(var(--on-btn));
+		opacity: 0;
+		transition: opacity 100ms var(--ease);
+	}
+
+	&:focus-visible {
+		border-color: rgba(var(--on-btn), 0.7);
+		outline-width: 2px;
+	}
+
+	&:where(:hover, :focus-visible)::before {
+		opacity: 0.1;
+	}
+
+	&:active::before {
+		opacity: 0.2;
+	}
+
+	&[disabled] {
+		opacity: 0.5;
+		cursor: not-allowed;
+		pointer-events: none;
+	}
+}
+
+input-button {
+	&:not([variant]) > *,
+	&[variant='normal'] > *,
+	&[variant='subtle'] > * {
+		outline-color: rgba(var(--on-bg), 0.2);
+	}
+
+	&[variant='normal'] > *,
+	&:not([variant]) > * {
+		background-color: rgba(var(--on-bg), 0.2);
+	}
+
+	&[variant='subtle'] > * {
+		border-width: 0px;
+		padding: calc(0.5rem + 1.5px);
+	}
+
+	&[variant='primary'] > * {
+		--btn: var(--pri);
+		--on-btn: var(--on-pri);
+	}
+
+	&[variant='secondary'] > * {
+		--btn: var(--sec);
+		--on-btn: var(--on-sec);
+	}
+
+	&[variant='tertiary'] > * {
+		--btn: var(--tri);
+		--on-btn: var(--on-tri);
+	}
+}

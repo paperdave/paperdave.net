@@ -1,5 +1,5 @@
 <script>
-  import '@paperdave/ui/base.scss';
+  import '$lib/base.scss';
 </script>
 
 <slot />

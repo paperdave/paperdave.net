@@ -1,0 +1,24 @@
+layout-flex {
+  display: flex;
+  &[row] {
+    flex-direction: row;
+  }
+  &,
+  &[column] {
+    flex-direction: column;
+  }
+  &[row][reverse] {
+    flex-direction: row-reverse;
+  }
+  &[reverse],
+  &[column][reverse] {
+    flex-direction: column-reverse;
+  }
+  &[gap] {
+    gap: 1rem;
+  }
+  &[center] {
+    justify-content: center;
+    align-items: center;
+  }
+}

@@ -1,12 +1,11 @@
 <script lang="ts">
-  import { ThemeRoot } from '@paperdave/ui';
+  import { ThemeRoot } from '$lib';
   import BackButton from 'src/components/BackButton.svelte';
-  import type { PageData } from './$types';
 
-  export let data: PageData;
+  export let data: { donators: string[] };
 </script>
 
-<ThemeRoot background="#000" primary="#C622A2">
+<ThemeRoot background="#000000" primary="#C622A2" foreground="#eee">
   <layout-container size="medium">
     <BackButton />
     <h1>give me chocolate</h1>
@@ -24,10 +23,6 @@
 </ThemeRoot>
 
 <style lang="scss">
-  layout-container {
-    --on-bg: 240, 240, 240;
-    color: rgb(var(--on-bg));
-  }
   h1 {
     font-size: 4rem;
     font-weight: 800;
