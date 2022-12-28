@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@prisma/client/edge';
 import * as env from '$env/static/private';
 
 export const db = new PrismaClient({
