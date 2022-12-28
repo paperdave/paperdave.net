@@ -34,6 +34,7 @@
   "dependencies": {
     "@paperdave/utils": "^1.6.1",
     "@prisma/client": "^4.8.0",
+    "dayjs": "^1.11.7",
     "prisma": "^4.8.0",
     "sass": "^1.57.1"
   }
