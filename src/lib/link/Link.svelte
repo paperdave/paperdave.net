@@ -4,17 +4,17 @@
 	current page (SvelteKit only).
 -->
 <script lang="ts">
-	import './link.scss';
-	import { page } from '$app/stores';
-	import { tryOrFallback } from '@paperdave/utils';
+  import './link.scss';
+  import { page } from '$app/stores';
+  import { tryOrFallback } from '@paperdave/utils';
 
-	export let href: string;
+  export let href: string;
 
-	$: active =
-		tryOrFallback(
-			() => new URL(href, $page.url.toString()).pathname === $page.url.pathname,
-			false
-		) || null;
+  $: active =
+    tryOrFallback(
+      () => new URL(href, $page.url.toString()).pathname === $page.url.pathname,
+      false
+    ) || null;
 </script>
 
-<a {href} {...$$props} class:active><slot /></a>
+<a class="link" {href} {...$$props} class:active><slot /></a>

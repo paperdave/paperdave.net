@@ -21,6 +21,8 @@
     font-size: 4rem;
     font-weight: 800;
     margin: 0;
+
+    @include shadow(red, 4);
   }
   .paperdave {
     --text-mono: 1;
