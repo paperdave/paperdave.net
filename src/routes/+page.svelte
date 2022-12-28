@@ -1,18 +1,18 @@
 <script lang="ts">
   import { ThemeRoot, Button, LCHPalette } from '$lib';
+  import type { PageData } from './$types';
+
+  export let data: PageData;
 
   let background = '#65cc3d';
-  let foreground = '#111111';
-
-  let primary: string | undefined = undefined;
 </script>
 
-<ThemeRoot {background} {primary}>
+<ThemeRoot {background}>
   <layout-container size="normal">
-    <h1>
-      <div class="paperdave">paperdave</div>
-      <div class="real">dave caruso</div>
-    </h1>
+    <h1>welcome to website</h1>
+    <p>
+      {JSON.stringify(data.featured)}
+    </p>
   </layout-container>
 </ThemeRoot>
 
@@ -21,8 +21,6 @@
     font-size: 4rem;
     font-weight: 800;
     margin: 0;
-
-    @include shadow(red, 4);
   }
   .paperdave {
     --text-mono: 1;

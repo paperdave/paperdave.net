@@ -31,6 +31,7 @@
   },
   "type": "module",
   "dependencies": {
+    "@paperdave/utils": "^1.6.1",
     "@prisma/client": "^4.8.0",
     "prisma": "^4.8.0",
     "sass": "^1.57.1"
