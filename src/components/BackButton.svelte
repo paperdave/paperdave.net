@@ -1,9 +1,10 @@
 <script>
   import { Button } from '$lib';
+  export let href = '/';
 </script>
 
 <back-button>
-  <Button variant="normal" href="/"><slot>go home</slot></Button>
+  <Button variant="normal" {href}><slot>go home</slot></Button>
 </back-button>
 
 <style lang="scss">

@@ -1,18 +1,21 @@
 <script lang="ts">
   import { ThemeRoot, Button, LCHPalette } from '$lib';
+  import Link from 'src/lib/link/Link.svelte';
   import type { PageData } from './$types';
 
   export let data: PageData;
 
-  let background = '#65cc3d';
+  let background = '#005544';
 </script>
 
 <ThemeRoot {background}>
   <layout-container size="normal">
-    <h1>welcome to website</h1>
-    <p>
-      {JSON.stringify(data.featured)}
-    </p>
+    <h1>paperdave</h1>
+    <p>i make art</p>
+    <ul>
+      <li><Link href="/videos">videos</Link></li>
+      <li><Link href="/donate">donate</Link></li>
+    </ul>
   </layout-container>
 </ThemeRoot>
 
@@ -24,8 +27,5 @@
   }
   .paperdave {
     --text-mono: 1;
-  }
-  .real {
-    font-size: 2rem;
   }
 </style>
