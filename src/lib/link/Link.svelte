@@ -12,7 +12,7 @@
 
   $: active =
     tryOrFallback(
-      () => new URL(href, $page.url.toString()).pathname === $page.url.pathname,
+      () => new URL(href, $page.url.toString()).toString() === $page.url.toString(),
       false
     ) || null;
 </script>

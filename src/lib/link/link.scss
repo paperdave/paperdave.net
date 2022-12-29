@@ -19,12 +19,15 @@
 
   &.active {
     text-decoration-color: transparent;
-    color: rgb(var(--on-pri));
+    color: rgb(var(--on-bg));
   }
 
-  &:hover {
+  &:hover:not(.active):not(:active) {
     color: rgb(var(--on-bg-pri));
     text-decoration-color: rgb(var(--on-bg-pri));
+  }
+  &:hover.active:not(:active) {
+    text-decoration-color: rgba(var(--on-bg), 0.25);
   }
 
   &:active {

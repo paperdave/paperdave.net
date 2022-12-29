@@ -1,5 +1,5 @@
 // Recursive Font
-@import url('https://fonts.googleapis.com/css2?family=Recursive:slnt,wght,CASL,CRSV,MONO@-15..0,300..800,0.25,0,0..1&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Recursive:slnt,wght,CASL,CRSV,MONO@-15..0,300..800,0.25,0,0..1&display=swap');
 // Uncomment the below for a font that is 2.5x the filesize (281kb)
 // @import url('https://fonts.googleapis.com/css2?family=Recursive:slnt,wght,CASL,CRSV,MONO@-15..0,300..1000,0..1,0..1,0..1&display=swap');
 
@@ -39,3 +39,23 @@ figure {
 @import './layout-input-group/layout-input-group.scss';
 @import './layout-link-row/layout-link-row.scss';
 @import './link/link.scss';
+
+.material-symbols {
+  word-wrap: normal;
+  font-feature-settings: 'liga';
+  display: inline-block;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  font-family: 'Material Symbols Outlined';
+  letter-spacing: normal;
+  direction: ltr;
+  text-transform: none;
+  white-space: nowrap;
+  font-optical-sizing: auto;
+  font-variation-settings: 'FILL' var(--icon-fill), 'GRAD' var(--icon-grad);
+}
+
+a {
+  text-decoration: none;
+}
