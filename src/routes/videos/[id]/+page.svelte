@@ -16,7 +16,9 @@
     <BackButton href="/videos">all videos</BackButton>
     <h1>{data.artifact?.title}</h1>
     <!-- svelte-ignore a11y-media-has-caption -->
-    <video class="full-width" src={data.artifact?.media} controls autoplay />
+    <figure class="full-width video-player">
+      <video src={data.artifact?.media} controls autoplay />
+    </figure>
     <p>Published on {dayjs(data.artifact?.date).format('YYYY-MM-DD')}</p>
     {#if data.artifact?.tags?.length}
       <layout-flex row gap class="tags">
@@ -50,9 +52,15 @@
     margin: 0;
     @include shadow(#002116, 6);
   }
+  .video-player {
+    display: flex;
+    border: 4px solid black;
+    background-color: rgb(0, 0, 0, 0.5);
+  }
   video {
     width: 100%;
-    border: 4px solid black;
+    flex: 1;
+    aspect-ratio: 16 / 9;
   }
   hr {
     margin: 1rem 0;

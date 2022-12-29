@@ -6,17 +6,17 @@
 *,
 ::before,
 ::after {
-	box-sizing: border-box;
-	font-variation-settings: 'MONO' var(--text-mono), 'CASL' var(--text-casual),
-		'slnt' var(--text-slant), 'CRSV' var(--text-cursive);
+  box-sizing: border-box;
+  font-variation-settings: 'MONO' var(--text-mono), 'CASL' var(--text-casual),
+    'slnt' var(--text-slant), 'CRSV' var(--text-cursive);
 }
 
 body {
-	font-family: Recursive, sans-serif;
-	margin: 0;
-	min-height: 100vh;
-	display: flex;
-	flex-direction: column;
+  font-family: Recursive, sans-serif;
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 // Set --text-mono variable instead of switching fonts.
@@ -24,8 +24,12 @@ code,
 kbd,
 samp,
 pre {
-	--text-mono: 1;
-	font-family: inherit;
+  --text-mono: 1;
+  font-family: inherit;
+}
+
+figure {
+  margin: 0;
 }
 
 @import './layout-button-row/layout-button-row.scss';
