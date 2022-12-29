@@ -14,6 +14,7 @@
     <p>i make art</p>
     <ul>
       <li><Link href="/videos">videos</Link></li>
+      <li><Link href="/games">games</Link></li>
       <li><Link href="/donate">donate</Link></li>
     </ul>
   </layout-container>

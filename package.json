@@ -36,6 +36,8 @@
     "@prisma/client": "^4.8.0",
     "dayjs": "^1.11.7",
     "prisma": "^4.8.0",
-    "sass": "^1.57.1"
+    "sass": "^1.57.1",
+    "svelte-portal": "^2.2.0",
+    "svelte-simple-markdown": "^1.0.3"
   }
 }
