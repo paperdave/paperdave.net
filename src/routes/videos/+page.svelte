@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { browser } from '$app/environment';
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
   import { ThemeRoot } from '$lib';
@@ -49,6 +50,15 @@
   $: filtered = byTagMode
     ? data.artifacts.filter((x) => x.tags.some((tag) => tagsEnabled.includes(tag)))
     : data.artifacts;
+
+  $: browser &&
+    history.replaceState(
+      {},
+      '',
+      `/videos${
+        byTagMode ? `?tags=${tagsEnabled.map((x) => x.replaceAll(' ', '-')).join(',')}` : ''
+      }`
+    );
 </script>
 
 <ThemeRoot background="#01422d" primary="#7fea27" foreground="#dcffd6">
