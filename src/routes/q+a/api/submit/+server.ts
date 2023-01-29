@@ -47,7 +47,7 @@ export const POST: RequestHandler = async ({ request }) => {
     throw error(400, 'Content is too long');
   }
 
-  const ipAddr = request.headers.get('x-vercel-forwarded-for');
+  const ipAddr = request.headers.get('cf-connecting-ip');
   if (ipAddr) {
     input.sourceName = uniqueNamesGenerator({
       dictionaries: [adjectives, colors, animals],
@@ -56,7 +56,7 @@ export const POST: RequestHandler = async ({ request }) => {
     });
   }
 
-  const cfIPCountry = request.headers.get('x-vercel-ip-country');
+  const cfIPCountry = request.headers.get('cf-ipcountry');
   if (cfIPCountry) {
     input.sourceLocation = cfIPCountry;
   }
