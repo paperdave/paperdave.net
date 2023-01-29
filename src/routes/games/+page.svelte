@@ -26,7 +26,7 @@
     font-weight: 800;
     margin: 0;
     color: rgb(89, 225, 255);
-    @include shadow(#984aff, 6);
+    @include shadow(rgb(20, 131, 187), 3);
   }
   .games {
     margin: 2rem 0;

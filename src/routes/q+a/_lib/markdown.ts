@@ -19,8 +19,8 @@ customRules.remove('heading');
 
 /** Input paragraphs. any paragraph prefixed with `i:` */
 customRules.insertBefore('paragraph', {
-  name: 'input',
-  match: blockRegex(/^i: ((?:[^\n]|\n(?! *\n))+)(?:\n *)+\n/),
+  name: 'question',
+  match: blockRegex(/^q: ((?:[^\n]|\n(?! *\n))+)(?:\n *)+\n/),
   parse: parseCaptureInline
 });
 
@@ -187,7 +187,7 @@ export const messageMarkdown = {
   parser,
   renderers: {
     link: MdLink,
-    input: MDParagraph,
+    question: MDParagraph,
     paragraph: MDParagraph,
     mentionArtifact: MDMentionArtifact,
     mentionMessage: MDMentionMessage,

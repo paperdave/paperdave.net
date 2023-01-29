@@ -2,9 +2,6 @@
   import { ThemeRoot } from '$lib';
   import dayjs from 'dayjs';
   import BackButton from 'src/components/BackButton.svelte';
-  import Img from 'src/components/Img.svelte';
-  import Button from 'src/lib/input-button/Button.svelte';
-  import Checkbox from 'src/lib/input-checkbox/Checkbox.svelte';
   import VideoListItem from '../VideoListItem.svelte';
   import type { PageData } from './$types';
 

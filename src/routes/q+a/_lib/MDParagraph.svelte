@@ -3,7 +3,7 @@
   export let node: ASTNode;
 </script>
 
-<p class={node.type === 'input' ? 'q' : 'a'}>
+<p class={node.type === 'question' ? 'q' : 'a'}>
   <slot />
 </p>
 

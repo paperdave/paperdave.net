@@ -64,7 +64,7 @@
 <ThemeRoot background="#01422d" primary="#7fea27" foreground="#dcffd6">
   <layout-container size="xl">
     <BackButton />
-    <h1>paperdave videos</h1>
+    <h1>videos</h1>
     <layout-button-row>
       <Button
         variant={byTagMode ? 'primary' : 'normal'}
