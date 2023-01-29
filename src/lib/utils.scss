@@ -1,0 +1,13 @@
+@mixin shadow($color, $distance) {
+  @if $distance == 0 {
+    text-shadow: none;
+  } @else {
+    $str: '';
+    @for $i from 1 through $distance {
+      $str: $str + ($i * 1px) + ' ' + ($i * 1px) + ' ' + $color + ',';
+    }
+    text-shadow: unquote(str-slice($str, 0, -2));
+  }
+}
+
+$ease: cubic-bezier(0.4, 0, 0.1, 1);

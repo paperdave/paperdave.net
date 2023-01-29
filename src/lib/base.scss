@@ -1,0 +1,61 @@
+// Recursive Font
+// @import url('https://fonts.googleapis.com/css2?family=Recursive:slnt,wght,CASL,CRSV,MONO@-15..0,300..800,0.25,0,0..1&display=swap');
+// Uncomment the below for a font that is 2.5x the filesize (281kb)
+// @import url('https://fonts.googleapis.com/css2?family=Recursive:slnt,wght,CASL,CRSV,MONO@-15..0,300..1000,0..1,0..1,0..1&display=swap');
+
+*,
+::before,
+::after {
+  box-sizing: border-box;
+  font-variation-settings: 'MONO' var(--text-mono), 'CASL' var(--text-casual),
+    'slnt' var(--text-slant), 'CRSV' var(--text-cursive);
+}
+
+body {
+  font-family: Recursive, sans-serif;
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+// Set --text-mono variable instead of switching fonts.
+code,
+kbd,
+samp,
+pre {
+  --text-mono: 1;
+  font-family: inherit;
+}
+
+figure {
+  margin: 0;
+}
+
+@import './layout-button-row/layout-button-row.scss';
+@import './layout-container/layout-container.scss';
+@import './layout-flex/layout-flex.scss';
+@import './layout-grid/layout-grid.scss';
+@import './layout-input-group/layout-input-group.scss';
+@import './layout-link-row/layout-link-row.scss';
+@import './link/link.scss';
+
+.material-symbols {
+  word-wrap: normal;
+  font-feature-settings: 'liga';
+  display: inline-block;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  font-family: 'Material Symbols Outlined';
+  letter-spacing: normal;
+  direction: ltr;
+  text-transform: none;
+  white-space: nowrap;
+  font-optical-sizing: auto;
+  font-variation-settings: 'FILL' var(--icon-fill), 'GRAD' var(--icon-grad);
+}
+
+a {
+  text-decoration: none;
+}

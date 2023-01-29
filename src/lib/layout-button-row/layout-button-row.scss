@@ -1,0 +1,17 @@
+layout-button-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+layout-button-row :empty {
+  flex: 1;
+}
+
+layout-button-row[align='left'] {
+  justify-content: flex-start;
+}
+
+layout-button-row[align='right'] {
+  justify-content: flex-end;
+}

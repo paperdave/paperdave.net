@@ -1,0 +1,102 @@
+$pathTotalLength: 22; // use js on the path node's `.getTotalLength()`;
+
+input-checkbox {
+  --acc: var(--pri);
+  &[variant='secondary'] {
+    --acc: var(--sec);
+  }
+  &[variant='tertiary'] {
+    --acc: var(--tri);
+  }
+
+  label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 0.5rem;
+  }
+
+  input {
+    position: absolute;
+    opacity: 0;
+  }
+
+  .visual {
+    background-color: rgb(var(--on-bg));
+    position: relative;
+    width: 1.5rem;
+    height: 1.5rem;
+    outline: 0px solid rgba(var(--on-bg), 0.45);
+    --bg-delay: 80ms;
+    transition: outline-width 100ms var(--ease), outline-color 250ms var(--ease),
+      background-color 100ms var(--bg-delay) var(--ease);
+    border-radius: 5px;
+
+    & > div {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .bg {
+      top: 2px;
+      left: 2px;
+      width: calc(100% - 4px);
+      height: calc(100% - 4px);
+      background-color: rgb(var(--bg));
+      border-radius: 3.25px;
+      transition: transform 200ms var(--ease);
+      transform: scale(1);
+    }
+  }
+
+  svg path {
+    stroke: rgb(var(--bg));
+    stroke-dasharray: $pathTotalLength;
+    stroke-dashoffset: $pathTotalLength;
+    transition: stroke-dashoffset 250ms var(--ease) 50ms;
+  }
+
+  input:focus-visible + .visual {
+    outline-width: 2px;
+  }
+
+  input:checked + .visual {
+    --bg-delay: 0ms;
+    outline-color: rgba(var(--acc), 0.45);
+    background-color: rgb(var(--acc));
+
+    .bg {
+      transform: scale(0);
+    }
+    svg path {
+      stroke-dashoffset: 0;
+    }
+  }
+}
+
+@media (forced-colors: active) {
+  input-checkbox {
+    .visual {
+      background-color: Field;
+      --bg-delay: 0ms;
+      border: 2px solid FieldText;
+    }
+    .bg {
+      display: none;
+    }
+    input:not(:checked) + .visual svg path {
+      transition-duration: 0ms;
+    }
+    input:checked + .visual {
+      background-color: FieldText;
+      transition-delay: 0ms !important;
+
+      svg path {
+        stroke: Field;
+      }
+    }
+  }
+}

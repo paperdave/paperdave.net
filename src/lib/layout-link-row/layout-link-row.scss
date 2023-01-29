@@ -1,0 +1,15 @@
+layout-link-row {
+	display: flex;
+	gap: 1rem;
+	position: relative;
+
+	& > *:not(:first-child)::before {
+		content: ' ';
+		position: absolute;
+		height: 100%;
+		width: 1px;
+		opacity: 0.5;
+		transform: translateX(-0.5rem);
+		background: rgb(var(--on-bg));
+	}
+}

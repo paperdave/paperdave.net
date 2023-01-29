@@ -1,0 +1,44 @@
+layout-container {
+  display: grid;
+  align-items: center;
+  margin: 2rem 0;
+  width: 100%;
+  row-gap: 1rem;
+
+  & > * {
+    grid-column: 3;
+  }
+  & > .full-width,
+  & > layout-container {
+    grid-column: 2 / -2;
+  }
+}
+
+layout-container > * {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+layout-container {
+  --size: 45rem;
+}
+layout-container[size='small'] {
+  --size: 20rem;
+}
+layout-container[size='medium'] {
+  --size: 30rem;
+}
+layout-container[size='large'] {
+  --size: 60rem;
+}
+layout-container[size='xl'] {
+  --size: 100rem;
+}
+
+layout-container,
+layout-container[size='full'] {
+  grid-template-columns: 0 2rem 1fr 2rem 0;
+}
+layout-container[size] {
+  grid-template-columns: 1fr 2rem min(var(--size), calc(100% - 4rem)) 2rem 1fr;
+}
