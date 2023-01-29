@@ -1,8 +1,0 @@
-.DS_Store
-node_modules
-/.svelte-kit
-/package
-.env
-.mf
-.vercel_build_output
-.pnpm-store
