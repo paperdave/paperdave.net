@@ -89,7 +89,7 @@
     align-items: center;
     font-size: 3rem;
     font-weight: bold;
-    --x: 0 0 0.25rem hsl(var(--bg));
+    --x: 0 0 0.25rem rgb(var(--bg));
     text-shadow: var(--x), var(--x), var(--x), var(--x), var(--x), var(--x), var(--x), var(--x);
   }
   .screenshots {

@@ -5,10 +5,10 @@
   import { parseMessageDateID } from './utils';
   export let node: ASTNode;
 
-  $: date = parseMessageDateID(node.id);
+  $: date = parseMessageDateID(node.id)!;
 </script>
 
-<a class="custom" href="/io/{node.id}">
+<a class="custom" href="/q+a/{node.id}">
   <span class="icon">
     <Icon name="message" />
   </span>

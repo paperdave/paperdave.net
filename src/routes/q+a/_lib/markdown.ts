@@ -64,11 +64,11 @@ customRules.insertBefore('url', {
     /^https?:\/\/(?:paperdave\.net|davecode\.net|localhost:3000)\/([^\s<]+[^<.,:;"')\]\s])/
   ),
   parse(capture) {
-    const ioMatch = capture[1].match(/^io\/([0-9]{12})/);
-    if (ioMatch) {
+    const qaMatch = capture[1].match(/^q\+a\/([0-9]{12})/);
+    if (qaMatch) {
       return {
         type: 'mentionMessage',
-        id: ioMatch[1]
+        id: qaMatch[1]
       };
     }
 

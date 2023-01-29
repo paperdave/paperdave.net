@@ -1,11 +1,13 @@
 <script lang="ts">
-  import Button from '$lib/components/Button.svelte';
-  import ButtonRow from '$lib/components/ButtonRow.svelte';
-  import IconButton from '$lib/components/IconButton.svelte';
-  import TextBox from '$lib/components/TextBox.svelte';
+  import { Button } from '$lib';
+  import IconButton from '../../../components/IconButton.svelte';
   import { fade } from 'svelte/transition';
-  import { data as placeholders } from './placeholders.json';
+  import placeholderData from './placeholders.txt?raw';
+  import QaTextBoxFork from './QATextBoxFork.svelte';
   import { ioNotifyEmail } from './stores';
+  import Link from 'src/lib/link/Link.svelte';
+
+  const placeholders = placeholderData.split('\n').filter(Boolean);
 
   let form: HTMLFormElement;
 
@@ -13,11 +15,11 @@
   export let expanded = false;
   export let content = '';
   export let loading = false;
-  export let result: { url?: string; error?: true; message?: string } | null = null;
+  export let result: { url: string; error?: true; message?: string } | null = null;
 
   const EMAIL_REGEX = /^[a-z0-9!#$%&'*+/=?^_`{|}~.-]+@[a-z0-9-]+(\.[a-z0-9-]+)*$/;
 
-  let emailTextBox: TextBox;
+  let emailTextBox: QaTextBoxFork;
 
   $: expanded = focused || content.length > 0;
 
@@ -45,9 +47,9 @@
     const data = new FormData(form);
     loading = true;
     result = null;
-    fetch('/io/api/submit', {
+    fetch('/q+a/api/submit', {
       method: 'POST',
-      body: data,
+      body: data
     })
       .then((res) => {
         if (res.status === 200) {
@@ -57,13 +59,13 @@
           });
         } else {
           return res.json().then((json) => {
-            result = { error: true, message: json.message ?? 'Unknown error.' };
+            result = { error: true, message: json.message ?? 'Unknown error.', url: json.url };
             loading = false;
           });
         }
       })
       .catch((err) => {
-        result = { error: true, message: 'Network error.' };
+        result = { error: true, message: 'Network error.', url: '' };
         loading = false;
       });
   }
@@ -74,30 +76,32 @@
 {#if !result}
   <form bind:this={form} method="post" on:submit|preventDefault={handleSubmit}>
     <div>
-      <TextBox
+      <QaTextBoxFork
         disabled={loading}
         maxlength={10000}
         name="content"
-        label="write something"
+        label="ask a question"
         bind:value={content}
         {placeholder}
         on:focus={regeneratePlaceholder}
-        unstable_ioTextarea />
+        unstable_ioTextarea
+      />
     </div>
 
     <div>
       <div class="controls" class:expanded aria-hidden={expanded ? 'false' : 'true'}>
-        <ButtonRow align="right">
+        <layout-button-row align="right">
           <div class="notification-button-expand" class:expanded={notifFormOpened}>
             <div class="button">
               <IconButton
                 on:click={openNotifForm}
                 name="notifications"
                 disabled={loading}
-                tabindex={notifFormOpened || !expanded ? '-1' : undefined} />
+                tabindex={notifFormOpened || !expanded ? '-1' : undefined}
+              />
             </div>
             <div class="textbox">
-              <TextBox
+              <QaTextBoxFork
                 autoHeight
                 disabled={loading}
                 type="email"
@@ -112,7 +116,8 @@
                   $ioNotifyEmail !== '' &&
                   !EMAIL_REGEX.test($ioNotifyEmail)}
                 tabindex={notifFormOpened ? undefined : '-1'}
-                placeholder="email@domain.net" />
+                placeholder="email@domain.net"
+              />
             </div>
             <label class="text" for="paperdave-io-notify-email">notify at:</label>
           </div>
@@ -120,7 +125,7 @@
           <Button tabindex={expanded ? undefined : '-1'} type="submit" disabled={loading}>
             Send
           </Button>
-        </ButtonRow>
+        </layout-button-row>
       </div>
     </div>
   </form>
@@ -133,19 +138,21 @@
       </p>
       <br />
       <br />
-      <ButtonRow>
+      <layout-button-row>
         <Button
           on:click={() => {
             result = null;
-          }}>
+          }}
+        >
           try again
         </Button>
-      </ButtonRow>
+      </layout-button-row>
     {:else}
       <div class="success">
         <p>
           <strong>message sent:</strong>
-          when it is responded to it will appear at <a href={result.url}>{result.url}</a>.
+          when it is responded to it will appear at:<br />
+          <Link href={result.url}>{result.url}</Link>.
         </p>
       </div>
     {/if}
@@ -187,7 +194,7 @@
     height: 2.25rem;
     width: 2.25rem;
 
-    transition: width 200ms $easing;
+    transition: width 200ms $ease;
 
     & > div > :global(*) {
       position: absolute;
@@ -222,8 +229,14 @@
         pointer-events: all;
         opacity: 1;
       }
+
       .text {
         opacity: 1;
+      }
+
+      .button {
+        opacity: 0;
+        pointer-events: none;
       }
     }
   }

@@ -37,7 +37,9 @@
     "dayjs": "^1.11.7",
     "prisma": "^4.8.0",
     "sass": "^1.57.1",
+    "sswr": "^1.7.0",
     "svelte-portal": "^2.2.0",
-    "svelte-simple-markdown": "^1.0.3"
+    "svelte-simple-markdown": "^1.0.3",
+    "unique-names-generator": "^4.7.1"
   }
 }

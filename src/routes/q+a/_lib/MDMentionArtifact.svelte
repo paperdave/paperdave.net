@@ -43,9 +43,24 @@
     Video: 'videocam',
     WordMagnet: 'draft'
   };
+
+  const artifactTypeToBaseURL: Record<ArtifactType, string> = {
+    Application: 'app',
+    Doodle: 'doodle',
+    Fragment: 'fragment',
+    Game: 'games',
+    Journal: 'journal',
+    Music: 'music',
+    MusicVideo: 'videos',
+    NerdGear: 'nerd-gear',
+    Square: 'square',
+    Story: 'stories',
+    Video: 'videos',
+    WordMagnet: 'word-magnet'
+  };
 </script>
 
-<a class="custom" href="/{node.id}">
+<a class="custom" href="/{data ? artifactTypeToBaseURL[data.type] : '_resolveId'}/{node.id}">
   {#if data}
     <span class="icon">
       <Icon name={artifactTypeToIcon[data.type]} />

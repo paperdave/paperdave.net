@@ -1,7 +1,26 @@
-import { persistent } from '@furudean/svelte-persistent-store/persistent';
+import { browser } from '$app/environment';
+import { writable } from 'svelte/store';
 
-export const ioNotifyEmail = persistent({
-  key: 'io.notifyEmail',
-  start_value: '',
-  storage_type: 'localStorage',
-});
+/** basic local storage sync store */
+export function persistent<T>(
+  key: string,
+  initialValue: T,
+  storage = browser ? localStorage : null!
+) {
+  if (!browser) {
+    return writable(initialValue);
+  }
+
+  const json = storage.getItem(key);
+  const value = json ? JSON.parse(json) : initialValue;
+
+  const store = writable(value);
+
+  store.subscribe((v) => {
+    storage.setItem(key, JSON.stringify(v));
+  });
+
+  return store;
+}
+
+export const ioNotifyEmail = persistent('qa.notifyEmail', '');

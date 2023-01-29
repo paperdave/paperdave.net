@@ -9,3 +9,5 @@
     text-shadow: unquote(str-slice($str, 0, -2));
   }
 }
+
+$ease: cubic-bezier(0.4, 0, 0.1, 1);

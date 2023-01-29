@@ -1,15 +1,12 @@
 <script lang="ts">
-  import AccentOverride from '$lib/components/AccentOverride.svelte';
-  import Button from '$lib/components/Button.svelte';
-  import ButtonRow from '$lib/components/ButtonRow.svelte';
-  import TextBox from '$lib/components/TextBox.svelte';
-  import { api } from '$lib/session';
-  import { palette } from '$lib/theme';
-  import { formatDate } from '$lib/utils/date';
   import type { Message, MessageInput } from '@prisma/client';
+  import { formatDate } from 'src/date';
+  import { Button } from 'src/lib';
   import { createEventDispatcher } from 'svelte';
   import MessageRender from './MessageRender.svelte';
   import MessageRespondUploadUtil from './MessageRespondUploadUtil.svelte';
+  import { old_api_do_not_use_outside_qa as api } from './old_session';
+  import QaTextBoxFork from './QATextBoxFork.svelte';
 
   const dispatch = createEventDispatcher();
 
@@ -31,8 +28,8 @@
   async function apply() {
     loading = true;
     api
-      .post('/io/api/insert', {
-        json: copied,
+      .post('/q+a/api/insert', {
+        json: copied
       })
       .then(() => dispatch('done'))
       .finally(() => (loading = false));
@@ -41,17 +38,17 @@
   function del() {
     loading = true;
     (input
-      ? api.post('/io/api/insert', {
+      ? api.post('/q+a/api/insert', {
           json: {
             date: message.date,
             type: 'REJECT',
-            text: '',
-          },
+            text: ''
+          }
         })
-      : api.post('/io/api/delete', {
+      : api.post('/q+a/api/delete', {
           json: {
-            date: message.date,
-          },
+            date: message.date
+          }
         })
     )
       .then(() => {
@@ -70,13 +67,13 @@
     text = copied.text;
   }
 
-  function insertFile() {
-    document.querySelector<HTMLElement>('#stupid_hardcoded_url').click();
-  }
+  // function insertFile() {
+  //   document.querySelector<HTMLElement>('#stupid_hardcoded_url')!.click();
+  // }
 </script>
 
-<flex gap inert={loading ? 'true' : null} class:loading>
-  <h1>io message management dashboard</h1>
+<layout-flex gap inert={loading ? 'true' : null} class:loading>
+  <h1>questions answer machine 2023</h1>
   {#if isSandbox}
     <p>you are using the sandbox. this shows how the formatter works.</p>
   {:else if !input}
@@ -89,25 +86,19 @@
     </p>
   {/if}
 
-  <flex row gap class="equal-width">
-    <flex column gap>
-      <ButtonRow>
+  <layout-flex row gap class="equal-width">
+    <layout-flex column gap>
+      <layout-button-row>
         {#if !isSandbox}
-          <AccentOverride accent={palette.green[500]}>
-            <Button variant="accent" on:click={apply}>apply</Button>
-          </AccentOverride>
-          <AccentOverride accent={palette.red[500]}>
-            <Button variant="accent" on:click={del}>delete</Button>
-          </AccentOverride>
+          <Button variant="primary" on:click={apply}>apply</Button>
+          <Button variant="secondary" on:click={del}>delete</Button>
         {/if}
         {#if input}
           <Button variant="normal" on:click={defer}>defer</Button>
         {/if}
-        <AccentOverride accent={palette.cyan[500]}>
-          <Button variant="accent" on:click={insertFile}>insert file</Button>
-        </AccentOverride>
+        <!-- <Button variant="tertiary" on:click={insertFile}>insert file</Button> -->
         <Button variant="normal" on:click={reset}>reset</Button>
-      </ButtonRow>
+      </layout-button-row>
       {#if input}
         {#if input.sourceName}
           <p>
@@ -130,14 +121,14 @@
       <MessageRespondUploadUtil />
 
       <div>
-        <TextBox unstable_ioTextarea label="response" bind:value={text} />
+        <QaTextBoxFork unstable_ioTextarea label="response" bind:value={text} />
       </div>
-    </flex>
+    </layout-flex>
     <flex column style="flex:0 0 800px">
       <MessageRender message={copied} />
     </flex>
-  </flex>
-</flex>
+  </layout-flex>
+</layout-flex>
 
 <style lang="scss">
   .equal-width {
@@ -154,7 +145,7 @@
 
   .prompt {
     background-color: black;
-    color: hsl(var(--acc));
+    color: rgb(var(--pri));
     padding: 1.5rem;
     white-space: pre-wrap;
   }

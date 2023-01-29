@@ -3,7 +3,6 @@
 </script>
 
 <script lang="ts">
-  import type { Message } from '@prisma/client';
   import { messageMarkdown } from './markdown';
   import MessageDate from './MessageDate.svelte';
   import { Markdown } from 'svelte-simple-markdown';
@@ -33,9 +32,8 @@
     color: red;
   }
   .marker {
-    --fg: var(--restore-fg);
     color: #999;
-    background-color: hsla(var(--fg), 0.1);
+    background-color: #222;
     padding: 1rem;
     border-radius: 5px;
   }
@@ -46,15 +44,12 @@
     --on-bg-pri: 0, 184, 155;
     --on-pri: 0, 0, 0;
     --text-casual: 1;
-
-    & > * {
-      --fg: 129, 57%, 57%;
-      color: hsl(var(--fg));
-    }
+    --on-bg: 83, 208, 102;
+    color: rgb(var(--on-bg));
 
     code {
-      background-color: hsla(var(--fg), 0.2);
-      color: hsl(var(--fg));
+      background-color: rgba(var(--on-bg), 0.2);
+      color: rgb(var(--on-bg));
       padding: 0.05rem 0.2rem;
       border-radius: 5px;
     }
