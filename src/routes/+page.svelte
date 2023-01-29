@@ -516,4 +516,15 @@
       left: 10rem;
     }
   }
+
+  @supports not (mix-blend-mode: screen) {
+    .background {
+      display: none;
+    }
+  }
+  @supports not (mix-blend-mode: multiply) {
+    .overlays {
+      opacity: 0.1;
+    }
+  }
 </style>
