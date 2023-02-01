@@ -5,7 +5,10 @@ import type { PageServerLoad } from './$types';
 export const load: PageServerLoad = async ({}) => {
   const artifacts = await db.video.findMany({
     where: {
-      unlisted: false
+      unlisted: false,
+      date: {
+        lte: new Date()
+      }
     },
     select: {
       id: true,

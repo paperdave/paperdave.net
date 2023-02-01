@@ -92,7 +92,26 @@ model Song {
   duration     Int      @default(0)
 }
 
-// Games
+model Album {
+  id       String   @id
+  date     DateTime @default(now())
+  title    String
+  tags     String[]
+  unlisted Boolean  @default(false)
+  art      String?
+  songs    Song[]
+}
+
+model Song {
+  id       String   @id
+  date     DateTime @default(now())
+  title    String
+  album    Album?   @relation(fields: [albumId], references: [id])
+  albumId  String?
+  media    String
+  tags     String[]
+  unlisted Boolean  @default(false)
+}
 
 model Game {
   id                  String   @id
