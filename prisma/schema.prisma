@@ -206,12 +206,14 @@ model ArtifactEntry {
   type ArtifactType
 
   // legacy media id
-  thumb       String?
-  title       String
-  date        DateTime
+  thumb    String?
+  title    String
+  date     DateTime
+  unlisted Boolean  @default(false)
+  featured Boolean  @default(false)
+
   mentionedIn Message[]
-  unlisted    Boolean   @default(false)
-  featured    Boolean   @default(false)
+  bits        Bit[]
 }
 
 enum ArtifactType {
@@ -314,6 +316,48 @@ model Story {
   unlisted    Boolean   @default(false)
 }
 
+// Blog
+
+model BlogPost {
+  id       String   @id
+  date     DateTime @default(now())
+  title    String
+  // image media key
+  thumb    String?
+  body     String
+  tags     String[]
+  unlisted Boolean  @default(false)
+}
+
+// Bits
+
+model Bit {
+  date     DateTime @id @default(now())
+  // any text to be displayed next to the bit
+  notes    String
+  // file media key
+  media    String
+  // filename needed for download/view
+  filename String
+
+  // optionally link to an artifact
+  artifact     ArtifactEntry? @relation(fields: [artifactId], references: [id])
+  artifactId   String?
+  // "reminder" is for publishing bits on projects that are not yet in the system
+  artifactTodo String
+
+  mentionedIn Message[]
+}
+
+// Journal
+
+// TODO: journal is too complicated to even conceptualize
+// ...but also i dont know what i want to put, or if i want to at all
+//
+// model JournalEntry {
+//   date DateTime @id @default(now())
+// }
+
 // Question Answer Page
 
 model Message {
@@ -322,6 +366,7 @@ model Message {
   text String
 
   mentionedArtifacts ArtifactEntry[]
+  mentionedBits      Bit[]
   mentionedMessages  Message[]       @relation("messageMention")
   mentionedIn        Message[]       @relation("messageMention")
 }
@@ -339,6 +384,34 @@ model MessageInput {
   sourceName     String?
   sourceLocation String?
   sourceVPN      String?
+}
+
+// User System
+
+model User {
+  id     Int      @id @default(autoincrement())
+  name   String
+  email  String   @unique
+  bcrypt String?
+  role   UserRole @default(User)
+
+  donator   Donator? @relation(fields: [donatorId], references: [id])
+  donatorId Int?     @unique
+
+  sessions Session[]
+}
+
+model Session {
+  id        String   @id
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  expiresAt DateTime
+}
+
+enum UserRole {
+  Admin
+  UnlistedViewer
+  User
 }
 
 // Other Tables
@@ -403,6 +476,7 @@ enum UserRole {
 
 model Donator {
 <<<<<<< HEAD
+<<<<<<< HEAD
   id   Int    @id @default(autoincrement())
   name String
   user User?
@@ -411,4 +485,9 @@ model Donator {
   name  String
   email String?
 >>>>>>> 40e561c (hmm)
+=======
+  id   Int    @id @default(autoincrement())
+  name String
+  user User?
+>>>>>>> ae28163 (more schema updates)
 }
