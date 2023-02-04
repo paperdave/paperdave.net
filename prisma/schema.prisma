@@ -202,30 +202,25 @@ model LegacyQuestionInput {
 =======
 
 model ArtifactEntry {
-  id          String       @id
-  type        ArtifactType
+  id   String       @id
+  type ArtifactType
+
   // legacy media id
   thumb       String?
   title       String
   date        DateTime
   mentionedIn Message[]
-  unlisted    Boolean      @default(false)
-  featured    Boolean      @default(false)
+  unlisted    Boolean   @default(false)
+  featured    Boolean   @default(false)
 }
 
 enum ArtifactType {
-  Application
-  Doodle
-  Fragment
-  Game
-  Journal
-  Music
-  MusicVideo
-  NerdGear
-  Square
-  Story
   Video
-  WordMagnet
+  Song
+  Album
+  MusicVideo
+  Game
+  Story
 }
 
 // Videos
