@@ -13,7 +13,7 @@
 <script lang="ts">
   import { browser } from '$app/environment';
   import { useEffect } from '$lib';
-  import { decodeMediaId } from 'src/media-id';
+  import { decodeMediaId } from 'src/legacy-media-id';
   const threshold = 75;
   export let src: string;
   export let alt: string;

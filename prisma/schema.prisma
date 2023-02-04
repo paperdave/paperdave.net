@@ -12,6 +12,7 @@ datasource db {
 }
 
 // ARTIFACT ENTRY
+<<<<<<< HEAD
 
 model ArtifactEntry {
   id   String       @id
@@ -198,6 +199,155 @@ model LegacyQuestionInput {
   date DateTime @id
   text String
 }
+=======
+
+model ArtifactEntry {
+  id          String       @id
+  type        ArtifactType
+  // legacy media id
+  thumb       String?
+  title       String
+  date        DateTime
+  mentionedIn Message[]
+  unlisted    Boolean      @default(false)
+  featured    Boolean      @default(false)
+}
+
+enum ArtifactType {
+  Application
+  Doodle
+  Fragment
+  Game
+  Journal
+  Music
+  MusicVideo
+  NerdGear
+  Square
+  Story
+  Video
+  WordMagnet
+}
+
+// Videos
+
+model Video {
+  id       String   @id
+  date     DateTime @default(now())
+  title    String
+  tags     String[]
+  thumb    String?
+  // video media key or http url
+  media    String
+  source   String?
+  ttms     Float?
+  unlisted Boolean  @default(false)
+}
+
+// Music (Albums and Songs)
+
+model Album {
+  id       String    @id
+  date     DateTime  @default(now())
+  title    String
+  tags     String[]
+  unlisted Boolean   @default(false)
+  // image/album media key
+  art      String?
+  songs    Song[]
+  type     AlbumType
+  desc     String?
+}
+
+enum AlbumType {
+  Single
+  Album
+  Soundtrack
+  Other
+  Collection
+}
+
+model Song {
+  uid      Int      @id @default(autoincrement())
+  id       String
+  order    Int      @default(0)
+  date     DateTime @default(now())
+  title    String
+  album    Album?   @relation(fields: [albumId], references: [id])
+  albumId  String?
+  // song media key or http url
+  media    String
+  tags     String[]
+  unlisted Boolean  @default(false)
+}
+
+// Games
+
+model Game {
+  id                  String   @id
+  date                DateTime @default(now())
+  title               String
+  description         String   @default("")
+  shortDescription    String?
+  web                 String?
+  webAlwaysFullscreen Boolean  @default(false)
+  source              String?
+  downloads           Json[]
+  // legacy media ids
+  banner              String?
+  // legacy media ids
+  logo                String?
+  // list of legacy media ids
+  screenshots         String[]
+  themeBG             String?
+  themeFG             String?
+  themeAccent         String?
+  unlisted            Boolean  @default(false)
+}
+
+// Stories
+
+model Story {
+  id          String    @id
+  date        DateTime  @default(now())
+  dateEnd     DateTime?
+  title       String
+  // legacy media id
+  thumb       String?
+  description String
+  url         String
+  tags        String[]
+  unlisted    Boolean   @default(false)
+}
+
+// Question Answer Page
+
+model Message {
+  date DateTime    @id @default(now())
+  type MessageType
+  text String
+
+  mentionedArtifacts ArtifactEntry[]
+  mentionedMessages  Message[]       @relation("messageMention")
+  mentionedIn        Message[]       @relation("messageMention")
+}
+
+enum MessageType {
+  NORMAL
+  REJECT
+  MARKER
+}
+
+model MessageInput {
+  date           DateTime @id @default(now())
+  prompt         String
+  notifyEmail    String?
+  sourceName     String?
+  sourceLocation String?
+  sourceVPN      String?
+}
+
+// Other Tables
+>>>>>>> 40e561c (hmm)
 
 model Question {
   date DateTime     @id @default(now())
@@ -257,7 +407,13 @@ enum UserRole {
 // Other Tables
 
 model Donator {
+<<<<<<< HEAD
   id   Int    @id @default(autoincrement())
   name String
   user User?
+=======
+  id    Int     @id @default(autoincrement())
+  name  String
+  email String?
+>>>>>>> 40e561c (hmm)
 }
