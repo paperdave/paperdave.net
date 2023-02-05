@@ -142,14 +142,33 @@ export const getCdnSongLyricsURL = (key: string) => `${CDN}/song/${key}/lyrics.t
  */
 export interface CDNImageFullMeta {
   key: string;
-  title: string;
+  type: string;
+  images: CDNImageEntry[];
   encodeDate: string;
   encodeTime: number;
   totalSize: number;
 }
 
+export interface CDNImageEntry {
+  width: number;
+  height: number;
+  format: 'jpeg' | 'webp';
+  size: number;
+  url: string;
+}
+
+export interface CDNImageMeta {
+  key: string;
+  type: string;
+  w: number;
+  h: number;
+}
+
 export const getCdnImageFullMetaURL = (key: string, type: keyof typeof imageTypes) =>
   `${CDN}/img/${type}/${key}/index.json`;
+
+export const getCdnImageMetaURL = (key: string, type: keyof typeof imageTypes) =>
+  `${CDN}/img/${type}/${key}/meta.json`;
 
 export const getCdnImageURLs = (key: string, type: keyof typeof imageTypes) =>
   imageFormats
