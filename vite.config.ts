@@ -11,7 +11,7 @@ const config: UserConfig = {
   resolve: {
     alias: {
       '@prisma/client':
-        process.env.NODE_ENV === 'production' ? '@prisma/client' : '@prisma/client/edge'
+        process.env.NODE_ENV === 'production' ? '@prisma/client/edge' : '@prisma/client'
     }
   }
 };
