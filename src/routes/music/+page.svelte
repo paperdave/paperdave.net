@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Img from 'src/components/Img.svelte';
+  import Img from 'src/components/LegacyImg.svelte';
   import { formatDate } from 'src/date';
   import type { PageData } from './$types';
 
@@ -13,7 +13,7 @@
     {#if album.single}
       {@const song = album.songs[0]}
       <h3>{album.title}</h3>
-      <Img src={album.art} alt="{album.title} Album Cover" />
+
       <p>{formatDate(song.date, 'date')}</p>
       <p>{song.media}</p>
       <ul>

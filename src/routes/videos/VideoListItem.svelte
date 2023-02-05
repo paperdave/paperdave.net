@@ -2,7 +2,7 @@
   import type { Video } from '@prisma/client';
   import Button from 'src/lib/input-button/Button.svelte';
   import dayjs from 'dayjs';
-  import Img from 'src/components/Img.svelte';
+  import Img from 'src/components/LegacyImg.svelte';
 
   export let video: any;
 </script>

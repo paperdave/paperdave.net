@@ -4,7 +4,7 @@
   import { defaultMarkdownConfig } from 'src/markdown';
   import { getTypedGameDownloads, type GameDownload } from '../utils';
   import { Button, ThemeRoot } from '$lib';
-  import Img from 'src/components/Img.svelte';
+  import Img from 'src/components/LegacyImg.svelte';
   import type { PageData } from './$types';
   import Link from 'src/lib/link/Link.svelte';
   export let data: PageData;
