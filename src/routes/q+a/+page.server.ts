@@ -55,7 +55,8 @@ export const load: PageServerLoad = async ({ url }) => {
       type: type !== 'NORMAL' ? type : undefined,
       artifacts:
         mentionedArtifacts.length > 0
-          ? mentionedArtifacts.reduce<any>((acc, { id, title, type }) => {
+          ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            mentionedArtifacts.reduce<any>((acc, { id, title, type }) => {
               acc[id] = { title, type };
               return acc;
             }, {})

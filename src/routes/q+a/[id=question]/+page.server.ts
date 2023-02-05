@@ -12,7 +12,13 @@ export const load: PageServerLoad = async ({ params: { id } }) => {
       date
     },
     include: {
-      mentionedArtifacts: true,
+      mentionedArtifacts: {
+        select: {
+          id: true,
+          title: true,
+          type: true
+        }
+      },
       mentionedMessages: true
     }
   });
@@ -25,6 +31,21 @@ export const load: PageServerLoad = async ({ params: { id } }) => {
     if (find2) {
       return { message: null, isPending: true };
     }
+    return { message: null, isPending: false };
   }
-  return { message: find, isPending: false };
+
+  return {
+    message: {
+      ...find,
+      artifacts:
+        find.mentionedArtifacts.length > 0
+          ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            find.mentionedArtifacts.reduce<any>((acc, { id, title, type }) => {
+              acc[id] = { title, type };
+              return acc;
+            }, {})
+          : undefined
+    },
+    isPending: false
+  };
 };
