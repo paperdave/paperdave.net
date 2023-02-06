@@ -35,6 +35,7 @@ export const load: PageServerLoad = async () => {
       id: album.id,
       date: album.date,
       title: album.title,
+      art: album.art,
       single: album.songs.length === 1,
       songs: album.songs
     };

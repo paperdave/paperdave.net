@@ -170,16 +170,22 @@ export const getCdnImageFullMetaURL = (key: string, type: keyof typeof imageType
 export const getCdnImageMetaURL = (key: string, type: keyof typeof imageTypes) =>
   `${CDN}/img/${type}/${key}/meta.json`;
 
-export const getCdnImageURLs = (key: string, type: keyof typeof imageTypes) =>
+export const getCdnImageURLs = (key: string, type: keyof typeof imageTypes, maxSize?: number) =>
   imageFormats
     .map((ext) =>
       imageTypes[type].sizes.map((size) => ({
-        url: `${CDN}/img/${key}/${type}/${size}.${ext}`,
+        url: `${CDN}/img/${type}/${key}/${size}.${ext}`,
         size,
         type: `image/${ext}`
       }))
     )
-    .flat();
+    .flat()
+    .filter((image) => !maxSize || image.size <= maxSize);
+
+export const getCdnImageSrcSet = (key: string, type: keyof typeof imageTypes, maxSize?: number) =>
+  getCdnImageURLs(key, type, maxSize)
+    .map((image) => `${image.url} ${image.size}w`)
+    .join(', ');
 
 // ATTACHMENTS
 
