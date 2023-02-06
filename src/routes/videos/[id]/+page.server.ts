@@ -25,7 +25,8 @@ export const load: PageServerLoad = async ({ params: { id } }) => {
     where: {
       date: {
         gt: artifact.date
-      }
+      },
+      unlisted: false
     },
     select: {
       id: true,
@@ -41,7 +42,8 @@ export const load: PageServerLoad = async ({ params: { id } }) => {
     where: {
       date: {
         lt: artifact.date
-      }
+      },
+      unlisted: false
     },
     select: {
       id: true,
