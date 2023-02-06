@@ -264,17 +264,19 @@ enum AlbumType {
 }
 
 model Song {
-  uid      Int      @id @default(autoincrement())
-  id       String
-  order    Int      @default(0)
-  date     DateTime @default(now())
-  title    String
-  album    Album?   @relation(fields: [albumId], references: [id])
-  albumId  String?
-  // song media key or http url
-  media    String
-  tags     String[]
-  unlisted Boolean  @default(false)
+  uid          Int      @id @default(autoincrement())
+  id           String
+  order        Int      @default(0)
+  date         DateTime @default(now())
+  title        String
+  album        Album?   @relation(fields: [albumId], references: [id])
+  albumId      String?
+  // song media key
+  media        String
+  // song media key
+  instrumental String?
+  tags         String[]
+  unlisted     Boolean  @default(false)
 }
 
 // Games

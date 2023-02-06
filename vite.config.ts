@@ -1,12 +1,11 @@
 import { sveltekit } from '@sveltejs/kit/vite';
 import type { UserConfig } from 'vite';
-
-console.log(process.env.NODE_ENV);
+import yaml from '@rollup/plugin-yaml';
 
 const config: UserConfig = {
-  plugins: [sveltekit()],
+  plugins: [sveltekit(), yaml()],
   optimizeDeps: {
-    include: ['sswr']
+    include: []
   },
   resolve: {
     alias: {
