@@ -22,6 +22,26 @@
   ];
 </script>
 
+<svelte:head>
+  <title>paperdave</title>
+  <meta
+    name="description"
+    content="i make abstract art and post it online. for free, for everyone."
+  />
+  <meta
+    name="og:description"
+    content="i make abstract art and post it online. for free, for everyone."
+  />
+  <meta name="og:title" content="paperdave" />
+  <meta name="og:type" content="website" />
+  <meta name="og:image" content="/embed.png" />
+  <meta name="twitter:image" content="/embed.png" />
+  <meta name="og:url" content="https://paperdave.net" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="keywords" content="music, video, art, multimedia, art, abstract" />
+  <meta name="author" content="Dave Caruso" />
+</svelte:head>
+
 <ThemeRoot background="#121212" foreground="#ffffff">
   <div style="position:relative;min-height:100vh">
     <header>
