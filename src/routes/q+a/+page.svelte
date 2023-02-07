@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Link from 'src/lib/link/Link.svelte';
   import type { PageData, Snapshot } from './$types';
   import QuestionForm from './_lib/QuestionForm.svelte';
   import QuestionRender from './_lib/QuestionRender.svelte';
@@ -14,6 +15,12 @@
 
 <QuestionForm />
 
+{#if !data.latest}
+  <p>
+    <strong>page ${data.id}</strong> | <Link href="/q+a?page=${data.id + 1}">newer</Link>
+  </p>
+{/if}
+
 {#each data.questions as question}
   <QuestionRender
     question={{
@@ -24,6 +31,12 @@
     }}
   />
 {/each}
+
+{#if data.id !== 0}
+  <p>
+    <Link href="/q+a?page=${data.id - 1}">older</Link>
+  </p>
+{/if}
 
 <footer>
   fun fact: dave has answered {data.count} questions
