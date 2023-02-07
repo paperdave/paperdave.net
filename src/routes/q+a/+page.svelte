@@ -1,9 +1,15 @@
 <script lang="ts">
-  import type { PageData } from './$types';
+  import type { PageData, Snapshot } from './$types';
   import QuestionForm from './_lib/QuestionForm.svelte';
   import QuestionRender from './_lib/QuestionRender.svelte';
 
   export let data: PageData;
+
+  let content: string | undefined = undefined;
+  export const snapshot: Snapshot = {
+    capture: () => content,
+    restore: (data: string) => (content = data)
+  };
 </script>
 
 <QuestionForm />

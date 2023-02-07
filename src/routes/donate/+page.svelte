@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { ThemeRoot } from '$lib';
   import BackButton from 'src/components/BackButton.svelte';
   import Link from 'src/lib/link/Link.svelte';
+  import ThemeRoot from 'src/lib/theme-root/ThemeRoot.svelte';
 
   export let data: { donators: string[] };
 </script>

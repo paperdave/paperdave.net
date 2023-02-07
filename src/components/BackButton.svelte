@@ -1,5 +1,5 @@
 <script>
-  import { Button } from '$lib';
+  import Button from 'src/lib/input-button/Button.svelte';
   export let href = '/';
 </script>
 

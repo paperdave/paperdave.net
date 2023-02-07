@@ -2,10 +2,10 @@
   import { browser } from '$app/environment';
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
-  import { ThemeRoot } from '$lib';
   import BackButton from 'src/components/BackButton.svelte';
   import Button from 'src/lib/input-button/Button.svelte';
   import Checkbox from 'src/lib/input-checkbox/Checkbox.svelte';
+  import ThemeRoot from 'src/lib/theme-root/ThemeRoot.svelte';
   import { onDestroy } from 'svelte';
   import type { PageData } from './$types';
   import VideoListItem from './VideoListItem.svelte';

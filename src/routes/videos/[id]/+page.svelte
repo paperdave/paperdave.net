@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { ThemeRoot } from '$lib';
-  import dayjs from 'dayjs';
   import BackButton from 'src/components/BackButton.svelte';
+  import { formatDate } from 'src/date';
+  import ThemeRoot from 'src/lib/theme-root/ThemeRoot.svelte';
   import VideoListItem from '../VideoListItem.svelte';
   import type { PageData } from './$types';
 
@@ -16,7 +16,7 @@
     <figure class="full-width video-player">
       <video src={data.artifact?.media} controls autoplay />
     </figure>
-    <p>Published on {dayjs(data.artifact?.date).format('YYYY-MM-DD')}</p>
+    <p>Published on {formatDate(data.artifact?.date, 'date')}</p>
     {#if data.artifact?.tags?.length}
       <layout-flex row gap class="tags">
         {#each data.artifact?.tags ?? [] as tag}

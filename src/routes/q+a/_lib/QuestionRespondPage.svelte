@@ -2,7 +2,7 @@
   import type { Question, QuestionInput } from '@prisma/client';
   import MonacoEditor from 'src/components/MonacoEditor.svelte';
   import { formatDate } from 'src/date';
-  import { Button } from 'src/lib';
+  import Button from 'src/lib/input-button/Button.svelte';
   import { createEventDispatcher } from 'svelte';
   import QuestionRender from './QuestionRender.svelte';
   import { old_api_do_not_use_outside_qa as api } from './old_session';

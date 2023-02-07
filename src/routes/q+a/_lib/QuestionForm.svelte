@@ -1,11 +1,11 @@
 <script lang="ts">
-  import { Button } from '$lib';
   import IconButton from '../../../components/IconButton.svelte';
   import { fade } from 'svelte/transition';
   import placeholderData from './placeholders.txt?raw';
   import QaTextBoxFork from './QATextBoxFork.svelte';
   import { qaNotifyEmail } from './stores';
   import Link from 'src/lib/link/Link.svelte';
+  import Button from 'src/lib/input-button/Button.svelte';
 
   const placeholders = placeholderData.split('\n').filter(Boolean);
 
@@ -96,14 +96,14 @@
               <IconButton
                 on:click={openNotifForm}
                 name="notifications"
-                disabled={loading}
+                disabled={loading || !expanded || notifFormOpened}
                 tabindex={notifFormOpened || !expanded ? '-1' : undefined}
               />
             </div>
             <div class="textbox">
               <QaTextBoxFork
                 autoHeight
-                disabled={loading}
+                disabled={loading || !expanded}
                 type="email"
                 name="email"
                 maxlength={128}
@@ -122,7 +122,11 @@
             <label class="text" for="paperdave-io-notify-email">notify at:</label>
           </div>
 
-          <Button tabindex={expanded ? undefined : '-1'} type="submit" disabled={loading}>
+          <Button
+            tabindex={expanded ? undefined : '-1'}
+            type="submit"
+            disabled={loading || !expanded}
+          >
             Send
           </Button>
         </layout-button-row>

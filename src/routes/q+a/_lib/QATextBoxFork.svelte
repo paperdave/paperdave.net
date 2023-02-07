@@ -106,8 +106,8 @@
 
   async function updateHeight() {
     await tick();
-    const height = unstable_ioTextareaMeasure.scrollHeight;
-    unstable_ioTextareaHeight = Math.max(height + 4, 3 * 16) + (focused || value ? 32 : 0);
+    const height = unstable_ioTextareaMeasure.scrollHeight - 16;
+    unstable_ioTextareaHeight = Math.max(height, 0) + (focused || value ? 32 : 0);
   }
 
   $: [value, focused] && unstable_ioTextareaMeasure && updateHeight();
@@ -259,6 +259,8 @@
     border: none;
     resize: none;
     background-color: transparent;
+    font-family: Recursive;
+    font-size: 16px;
     width: 100%;
     font-weight: 500;
     color: rgb(var(--on-bg));
@@ -283,7 +285,6 @@
   }
 
   .textarea-height-measure {
-    font-weight: 500;
     position: absolute;
     top: 0;
     left: 0;
