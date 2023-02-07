@@ -27,7 +27,7 @@
   <li>email if you put it in</li>
   <li>which country you're in</li>
   <li>a random generated name based off your ip address</li>
-  <li>if you are using a vpn or similar service</li>
+  <li>if you are using a vpn or other proxy service</li>
 </ul>
 
 <p>
