@@ -1,12 +1,12 @@
 <script lang="ts">
   import type { Message, MessageInput } from '@prisma/client';
+  import MonacoEditor from 'src/components/MonacoEditor.svelte';
   import { formatDate } from 'src/date';
   import { Button } from 'src/lib';
   import { createEventDispatcher } from 'svelte';
   import MessageRender from './MessageRender.svelte';
   import MessageRespondUploadUtil from './MessageRespondUploadUtil.svelte';
   import { old_api_do_not_use_outside_qa as api } from './old_session';
-  import QaTextBoxFork from './QATextBoxFork.svelte';
 
   const dispatch = createEventDispatcher();
 
@@ -72,11 +72,9 @@
   // }
 </script>
 
-<layout-flex gap inert={loading ? 'true' : null} class:loading>
-  <h1>questions answer machine 2023</h1>
-  {#if isSandbox}
-    <p>you are using the sandbox. this shows how the formatter works.</p>
-  {:else if !input}
+<layout-flex gap inert={loading ? 'true' : null} class:loading style="height:100vh">
+  <h1>respond to questions</h1>
+  {#if !input}
     <p>
       editing message from {formatDate(message.date, 'date-time')}
     </p>
@@ -86,7 +84,7 @@
     </p>
   {/if}
 
-  <layout-flex row gap class="equal-width">
+  <layout-flex row gap class="equal-width" style="flex:1;">
     <layout-flex column gap>
       <layout-button-row>
         {#if !isSandbox}
@@ -98,30 +96,41 @@
         {/if}
         <!-- <Button variant="tertiary" on:click={insertFile}>insert file</Button> -->
         <Button variant="normal" on:click={reset}>reset</Button>
+        {#if input}
+          <layout-flex row>
+            {#if input.sourceName}
+              <p>
+                from {input.sourceName} from {input.sourceLocation ?? 'unknown'}
+              </p>
+            {/if}
+            {#if input.sourceVPN}
+              <p>
+                proxy/vpn{#if input.sourceVPN !== 'unknown'}
+                  type={JSON.stringify(input.sourceVPN)}{/if}
+              </p>
+            {/if}
+            {#if input.notifyEmail}
+              <p>
+                notify {JSON.stringify(input.notifyEmail)}
+              </p>
+            {/if}
+          </layout-flex>
+        {/if}
       </layout-button-row>
-      {#if input}
-        {#if input.sourceName}
-          <p>
-            from {input.sourceName} from {input.sourceLocation ?? 'unknown'}
-          </p>
-        {/if}
-        {#if input.sourceVPN}
-          <p>
-            using a vpn. type={JSON.stringify(input.sourceVPN)}
-          </p>
-        {/if}
-        {#if input.notifyEmail}
-          <p>
-            notify {JSON.stringify(input.notifyEmail)}
-          </p>
-        {/if}
-        <pre class="prompt"><code>{input.prompt}</code></pre>
-      {/if}
 
-      <MessageRespondUploadUtil />
+      <!-- <pre class="prompt"><code>{input.prompt}</code></pre> -->
 
-      <div>
-        <QaTextBoxFork unstable_ioTextarea label="response" bind:value={text} />
+      <div style="background-color: black;position:relative;flex:1">
+        <MonacoEditor
+          bind:value={text}
+          options={{
+            language: 'qa',
+            theme: 'qa',
+            fontSize: 22,
+            scrollBeyondLastLine: false,
+            wordWrap: 'on'
+          }}
+        />
       </div>
     </layout-flex>
     <flex column style="flex:0 0 800px">
@@ -154,5 +163,10 @@
     width: 800px;
     color: white;
     overflow-x: scroll;
+  }
+
+  h1,
+  p {
+    margin-bottom: 0;
   }
 </style>

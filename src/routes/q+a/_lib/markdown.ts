@@ -1,5 +1,4 @@
 import MdLink from 'src/markdown/MDLink.svelte';
-import { decodeMediaId, type MediaType } from 'src/media-id';
 import {
   blockRegex,
   createParser,
@@ -57,12 +56,17 @@ customRules.insertBefore('paragraph', {
   }
 });
 
+const artifactCaptures = [
+  /^games\/([a-z0-9-]+)/,
+  /^stories\/([a-z0-9-]+)/,
+  /^videos\/([a-z0-9-]+)/
+  // /^music\/([a-z0-9-]+)/,
+];
+
 /** Adjust autolinking to use my own components if possible */
 customRules.insertBefore('url', {
   name: 'autolink_mention',
-  match: inlineRegex(
-    /^https?:\/\/(?:paperdave\.net|davecode\.net|localhost:3000)\/([^\s<]+[^<.,:;"')\]\s])/
-  ),
+  match: inlineRegex(/^https?:\/\/(?:paperdave\.net|localhost:\d+)\/([^\s<]+[^<.,:;"')\]\s])/),
   parse(capture) {
     const qaMatch = capture[1].match(/^q\+a\/([0-9]{12})/);
     if (qaMatch) {
@@ -72,16 +76,11 @@ customRules.insertBefore('url', {
       };
     }
 
-    const split = capture[1].split('/');
-    if (split.length === 1) {
+    const artifactMatch = artifactCaptures.find((x) => capture[1].match(x));
+    if (artifactMatch) {
       return {
         type: 'mentionArtifact',
-        id: split[0]
-      };
-    } else if (split.length === 2) {
-      return {
-        type: 'mentionArtifact',
-        id: split[1]
+        id: capture[1].match(artifactMatch)[1]
       };
     }
 
@@ -95,88 +94,6 @@ customRules.insertBefore('url', {
       ],
       target: capture[1],
       title: undefined
-    };
-  }
-});
-
-/** Hyperlink shortcuts */
-function getGithubPrefix(extra: string[]) {
-  if (extra.length === 0) {
-    return 'github: ';
-  } else if (extra[0] === 'pull' || extra[0] === 'issue') {
-    return `${extra[0]} #${extra[1]} on `;
-  } else if (extra[0] === 'commit') {
-    return `this commit on `;
-  } else if (extra[0] === 'tree') {
-    return `${extra[1]} on `;
-  } else if (extra[0] === 'blob') {
-    return `this file on `;
-  } else if (extra[0] === 'wiki') {
-    return `github wiki: `;
-  }
-  return 'github: ';
-}
-customRules.insertBefore('em', {
-  name: 'autolink_github',
-  match: inlineRegex(/^github:([^ ]+)/),
-  parse(capture) {
-    const data = capture[1].split('/');
-
-    const subpaths = ['issues', 'pulls', 'commit', 'blob', 'tree', 'wiki'];
-    const find = data.findIndex((x) => subpaths.includes(x));
-    const pathStart = find === -1 ? data.length : find;
-    let [user, repo] = data.slice(0, pathStart);
-    if (!repo) {
-      repo = user;
-      user = 'davecaruso';
-    }
-    const extra = data.slice(pathStart);
-    const url = `https://github.com/${user}/${repo}${extra.length ? '/' + extra.join('/') : ''}`;
-
-    return {
-      type: 'link',
-      content: [
-        {
-          type: 'text',
-          content: `${getGithubPrefix(extra)}${user === 'davecaruso' ? '' : user + '/'}${repo}`
-        }
-      ],
-      target: url
-    };
-  }
-});
-
-const dataDecoderTypeToLabel: Record<MediaType, string> = {
-  webp: 'image',
-  png: 'image',
-  jpeg: 'image',
-  avif: 'image',
-  webm: 'video',
-  av1: 'video',
-  mp4: 'video',
-  flac: 'audio',
-  mp3: 'audio',
-  wav: 'audio'
-};
-customRules.insertBefore('em', {
-  name: 'attachment',
-  match: inlineRegex(
-    /^file:([a-zA-Z0-9][a-zA-Z0-9_-]{20}[\/a-zA-Z0-9#$%*+,\.:;=?@[\]^_{|}~-]+)(?:\(([^)]*)\))?/
-  ),
-  parse(capture, parse, state) {
-    const data = capture[1];
-    const decoded = decodeMediaId(data);
-    return {
-      type: 'attachment',
-      data: decoded,
-      content: capture[2]
-        ? parse(capture[2], state)
-        : [
-            {
-              type: 'text',
-              content: `pasted ${dataDecoderTypeToLabel[decoded.type]}`
-            }
-          ]
     };
   }
 });

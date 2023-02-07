@@ -35,6 +35,8 @@
     "@paperdave/utils": "^1.6.1",
     "@prisma/client": "^4.8.0",
     "dayjs": "^1.11.7",
+    "html-minifier": "^4.0.0",
+    "monaco-editor": "^0.34.1",
     "prisma": "^4.8.0",
     "sass": "^1.57.1",
     "sswr": "^1.7.0",

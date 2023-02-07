@@ -86,7 +86,7 @@
     }
     &:active {
       transition-duration: 0ms;
-      background-color: rgb(198, 34, 34);
+      background-color: #c62222;
     }
   }
   .icon {
