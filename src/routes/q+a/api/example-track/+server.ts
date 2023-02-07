@@ -40,8 +40,12 @@ export const GET: RequestHandler = async ({ request }) => {
       if (proxyCheck[ipAddr].proxy === 'yes') {
         data.sourceVPN = proxyCheck[ipAddr].operator?.name ?? 'unknown';
       }
+
       if (Number(proxyCheck[ipAddr].risk) > 72) {
-        return json({ blocked: 'User risk is too high' });
+        return json({
+          blocked:
+            'This IP address has been flagged as a high risk IP address. If you are using a VPN/Proxy, please disable it and try again.'
+        });
       }
     }
   }

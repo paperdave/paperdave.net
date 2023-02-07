@@ -83,7 +83,10 @@ export const POST: RequestHandler = async ({ request }) => {
         input.sourceVPN = proxyCheck[ipAddr].operator?.name ?? 'unknown';
       }
       if (Number(proxyCheck[ipAddr].risk) > 72) {
-        throw error(403, 'User risk is too high');
+        throw error(
+          403,
+          'This IP address has been flagged as a high risk IP address. If you are using a VPN/Proxy, please disable it and try again.'
+        );
       }
     }
   }

@@ -132,12 +132,10 @@
 {:else}
   <div in:fade={{ duration: 100 }}>
     {#if result.error}
-      <h2 class="error">error sending message</h2>
+      <h2 class="error">error sending question</h2>
       <p>
         {result.message}
       </p>
-      <br />
-      <br />
       <layout-button-row>
         <Button
           on:click={() => {
@@ -147,6 +145,7 @@
           try again
         </Button>
       </layout-button-row>
+      <br />
     {:else}
       <div class="success">
         <p>
