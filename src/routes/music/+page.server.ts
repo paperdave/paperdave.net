@@ -5,10 +5,10 @@ import type { PageServerLoad } from './$types';
 export const load: PageServerLoad = async () => {
   const albums = await db.album.findMany({
     where: {
-      unlisted: false,
-      date: {
-        lte: new Date()
-      }
+      unlisted: false
+      // date: {
+      //   lte: new Date()
+      // }
     },
     orderBy: {
       date: 'desc'
@@ -17,14 +17,19 @@ export const load: PageServerLoad = async () => {
       id: true,
       date: true,
       title: true,
+      type: true,
       art: true,
+      desc: true,
       songs: {
         select: {
           id: true,
           title: true,
           date: true,
           media: true,
-          tags: true
+          tags: true,
+          instrumental: true,
+          order: true,
+          duration: true
         }
       }
     }
@@ -36,8 +41,19 @@ export const load: PageServerLoad = async () => {
       date: album.date,
       title: album.title,
       art: album.art,
-      single: album.songs.length === 1,
+      type: album.type,
+      desc: album.desc,
       songs: album.songs
+        .sort((a, b) => a.order - b.order)
+        .map((song) => ({
+          id: song.id,
+          title: song.title,
+          date: song.date,
+          media: song.media,
+          instrumental: song.instrumental,
+          tags: song.tags,
+          duration: song.duration
+        }))
     };
   });
 

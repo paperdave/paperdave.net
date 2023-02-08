@@ -4,38 +4,25 @@
   import Link from 'src/lib/link/Link.svelte';
   import ThemeRoot from 'src/lib/theme-root/ThemeRoot.svelte';
   import type { PageData } from './$types';
+  import Album from './Album.svelte';
 
   export let data: PageData;
 </script>
 
 <!-- nested comments when -->
 <ThemeRoot background="#53559E" primary="#78FF86">
-  <layout-container>
-    <h1>music</h1>
-    <p>mmmmmm crunchy music crunch that music mmmm</p>
+  <layout-container style:--size="50rem" size>
+    <layout-container size="normal">
+      <h1>music</h1>
+      <p>
+        everything here was made with love. download mp3/flac if you want, or just chillax here.
+      </p>
+    </layout-container>
     {#each data.albums as year}
       <h2>{year.key}</h2>
 
       {#each year.items as album}
-        {#if album.single}
-          {@const song = album.songs[0]}
-
-          <div class="album">
-            <h3>{album.title}</h3>
-            <p>{formatDate(song.date, 'date')}</p>
-            <p>
-              <Link href={getCdnSongFullMetaURL(song.media)}>{song.media}</Link>
-            </p>
-            <!-- <img srcset={getCdnImageSrcSet(album.art, 'album', 1000)} alt="{album.title} album art" /> -->
-            <ul>
-              {#each song.tags as tags}
-                <li>{tags}</li>
-              {/each}
-            </ul>
-          </div>
-        {:else}
-          <h2>TODO: album view</h2>
-        {/if}
+        <Album {album} />
       {/each}
     {/each}
   </layout-container>
@@ -47,5 +34,12 @@
     font-weight: 800;
     margin: 0;
     @include shadow(#0e121d, 6);
+  }
+  h2 {
+    font-size: 2rem;
+    font-weight: 500;
+    text-align: center;
+    margin: 0;
+    @include shadow(#0e121d, 2);
   }
 </style>

@@ -28,7 +28,12 @@
     loading = true;
     api
       .post('/q+a/api/insert', {
-        json: copied
+        json: copied,
+        headers: input?.notifyEmail
+          ? {
+              'x-notify-email': input.notifyEmail
+            }
+          : undefined
       })
       .then(() => dispatch('done'))
       .finally(() => (loading = false));
@@ -42,7 +47,12 @@
             date: question.date,
             type: 'Reject',
             text: ''
-          }
+          },
+          headers: input.notifyEmail
+            ? {
+                'x-notify-email': input.notifyEmail
+              }
+            : undefined
         })
       : api.post('/q+a/api/delete', {
           json: {

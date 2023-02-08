@@ -256,7 +256,7 @@ model Album {
 }
 
 enum AlbumType {
-  Single
+  Song
   Album
   Soundtrack
   Other
@@ -272,11 +272,12 @@ model Song {
   album        Album?   @relation(fields: [albumId], references: [id])
   albumId      String?
   // song media key
-  media        String
+  media        String?
   // song media key
   instrumental String?
   tags         String[]
   unlisted     Boolean  @default(false)
+  duration     Int      @default(0)
 }
 
 // Games

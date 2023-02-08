@@ -129,8 +129,8 @@ export const getCdnSongDownloadURL = //
   (key: string, title: string) => `${CDN}/song/${key}/${title}.mp3`;
 
 export const getCdnSongStreamURLs = (key: string) => [
-  { url: `${CDN}/song/${key}/192k.ogg`, bitrate: 192, type: 'audio/ogg' },
-  { url: `${CDN}/song/${key}/192k.aac`, bitrate: 192, type: 'audio/aac' }
+  { url: `${CDN}/song/${key}/media.ogg`, type: 'audio/ogg' },
+  { url: `${CDN}/song/${key}/media.aac`, type: 'audio/aac' }
 ];
 
 export const getCdnSongLyricsURL = (key: string) => `${CDN}/song/${key}/lyrics.txt`;
