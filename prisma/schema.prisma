@@ -12,7 +12,6 @@ datasource db {
 }
 
 // ARTIFACT ENTRY
-<<<<<<< HEAD
 
 model ArtifactEntry {
   id   String       @id
@@ -27,193 +26,6 @@ model ArtifactEntry {
 
   questions Question[]
   bits      Bit[]
-}
-
-enum ArtifactType {
-  Video
-  Song
-  Album
-  MusicVideo
-  Game
-  Story
-}
-
-// Videos
-
-model Video {
-  id       String   @id
-  date     DateTime @default(now())
-  title    String
-  tags     String[]
-  thumb    String?
-  // video media key or http url
-  media    String
-  source   String?
-  ttms     Float?
-  unlisted Boolean  @default(false)
-}
-
-// Music (Albums and Songs)
-
-model Album {
-  id       String    @id
-  date     DateTime  @default(now())
-  title    String
-  tags     String[]
-  unlisted Boolean   @default(false)
-  // image/album media key
-  art      String?
-  songs    Song[]
-  type     AlbumType
-  desc     String?
-}
-
-enum AlbumType {
-  Song
-  Album
-  Soundtrack
-  Other
-  Collection
-}
-
-model Song {
-  uid          Int      @id @default(autoincrement())
-  id           String
-  order        Int      @default(0)
-  date         DateTime @default(now())
-  title        String
-  album        Album?   @relation(fields: [albumId], references: [id])
-  albumId      String?
-  // song media key
-  media        String?
-  // song media key
-  instrumental String?
-  tags         String[]
-  unlisted     Boolean  @default(false)
-  duration     Int      @default(0)
-}
-
-model Album {
-  id       String   @id
-  date     DateTime @default(now())
-  title    String
-  tags     String[]
-  unlisted Boolean  @default(false)
-  art      String?
-  songs    Song[]
-}
-
-model Song {
-  id       String   @id
-  date     DateTime @default(now())
-  title    String
-  album    Album?   @relation(fields: [albumId], references: [id])
-  albumId  String?
-  media    String
-  tags     String[]
-  unlisted Boolean  @default(false)
-}
-
-model Game {
-  id                  String   @id
-  date                DateTime @default(now())
-  title               String
-  description         String   @default("")
-  shortDescription    String?
-  web                 String?
-  webAlwaysFullscreen Boolean  @default(false)
-  source              String?
-  downloads           Json[]
-  // legacy media ids
-  banner              String?
-  // legacy media ids
-  logo                String?
-  // list of legacy media ids
-  screenshots         String[]
-  themeBG             String?
-  themeFG             String?
-  themeAccent         String?
-  unlisted            Boolean  @default(false)
-}
-
-// Stories
-
-model Story {
-  id          String    @id
-  date        DateTime  @default(now())
-  dateEnd     DateTime?
-  title       String
-  // legacy media id
-  thumb       String?
-  description String
-  url         String
-  tags        String[]
-  unlisted    Boolean   @default(false)
-}
-
-// Blog
-
-model BlogPost {
-  id       String   @id
-  date     DateTime @default(now())
-  title    String
-  // image media key
-  thumb    String?
-  body     String
-  tags     String[]
-  unlisted Boolean  @default(false)
-}
-
-// Bits
-
-model Bit {
-  date     DateTime @id @default(now())
-  // any text to be displayed next to the bit
-  notes    String
-  // file media key
-  media    String
-  // filename needed for download/view
-  filename String
-
-  // optionally link to an artifact
-  artifact     ArtifactEntry? @relation(fields: [artifactId], references: [id])
-  artifactId   String?
-  // "reminder" is for publishing bits on projects that are not yet in the system
-  artifactTodo String
-
-  mentionedIn Question[]
-}
-
-// Journal
-
-// TODO: journal is too complicated to even conceptualize
-// ...but also i dont know what i want to put, or if i want to at all
-//
-// model JournalEntry {
-//   date DateTime @id @default(now())
-// }
-
-// Question Answer Page
-
-model LegacyQuestionInput {
-  date DateTime @id
-  text String
-}
-=======
-
-model ArtifactEntry {
-  id   String       @id
-  type ArtifactType
-
-  // legacy media id
-  thumb    String?
-  title    String
-  date     DateTime
-  unlisted Boolean  @default(false)
-  featured Boolean  @default(false)
-
-  mentionedIn Message[]
-  bits        Bit[]
 }
 
 enum ArtifactType {
@@ -349,7 +161,7 @@ model Bit {
   // "reminder" is for publishing bits on projects that are not yet in the system
   artifactTodo String
 
-  mentionedIn Message[]
+  mentionedIn Question[]
 }
 
 // Journal
@@ -363,62 +175,10 @@ model Bit {
 
 // Question Answer Page
 
-model Message {
-  date DateTime    @id @default(now())
-  type MessageType
+model LegacyQuestionInput {
+  date DateTime @id
   text String
-
-  mentionedArtifacts ArtifactEntry[]
-  mentionedBits      Bit[]
-  mentionedMessages  Message[]       @relation("messageMention")
-  mentionedIn        Message[]       @relation("messageMention")
 }
-
-enum MessageType {
-  NORMAL
-  REJECT
-  MARKER
-}
-
-model MessageInput {
-  date           DateTime @id @default(now())
-  prompt         String
-  notifyEmail    String?
-  sourceName     String?
-  sourceLocation String?
-  sourceVPN      String?
-}
-
-// User System
-
-model User {
-  id     Int      @id @default(autoincrement())
-  name   String
-  email  String   @unique
-  bcrypt String?
-  role   UserRole @default(User)
-
-  donator   Donator? @relation(fields: [donatorId], references: [id])
-  donatorId Int?     @unique
-
-  sessions Session[]
-}
-
-model Session {
-  id        String   @id
-  user      User     @relation(fields: [userId], references: [id])
-  userId    Int
-  expiresAt DateTime
-}
-
-enum UserRole {
-  Admin
-  UnlistedViewer
-  User
-}
-
-// Other Tables
->>>>>>> 40e561c (hmm)
 
 model Question {
   date DateTime     @id @default(now())
@@ -478,19 +238,7 @@ enum UserRole {
 // Other Tables
 
 model Donator {
-<<<<<<< HEAD
-<<<<<<< HEAD
   id   Int    @id @default(autoincrement())
   name String
   user User?
-=======
-  id    Int     @id @default(autoincrement())
-  name  String
-  email String?
->>>>>>> 40e561c (hmm)
-=======
-  id   Int    @id @default(autoincrement())
-  name String
-  user User?
->>>>>>> ae28163 (more schema updates)
 }
