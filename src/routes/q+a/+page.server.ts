@@ -41,9 +41,7 @@ export const load: PageServerLoad = async ({ url }) => {
           type: true
         }
       }
-    },
-    skip: pageNumber * QUESTIONS_PER_PAGE,
-    take: latest === pageNumber ? QUESTIONS_PER_PAGE * 2 : QUESTIONS_PER_PAGE
+    }
   });
 
   return {
