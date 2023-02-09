@@ -15,6 +15,7 @@
   export let input: QuestionInput | null = null;
   export let inboxLength = 0;
   export let isSandbox = false;
+  export let legacy = false;
 
   let copied = structuredClone(question);
   let text = copied.text;
@@ -37,23 +38,37 @@
       })
       .then(() => dispatch('done'))
       .finally(() => (loading = false));
+
+    if (legacy) {
+      api.post('/q+a/api/legacy-delete', {
+        json: {
+          date: question.date
+        }
+      });
+    }
   }
 
   function del() {
     loading = true;
     (input
-      ? api.post('/q+a/api/insert', {
-          json: {
-            date: question.date,
-            type: 'Reject',
-            text: ''
-          },
-          headers: input.notifyEmail
-            ? {
-                'x-notify-email': input.notifyEmail
-              }
-            : undefined
-        })
+      ? legacy
+        ? api.post('/q+a/api/legacy-delete', {
+            json: {
+              date: question.date
+            }
+          })
+        : api.post('/q+a/api/insert', {
+            json: {
+              date: question.date,
+              type: 'Reject',
+              text: ''
+            },
+            headers: input.notifyEmail
+              ? {
+                  'x-notify-email': input.notifyEmail
+                }
+              : undefined
+          })
       : api.post('/q+a/api/delete', {
           json: {
             date: question.date
@@ -83,7 +98,9 @@
 
 <layout-flex gap class:loading style="height:100vh">
   <h1>
-    {#if input}
+    {#if legacy}
+      re-enter old questions
+    {:else if input}
       respond to questions
     {:else}
       question editor
