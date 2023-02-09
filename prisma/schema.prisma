@@ -11,20 +11,209 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// ARTIFACT ENTRY
+
+model ArtifactEntry {
+  id   String       @id
+  type ArtifactType
+
+  // legacy media id
+  thumb    String?
+  title    String
+  date     DateTime
+  unlisted Boolean  @default(false)
+  featured Boolean  @default(false)
+
+  messages  Message[]
+  questions Question[]
+  bits      Bit[]
+}
+
+enum ArtifactType {
+  Video
+  Song
+  Album
+  MusicVideo
+  Game
+  Story
+}
+
+// Videos
+
+model Video {
+  id       String   @id
+  date     DateTime @default(now())
+  title    String
+  tags     String[]
+  thumb    String?
+  // video media key or http url
+  media    String
+  source   String?
+  ttms     Float?
+  unlisted Boolean  @default(false)
+}
+
+// Music (Albums and Songs)
+
+model Album {
+  id       String    @id
+  date     DateTime  @default(now())
+  title    String
+  tags     String[]
+  unlisted Boolean   @default(false)
+  // image/album media key
+  art      String?
+  songs    Song[]
+  type     AlbumType
+  desc     String?
+}
+
+enum AlbumType {
+  Song
+  Album
+  Soundtrack
+  Other
+  Collection
+}
+
+model Song {
+  uid          Int      @id @default(autoincrement())
+  id           String
+  order        Int      @default(0)
+  date         DateTime @default(now())
+  title        String
+  album        Album?   @relation(fields: [albumId], references: [id])
+  albumId      String?
+  // song media key
+  media        String?
+  // song media key
+  instrumental String?
+  tags         String[]
+  unlisted     Boolean  @default(false)
+  duration     Int      @default(0)
+}
+
+// Games
+
+model Game {
+  id                  String   @id
+  date                DateTime @default(now())
+  title               String
+  description         String   @default("")
+  shortDescription    String?
+  web                 String?
+  webAlwaysFullscreen Boolean  @default(false)
+  source              String?
+  downloads           Json[]
+  // legacy media ids
+  banner              String?
+  // legacy media ids
+  logo                String?
+  // list of legacy media ids
+  screenshots         String[]
+  themeBG             String?
+  themeFG             String?
+  themeAccent         String?
+  unlisted            Boolean  @default(false)
+}
+
+// Stories
+
+model Story {
+  id          String    @id
+  date        DateTime  @default(now())
+  dateEnd     DateTime?
+  title       String
+  // legacy media id
+  thumb       String?
+  description String
+  url         String
+  tags        String[]
+  unlisted    Boolean   @default(false)
+}
+
+// Blog
+
+model BlogPost {
+  id       String   @id
+  date     DateTime @default(now())
+  title    String
+  // image media key
+  thumb    String?
+  body     String
+  tags     String[]
+  unlisted Boolean  @default(false)
+}
+
+// Bits
+
+model Bit {
+  date     DateTime @id @default(now())
+  // any text to be displayed next to the bit
+  notes    String
+  // file media key
+  media    String
+  // filename needed for download/view
+  filename String
+
+  // optionally link to an artifact
+  artifact     ArtifactEntry? @relation(fields: [artifactId], references: [id])
+  artifactId   String?
+  // "reminder" is for publishing bits on projects that are not yet in the system
+  artifactTodo String
+
+  mentionedInM Message[]
+  mentionedInQ Question[]
+}
+
+// Journal
+
+// TODO: journal is too complicated to even conceptualize
+// ...but also i dont know what i want to put, or if i want to at all
+//
+// model JournalEntry {
+//   date DateTime @id @default(now())
+// }
+
+// Question Answer Page
+
+model LegacyQuestionInput {
+  date DateTime @id
+  text String
+}
+
 model Message {
   date DateTime    @id @default(now())
   type MessageType
   text String
 
   mentionedArtifacts ArtifactEntry[]
-  mentionedMessages  Message[]       @relation("messageMention")
-  mentionedIn        Message[]       @relation("messageMention")
+  mentionedBits      Bit[]
+  mentionedQuestions Message[]       @relation("questionMention")
+  mentionedIn        Message[]       @relation("questionMention")
+}
+
+model Question {
+  date DateTime     @id @default(now())
+  type QuestionType
+  text String
+
+  mentionedArtifacts ArtifactEntry[]
+  mentionedBits      Bit[]
+  mentionedQuestions Question[]      @relation("questionMention")
+  mentionedIn        Question[]      @relation("questionMention")
 }
 
 enum MessageType {
   NORMAL
   REJECT
   MARKER
+}
+
+enum QuestionType {
+  Normal
+  Reject
+  Marker
 }
 
 model MessageInput {
@@ -36,9 +225,13 @@ model MessageInput {
   sourceVPN      String?
 }
 
-model LegacyQuestionInput {
-  date DateTime @id
-  text String
+model QuestionInput {
+  date           DateTime @id @default(now())
+  prompt         String
+  notifyEmail    String?
+  sourceName     String?
+  sourceLocation String?
+  sourceVPN      String?
 }
 
 // User System
@@ -56,120 +249,23 @@ model User {
   sessions Session[]
 }
 
-enum ArtifactType {
-  Application
-  Doodle
-  Fragment
-  Game
-  Journal
-  Music
-  MusicVideo
-  NerdGear
-  Square
-  Story
-  Video
-  WordMagnet
+model Session {
+  id        String   @id
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  expiresAt DateTime
 }
 
-model Story {
-  id          String    @id
-  date        DateTime  @default(now())
-  dateEnd     DateTime?
-  title       String
-  thumb       String?
-  description String
-  url         String
-  tags        String[]
-  unlisted    Boolean   @default(false)
+enum UserRole {
+  Admin
+  UnlistedViewer
+  User
 }
 
-model Video {
-  id       String   @id
-  date     DateTime @default(now())
-  title    String
-  tags     String[]
-  thumb    String?
-  media    String
-  source   String?
-  ttms     Float?
-  unlisted Boolean  @default(false)
-}
-
-model Music {
-  id       String   @id
-  date     DateTime @default(now())
-  title    String
-  tags     String[]
-  album    String?
-  media    String
-  unlisted Boolean  @default(false)
-}
-
-model Game {
-  id                  String   @id
-  date                DateTime @default(now())
-  title               String
-  description         String   @default("")
-  shortDescription    String?
-  web                 String?
-  webAlwaysFullscreen Boolean  @default(false)
-  source              String?
-  downloads           Json[]
-  banner              String?
-  logo                String?
-  screenshots         String[]
-  themeBG             String?
-  themeFG             String?
-  themeAccent         String?
-  unlisted            Boolean  @default(false)
-}
-
-model Application {
-  id                  String   @id
-  date                DateTime @default(now())
-  title               String
-  description         String
-  web                 String?
-  webAlwaysFullscreen Boolean  @default(false)
-  downloads           Json[]
-  unlisted            Boolean  @default(false)
-}
-
-model Upload {
-  hash     String         @id
-  date     DateTime       @default(now())
-  filename String
-  type     String
-  blurhash String?
-  width    Int
-  height   Int
-  duration Int? // for videos
-  purpose  UploadPurpose?
-}
-
-enum UploadPurpose {
-  MessageAttachment
-  ArtifactData
-}
+// Other Tables
 
 model Donator {
   id   Int    @id @default(autoincrement())
   name String
-}
-
-model User {
-  id       Int       @id @default(autoincrement())
-  name     String
-  email    String
-  bcrypt   String
-  flags    Int       @default(0)
-  sessions Session[] @relation("session")
-}
-
-model Session {
-  uid    String   @id
-  token  String   @unique
-  date   DateTime @default(now())
-  user   User     @relation("session", references: [id], fields: [userId])
-  userId Int
+  user User?
 }
