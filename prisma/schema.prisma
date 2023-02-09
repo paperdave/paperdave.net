@@ -24,7 +24,6 @@ model ArtifactEntry {
   unlisted Boolean  @default(false)
   featured Boolean  @default(false)
 
-  messages  Message[]
   questions Question[]
   bits      Bit[]
 }
@@ -162,8 +161,7 @@ model Bit {
   // "reminder" is for publishing bits on projects that are not yet in the system
   artifactTodo String
 
-  mentionedInM Message[]
-  mentionedInQ Question[]
+  mentionedIn Question[]
 }
 
 // Journal
@@ -182,17 +180,6 @@ model LegacyQuestionInput {
   text String
 }
 
-model Message {
-  date DateTime    @id @default(now())
-  type MessageType
-  text String
-
-  mentionedArtifacts ArtifactEntry[]
-  mentionedBits      Bit[]
-  mentionedQuestions Message[]       @relation("questionMention")
-  mentionedIn        Message[]       @relation("questionMention")
-}
-
 model Question {
   date DateTime     @id @default(now())
   type QuestionType
@@ -204,25 +191,10 @@ model Question {
   mentionedIn        Question[]      @relation("questionMention")
 }
 
-enum MessageType {
-  NORMAL
-  REJECT
-  MARKER
-}
-
 enum QuestionType {
   Normal
   Reject
   Marker
-}
-
-model MessageInput {
-  date           DateTime @id @default(now())
-  prompt         String
-  notifyEmail    String?
-  sourceName     String?
-  sourceLocation String?
-  sourceVPN      String?
 }
 
 model QuestionInput {
@@ -259,6 +231,7 @@ model Session {
 enum UserRole {
   Admin
   UnlistedViewer
+  EarlyAccess
   User
 }
 
