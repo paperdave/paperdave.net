@@ -30,33 +30,21 @@
   $: browser && !data && fetchData();
 
   const artifactTypeToIcon: Record<ArtifactType, string> = {
-    Application: 'grid_view',
-    Doodle: 'draw',
-    Fragment: 'atr',
     Game: 'sports_esports',
-    Journal: '',
-    Music: 'music_note',
+    Song: 'music_note',
     MusicVideo: 'music_note',
-    NerdGear: 'terminal',
-    Square: 'photo',
     Story: 'description',
     Video: 'videocam',
-    WordMagnet: 'draft'
+    Album: 'music_note'
   };
 
   const artifactTypeToBaseURL: Record<ArtifactType, string> = {
-    Application: 'app',
-    Doodle: 'doodle',
-    Fragment: 'fragment',
     Game: 'games',
-    Journal: 'journal',
-    Music: 'music',
+    Song: 'music',
     MusicVideo: 'videos',
-    NerdGear: 'nerd-gear',
-    Square: 'square',
     Story: 'stories',
     Video: 'videos',
-    WordMagnet: 'word-magnet'
+    Album: 'music'
   };
 </script>
 

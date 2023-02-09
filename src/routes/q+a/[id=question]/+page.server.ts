@@ -19,7 +19,7 @@ export const load: PageServerLoad = async ({ params: { id } }) => {
           type: true
         }
       },
-      mentionedMessages: true
+      mentionedQuestions: true
     }
   });
   if (!find) {

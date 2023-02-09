@@ -40,9 +40,9 @@
       <section>
         <MessageRender {message} />
       </section>
-      {#if message.mentionedMessages.length}
+      {#if message.mentionedQuestions.length}
         <p>earlier:</p>
-        {#each message.mentionedMessages as mentionedMessage}
+        {#each message.mentionedQuestions as mentionedMessage}
           <section>
             <MessageRender message={mentionedMessage} />
           </section>

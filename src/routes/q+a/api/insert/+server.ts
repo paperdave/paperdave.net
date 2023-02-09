@@ -26,7 +26,7 @@ export const POST: RequestHandler = async ({ request }) => {
 
   const parsed = messageMarkdown.parser(body.text);
   const mentions = walkAst({ type: 'document', content: parsed });
-  const mentionedMessages = mentions
+  const mentionedQuestions = mentions
     .filter((m: any) => m.message)
     .map((m: any) => ({ date: parseMessageDateID(m.message) }));
   const mentionedArtifacts = mentions
@@ -40,8 +40,8 @@ export const POST: RequestHandler = async ({ request }) => {
       },
       create: {
         ...body,
-        mentionedMessages: {
-          connect: mentionedMessages
+        mentionedQuestions: {
+          connect: mentionedQuestions
         },
         mentionedArtifacts: {
           connect: mentionedArtifacts
@@ -49,8 +49,8 @@ export const POST: RequestHandler = async ({ request }) => {
       },
       update: {
         ...body,
-        mentionedMessages: {
-          connect: mentionedMessages
+        mentionedQuestions: {
+          connect: mentionedQuestions
         },
         mentionedArtifacts: {
           connect: mentionedArtifacts
