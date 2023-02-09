@@ -36,15 +36,24 @@ model MessageInput {
   sourceVPN      String?
 }
 
-model ArtifactEntry {
-  id          String       @id
-  type        ArtifactType
-  thumb       String?
-  title       String
-  date        DateTime
-  mentionedIn Message[]
-  unlisted    Boolean      @default(false)
-  featured    Boolean      @default(false)
+model LegacyQuestionInput {
+  date DateTime @id
+  text String
+}
+
+// User System
+
+model User {
+  id     Int      @id @default(autoincrement())
+  name   String
+  email  String   @unique
+  bcrypt String?
+  role   UserRole @default(User)
+
+  donator   Donator? @relation(fields: [donatorId], references: [id])
+  donatorId Int?     @unique
+
+  sessions Session[]
 }
 
 enum ArtifactType {
