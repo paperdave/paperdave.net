@@ -93,8 +93,7 @@ export const genericMarkdown = {
   renderers: {
     link: MdLink,
     mentionArtifact: MDMentionArtifact,
-    mentionMessage: MDMentionMessage,
-    attachment: MDAttachment,
+    mentionMessage: MDMentionQuestion,
     html: MDHTML
   }
 };

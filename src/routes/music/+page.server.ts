@@ -5,10 +5,10 @@ import type { PageServerLoad } from './$types';
 export const load: PageServerLoad = async () => {
   const albums = await db.album.findMany({
     where: {
-      unlisted: false
-      // date: {
-      //   lte: new Date()
-      // }
+      unlisted: false,
+      date: {
+        lte: new Date()
+      }
     },
     orderBy: {
       date: 'desc'

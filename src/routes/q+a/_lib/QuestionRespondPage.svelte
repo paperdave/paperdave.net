@@ -82,7 +82,13 @@
 </script>
 
 <layout-flex gap class:loading style="height:100vh">
-  <h1>respond to questions</h1>
+  <h1>
+    {#if input}
+      respond to questions
+    {:else}
+      question editor
+    {/if}
+  </h1>
   {#if !input}
     <p>
       editing message from {formatDate(question.date, 'date-time')}
@@ -177,5 +183,6 @@
   h1,
   p {
     margin-bottom: 0;
+    margin-top: 0.5rem;
   }
 </style>

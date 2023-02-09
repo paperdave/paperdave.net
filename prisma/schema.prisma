@@ -242,3 +242,8 @@ model Donator {
   name String
   user User?
 }
+
+model MailingList {
+  id    Int    @id @default(autoincrement())
+  email String @unique
+}
