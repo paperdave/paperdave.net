@@ -5,6 +5,5 @@ import type { RequestHandler } from './$types';
 
 export const GET: RequestHandler = async () => {
   assertAuthorized();
-  const messages = await db.messageInput.findMany({});
-  return json(messages);
+  return json(await db.questionInput.findMany({}));
 };

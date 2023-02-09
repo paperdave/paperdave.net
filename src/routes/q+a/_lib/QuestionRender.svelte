@@ -4,26 +4,27 @@
 
 <script lang="ts">
   import { messageMarkdown } from './markdown';
-  import MessageDate from './MessageDate.svelte';
+  import QuestionDate from './QuestionDate.svelte';
   import { Markdown } from 'svelte-simple-markdown';
   import { setContext } from 'svelte';
-  import type { MessageWithResolvedArtifacts } from './utils';
+  import type { QuestionWithResolvedArtifacts } from './utils';
 
-  export let message: MessageWithResolvedArtifacts;
+  export let question: QuestionWithResolvedArtifacts;
+  export let sandbox = false;
 
-  setContext(resolvedArtifactContext, message.artifacts);
+  setContext(resolvedArtifactContext, question.artifacts);
 </script>
 
 <article>
-  {#if message.type !== 'MARKER'}
-    <MessageDate {message} />
-    {#if message.type === 'REJECT'}
-      <p class="red">this message has been rejected</p>
+  {#if question.type !== 'Marker'}
+    <QuestionDate {question} {sandbox} />
+    {#if question.type === 'Reject'}
+      <p class="red">[this question was rejected]</p>
     {:else}
-      <Markdown config={messageMarkdown} value={message.text} />
+      <Markdown config={messageMarkdown} value={question.text} />
     {/if}
   {:else}
-    <p class="marker">{message.text}</p>
+    <p class="marker">{question.text}</p>
   {/if}
 </article>
 

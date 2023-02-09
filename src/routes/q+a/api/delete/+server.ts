@@ -9,7 +9,7 @@ export const POST: RequestHandler = async ({ request }) => {
   const body = await request.json();
   body.date = new Date(body.date);
 
-  await db.message.delete({
+  await db.question.delete({
     where: {
       date: body.date
     }

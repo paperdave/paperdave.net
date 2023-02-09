@@ -1,8 +1,6 @@
 <script lang="ts">
   import { goto, preloadData } from '$app/navigation';
 
-  export let href: string;
-
   let prefetched: string[] = [];
   let current: Promise<string> | null = null;
 
@@ -38,7 +36,7 @@
 
 <a
   class="link"
-  {href}
+  href="/q+a/random"
   on:click|preventDefault={random}
   on:mouseenter|once={() => {
     prefetchAnother().then(() => prefetchAnother());

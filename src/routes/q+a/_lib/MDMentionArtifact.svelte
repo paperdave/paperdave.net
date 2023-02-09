@@ -4,7 +4,7 @@
   import type { ArtifactEntry, ArtifactType } from '@prisma/client';
   import { getContext } from 'svelte';
   import type { ASTNode } from 'svelte-simple-markdown';
-  import { resolvedArtifactContext } from './MessageRender.svelte';
+  import { resolvedArtifactContext } from './QuestionRender.svelte';
 
   export let node: ASTNode;
 

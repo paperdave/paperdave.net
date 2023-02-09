@@ -1,15 +1,15 @@
 <script lang="ts">
   import { page } from '$app/stores';
   import Link from 'src/lib/link/Link.svelte';
-  import MessageRender from '../_lib/MessageRender.svelte';
+  import QuestionRender from '../_lib/QuestionRender.svelte';
   import type { PageData } from './$types';
 
   export let data: PageData;
-  $: ({ message, isPending } = data);
+  $: ({ question, isPending } = data);
 </script>
 
-{#if message && message.type === 'NORMAL'}
-  <!-- <Meta title="message permalink: {formatDate(message.date, 'date-time')}" noIndex /> -->
+{#if question && question.type === 'Normal'}
+  <!-- <Meta title="question permalink: {formatDate(question.date, 'date-time')}" noIndex /> -->
 {:else}
   <!-- <Meta title="question not found" noIndex /> -->
 {/if}
@@ -17,15 +17,15 @@
 {#key $page.params.id}
   {#if isPending}
     <section>
-      <p>this message is awaiting an answer from dave, please be patient...</p>
+      <p>this question is awaiting an answer from dave, please be patient...</p>
     </section>
-  {:else if message}
-    {#if message.type === 'REJECT'}
+  {:else if question}
+    {#if question.type === 'Reject'}
       <section>
         <p>ouch...</p>
       </section>
       <section>
-        <MessageRender {message} />
+        <QuestionRender {question} />
       </section>
       <section>
         <p>sorry, i rejected this question.</p>
@@ -38,13 +38,13 @@
         <p>this page is a permalink for the following question:</p>
       </section>
       <section>
-        <MessageRender {message} />
+        <QuestionRender {question} />
       </section>
-      {#if message.mentionedQuestions.length}
+      {#if question.mentionedQuestions.length}
         <p>earlier:</p>
-        {#each message.mentionedQuestions as mentionedMessage}
+        {#each question.mentionedQuestions as mention}
           <section>
-            <MessageRender message={mentionedMessage} />
+            <QuestionRender question={mention} />
           </section>
         {/each}
       {/if}

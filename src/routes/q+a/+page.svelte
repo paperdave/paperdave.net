@@ -1,23 +1,24 @@
 <script lang="ts">
   import type { PageData } from './$types';
-  import MessageForm from './_lib/MessageForm.svelte';
-  import MessageRender from './_lib/MessageRender.svelte';
+  import QuestionForm from './_lib/QuestionForm.svelte';
+  import QuestionRender from './_lib/QuestionRender.svelte';
 
   export let data: PageData;
 </script>
 
-<MessageForm />
+<QuestionForm />
 
-{#each data.messages as message}
-  <MessageRender
-    message={{
-      type: message.type ?? 'NORMAL',
-      text: message.text,
-      date: message.date,
-      artifacts: message.artifacts
+{#each data.questions as question}
+  <QuestionRender
+    question={{
+      type: question.type ?? 'Normal',
+      text: question.text,
+      date: question.date,
+      artifacts: question.artifacts
     }}
   />
 {/each}
 
-<style lang="scss">
-</style>
+<footer>
+  fun fact: dave has answered {data.count} questions
+</footer>

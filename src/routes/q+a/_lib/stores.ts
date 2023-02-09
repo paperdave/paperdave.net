@@ -23,4 +23,4 @@ export function persistent<T>(
   return store;
 }
 
-export const ioNotifyEmail = persistent('qa.notifyEmail', '');
+export const qaNotifyEmail = persistent('qa.notifyEmail', '');

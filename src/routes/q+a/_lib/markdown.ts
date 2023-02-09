@@ -6,10 +6,9 @@ import {
   inlineRegex,
   parseCaptureInline
 } from 'svelte-simple-markdown';
-import MDAttachment from './MDAttachment.svelte';
 import MDHTML from './MDHTML.svelte';
 import MDMentionArtifact from './MDMentionArtifact.svelte';
-import MDMentionMessage from './MDMentionMessage.svelte';
+import MDMentionQuestion from './MDMentionQuestion.svelte';
 import MDParagraph from './MDParagraph.svelte';
 
 const customRules = defaultRules.clone();
@@ -34,9 +33,9 @@ customRules.insertBefore('em', {
   }
 });
 
-/** A message mention, formatted like `#112233445566` */
+/** A question mention, formatted like `#112233445566` */
 customRules.insertBefore('em', {
-  name: 'mentionMessage',
+  name: 'mentionQuestion',
   match: inlineRegex(/^#([0-9]{12})/),
   parse(capture) {
     return {
@@ -71,7 +70,7 @@ customRules.insertBefore('url', {
     const qaMatch = capture[1].match(/^q\+a\/([0-9]{12})/);
     if (qaMatch) {
       return {
-        type: 'mentionMessage',
+        type: 'mentionQuestion',
         id: qaMatch[1]
       };
     }
@@ -107,8 +106,7 @@ export const messageMarkdown = {
     question: MDParagraph,
     paragraph: MDParagraph,
     mentionArtifact: MDMentionArtifact,
-    mentionMessage: MDMentionMessage,
-    attachment: MDAttachment,
+    mentionQuestion: MDMentionQuestion,
     html: MDHTML
   }
 };

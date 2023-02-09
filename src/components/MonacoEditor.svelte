@@ -49,7 +49,7 @@
         { token: 'question', fontStyle: 'bold', foreground: '#faa719' },
         { token: 'link', foreground: '#00b89b' },
         { token: 'mentionArtifact', foreground: '#faa719' },
-        { token: 'mentionMessage', foreground: '#22c6ad' }
+        { token: 'mentionQuestion', foreground: '#22c6ad' }
       ],
       colors: {
         'editor.background': '#111111',
@@ -63,7 +63,7 @@
           [/https?:\/\/[^\s]+/, 'link'],
           [/q: .*/, 'question'],
           [/@[^\s]+/, 'mentionArtifact'],
-          [/#\d+/, 'mentionMessage']
+          [/#\d+/, 'mentionQuestion']
         ]
       }
     });

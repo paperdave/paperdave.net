@@ -1,11 +1,11 @@
 import { formatDate } from 'src/date';
-import type { ArtifactEntry, Message } from '@prisma/client';
+import type { ArtifactEntry, Question } from '@prisma/client';
 
-export function getMessageDateID(m: Pick<Message, 'date'>) {
-  return formatDate(m.date, 'message-id');
+export function getDateID(m: Pick<Question, 'date'>) {
+  return formatDate(m.date, 'question-id');
 }
 
-export function parseMessageDateID(id: string) {
+export function parseDateID(id: string) {
   const match = id.match(/^(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})$/);
   if (!match) {
     return null;
@@ -14,12 +14,13 @@ export function parseMessageDateID(id: string) {
   return new Date(`${month} ${day} 20${year} ${hour}:${minute}:${second} EST`);
 }
 
-export type MessageWithResolvedArtifacts = Message & {
+export type QuestionWithResolvedArtifacts = Question & {
   artifacts?: Record<string, Pick<ArtifactEntry, 'title' | 'type'>>;
 };
 
-export type MessagePage = {
+export type QuestionPage = {
   id: number;
-  messages: MessageWithResolvedArtifacts[];
+  questions: QuestionWithResolvedArtifacts[];
   latest: boolean;
+  count: number;
 };

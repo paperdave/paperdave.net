@@ -2,10 +2,10 @@
   import Icon from 'src/components/Icon.svelte';
   import { formatDate } from 'src/date';
   import type { ASTNode } from 'svelte-simple-markdown';
-  import { parseMessageDateID } from './utils';
+  import { parseDateID } from './utils';
   export let node: ASTNode;
 
-  $: date = parseMessageDateID(node.id)!;
+  $: date = parseDateID(node.id)!;
 </script>
 
 <a class="custom" href="/q+a/{node.id}">

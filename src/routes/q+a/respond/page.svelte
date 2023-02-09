@@ -1,17 +1,17 @@
 <script lang="ts">
-  import type { Message, MessageInput } from '@prisma/client';
+  import type { Question, QuestionInput } from '@prisma/client';
   import { useEffect } from 'src/lib';
-  import MessageRespondPage from '../_lib/MessageRespondPage.svelte';
+  import QuestionRespondPage from '../_lib/QuestionRespondPage.svelte';
   import { old_api_do_not_use_outside_qa as api } from '../_lib/old_session';
 
-  const { data: messages, isLoading } = api.useSWR('/q+a/api/responses') as any as {
-    data: SvelteStore<MessageInput[]>;
+  const { data: questions, isLoading } = api.useSWR('/q+a/api/responses') as any as {
+    data: SvelteStore<QuestionInput[]>;
     isLoading: SvelteStore<boolean>;
   };
 
   let current: Date | null = null;
 
-  function messageFromInput(current: Date): Message {
+  function questionFromInput(current: Date): Question {
     if (!input) return null!;
 
     return {
@@ -22,48 +22,48 @@
           .filter(Boolean)
           .map((x) => `q: ${x}`)
           .join('\n\n') + '\n\n',
-      type: 'NORMAL'
+      type: 'Normal'
     };
   }
 
-  $: input = $messages?.find((x) => x.date.getTime() === current?.getTime()) ?? null;
-  $: message = messageFromInput(current!);
+  $: input = $questions?.find((x) => x.date.getTime() === current?.getTime()) ?? null;
+  $: question = questionFromInput(current!);
 
   useEffect(
     () => {
-      if (current === null && $messages && $messages?.length) {
-        current = $messages[0].date;
+      if (current === null && $questions && $questions?.length) {
+        current = $questions[0].date;
       }
     },
-    () => [current, $messages]
+    () => [current, $questions]
   );
 
   function next() {
-    $messages = $messages!.filter((x) => x.date.getTime() !== current!.getTime());
-    current = $messages[0]?.date ?? null;
+    $questions = $questions!.filter((x) => x.date.getTime() !== current!.getTime());
+    current = $questions[0]?.date ?? null;
   }
 
   function defer() {
     current =
-      $messages![
-        ($messages!.findIndex((x) => x.date.getTime() === current!.getTime()) + 1) %
-          $messages!.length
+      $questions![
+        ($questions!.findIndex((x) => x.date.getTime() === current!.getTime()) + 1) %
+          $questions!.length
       ].date;
   }
 </script>
 
 {#if input}
   {#key current?.getTime()}
-    <MessageRespondPage
+    <QuestionRespondPage
       {input}
-      {message}
+      {question}
       on:done={next}
       on:defer={defer}
-      inboxLength={$messages?.length}
+      inboxLength={$questions?.length}
     />
   {/key}
 {:else if !$isLoading}
-  <span style="font-size: 4rem;padding:2rem;">all caught up! 🎉</span>
+  <span style="font-size: 4rem;padding:4rem;">all caught up! 🎉</span>
 {:else}
   loading...
 {/if}

@@ -2,29 +2,29 @@ import { db } from 'src/db.server';
 import type { PageServerLoad } from './$types';
 import { error } from '@sveltejs/kit';
 
-const MESSAGES_PER_PAGE = 80;
+const QUESTIONS_PER_PAGE = 80;
 
 export const load: PageServerLoad = async ({ url }) => {
   const page = url.searchParams.get('page') || 'latest';
 
-  const count = await db.message.count({
+  const count = await db.question.count({
     where: {
       type: {
-        not: 'REJECT'
+        not: 'Reject'
       }
     }
   });
-  const latest = Math.floor(count / MESSAGES_PER_PAGE);
+  const latest = Math.floor(count / QUESTIONS_PER_PAGE);
   const pageNumber = page === 'latest' ? latest : parseInt(page ?? '-1');
 
   if (pageNumber > latest || pageNumber < 0 || isNaN(pageNumber)) {
     throw error(404, 'Page not found');
   }
 
-  const messages = await db.message.findMany({
+  const questions = await db.question.findMany({
     where: {
       type: {
-        not: 'REJECT'
+        not: 'Reject'
       }
     },
     orderBy: {
@@ -42,17 +42,18 @@ export const load: PageServerLoad = async ({ url }) => {
         }
       }
     },
-    skip: pageNumber * MESSAGES_PER_PAGE,
-    take: latest === pageNumber ? MESSAGES_PER_PAGE * 2 : MESSAGES_PER_PAGE
+    skip: pageNumber * QUESTIONS_PER_PAGE,
+    take: latest === pageNumber ? QUESTIONS_PER_PAGE * 2 : QUESTIONS_PER_PAGE
   });
 
   return {
     id: pageNumber,
     latest: latest === pageNumber,
-    messages: messages.map(({ type, text, date, mentionedArtifacts }) => ({
+    count,
+    questions: questions.map(({ type, text, date, mentionedArtifacts }) => ({
       text,
       date,
-      type: type !== 'NORMAL' ? type : undefined,
+      type: type !== 'Normal' ? type : undefined,
       artifacts:
         mentionedArtifacts.length > 0
           ? // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -19,7 +19,7 @@
       <Link href="/q+a">latest</Link>
       <!-- <Link href="/q+a/search">search</Link> -->
       <span class="soon">search (soon)</span>
-      <RandomizeLink href="/io/random" />
+      <RandomizeLink />
       <Link href="/q+a/info">privacy</Link>
     </layout-link-row>
     <slot />

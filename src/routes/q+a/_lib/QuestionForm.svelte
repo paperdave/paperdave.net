@@ -4,7 +4,7 @@
   import { fade } from 'svelte/transition';
   import placeholderData from './placeholders.txt?raw';
   import QaTextBoxFork from './QATextBoxFork.svelte';
-  import { ioNotifyEmail } from './stores';
+  import { qaNotifyEmail } from './stores';
   import Link from 'src/lib/link/Link.svelte';
 
   const placeholders = placeholderData.split('\n').filter(Boolean);
@@ -29,16 +29,16 @@
     placeholder = placeholders[Math.floor(Math.random() * placeholders.length)];
   }
 
-  let notifFormOpened = !!$ioNotifyEmail;
+  let notifFormOpened = !!$qaNotifyEmail;
   function openNotifForm() {
     notifFormOpened = true;
     emailTextBox.focus();
   }
 
   function unfocusNotifForm() {
-    $ioNotifyEmail = $ioNotifyEmail.trim();
+    $qaNotifyEmail = $qaNotifyEmail.trim();
 
-    if (!$ioNotifyEmail) {
+    if (!$qaNotifyEmail) {
       notifFormOpened = false;
     }
   }
@@ -111,10 +111,10 @@
                 bind:focused={emailTextBoxHasFocus}
                 bind:this={emailTextBox}
                 on:blur={unfocusNotifForm}
-                bind:value={$ioNotifyEmail}
+                bind:value={$qaNotifyEmail}
                 error={!emailTextBoxHasFocus &&
-                  $ioNotifyEmail !== '' &&
-                  !EMAIL_REGEX.test($ioNotifyEmail)}
+                  $qaNotifyEmail !== '' &&
+                  !EMAIL_REGEX.test($qaNotifyEmail)}
                 tabindex={notifFormOpened ? undefined : '-1'}
                 placeholder="email@domain.net"
               />
@@ -149,7 +149,7 @@
     {:else}
       <div class="success">
         <p>
-          <strong>message sent:</strong>
+          <strong>question sent:</strong>
           when it is responded to it will appear at:<br />
           <Link href={result.url}>{result.url}</Link>.
         </p>

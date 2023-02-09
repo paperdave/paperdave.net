@@ -1,10 +1,10 @@
 import { uniqueNamesGenerator, adjectives, colors, animals } from 'unique-names-generator';
-import type { MessageInput } from '@prisma/client';
+import type { QuestionInput } from '@prisma/client';
 import type { RequestHandler } from './$types';
 import { error, json } from '@sveltejs/kit';
 import { PROXYCHECK_API_KEY } from '$env/static/private';
 import { db } from 'src/db.server';
-import { getMessageDateID } from '../../_lib/utils';
+import { getDateID } from '../../_lib/utils';
 
 function toStrOrUndef(params: FormDataEntryValue | null) {
   return params ? params.toString() : undefined;
@@ -24,7 +24,7 @@ export const POST: RequestHandler = async ({ request }) => {
     throw error(400, 'Missing content');
   }
 
-  const input: MessageInput = {
+  const input: QuestionInput = {
     date: new Date(),
     notifyEmail: email ?? null,
     prompt: content,
@@ -52,7 +52,7 @@ export const POST: RequestHandler = async ({ request }) => {
     input.sourceName = uniqueNamesGenerator({
       dictionaries: [adjectives, colors, animals],
       separator: '-',
-      seed: ipAddr
+      seed: ipAddr + PROXYCHECK_API_KEY
     });
   }
 
@@ -91,15 +91,15 @@ export const POST: RequestHandler = async ({ request }) => {
     }
   }
 
-  while (await db.messageInput.findFirst({ where: { date: input.date } })) {
+  while (await db.questionInput.findFirst({ where: { date: input.date } })) {
     input.date.setTime(input.date.getTime() + 1000);
   }
 
-  const message = await db.messageInput.create({
+  const question = await db.questionInput.create({
     data: input
   });
 
   return json({
-    url: 'https://paperdave.net/q+a/' + getMessageDateID(message)
+    url: 'https://paperdave.net/q+a/' + getDateID(question)
   });
 };

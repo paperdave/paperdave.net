@@ -1,17 +1,18 @@
 <script lang="ts">
   import Icon from 'src/components/Icon.svelte';
   import { formatDate } from 'src/date';
-  import type { Message } from '@prisma/client';
+  import type { Question } from '@prisma/client';
 
-  export let message: Message;
+  export let question: Question;
+  export let sandbox = false;
 
   let copyState: boolean | null = null;
 
   async function copy() {
-    if (message.type === 'REJECT') return;
+    if (question.type === 'Reject') return;
     if (copyState) return;
 
-    const id = formatDate(message.date, 'message-id');
+    const id = formatDate(question.date, 'question-id');
     const url = `${window.location.origin}/q+a/${id}`;
 
     try {
@@ -25,19 +26,19 @@
     }, 1500);
   }
 
-  const dateString = formatDate(message.date, 'date-time');
+  const dateString = formatDate(question.date, 'date-time');
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <time
   tabindex="-1"
-  datetime={new Date(message.date).toISOString()}
+  datetime={new Date(question.date).toISOString()}
   on:click={copy}
   class:success={copyState}
-  class:clickable={message.type === 'NORMAL'}
+  class:clickable={question.type === 'Normal' && !sandbox}
 >
   {#if copyState === null}
-    {dateString}
+    {sandbox ? 'q&a sandbox question' : dateString}
   {:else if copyState}
     Copied
   {:else}

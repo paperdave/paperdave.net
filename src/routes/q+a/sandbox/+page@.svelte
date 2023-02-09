@@ -1,7 +1,7 @@
 <script lang="ts">
   import MonacoEditor, { type MonacoEditorOptions } from 'src/components/MonacoEditor.svelte';
   import ThemeRoot from 'src/lib/theme-root/ThemeRoot.svelte';
-  import MessageRender from '../_lib/MessageRender.svelte';
+  import QuestionRender from '../_lib/QuestionRender.svelte';
 
   let value = `q: what are your thoughts on the custom markdown parser?
 
@@ -31,12 +31,13 @@ i think it's great. you can
     </div>
     <div>
       <layout-container>
-        <MessageRender
-          message={{
+        <QuestionRender
+          question={{
             date: new Date(),
-            type: 'NORMAL',
+            type: 'Normal',
             text: value
           }}
+          sandbox
         />
       </layout-container>
     </div>

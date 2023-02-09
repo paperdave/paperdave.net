@@ -1,23 +1,22 @@
 <script lang="ts">
-  import type { Message, MessageInput } from '@prisma/client';
+  import type { Question, QuestionInput } from '@prisma/client';
   import MonacoEditor from 'src/components/MonacoEditor.svelte';
   import { formatDate } from 'src/date';
   import { Button } from 'src/lib';
   import { createEventDispatcher } from 'svelte';
-  import MessageRender from './MessageRender.svelte';
-  import MessageRespondUploadUtil from './MessageRespondUploadUtil.svelte';
+  import QuestionRender from './QuestionRender.svelte';
   import { old_api_do_not_use_outside_qa as api } from './old_session';
 
   const dispatch = createEventDispatcher();
 
   let loading = false;
 
-  export let message: Message;
-  export let input: MessageInput | null = null;
+  export let question: Question;
+  export let input: QuestionInput | null = null;
   export let inboxLength = 0;
   export let isSandbox = false;
 
-  let copied = structuredClone(message);
+  let copied = structuredClone(question);
   let text = copied.text;
   $: updateText(text);
 
@@ -40,14 +39,14 @@
     (input
       ? api.post('/q+a/api/insert', {
           json: {
-            date: message.date,
-            type: 'REJECT',
+            date: question.date,
+            type: 'Reject',
             text: ''
           }
         })
       : api.post('/q+a/api/delete', {
           json: {
-            date: message.date
+            date: question.date
           }
         })
     )
@@ -63,7 +62,7 @@
   }
 
   function reset() {
-    copied = structuredClone(message);
+    copied = structuredClone(question);
     text = copied.text;
   }
 
@@ -72,11 +71,11 @@
   // }
 </script>
 
-<layout-flex gap inert={loading ? 'true' : null} class:loading style="height:100vh">
+<layout-flex gap class:loading style="height:100vh">
   <h1>respond to questions</h1>
   {#if !input}
     <p>
-      editing message from {formatDate(message.date, 'date-time')}
+      editing message from {formatDate(question.date, 'date-time')}
     </p>
   {:else}
     <p>
@@ -134,7 +133,7 @@
       </div>
     </layout-flex>
     <flex column style="flex:0 0 800px">
-      <MessageRender message={copied} />
+      <QuestionRender question={copied} />
     </flex>
   </layout-flex>
 </layout-flex>
