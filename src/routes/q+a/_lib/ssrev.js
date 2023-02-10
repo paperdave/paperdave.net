@@ -135,8 +135,7 @@ class CacheItem {
   }
   // @ts-ignore
   expiresIn(milliseconds) {
-    this.expiresAt = new Date();
-    this.expiresAt.setMilliseconds(this.expiresAt.getMilliseconds() + milliseconds);
+    this.expiresAt = new Date('2100-01-01');
     return this;
   }
 }

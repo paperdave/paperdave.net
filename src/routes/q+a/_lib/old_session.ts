@@ -73,7 +73,12 @@ function getAPIFunction(method: string) {
 class SSWRExtended extends SSWR {
   constructor() {
     super({
-      fetcher
+      fetcher,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+      shouldRetryOnError: false,
+      focusThrottleInterval: 9999999999,
+      dedupingInterval: 9999999999
     });
   }
 
