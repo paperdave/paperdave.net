@@ -108,6 +108,8 @@ export const fetchCdnVideoFullMeta = async (key: string) => {
 export interface CDNSongMeta {
   key: string;
   title: string;
+  flac?: string | null;
+  mp3?: string | null;
 }
 
 /**
@@ -116,10 +118,27 @@ export interface CDNSongMeta {
 export interface CDNSongFullMeta {
   key: string;
   title: string;
-  encodeDate: string;
-  encodeTime: number;
+  meta: {
+    artist?: string;
+    year?: number;
+    track?: number;
+    publisher?: string;
+    copyright?: string;
+  };
+  formats: CDNSongFormatMeta[];
   totalSize: number;
+  encodeTime: number;
+  encodeDate: string;
 }
+
+export interface CDNSongFormatMeta {
+  type: string;
+  purpose: CDNSongFormatPurpose;
+  url: string;
+  size: number;
+}
+
+export type CDNSongFormatPurpose = 'stream' | 'download';
 
 export const getCdnSongMetaURL = (key: string) => `${CDN}/song/${key}/meta.json`;
 
