@@ -145,7 +145,7 @@ export const getCdnSongMetaURL = (key: string) => `${CDN}/song/${key}/meta.json`
 export const getCdnSongFullMetaURL = (key: string) => `${CDN}/song/${key}/index.json`;
 
 export const getCdnSongDownloadURL = //
-  (key: string, title: string) => `${CDN}/song/${key}/${title}.mp3`;
+  (key: string, title: string, format: 'flac' | 'mp3') => `${CDN}/song/${key}/${title}.${format}`;
 
 export const getCdnSongStreamURLs = (key: string) => [
   { url: `${CDN}/song/${key}/media.ogg`, type: 'audio/ogg' },

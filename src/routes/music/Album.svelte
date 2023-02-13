@@ -1,11 +1,17 @@
 <script lang="ts">
   import { getCdnImageSrcSet, getCdnSongStreamURLs } from 'src/cdn';
   import { formatDate, formatDuration } from 'src/date';
+  import Button from 'src/lib/input-button/Button.svelte';
   import type { PageData } from './$types';
+  import { playSongEntry } from './player';
 
   export let album: PageData['albums'][0]['items'][number];
 
   let duration = album.songs.map((x) => x.duration).reduce((a, b) => a + b, 0);
+
+  function play() {
+    playSongEntry(album.songs[0]);
+  }
 </script>
 
 <section>
@@ -25,6 +31,9 @@
       {#if album.desc}
         <div>{album.desc}</div>
       {/if}
+      <div>
+        <Button on:click={play}>Play</Button>
+      </div>
     </div>
   </header>
   {#if album.type !== 'Song'}
@@ -35,21 +44,21 @@
           <div>{song.title}</div>
           <div>{formatDuration(song.duration)}</div>
         </li>
-        {#if song.media}
-          <audio controls>
+        <!-- {#if song.media}
+          <audio controls preload="none" bind:this={tracks[i]}>
             {#each getCdnSongStreamURLs(song.media) as { url, type }}
               <source src={url} {type} />
             {/each}
           </audio>
-        {/if}
+        {/if} -->
       {/each}
     </ul>
   {:else if album.songs[0].media}
-    <audio controls loop={album.songs[0].tags.includes('loop')}>
+    <!-- <audio controls loop={album.songs[0].tags.includes('loop')}>
       {#each getCdnSongStreamURLs(album.songs[0].media) as { url, type }}
         <source src={url} {type} />
       {/each}
-    </audio>
+    </audio> -->
   {/if}
 </section>
 
@@ -91,10 +100,5 @@
     font-size: 2rem;
     font-weight: 800;
     margin: 0;
-  }
-  .action-row {
-    display: flex;
-    flex-direction: row;
-    height: 48px;
   }
 </style>
