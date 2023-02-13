@@ -147,13 +147,15 @@ model BlogPost {
 // Bits
 
 model Bit {
-  date     DateTime @id @default(now())
+  date     DateTime @default(now())
   // any text to be displayed next to the bit
   notes    String?
   // filename
-  filename String
+  filename String   @id
   // custom label to show instead of filename
   label    String?
+
+  tags String[]
 
   // optionally link to an artifact
   artifact     ArtifactEntry? @relation(fields: [artifactId], references: [id])
