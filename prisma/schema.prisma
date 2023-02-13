@@ -149,17 +149,17 @@ model BlogPost {
 model Bit {
   date     DateTime @id @default(now())
   // any text to be displayed next to the bit
-  notes    String
-  // file media key
-  media    String
-  // filename needed for download/view
+  notes    String?
+  // filename
   filename String
+  // custom label to show instead of filename
+  label    String?
 
   // optionally link to an artifact
   artifact     ArtifactEntry? @relation(fields: [artifactId], references: [id])
   artifactId   String?
   // "reminder" is for publishing bits on projects that are not yet in the system
-  artifactTodo String
+  artifactTodo String?
 
   mentionedIn Question[]
 }
