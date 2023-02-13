@@ -10,8 +10,6 @@ const prompt = prompts;
 
 const args = minimist(process.argv.slice(2));
 
-console.log(args);
-
 if (!args._[0]) {
   console.log('Usage: bit [file] -a <artifact id> -l [label]');
   process.exit(1);
@@ -157,11 +155,21 @@ if (
   copyFileSync(files[0], cdnPath);
 }
 
-const bit = await prisma.bit.createMany({
-  data: files.map((file) => ({
+const bit = await prisma.bit.create({
+  data: {
     artifactId,
-    filename: path.basename(file),
+    filename: path.basename(cdnPath),
     label,
     date
-  }))
+  }
 });
+prisma.$disconnect();
+
+console.log(`Uploaded bit:${bit.filename}`);
+console.log(`https://media.paperdave.net/bit/${encodeURIComponent(bit.filename)}`);
+
+// copy url to clipboard
+spawnSync('xclip', ['-selection', 'clipboard'], {
+  input: `https://media.paperdave.net/bit/${encodeURIComponent(bit.filename)}`
+});
+process.exit(0);
