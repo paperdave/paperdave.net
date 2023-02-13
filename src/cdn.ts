@@ -1,12 +1,19 @@
 export const CDN = 'https://media.paperdave.net';
 
-const imageFormats = ['webp', 'jpeg'];
-
+const imageFormats = ['webp', 'jpeg'] as const;
 const imageTypes = {
-  album: {
-    sizes: [3000, 1000, 512, 64]
-  }
-};
+  // album art for the music page and so on
+  album: [3000, 1000, 512, 64],
+  // "squares" aka my instagram clone
+  square: [1920, 512, 256, 64]
+} as const;
+// videos hold their own thumbnails apart from the /img folder
+const videoThumbnailSizes = [1920, 1280, 640, 400] as const;
+
+// TYPES
+
+export type CDNImageFormat = (typeof imageFormats)[number];
+export type CDNImageType = keyof typeof imageTypes;
 
 // VIDEOS
 
@@ -79,7 +86,7 @@ export const getCdnVideoStreamURL = (key: string) => `${CDN}/video/${key}/hls.m3
 export const getCdnVideoThumbnailURLs = (key: string) =>
   imageFormats
     .map((ext) =>
-      [1920, 1280, 640, 400].map((size) => ({
+      videoThumbnailSizes.map((size) => ({
         url: `${CDN}/video/${key}/thumbnail/${size}w.${ext}`,
         size,
         type: `image/${ext}`
@@ -102,9 +109,6 @@ export const fetchCdnVideoFullMeta = async (key: string) => {
 
 // SONGS
 
-/**
- * WIP
- */
 export interface CDNSongMeta {
   key: string;
   title: string;
@@ -112,9 +116,6 @@ export interface CDNSongMeta {
   mp3?: string | null;
 }
 
-/**
- * WIP
- */
 export interface CDNSongFullMeta {
   key: string;
   title: string;
@@ -139,13 +140,15 @@ export interface CDNSongFormatMeta {
 }
 
 export type CDNSongFormatPurpose = 'stream' | 'download';
+export type CDNAudioDownloadFormat = 'flac' | 'mp3';
 
 export const getCdnSongMetaURL = (key: string) => `${CDN}/song/${key}/meta.json`;
 
 export const getCdnSongFullMetaURL = (key: string) => `${CDN}/song/${key}/index.json`;
 
 export const getCdnSongDownloadURL = //
-  (key: string, title: string, format: 'flac' | 'mp3') => `${CDN}/song/${key}/${title}.${format}`;
+  (key: string, title: string, format: CDNAudioDownloadFormat) =>
+    `${CDN}/song/${key}/${title}.${format}`;
 
 export const getCdnSongStreamURLs = (key: string) => [
   { url: `${CDN}/song/${key}/media.ogg`, type: 'audio/ogg' },
@@ -156,9 +159,6 @@ export const getCdnSongLyricsURL = (key: string) => `${CDN}/song/${key}/lyrics.t
 
 // IMAGES
 
-/**
- * WIP
- */
 export interface CDNImageFullMeta {
   key: string;
   type: string;
@@ -183,16 +183,16 @@ export interface CDNImageMeta {
   h: number;
 }
 
-export const getCdnImageFullMetaURL = (key: string, type: keyof typeof imageTypes) =>
+export const getCdnImageFullMetaURL = (key: string, type: CDNImageType) =>
   `${CDN}/img/${type}/${key}/index.json`;
 
-export const getCdnImageMetaURL = (key: string, type: keyof typeof imageTypes) =>
+export const getCdnImageMetaURL = (key: string, type: CDNImageType) =>
   `${CDN}/img/${type}/${key}/meta.json`;
 
-export const getCdnImageURLs = (key: string, type: keyof typeof imageTypes, maxSize?: number) =>
+export const getCdnImageURLs = (key: string, type: CDNImageType, maxSize?: number) =>
   imageFormats
     .map((ext) =>
-      imageTypes[type].sizes.map((size) => ({
+      imageTypes[type].map((size) => ({
         url: `${CDN}/img/${type}/${key}/${size}.${ext}`,
         size,
         type: `image/${ext}`
@@ -201,33 +201,11 @@ export const getCdnImageURLs = (key: string, type: keyof typeof imageTypes, maxS
     .flat()
     .filter((image) => !maxSize || image.size <= maxSize);
 
-export const getCdnImageSrcSet = (key: string, type: keyof typeof imageTypes, maxSize?: number) =>
+export const getCdnImageSrcSet = (key: string, type: CDNImageType, maxSize?: number) =>
   getCdnImageURLs(key, type, maxSize)
     .map((image) => `${image.url} ${image.size}w`)
     .join(', ');
 
-// ATTACHMENTS
+// BITS
 
-/**
- * WIP
- */
-export interface CDNAttachmentFullMeta {
-  key: string;
-  filename: string;
-  uploadDate: string;
-}
-
-export const getCdnAttachmentMetaURL = (key: string) => `${CDN}/file/${key}/index.json`;
-
-export const getCdnAttachmentURL = (key: string, filename: string) =>
-  `${CDN}/file/${key}/${filename}`;
-
-export const fetchCdnAttachmentMeta = async (key: string) => {
-  const response = await fetch(getCdnAttachmentMetaURL(key));
-  return response.json() as Promise<CDNAttachmentFullMeta>;
-};
-
-export const fetchCdnAttachmentURL = async (key: string) => {
-  const meta = await fetchCdnAttachmentMeta(key);
-  return getCdnAttachmentURL(key, meta.filename);
-};
+export const getCdnBitURL = (filename: string) => `${CDN}/bit/${filename}`;
