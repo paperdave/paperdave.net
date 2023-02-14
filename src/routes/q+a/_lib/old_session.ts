@@ -1,9 +1,9 @@
 // instead of rewriting this to be real i just took the old one
 import { goto } from '$app/navigation';
+import { persistent } from 'src/store';
 
 import { get } from 'svelte/store';
 import { SSWR } from './sswr';
-import { persistent } from './stores';
 
 const never = new Promise(() => {
   // never resolves

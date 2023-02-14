@@ -35,6 +35,7 @@
   "dependencies": {
     "@paperdave/utils": "^1.6.1",
     "@prisma/client": "^4.8.0",
+    "chalk": "^5.2.0",
     "dayjs": "^1.11.7",
     "html-minifier": "^4.0.0",
     "minimist": "^1.2.8",

@@ -1,10 +1,15 @@
 #!/usr/bin/env node
-import { copyFileSync, existsSync, rmSync, statSync } from 'fs';
+process.env.PRISMA_DISABLE_WARNINGS = 1;
+
+import { existsSync, rmSync, statSync } from 'fs';
 import { PrismaClient } from '@prisma/client';
 import minimist from 'minimist';
 import path from 'path';
 import prompts from 'prompts';
 import { spawnSync } from 'child_process';
+import { B2 } from './lib/b2-transpiled.js';
+import chalk from 'chalk';
+import { readFile, writeFile } from 'fs/promises';
 
 const prompt = prompts;
 
@@ -14,15 +19,16 @@ if (!args._[0]) {
   console.log('Usage: bit [file] -a <artifact id> -n');
   console.log('  -a to attach to artifact id');
   console.log('  -t to add test video tag');
+  console.log('  -q to add q+a tag');
   console.log('  -n to add notes');
+  console.log('  -f to override filenames');
   process.exit(1);
 }
-const files = args._.map((x) => path.resolve(String(x)));
-const notes = args.n;
+const files = args._.map((x) => (x.startsWith('https://') ? x : path.resolve(x)));
 
 let missingFiles = false;
 for (const file of files) {
-  if (!existsSync(file)) {
+  if (!file.startsWith('https://') && !existsSync(file)) {
     console.log(`File ${file} does not exist`);
     missingFiles = true;
   }
@@ -40,6 +46,7 @@ const prisma = new PrismaClient({
     }
   }
 });
+const b2 = new B2(process.env.B2_ID, process.env.B2_KEY).bucket(process.env.B2_BUCKET_ID);
 
 if (artifactId) {
   const artifact = await prisma.artifactEntry.findUnique({
@@ -53,43 +60,100 @@ if (artifactId) {
   }
 }
 
-const CDN = '/cdn/bit';
+outer: for (let file of files) {
+  let filename = path.basename(file);
 
-if (!existsSync(CDN)) {
-  console.log('CDN not mounted');
-  process.exit(1);
-}
+  let date = new Date();
 
-outer: for (const file of files) {
-  const date = args.d ? new Date(args.date) : statSync(file).mtime;
+  if (file.startsWith('https://')) {
+    const url = new URL(file);
 
-  let cdnPath = path.join(CDN, path.basename(file));
-  while (existsSync(cdnPath)) {
-    console.log('Artifact with this filename already exists. Enter a new path:');
+    url.searchParams.delete('width');
+    url.searchParams.delete('height');
+
+    filename = path.basename(url.pathname);
+    file = `/tmp/bit-uploader-dl${Date.now()}${path.extname(url.pathname)}`;
+
+    console.log(`Downloading ${url} to ${file}...`);
+    const response = await fetch(url);
+
+    if (response.headers.has('last-modified')) {
+      date = new Date(response.headers.get('last-modified'));
+    }
+
+    const discordCDNMatches = [
+      /https:\/\/cdn\.discordapp\.com\/attachments\/\d+\/(\d+)\/(.+)/,
+      /https:\/\/media\.discordapp\.net\/attachments\/\d+\/(\d+)\/(.+)/
+    ];
+
+    for (const match of discordCDNMatches) {
+      const m = url.toString().match(match);
+      if (m) {
+        // get date
+        const snowflake = m[1];
+        const timestamp = (BigInt(snowflake) >> 22n) + 1420070400000n;
+        date = new Date(Number(timestamp));
+      }
+    }
+
+    await writeFile(file, new Uint8Array(await response.arrayBuffer()));
+  } else {
+    date = statSync(file).mtime;
+  }
+
+  if (args.d) {
+    date = new Date(args.d);
+  }
+
+  console.log(`\nUploading ${file}:`);
+
+  filename = `${path.basename(filename, path.extname(filename))}${path
+    .extname(filename)
+    .toLowerCase()}`;
+
+  const ext = path.extname(file).toLowerCase();
+  let overrideFilename =
+    args.f ||
+    ['latest-capture', 'image', 'video'].includes(path.basename(filename, ext).toLowerCase());
+  while (overrideFilename || (await prisma.bit.findUnique({ where: { filename } }))) {
+    overrideFilename = false;
+    console.log('');
+    console.log(
+      overrideFilename
+        ? 'Enter desired filename:'
+        : 'Bit with this filename already exists. Enter a new path:'
+    );
+    if (!overrideFilename) {
+      console.log(`  Filename:      ${chalk.red(filename)}`);
+    }
+    console.log(
+      `  Last Modified: ${chalk.green(date.toISOString().slice(0, 10))} ${chalk.green(
+        date.toISOString().slice(11, 19)
+      )}`
+    );
+    console.log('');
     const response = await prompt({
       type: 'text',
       name: 'path',
       message: 'Path',
-      initial: cdnPath
+      initial: `${date.toISOString().slice(0, 10)}_${date
+        .toISOString()
+        .slice(11, 19)
+        .replace(/:/g, '-')}_${path.basename(filename, ext)}`.replace(
+        /_(latest-capture|image|video)$/i,
+        ''
+      )
     });
     if (!response.path) {
-      console.log('skipping this one');
       continue outer;
-      // let i = 1;
-      // while (existsSync(`/cdn/bit/${path.basename(file)}_${i}${path.extname(file)}`)) {
-      //   i++;
-      // }
-      // cdnPath = `/cdn/bit/${path.basename(file)}_${i}${path.extname(file)}`;
-      // console.log(`Using ${cdnPath}`);
     }
-    const ext = path.extname(response.path);
-    cdnPath = response.path;
-    if (!cdnPath.endsWith(ext)) {
-      cdnPath += ext;
+    filename = response.path;
+    if (!filename.endsWith(ext)) {
+      filename += ext;
     }
   }
 
-  const ext = path.extname(file);
+  let tmpPath = '';
   if (
     [
       '.mp4',
@@ -108,8 +172,8 @@ outer: for (const file of files) {
     ].includes(ext)
   ) {
     console.log('Video file detected');
-    cdnPath = `${path.dirname(cdnPath)}/${path.basename(cdnPath, ext)}.mp4`;
-    const tmpPath = `/tmp/bit-uploader-${Date.now()}.mp4`;
+    filename = `${path.basename(filename, ext)}.mp4`;
+    tmpPath = `/tmp/bit-uploader-${Date.now()}.mp4`;
 
     spawnSync('ffmpeg', [
       '-i',
@@ -137,25 +201,19 @@ outer: for (const file of files) {
       '-y',
       tmpPath
     ]);
-    copyFileSync(tmpPath, cdnPath);
-    rmSync(tmpPath);
   } else if (['.png', '.jpg', '.jpeg', '.gif', '.webp', '.svg'].includes(ext)) {
     console.log('Image file detected');
-    cdnPath = `${path.dirname(cdnPath)}/${path.basename(cdnPath, ext)}.png`;
-    const tmpPath = `/tmp/bit-uploader-${Date.now()}.png`;
+    filename = `${path.basename(filename, ext)}.png`;
+    tmpPath = `/tmp/bit-uploader-${Date.now()}.png`;
     spawnSync('ffmpeg', ['-i', file, '-y', tmpPath]);
-    copyFileSync(tmpPath, cdnPath);
-    rmSync(tmpPath);
   } else if (['.mp3', '.wav', '.ogg', '.flac', '.aac', '.m4a'].includes(ext)) {
     console.log('Audio file detected');
-    cdnPath = `${path.dirname(cdnPath)}/${path.basename(cdnPath, ext)}.mp3`;
-    const tmpPath = `/tmp/bit-uploader-${Date.now()}.mp3`;
+    filename = `${path.basename(filename, ext)}.mp3`;
+    tmpPath = `/tmp/bit-uploader-${Date.now()}.mp3`;
     spawnSync('ffmpeg', ['-i', file, '-c:a', 'libmp3lame', '-q:a', '4', '-y', tmpPath]);
-    copyFileSync(tmpPath, cdnPath);
-    rmSync(tmpPath);
   } else {
     console.log('Blob file detected');
-    copyFileSync(file, cdnPath);
+    tmpPath = file;
   }
 
   // let thisNotes = notes;
@@ -170,16 +228,19 @@ outer: for (const file of files) {
   //     notes
   //   }
   // }
+  await b2.uploadFile('bit/' + filename, await readFile(tmpPath));
 
   const bit = await prisma.bit.create({
     data: {
       artifactId,
-      filename: path.basename(cdnPath),
+      filename: path.basename(filename),
       // notes: notes ?? null,
       date,
-      tags: args.t ? ['test video'] : undefined
+      tags: args.t ? ['test video'] : args.q ? ['q+a'] : []
     }
   });
+
+  rmSync(tmpPath);
 
   console.log(`Uploaded bit:${bit.filename}`);
   console.log(`https://media.paperdave.net/bit/${encodeURIComponent(bit.filename)}`);
