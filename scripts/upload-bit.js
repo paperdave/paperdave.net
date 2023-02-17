@@ -22,9 +22,12 @@ if (!args._[0]) {
   console.log('  -q to add q+a tag');
   console.log('  -n to add notes');
   console.log('  -f to override filenames');
+  console.log('  -w for world mode');
   process.exit(1);
 }
 const files = args._.map((x) => (x.startsWith('https://') ? x : path.resolve(x)));
+
+const world = args.w;
 
 let missingFiles = false;
 for (const file of files) {
@@ -228,22 +231,27 @@ outer: for (let file of files) {
   //     notes
   //   }
   // }
-  await b2.uploadFile('bit/' + filename, await readFile(tmpPath));
 
-  const bit = await prisma.bit.create({
-    data: {
-      artifactId,
-      filename: path.basename(filename),
-      // notes: notes ?? null,
-      date,
-      tags: args.t ? ['test video'] : args.q ? ['q+a'] : []
-    }
-  });
+  if (!world) {
+    await b2.uploadFile('bit/' + filename, await readFile(tmpPath));
+    await prisma.bit.create({
+      data: {
+        artifactId,
+        filename: path.basename(filename),
+        // notes: notes ?? null,
+        date,
+        tags: args.t ? ['test video'] : args.q ? ['q+a'] : []
+      }
+    });
+    console.log(`Uploaded bit:${path.basename(filename)}`);
+    console.log(`https://media.paperdave.net/bit/${encodeURIComponent(path.basename(filename))}`);
+  } else {
+    await b2.uploadFile('world/' + filename, await readFile(tmpPath));
+    console.log(`Uploaded to world folder:`);
+    console.log(`https://media.paperdave.net/world/${encodeURIComponent(path.basename(filename))}`);
+  }
 
   rmSync(tmpPath);
-
-  console.log(`Uploaded bit:${bit.filename}`);
-  console.log(`https://media.paperdave.net/bit/${encodeURIComponent(bit.filename)}`);
 }
 
 prisma.$disconnect();
