@@ -152,8 +152,8 @@ model Bit {
   notes    String?
   // filename
   filename String   @id
-  // custom label to show instead of filename
-  label    String?
+
+  uploadedDate DateTime @default(now())
 
   tags String[]
 
