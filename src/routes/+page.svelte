@@ -40,6 +40,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="keywords" content="music, video, art, multimedia, art, abstract" />
   <meta name="author" content="Dave Caruso" />
+  <meta name="robots" content="index, follow" />
 </svelte:head>
 
 <ThemeRoot background="#121212" foreground="#ffffff">
