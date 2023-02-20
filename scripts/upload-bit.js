@@ -20,6 +20,7 @@ if (!args._[0]) {
   console.log('  -a to attach to artifact id');
   console.log('  -t to add test video tag');
   console.log('  -q to add q+a tag');
+  console.log('  -j to add journal tag');
   console.log('  -n to add notes');
   console.log('  -f to override filenames');
   console.log('  -w for world mode');
@@ -240,7 +241,7 @@ outer: for (let file of files) {
         filename: path.basename(filename),
         // notes: notes ?? null,
         date,
-        tags: args.t ? ['test video'] : args.q ? ['q+a'] : []
+        tags: args.t ? ['test video'] : args.q ? ['q+a'] : args.j ? ['journal'] : []
       }
     });
     console.log(`Uploaded bit:${path.basename(filename)}`);

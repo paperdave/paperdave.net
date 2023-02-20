@@ -1,0 +1,14 @@
+/* TEAM */
+Artist: Dave "paperdave" Caruso
+Contact: me@paperdave.net
+From: Michigan, USA
+
+/* THANKS */
+You
+
+/* SITE */
+Language: English
+Framework: SvelteKit
+Host: DigitalOcean
+Database: PostgreSQL with Prisma
+Programming Languages: Svelte, TypeScript, SCSS
