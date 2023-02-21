@@ -17,7 +17,7 @@
 
 {#if !data.latest}
   <p>
-    <strong>page ${data.id}</strong> | <Link href="/q+a?page=${data.id + 1}">newer</Link>
+    <strong>page {data.id}</strong> | <Link href="/q+a?page={data.id + 1}#end">newer</Link>
   </p>
 {/if}
 
@@ -33,8 +33,8 @@
 {/each}
 
 {#if data.id !== 0}
-  <p>
-    <Link href="/q+a?page=${data.id - 1}">older</Link>
+  <p id="end">
+    <Link href="/q+a?page={data.id - 1}">older</Link>
   </p>
 {/if}
 

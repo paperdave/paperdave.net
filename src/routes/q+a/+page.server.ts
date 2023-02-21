@@ -2,7 +2,7 @@ import { db } from 'src/db.server';
 import type { PageServerLoad } from './$types';
 import { error } from '@sveltejs/kit';
 
-const QUESTIONS_PER_PAGE = 80;
+const QUESTIONS_PER_PAGE = 60;
 
 export const load: PageServerLoad = async ({ url }) => {
   const page = url.searchParams.get('page') || 'latest';
@@ -14,7 +14,7 @@ export const load: PageServerLoad = async ({ url }) => {
       }
     }
   });
-  const latest = Math.floor(count / QUESTIONS_PER_PAGE);
+  const latest = Math.floor(count / QUESTIONS_PER_PAGE) - 1;
   const pageNumber = page === 'latest' ? latest : parseInt(page ?? '-1');
 
   if (pageNumber > latest || pageNumber < 0 || isNaN(pageNumber)) {
@@ -28,7 +28,7 @@ export const load: PageServerLoad = async ({ url }) => {
       }
     },
     orderBy: {
-      date: 'desc'
+      date: 'asc'
     },
     select: {
       type: true,
@@ -41,16 +41,16 @@ export const load: PageServerLoad = async ({ url }) => {
           type: true
         }
       }
-    }
-    // skip: pageNumber * QUESTIONS_PER_PAGE - QUESTIONS_PER_PAGE,
-    // take: latest === pageNumber ? QUESTIONS_PER_PAGE * 2 : QUESTIONS_PER_PAGE
+    },
+    skip: pageNumber * QUESTIONS_PER_PAGE,
+    take: latest === pageNumber ? QUESTIONS_PER_PAGE * 2 : QUESTIONS_PER_PAGE
   });
 
   return {
     id: pageNumber,
     latest: latest === pageNumber,
     count,
-    questions: questions.map(({ type, text, date, mentionedArtifacts }) => ({
+    questions: questions.reverse().map(({ type, text, date, mentionedArtifacts }) => ({
       text,
       date,
       type: type !== 'Normal' ? type : undefined,
