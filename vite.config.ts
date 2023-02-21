@@ -2,11 +2,13 @@ import { sveltekit } from '@sveltejs/kit/vite';
 import type { UserConfig } from 'vite';
 import type { OutputAsset } from 'rollup';
 import yaml from '@rollup/plugin-yaml';
+import svg from '@poppanator/sveltekit-svg';
 
 const config: UserConfig = {
   plugins: [
     sveltekit(),
     yaml(),
+    svg({ type: 'component' }),
     {
       name: 'paperdave.net',
       generateBundle(opts, bundle) {
@@ -24,8 +26,7 @@ const config: UserConfig = {
   },
   resolve: {
     alias: {
-      '@prisma/client':
-        process.env.NODE_ENV === 'production' ? '@prisma/client/edge' : '@prisma/client'
+      // '@prisma/client': process.env.NODE_ENV === 'production' ? '@prisma/client/edge' : '@prisma/client'
     }
   }
 };

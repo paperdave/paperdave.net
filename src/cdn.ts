@@ -148,7 +148,7 @@ export const getCdnSongFullMetaURL = (key: string) => `${CDN}/song/${key}/index.
 
 export const getCdnSongDownloadURL = //
   (key: string, title: string, format: CDNAudioDownloadFormat) =>
-    `${CDN}/song/${key}/${title}.${format}`;
+    `${CDN}/song/${key}/${encodeURIComponent(title)}.${format}`;
 
 export const getCdnSongStreamURLs = (key: string) => [
   { url: `${CDN}/song/${key}/media.ogg`, type: 'audio/ogg' },

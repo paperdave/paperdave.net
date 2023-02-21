@@ -35,6 +35,7 @@
   "type": "module",
   "dependencies": {
     "@paperdave/utils": "^1.6.1",
+    "@poppanator/sveltekit-svg": "^2.1.2",
     "@prisma/client": "^4.10.1",
     "chalk": "^5.2.0",
     "dayjs": "^1.11.7",

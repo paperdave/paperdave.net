@@ -1,17 +1,23 @@
 <script lang="ts">
-  import { getCdnImageSrcSet, parseImageId } from 'src/cdn';
+  import { getCdnImageSrcSet, getCdnSongDownloadURL, parseImageId } from 'src/cdn';
+  import IconButton from 'src/components/IconButton.svelte';
   import Image from 'src/components/Image.svelte';
   import { formatDate, formatDuration } from 'src/date';
-  import Button from 'src/lib/input-button/Button.svelte';
-  import { Markdown } from 'svelte-simple-markdown';
-  import { genericMarkdown } from '../q+a/_lib/markdown';
   import type { PageData } from './$types';
-  import { playKey, musicPlayerCurrentSong, replacePlaylistWithKeys, playerPause } from './player';
+  import {
+    playKey,
+    musicPlayerCurrentSong,
+    replacePlaylistWithKeys,
+    playerPause,
+    musicPlayerState
+  } from './player';
 
   export let album: PageData['albums'][0]['items'][number];
 
   let duration = album.songs.map((x) => x.duration).reduce((a, b) => a + b, 0);
 </script>
+
+<!-- svelte-ignore a11y-click-events-have-key-events -->
 
 <section class:playingAlbum={album.songs.some((x) => $musicPlayerCurrentSong?.data === x)}>
   <header>
@@ -35,11 +41,31 @@
       {#if album.desc}
         <div>{album.desc}</div>
       {/if}
-      <div>
-        <Button on:click={() => replacePlaylistWithKeys(album.songs.map((x) => x.media ?? ''))}
-          >Play</Button
-        >
-      </div>
+      <layout-button-row>
+        <IconButton
+          name={album.songs.some((x) => $musicPlayerCurrentSong?.data === x) &&
+          $musicPlayerState === 'playing'
+            ? 'pause'
+            : 'play_arrow'}
+          on:click={() => {
+            if (album.songs.some((x) => $musicPlayerCurrentSong?.data === x)) {
+              playerPause();
+            } else {
+              replacePlaylistWithKeys(album.songs.map((x) => x.media ?? ''));
+            }
+          }}
+        />
+        {#if album.type === 'Song'}
+          <IconButton
+            name="download"
+            href={getCdnSongDownloadURL(
+              album.songs[0].media ?? '',
+              album.songs[0].title,
+              album.date.getTime() > 1635724800000 ? 'flac' : 'mp3'
+            )}
+          />
+        {/if}
+      </layout-button-row>
     </div>
   </header>
   {#if album.type !== 'Song'}
@@ -47,6 +73,8 @@
       {#each album.songs as song, i}
         <li
           class:playingSong={$musicPlayerCurrentSong?.data === song}
+          tabindex="0"
+          role="button"
           on:click={() => {
             if ($musicPlayerCurrentSong?.data === song) {
               playerPause();
@@ -166,6 +194,28 @@
 
     .song-title {
       font-weight: 700;
+    }
+  }
+
+  @media (max-width: 630px) {
+    header {
+      flex-direction: column;
+    }
+    .img {
+      max-width: 200px;
+      margin: auto;
+    }
+    section {
+      position: relative;
+      width: calc(100% + 1.5rem);
+      left: -0.75rem;
+    }
+    .song-item-number {
+      margin-left: -0.9rem;
+    }
+    .song-duration {
+      margin-right: -0.9rem;
+      padding-right: 0.2rem;
     }
   }
 </style>

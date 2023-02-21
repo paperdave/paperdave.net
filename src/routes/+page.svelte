@@ -113,7 +113,7 @@
         </a>
       </li>
       <div aria-hidden="true" style="height:7rem" />
-      <li class="category third-row">
+      <li class="category third-row second-column">
         <!-- <a href="/blog">
           <span>blog</span>
         </a> -->
@@ -482,6 +482,7 @@
       padding-right: 0;
       padding-left: 2rem;
       padding-top: 2rem;
+      padding-bottom: 2rem;
       grid-template-columns: repeat(2, 7rem);
       justify-content: flex-start;
     }

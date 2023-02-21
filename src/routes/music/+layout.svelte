@@ -2,6 +2,7 @@
   import { getCdnImageSrcSet, parseImageId } from 'src/cdn';
   import Image from 'src/components/Image.svelte';
   import { formatDuration } from 'src/date';
+  import { onDestroy } from 'svelte';
   import type { LayoutData } from './$types';
   import {
     setPlaylist,
@@ -9,7 +10,8 @@
     musicPlayerCurrentTime,
     playerNext,
     playerPrev,
-    playerPause
+    playerPause,
+    playerStop
   } from './player';
 
   export let data: LayoutData;
@@ -23,6 +25,10 @@
   $: $musicPlayerCurrentSong && (musicPlayerOpen = true);
 
   $: album = playlist.find((a) => a.songs.some((s) => s === $musicPlayerCurrentSong?.data));
+
+  onDestroy(() => {
+    playerStop();
+  });
 </script>
 
 <slot />
@@ -60,18 +66,22 @@
           <button on:click={playerNext}>next</button>
         </layout-button-row>
 
-        <div>
+        <layout-flex row class="row3">
           <div>
             {formatDuration($musicPlayerCurrentTime)}
           </div>
 
-          <div class="progress">
-            <div
-              class="bar"
-              style:width="{($musicPlayerCurrentTime /
-                ($musicPlayerCurrentSong?.data.duration ?? 0)) *
-                100}%"
-            />
+          <div
+            class="progress-wrapper"
+            style:--left="{($musicPlayerCurrentTime /
+              ($musicPlayerCurrentSong?.data.duration ?? 1)) *
+              100 -
+              100}%"
+          >
+            <div class="progress">
+              <div class="bar" />
+            </div>
+            <div class="dot" />
           </div>
 
           {#if $musicPlayerCurrentSong}
@@ -79,7 +89,7 @@
               {formatDuration($musicPlayerCurrentSong.data.duration)}
             </div>
           {/if}
-        </div>
+        </layout-flex>
       </layout-flex>
     </layout-container>
   </div>
@@ -88,16 +98,16 @@
 <style lang="scss">
   #player {
     position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
+    bottom: -2px;
+    left: -2px;
+    width: calc(100% + 4px);
 
     display: flex;
     flex-direction: column;
-    background-color: #191231;
+    background-color: #1f1234;
     border-radius: 10px 10px 0 0;
-    border: 2px solid #010002;
-    color: #c6f7ff;
+    border: 2px solid #000000;
+    color: white;
 
     z-index: 100;
 
@@ -106,19 +116,37 @@
     }
   }
 
+  .progress-wrapper {
+    flex: 1;
+    height: 10px;
+    position: relative;
+  }
   .progress {
-    height: 4px;
-    background-color: red;
+    background-color: rgba(255, 255, 255, 0.25);
+    border-radius: 5px;
+    overflow: hidden;
   }
 
   .bar {
-    height: 4px;
-    background-color: orange;
+    height: 10px;
+    background-color: #db4fd2;
+    border-radius: 5px;
+    width: 100%;
+    transform: translateX(calc(var(--left)));
+  }
+
+  .dot {
   }
 
   .song-info {
     display: flex;
     gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .row3 {
+    align-items: center;
+    gap: 0.5rem;
   }
 
   .song-title {
@@ -131,11 +159,21 @@
   .song-text-info {
     display: flex;
     flex-direction: column;
+    justify-content: center;
   }
 
   .song-img {
     width: 64px;
     height: 64px;
+    flex: 0 0 64px;
+    aspect-ratio: 1;
     position: relative;
+    border: 2px solid white;
+  }
+  @media (min-width: 1000px) {
+    .song-img {
+      width: 96px;
+      height: 96px;
+    }
   }
 </style>
