@@ -19,6 +19,7 @@
       <p>
         everything here was made with love. download mp3/flac if you want, or just chillax here.
       </p>
+      <p>also sorry this page is a little buggy right now.</p>
       <layout-flex row class="row1">
         <layout-button-row>
           <Button on:click={playAll}>Play All</Button>

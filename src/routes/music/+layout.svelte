@@ -1,5 +1,6 @@
 <script lang="ts">
   import { getCdnImageSrcSet, parseImageId } from 'src/cdn';
+  import IconButton from 'src/components/IconButton.svelte';
   import Image from 'src/components/Image.svelte';
   import { formatDuration } from 'src/date';
   import { onDestroy } from 'svelte';
@@ -11,7 +12,8 @@
     playerNext,
     playerPrev,
     playerPause,
-    playerStop
+    playerStop,
+    musicPlayerState
   } from './player';
 
   export let data: LayoutData;
@@ -60,10 +62,14 @@
           </div>
         </div>
 
-        <layout-button-row>
-          <button on:click={playerPrev}>prev</button>
-          <button on:click={playerPause}>play pause</button>
-          <button on:click={playerNext}>next</button>
+        <layout-button-row class="controls">
+          <IconButton variant="subtle" name="skip_previous" on:click={playerPrev} />
+          <IconButton
+            variant="subtle"
+            name={$musicPlayerState === 'playing' ? 'pause' : 'play_arrow'}
+            on:click={playerPause}
+          />
+          <IconButton variant="subtle" name="skip_next" on:click={playerNext} />
         </layout-button-row>
 
         <layout-flex row class="row3">
@@ -175,5 +181,8 @@
       width: 96px;
       height: 96px;
     }
+  }
+  .controls {
+    justify-content: center;
   }
 </style>
