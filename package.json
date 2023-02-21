@@ -37,6 +37,7 @@
     "@paperdave/utils": "^1.6.1",
     "@poppanator/sveltekit-svg": "^2.1.2",
     "@prisma/client": "^4.10.1",
+    "@sveltejs/adapter-node": "^1.2.0",
     "chalk": "^5.2.0",
     "dayjs": "^1.11.7",
     "html-minifier": "^4.0.0",

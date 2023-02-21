@@ -1,5 +1,5 @@
 import { ensureDirSync } from '@paperdave/utils';
-import adapter from '@sveltejs/adapter-auto';
+import adapter from '@sveltejs/adapter-node';
 import { minify } from 'html-minifier';
 import preprocess from 'svelte-preprocess';
 import fs from 'fs';
