@@ -193,7 +193,7 @@ export const getCdnImageURLs = (key: string, type: CDNImageType, maxSize?: numbe
   imageFormats
     .map((ext) =>
       imageTypes[type].map((size) => ({
-        url: `${CDN}/img/${type}/${key}/${size}.${ext}`,
+        url: `${CDN}/img/${type}/${key.slice(0, 6)}/${size}.${ext}`,
         size,
         type: `image/${ext}`
       }))
@@ -202,10 +202,15 @@ export const getCdnImageURLs = (key: string, type: CDNImageType, maxSize?: numbe
     .filter((image) => !maxSize || image.size <= maxSize);
 
 export const getCdnImageSrcSet = (key: string, type: CDNImageType, maxSize?: number) =>
-  getCdnImageURLs(key, type, maxSize)
-    .map((image) => `${image.url} ${image.size}w`)
-    .join(', ');
+  getCdnImageURLs(key, type, maxSize).map((image) => `${image.url} ${image.size}w`);
 
 // BITS
 
 export const getCdnBitURL = (filename: string) => `${CDN}/bit/${filename}`;
+
+// MISC
+
+export const parseImageId = (id: string) => {
+  const [key, blurhash] = id.split('/');
+  return { key, blurhash } as { key: string; blurhash?: string };
+};

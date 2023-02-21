@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
+/// <reference lib="dom" />
 import {
   getCdnSongLyricsURL,
   getCdnSongStreamURLs,
@@ -7,11 +8,15 @@ import {
   type CDNSongMeta
 } from 'src/cdn';
 import { emitStore, rw } from 'src/store';
+import type { PageData } from './$types';
 
 const songs = new Map<string, SongEntry>();
 
 let currentSong: SongEntry | null = null;
-const queue: SongEntry[] = [];
+let queue: SongEntry[] = [];
+const songHistory: SongEntry[] = [];
+// let queueUnshuffled: SongEntry[] = [];
+
 const state = rw<'playing' | 'paused' | 'stopped'>('stopped');
 const [onCurrentSongChange, currentSongStore] = emitStore(() => currentSong);
 const [onQueueChange, queueStore] = emitStore(() => queue);
@@ -19,28 +24,36 @@ const [onQueueChange, queueStore] = emitStore(() => queue);
 export const musicPlayerState = state;
 export const musicPlayerCurrentSong = currentSongStore;
 export const musicPlayerQueue = queueStore;
+export const musicPlayerCurrentTime = rw(0);
+export const musicPlayerShuffleMode = rw<boolean>(false);
+export const musicPlayerLoopMode = rw<'off' | 'playlist' | 'song'>('off');
+
+let playlist: PageData['albums'][number]['items'] = [];
+
+export function setPlaylist(newPlaylist: PageData['albums'][number]['items']) {
+  playlist = newPlaylist;
+}
 
 interface SongEntry {
   key: string;
-  /** Required to get download URL */
-  title?: string;
   /** Lyrics aren't required to be loaded */
   lyrics?: string;
   /** Audio Element */
   audioElement: HTMLAudioElement;
+  /** Data */
+  data: (typeof playlist)[number]['songs'][number];
 }
 
-export function loadSong(key: string, title?: string): SongEntry {
+export function loadSong(key: string): SongEntry {
   if (songs.has(key)) {
     return songs.get(key)!;
   }
 
   const audioElement = new Audio();
-  console.log(audioElement);
   const songEntry: SongEntry = {
     key,
-    title,
-    audioElement
+    audioElement,
+    data: playlist.flatMap((x) => x.songs).find((x) => x.media === key)!
   };
   songs.set(key, songEntry);
 
@@ -53,6 +66,11 @@ export function loadSong(key: string, title?: string): SongEntry {
   }
 
   audioElement.addEventListener('ended', onEnded);
+  audioElement.addEventListener('timeupdate', () => {
+    if (key === currentSong?.key) {
+      musicPlayerCurrentTime.value = audioElement.currentTime;
+    }
+  });
 
   return songEntry;
 }
@@ -69,38 +87,41 @@ export async function fetchSongLyrics(key: string): Promise<string> {
   return lyrics;
 }
 
-export function playSongEntry(songEntry: SongEntry) {
+export async function playSongEntry(songEntry: SongEntry) {
   if (currentSong) {
+    songHistory.push(currentSong);
     currentSong.audioElement.pause();
   }
 
   currentSong = songEntry;
   onCurrentSongChange();
+  musicPlayerCurrentTime.value = 0;
   currentSong.audioElement.currentTime = 0;
-  currentSong.audioElement.play();
+  await currentSong.audioElement.load();
+  await currentSong.audioElement.play();
   state.value = 'playing';
 }
 
-export function playKey(key: string, title?: string) {
+export function playKey(key: string) {
   let songEntry = songs.get(key);
   if (!songEntry) {
-    songEntry = loadSong(key, title);
+    songEntry = loadSong(key);
   }
   playSongEntry(songs.get(key)!);
 }
 
-export function pausePlayer() {
-  if (state === 'playing') {
+export function playerPause() {
+  if (state.value === 'playing') {
     currentSong!.audioElement.pause();
     state.value = 'paused';
-  } else if (state === 'paused') {
+  } else if (state.value === 'paused') {
     currentSong!.audioElement.play();
     state.value = 'playing';
   }
 }
 
-export function stopPlayer() {
-  if (state !== 'stopped') {
+export function playerStop() {
+  if (state.value !== 'stopped') {
     currentSong!.audioElement.pause();
     currentSong!.audioElement.currentTime = 0;
     state.value = 'stopped';
@@ -111,11 +132,30 @@ export function stopPlayer() {
   }
 }
 
+export function playerNext() {
+  onEnded();
+}
+
+export function playerPrev() {
+  if (musicPlayerCurrentTime.value < 2 && songHistory.length > 0) {
+    if (currentSong) {
+      queue.unshift(currentSong);
+      currentSong.audioElement.pause();
+      currentSong = null;
+    }
+    playSongEntry(songHistory.pop()!);
+    onQueueChange();
+  } else if (currentSong) {
+    currentSong.audioElement.currentTime = 0;
+    currentSong.audioElement.play();
+  }
+}
+
 function onEnded() {
   if (queue.length) {
     playSongEntry(queue.shift()!);
   } else {
-    stopPlayer();
+    playerStop();
   }
 }
 
@@ -125,20 +165,39 @@ export async function getDownloadURL(
 ): Promise<string> {
   const key = typeof keyOrSongEntry === 'string' ? keyOrSongEntry : keyOrSongEntry.key;
   const entry = songs.get(key);
-  if (entry && entry.title) {
-    return getCdnSongDownloadURL(entry.key, entry.title, format);
+  if (entry && entry.data.title) {
+    return getCdnSongDownloadURL(entry.key, entry.data.title, format);
   } else {
     const title = await fetch(getCdnSongMetaURL(key))
       .then((res) => res.json())
       .then((json: CDNSongMeta) => json.title);
-    if (entry) {
-      entry.title = title;
-    }
     return getCdnSongDownloadURL(key, title, format);
   }
 }
 
 export function queueSongEntry(songEntry: SongEntry) {
   queue.push(songEntry);
+  onQueueChange();
+}
+
+export function playAll() {
+  queue = [];
+  let isFirst = true;
+  for (const album of playlist) {
+    for (const song of album.songs) {
+      (isFirst ? playSongEntry : queueSongEntry)(loadSong(song.media!));
+      isFirst = false;
+    }
+  }
+  onQueueChange();
+}
+
+export function replacePlaylistWithKeys(keys: string[]) {
+  queue = [];
+  let isFirst = true;
+  for (const key of keys) {
+    (isFirst ? playSongEntry : queueSongEntry)(loadSong(key));
+    isFirst = false;
+  }
   onQueueChange();
 }

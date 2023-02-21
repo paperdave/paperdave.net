@@ -1,6 +1,5 @@
 import { browser } from '$app/environment';
-import { writable, type Subscriber } from 'svelte/store';
-import type { Writable } from 'utility-types';
+import { writable, type Subscriber, type Writable } from 'svelte/store';
 
 /**
  * my version of the writable svelte store, just has a helper .value property

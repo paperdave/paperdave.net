@@ -1,0 +1,4 @@
+User-Agent: *
+Allow: /
+Disallow: /q+a/respond
+Sitemap: https://paperdave.net/sitemap.xml

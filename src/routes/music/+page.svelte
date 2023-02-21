@@ -1,10 +1,9 @@
 <script lang="ts">
-  import { getCdnSongFullMetaURL } from 'src/cdn';
-  import { formatDate } from 'src/date';
-  import Link from 'src/lib/link/Link.svelte';
+  import Button from 'src/lib/input-button/Button.svelte';
   import ThemeRoot from 'src/lib/theme-root/ThemeRoot.svelte';
   import type { PageData } from './$types';
   import Album from './Album.svelte';
+  import { playAll } from './player';
 
   export let data: PageData;
 </script>
@@ -17,6 +16,14 @@
       <p>
         everything here was made with love. download mp3/flac if you want, or just chillax here.
       </p>
+      <layout-button-row>
+        <Button on:click={playAll}>Play All</Button>
+        <!-- <Button>Download All</Button> -->
+        <div />
+        <div>Listen externally:</div>
+        <Button href="/spotify">Spotify</Button>
+        <Button href="/apple-music">Apple Music</Button>
+      </layout-button-row>
     </layout-container>
     {#each data.albums as year}
       <h2>{year.key}</h2>

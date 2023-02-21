@@ -76,6 +76,7 @@
     border-radius: 4px;
     background-color: #c6222255;
     padding: 0 0.4rem;
+    display: inline-block;
 
     &:hover {
       background-color: #c62222aa;
@@ -92,5 +93,6 @@
     height: 100%;
     font-size: 0.8rem;
     transform: scale(1.4) translateY(0.6px);
+    margin-right: 0.3rem;
   }
 </style>
