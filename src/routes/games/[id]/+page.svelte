@@ -3,10 +3,11 @@
   import GameEmbed from './GameEmbed.svelte';
   import { defaultMarkdownConfig } from 'src/markdown';
   import { getTypedGameDownloads, type GameDownload } from '../utils';
-  import { Button, ThemeRoot } from '$lib';
-  import Img from 'src/components/Img.svelte';
+  import Img from 'src/components/LegacyImg.svelte';
   import type { PageData } from './$types';
   import Link from 'src/lib/link/Link.svelte';
+  import ThemeRoot from 'src/lib/theme-root/ThemeRoot.svelte';
+  import Button from 'src/lib/input-button/Button.svelte';
   export let data: PageData;
   $: game = data.game;
   function getPlatformName(str: GameDownload['platform']) {

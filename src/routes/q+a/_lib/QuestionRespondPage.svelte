@@ -2,7 +2,7 @@
   import type { Question, QuestionInput } from '@prisma/client';
   import MonacoEditor from 'src/components/MonacoEditor.svelte';
   import { formatDate } from 'src/date';
-  import { Button } from 'src/lib';
+  import Button from 'src/lib/input-button/Button.svelte';
   import { createEventDispatcher } from 'svelte';
   import QuestionRender from './QuestionRender.svelte';
   import { old_api_do_not_use_outside_qa as api } from './old_session';
@@ -15,6 +15,7 @@
   export let input: QuestionInput | null = null;
   export let inboxLength = 0;
   export let isSandbox = false;
+  export let legacy = false;
 
   let copied = structuredClone(question);
   let text = copied.text;
@@ -28,22 +29,46 @@
     loading = true;
     api
       .post('/q+a/api/insert', {
-        json: copied
+        json: copied,
+        headers: input?.notifyEmail
+          ? {
+              'x-notify-email': input.notifyEmail
+            }
+          : undefined
       })
       .then(() => dispatch('done'))
       .finally(() => (loading = false));
+
+    if (legacy) {
+      api.post('/q+a/api/legacy-delete', {
+        json: {
+          date: question.date
+        }
+      });
+    }
   }
 
   function del() {
     loading = true;
     (input
-      ? api.post('/q+a/api/insert', {
-          json: {
-            date: question.date,
-            type: 'Reject',
-            text: ''
-          }
-        })
+      ? legacy
+        ? api.post('/q+a/api/legacy-delete', {
+            json: {
+              date: question.date
+            }
+          })
+        : api.post('/q+a/api/insert', {
+            json: {
+              date: question.date,
+              type: 'Reject',
+              text: ''
+            },
+            headers: input.notifyEmail
+              ? {
+                  'x-notify-email': input.notifyEmail
+                }
+              : undefined
+          })
       : api.post('/q+a/api/delete', {
           json: {
             date: question.date
@@ -72,7 +97,15 @@
 </script>
 
 <layout-flex gap class:loading style="height:100vh">
-  <h1>respond to questions</h1>
+  <h1>
+    {#if legacy}
+      re-enter old questions
+    {:else if input}
+      respond to questions
+    {:else}
+      question editor
+    {/if}
+  </h1>
   {#if !input}
     <p>
       editing message from {formatDate(question.date, 'date-time')}
@@ -167,5 +200,6 @@
   h1,
   p {
     margin-bottom: 0;
+    margin-top: 0.5rem;
   }
 </style>

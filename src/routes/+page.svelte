@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { ThemeRoot } from '$lib';
+  import ThemeRoot from 'src/lib/theme-root/ThemeRoot.svelte';
   import type { PageData } from './$types';
 
   export let data: PageData;
@@ -52,17 +52,14 @@
     </header>
     <ul class="categories">
       <li class="category">
-        <!-- <a href="/music">
+        <a href="/music">
           <svg viewBox="0 0 48 48" fill="none">
             <path
               d="M45.612 0.274641L15.7213 3.72397C14.408 3.87597 13.3333 5.08131 13.3333 6.40397V31.4466C12.12 30.952 10.7667 30.6666 9.33333 30.6666C4.18 30.6666 0 34.2466 0 38.6666C0 43.0853 4.18 46.6666 9.33333 46.6666C14.4867 46.6666 18.6667 43.0853 18.6667 38.6666V14.052L42.6667 11.2826V28.7813C41.4533 28.2853 40.1 28 38.6667 28C33.5133 28 29.3333 31.58 29.3333 36C29.3333 40.4186 33.5133 44 38.6667 44C43.82 44 48 40.4186 48 36V2.40397C48 1.08131 46.9253 0.123974 45.612 0.274641Z"
             />
           </svg>
           <span>music</span>
-        </a> -->
-        <div class="soon">
-          <div><strong>soon</strong><br />(music)</div>
-        </div>
+        </a>
       </li>
       <li class="category second-column">
         <a href="/videos">
@@ -117,13 +114,16 @@
         </a>
       </li>
       <div aria-hidden="true" style="height:7rem" />
-      <!-- <li class="category third-row">
-        <a href="/blog">
+      <li class="category third-row second-column">
+        <!-- <a href="/blog">
           <span>blog</span>
-        </a>
-        <span class="soon">soon</span>
+        </a> -->
+        <!-- <div class="soon">
+          <div><strong>soon</strong><br />(music)</div>
+        </div> -->
+        <span class="soon"> coming soon </span>
       </li>
-      <li class="category third-row">
+      <!-- <li class="category third-row">
         <a href="/journal">
           <span>jorunal</span>
         </a>
@@ -483,6 +483,7 @@
       padding-right: 0;
       padding-left: 2rem;
       padding-top: 2rem;
+      padding-bottom: 2rem;
       grid-template-columns: repeat(2, 7rem);
       justify-content: flex-start;
     }

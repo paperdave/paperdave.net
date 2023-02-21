@@ -5,7 +5,10 @@ import type { PageServerLoad } from './$types';
 export const load: PageServerLoad = async () => {
   const games = await db.game.findMany({
     where: {
-      unlisted: false
+      unlisted: false,
+      date: {
+        lte: new Date()
+      }
     },
     orderBy: {
       date: 'desc'

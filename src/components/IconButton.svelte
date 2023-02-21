@@ -1,6 +1,6 @@
 <script lang="ts">
   import Button from '$lib/input-button/Button.svelte';
-  import type { ButtonVariant } from '$lib';
+  import type { ButtonVariant } from 'src/lib/input-button/input-button.types';
   import Icon from './Icon.svelte';
   export let name: string;
   // Button Props

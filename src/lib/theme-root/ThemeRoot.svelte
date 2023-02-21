@@ -40,6 +40,7 @@
   export let primary: string = '#22c646';
   export let secondary: string | undefined = undefined;
   export let tertiary: string | undefined = undefined;
+  export let backgroundImage: string | undefined = undefined;
   // export let error: string = '#ff0000';
 
   const rgb = (c: ColorArray) => c.map((x) => Math.round(x)).join(',');
@@ -101,6 +102,7 @@
   style:--on-bg-tri={rgb(
     tertiaryPal.colorAt((neutralPal.lightnessOn(bgLightness) + 1.5 * _tertiaryLightness) / 2.5)
   )}
+  style:background-image={backgroundImage}
 >
   <slot />
 </theme-root>

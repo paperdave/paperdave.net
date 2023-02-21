@@ -31,3 +31,13 @@ export function formatDate(date: Date | number, format: DateFormat) {
   const convertedDate = new Date(date.toLocaleString('en-US', { timeZone: 'EST' }));
   return dateFormat.replace(regex, (match) => String(formatRules[match](convertedDate)));
 }
+
+export function formatDuration(duration: number) {
+  const hours = Math.floor(duration / 3600);
+  const minutes = Math.floor((duration % 3600) / 60);
+  const seconds = Math.floor(duration % 60);
+
+  return `${hours ? `${hours}:` : ''}${String(minutes).padStart(hours ? 2 : 1, '0')}:${String(
+    seconds
+  ).padStart(2, '0')}`;
+}

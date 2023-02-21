@@ -28,6 +28,7 @@
     border-radius: 4px;
     background-color: #22c6ad55;
     padding: 0 0.25rem;
+    display: inline-block;
 
     &:hover {
       background-color: #22c6adaa;

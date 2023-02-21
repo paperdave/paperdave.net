@@ -1,0 +1,2 @@
+#/bin/sh
+exec node $(dirname $(realpath $0))/../upload-bit.js "$@"

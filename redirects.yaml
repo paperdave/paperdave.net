@@ -1,4 +1,16 @@
-/name-painter-invite: https://discord.com/oauth2/authorize?client_id=604738745224134675&scope=bot+applications.commands&permissions=268504064
-/discord: https://discord.gg/4AbvSXV
-/spotify: https://open.spotify.com/artist/2GV3zMY5wxonFG6IDqZ9aM?si=ErzVoGSfQimboaQnY4DETQ
-/apple-music: https://music.apple.com/us/artist/davecode/1611375169
+static:
+  /name-painter-invite: https://discord.com/oauth2/authorize?client_id=604738745224134675&scope=bot+applications.commands&permissions=268504064
+  /discord: https://discord.gg/4AbvSXV
+  /spotify: https://open.spotify.com/artist/2GV3zMY5wxonFG6IDqZ9aM?si=ErzVoGSfQimboaQnY4DETQ
+  /apple-music: https://music.apple.com/us/artist/paperdave/1611375169
+  /youtube: https://www.youtube.com/paperdave
+  /instagram: https://www.instagram.com/paperdave
+  /twitter: https://twitter.com/paperdave
+  /tiktok: https://www.tiktok.com/@paperdave
+  /bandcamp: https://paperdave.bandcamp.com
+  /tidal: https://tidal.com/browse/artist/30839601
+
+directory:
+  /github: https://github.com/paperdave
+  /src: https://github.com/paperdave/paperdave.net/tree/main/src
+  /io: /q+a

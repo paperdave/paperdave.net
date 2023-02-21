@@ -13,15 +13,6 @@ import MDParagraph from './MDParagraph.svelte';
 
 const customRules = defaultRules.clone();
 
-customRules.remove('heading');
-
-/** Input paragraphs. any paragraph prefixed with `i:` */
-customRules.insertBefore('paragraph', {
-  name: 'question',
-  match: blockRegex(/^q: ((?:[^\n]|\n(?! *\n))+)(?:\n *)+\n/),
-  parse: parseCaptureInline
-});
-
 /** An artifact mention, formatted like `@id-of-thing` */
 customRules.insertBefore('em', {
   name: 'mentionArtifact',
@@ -97,10 +88,29 @@ customRules.insertBefore('url', {
   }
 });
 
-const parser = createParser(customRules);
+export const genericMarkdown = {
+  parser: createParser(customRules),
+  renderers: {
+    link: MdLink,
+    mentionArtifact: MDMentionArtifact,
+    mentionMessage: MDMentionQuestion,
+    html: MDHTML
+  }
+};
+
+const questionRules = customRules.clone();
+
+questionRules.remove('heading');
+
+/** Input paragraphs. any paragraph prefixed with `i:` */
+questionRules.insertBefore('paragraph', {
+  name: 'question',
+  match: blockRegex(/^q: ((?:[^\n]|\n(?! *\n))+)(?:\n *)+\n/),
+  parse: parseCaptureInline
+});
 
 export const messageMarkdown = {
-  parser,
+  parser: createParser(questionRules),
   renderers: {
     link: MdLink,
     question: MDParagraph,

@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Question, QuestionInput } from '@prisma/client';
-  import { useEffect } from 'src/lib';
   import QuestionRespondPage from '../_lib/QuestionRespondPage.svelte';
+  import { useEffect } from 'src/lib/util/useEffect';
   import { old_api_do_not_use_outside_qa as api } from '../_lib/old_session';
 
   const { data: questions, isLoading } = api.useSWR('/q+a/api/responses') as any as {

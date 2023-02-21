@@ -1,4 +1,4 @@
-<script lang="ts">
+<script context="module" lang="ts">
   import { browser } from '$app/environment';
   import Icon from 'src/components/Icon.svelte';
   import type { ArtifactEntry, ArtifactType } from '@prisma/client';
@@ -6,11 +6,18 @@
   import type { ASTNode } from 'svelte-simple-markdown';
   import { resolvedArtifactContext } from './QuestionRender.svelte';
 
+  const cache = new Map<string, Pick<ArtifactEntry, 'title' | 'type'> | null>();
+</script>
+
+<script lang="ts">
   export let node: ASTNode;
 
   const context = getContext(resolvedArtifactContext) ?? {};
 
-  $: data = context[node.id] as Pick<ArtifactEntry, 'title' | 'type'> | null;
+  $: data = ((context as any)[node.id] || cache.get(node.id)) as Pick<
+    ArtifactEntry,
+    'title' | 'type'
+  > | null;
 
   let currentFetchId = 0;
   function fetchData() {
@@ -28,6 +35,7 @@
     });
   }
   $: browser && !data && fetchData();
+  $: browser && data && cache.set(node.id, data);
 
   const artifactTypeToIcon: Record<ArtifactType, string> = {
     Game: 'sports_esports',
@@ -68,6 +76,7 @@
     border-radius: 4px;
     background-color: #c6222255;
     padding: 0 0.4rem;
+    display: inline-block;
 
     &:hover {
       background-color: #c62222aa;
@@ -84,5 +93,6 @@
     height: 100%;
     font-size: 0.8rem;
     transform: scale(1.4) translateY(0.6px);
+    margin-right: 0.3rem;
   }
 </style>

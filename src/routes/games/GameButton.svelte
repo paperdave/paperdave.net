@@ -1,6 +1,6 @@
 <script lang="ts">
   import dayjs from 'dayjs';
-  import Img from 'src/components/Img.svelte';
+  import Img from 'src/components/LegacyImg.svelte';
   import type { GamePartial } from './+page.server';
 
   export let game: GamePartial;
